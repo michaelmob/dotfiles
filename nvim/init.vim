@@ -1,0 +1,3 @@
+" New lines
+nnoremap <Enter> o<Esc>
+nnoremap <S-Enter> O<Esc>
