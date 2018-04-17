@@ -16,18 +16,17 @@ l () {
 	fi
 
 	# Create symbolic link
-	ln -s $1 $2 && echo "Linked $DIR/$1 -> $2"
+	ln -s "$1" "$2" && echo "Linked $1 -> $2"
 }
 
 
 # Delete dead symlinks
 # find -L $DIR -maxdepth 3 -type l -delete
 
-#l $DIR/sublime-text-3 	$HOME/.config/sublime-text-3
-
 l $DIR/bashrc			$HOME/.bashrc
-l $DIR/osbuddy 			$HOME/.osbuddy
+l $DIR/nvim			$HOME/.config/nvim
+l $DIR/vscode			$HOME/.config/Code\ -\ OSS
 l $DIR/sublime-text-3		$HOME/.config/sublime-text-3
-l $DIR/pypirc 			$HOME/.pypirc
 l $DIR/ideavimrc		$HOME/.ideavimrc
-l $DIR/nvim				$HOME/.config/nvim
+l $DIR/osbuddy 			$HOME/.osbuddy
+l $DIR/pypirc 			$HOME/.pypirc
