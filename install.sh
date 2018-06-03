@@ -24,6 +24,8 @@ l () {
 # find -L $DIR -maxdepth 3 -type l -delete
 
 l $DIR/bashrc       $HOME/.bashrc
-l $DIR/nvim         $HOME/.config/nvim
+l $DIR/i3           $HOME/.config/i3
+l $DIR/vim          $HOME/.config/vim
+l $DIR/vimrc        $HOME/.vimrc
 l $DIR/ideavimrc    $HOME/.ideavimrc
 l $DIR/pypirc       $HOME/.pypirc
