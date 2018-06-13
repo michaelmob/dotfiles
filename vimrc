@@ -2,35 +2,64 @@
 if empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+  augroup PLUG
+    autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+  augroup END
 endif
 
+
 call plug#begin('~/.local/share/nvim/plugged')
+
+Plug 'flazz/vim-colorschemes'
+" Colorschemes 
+
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+" Line
+
 Plug 'tpope/vim-sensible'
-Plug 'tpope/vim-vinegar'
-Plug 'tpope/vim-repeat'
+" Sensible defaults
+
+Plug 'justinmk/vim-dirvish'
+" <hyphen> to open dirvish
+
 Plug 'tpope/vim-surround'
+" S in visual mode, followed by characters to surround with
+" <C-y><comma> to surround with tag
+
 Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-sleuth'
+" gc in visual mode, or gc and movement to un/comment line
+
 Plug 'tpope/vim-fugitive'
+" Git :Gstatus :Gcommit
+
 Plug 'mattn/emmet-vim'
+" Press tab after tag text to insert tag
+" html:5<tab> to insert html base template
+
 Plug 'sheerun/vim-polyglot'
-Plug 'drewtempelmeyer/palenight.vim'
+" Language packs 
+
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+" Fuzzy finding, :Files, :Buffers, :Tags
+
 Plug 'justinmk/vim-sneak'
+" Jump to any location with s/S
+
 Plug 'w0rp/ale'
-Plug 'NovaDev94/lightline-onedark'
+" Linter
+
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+" Snippets
+
 call plug#end()
 
 
 " Colors
 syntax on
 set background=dark
-colorscheme palenight
+colorscheme molokai
 
 if (has('termguicolors'))
   set termguicolors
@@ -38,8 +67,8 @@ endif
 
 
 " Speed
-set ttyfast
-set lazyredraw
+" set ttyfast
+" set lazyredraw
 set regexpengine=1
 
 
@@ -47,17 +76,12 @@ set regexpengine=1
 set timeoutlen=1000 ttimeoutlen=0
 
 
-" New lines
-nnoremap <Enter> o<Esc>
-nnoremap <S-Enter> O<Esc>
-
-
 " Rulers
 set colorcolumn=80
 
 
 " Indentation
-set shiftwidth=4
+set shiftwidth=2
 set smarttab
 set expandtab
 
@@ -73,7 +97,16 @@ set splitright
 
 
 " Leader
-let g:mapleader = ' ' 
+let g:mapleader = ' '
+
+
+" Sessions
+let g:sessions_dir = '~/vim-sessions'
+
+
+" New lines
+nnoremap <Enter> o<Esc>
+nnoremap <S-Enter> O<Esc>
 
 
 " Split navigation
@@ -109,19 +142,17 @@ noremap <Leader>P "+P
 " Airline
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#buffer_nr_show = 1
-let g:airline_theme = 'onedark'
+let g:airline_theme = 'molokai'
 
 
 " Netrw
-let g:netrw_liststyle = 3
-let g:netrw_mousemaps = 0
+" let g:netrw_liststyle = 3
 
 
 " Sneak
 let g:sneak#label = 1
 
 map f <Plug>Sneak_f
-
 map F <Plug>Sneak_F
 map t <Plug>Sneak_t
 map T <Plug>Sneak_T
@@ -133,7 +164,9 @@ noremap <C-p> :FZF<CR>
 
 
 " File Types
-augroup filetypes
-  autocmd FileType html setlocal shiftwidth=2 tabstop=2
-  autocmd FileType vimrc setlocal shiftwidth=2 tabstop=2
-augroup END 
+augroup FILETYPES
+  autocmd FileType c setlocal shiftwidth=4
+  autocmd FileType py setlocal shiftwidth=4
+  autocmd FileType go setlocal shiftwidth=4
+  autocmd FileType cpp setlocal shiftwidth=4
+augroup END
