@@ -7,10 +7,9 @@ if empty(glob('~/.vim/autoload/plug.vim'))
   augroup END
 endif
 
-
 call plug#begin('~/.local/share/nvim/plugged')
 
-Plug 'flazz/vim-colorschemes'
+Plug 'chriskempson/base16-vim'
 " Colorschemes 
 
 Plug 'vim-airline/vim-airline'
@@ -44,6 +43,9 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 " Fuzzy finding, :Files, :Buffers, :Tags
 
+Plug 'junegunn/vim-easy-align'
+" Vim alignment, vipga then delimeter, gaip then delimeter
+
 Plug 'justinmk/vim-sneak'
 " Jump to any location with s/S
 
@@ -59,7 +61,7 @@ call plug#end()
 " Colors
 syntax on
 set background=dark
-colorscheme molokai
+colorscheme base16-monokai
 
 if (has('termguicolors'))
   set termguicolors
@@ -79,6 +81,8 @@ set timeoutlen=1000 ttimeoutlen=0
 " Rulers
 set colorcolumn=80
 
+" Wrap
+set wrap!
 
 " Indentation
 set shiftwidth=2
@@ -142,7 +146,7 @@ noremap <Leader>P "+P
 " Airline
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#buffer_nr_show = 1
-let g:airline_theme = 'molokai'
+let g:airline_theme = 'atomic'
 
 
 " Netrw
@@ -163,10 +167,22 @@ noremap <Leader>b :Buffers<CR>
 noremap <C-p> :FZF<CR>
 
 
+" Easy Align
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
+
+" List
+set list
+set listchars=tab:▸·,trail:·,precedes:^,extends:$
+
+
 " File Types
 augroup FILETYPES
   autocmd FileType c setlocal shiftwidth=4
+  autocmd FileType cpp setlocal shiftwidth=4
   autocmd FileType py setlocal shiftwidth=4
   autocmd FileType go setlocal shiftwidth=4
-  autocmd FileType cpp setlocal shiftwidth=4
 augroup END

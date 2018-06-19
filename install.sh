@@ -1,30 +1,37 @@
 #!/bin/bash
-DIR=$(readlink -f "${0%/*}/")
+cd $(readlink -f "${0%/*}/")
 
-l () {
-    # Test target exists
-    if [ -e "$2" ]; then
-        if [ -L "$2" ]; then
-            # Link already exists
-            echo "$2 already linked"
-            return 0
-        else
-            # Exists, but not link? Prompt deletion
-            echo -e "\n\e[7m!!! $2 already exists !!!\e[0m"
-            rm -rI "$2" && [ -e "$2" ] && return 1
-        fi
+c() { read -n 1 -p "$@ (y/N) " a && [ ${a,,} = "y" ] && return 0; }
+l() {
+  # Test if file is a symlink
+  test -L $2 && return 0
+
+  # Test if file exists and is not a symlink
+  if [[ -a $2 ]]; then
+    if [[ ! -a $1 ]]; then
+      # Target exists and symlink does not exist
+      c "* Move '$2' to '$(pwd)/$1'?" && mv "$2" "./$1"
+    else
+      # Target exists and symlink exists
+      c "* File '$2' exists... delete it?" && rm "$2"
     fi
+  fi
 
-    # Create symbolic link
-    ln -s "$1" "$2" && echo "Linked $1 -> $2"
+  # Create parent directories
+  mkdir -p $(dirname $2)
+
+  # Create symbolic link
+  ln -sf "$(pwd)/$1" "$2"
 }
 
 
 # Delete dead symlinks
-# find -L $DIR -maxdepth 3 -type l -delete
+# find -L $(pwd) -maxdepth 3 -type l -delete
 
-l $DIR/bashrc       $HOME/.bashrc
-l $DIR/vim          $HOME/.config/vim
-l $DIR/vimrc        $HOME/.vimrc
-l $DIR/ideavimrc    $HOME/.ideavimrc
-l $DIR/pypirc       $HOME/.pypirc
+l bashrc        ~/.bashrc
+l tmux          ~/.tmux
+l tmux.conf     ~/.tmux.conf
+l vimrc         ~/.vimrc
+l ideavimrc     ~/.ideavimrc
+l pypirc        ~/.pypirc
+l thunderbird   ~/.thunderbird
