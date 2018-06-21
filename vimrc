@@ -19,8 +19,8 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'tpope/vim-sensible'
 " Sensible defaults
 
-Plug 'justinmk/vim-dirvish'
-" <hyphen> to open dirvish
+Plug 'tpope/vim-vinegar'
+" <hyphen> to open netrw
 
 Plug 'tpope/vim-surround'
 " S in visual mode, followed by characters to surround with
@@ -66,6 +66,11 @@ colorscheme base16-monokai
 if (has('termguicolors'))
   set termguicolors
 endif
+
+
+" Line navigation
+nnoremap <expr> j v:count ? (v:count > 5 ? "m'" . v:count : '') . 'j' : 'gj'
+nnoremap <expr> k v:count ? (v:count > 5 ? "m'" . v:count : '') . 'k' : 'gk'
 
 
 " Speed
@@ -151,7 +156,7 @@ let g:airline_theme = 'atomic'
 
 " Netrw
 " let g:netrw_liststyle = 3
-
+let g:netrw_bufsettings = 'noma nomod nu nobl nowrap ro'
 
 " Sneak
 let g:sneak#label = 1
@@ -171,8 +176,10 @@ noremap <C-p> :FZF<CR>
 " Start interactive EasyAlign in visual mode (e.g. vipga)
 xmap ga <Plug>(EasyAlign)
 
+
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
+
 
 " List
 set list
