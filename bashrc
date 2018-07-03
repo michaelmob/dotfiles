@@ -1,17 +1,15 @@
 stty -ixon
 shopt -s autocd
 
-
 # Environment
+export LANG="en_US.UTF-8"
 export PS1="\[$(tput bold)\]\[$(tput setaf 1)\][\[$(tput setaf 3)\]\u\[$(tput setaf 2)\]@\[$(tput setaf 4)\]\h \[$(tput setaf 5)\]\W\[$(tput setaf 1)\]]\[$(tput setaf 7)\]\\$ \[$(tput sgr0)\]"
 export EDITOR="vim"
-
 TERM=xterm-256color
 
 # Functions
 bg_run() { $@ > /dev/null 2>&1 & disown ; }
 bg_mpv() { bg_run mpv $1 ; exit 0; }
-
 
 # Program Aliases
 alias v="$EDITOR"

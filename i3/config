@@ -1,0 +1,182 @@
+# vim: filetype=i3
+
+#
+# Mike Mob's i3-gaps configuration
+#
+# Website: https://mikemob.com
+# E-mail: mike@mikemob.com
+# GitHub: https://github.com/thetarkus
+#
+
+# modifier key
+set $mod Mod4
+
+# font
+font pango:monospace 8
+
+
+#
+# autostart programs
+#
+
+exec --no-startup-id setxkbmap -option caps:escape
+exec --no-startup-id feh --bg-scale ~/Pictures/wallpaper.jpg
+exec --no-startup-id cbatticon
+exec --no-startup-id compton
+exec --no-startup-id redshift
+exec --no-startup-id syncthing-gtk --minimized
+
+
+#
+# application launchers
+#
+
+# terminal
+bindsym $mod+Return exec i3-sensible-terminal
+
+# launcher
+bindsym $mod+d exec rofi -show drun
+
+# screenshot
+bindsym Ctrl+Shift+4 exec flameshot gui
+
+# xf86 keys
+bindsym XF86AudioMute        exec pactl set-sink-mute 0 toggle
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume 0 -5%
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume 0 +5%
+bindsym XF86AudioMicMute     exec pactl set-source-mute 1 toggle
+bindsym XF86TouchpadToggle   exec ~/.config/scripts/touchpad.sh toggle
+
+
+#
+# mouse
+#
+
+# key to hold while dragging mouse
+floating_modifier $mod
+
+# do not focus window on mouseover
+focus_follows_mouse no
+
+
+#
+# windows
+#
+
+# window settings
+new_window pixel 3
+
+# window rules
+for_window [class="Clock-applet"] floating enable
+for_window [class="Xfce4-panel"]  floating enable
+for_window [class="Wrapper-1.0"]  floating enable
+
+
+#
+# i3-gaps management
+#
+
+# gaps
+smart_gaps on
+gaps inner 10
+
+# resize gaps
+bindsym $mod+Shift+minus        gaps inner current minus 5
+bindsym $mod+Shift+plus         gaps inner current plus 5
+bindsym $mod+Shift+bracketleft  gaps outer current minus 5
+bindsym $mod+Shift+bracketright gaps outer current plus 5
+bindsym $mod+Shift+BackSpace    gaps inner current set 0; gaps outer current set 0
+
+
+#
+# i3 window management
+#
+
+# kill focused window
+bindsym $mod+Shift+q kill
+
+# change focus
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+
+# move focused window
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+
+# splits
+bindsym $mod+bar   split h
+bindsym $mod+minus split v
+
+# fullscreen
+bindsym $mod+f fullscreen toggle
+
+# layouts
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+# toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+
+# change focus between tiling / floating windows
+bindsym $mod+space focus mode_toggle
+
+# focus the parent container
+bindsym $mod+a focus parent
+
+# resize window
+bindsym $mod+y resize shrink width 30 px or 10 ppt
+bindsym $mod+u resize grow height 30 px or 10 ppt
+bindsym $mod+i resize shrink height 30 px or 10 ppt
+bindsym $mod+o resize grow width 30 px or 10 ppt
+
+# resize window (smaller)
+bindsym $mod+Shift+y resize shrink width 15 px or 5 ppt
+bindsym $mod+Shift+u resize grow height 15 px or 5 ppt
+bindsym $mod+Shift+i resize shrink height 15 px or 5 ppt
+bindsym $mod+Shift+o resize grow width 15 px or 5 ppt
+
+# workspaces
+set $ws1  "1"
+set $ws2  "2"
+set $ws3  "3"
+set $ws4  "4"
+set $ws5  "5"
+set $ws6  "6"
+set $ws7  "7"
+set $ws8  "8"
+set $ws9  "9"
+set $ws10 "10"
+
+# switch workspaces
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5
+bindsym $mod+6 workspace $ws6
+bindsym $mod+7 workspace $ws7
+bindsym $mod+8 workspace $ws8
+bindsym $mod+9 workspace $ws9
+bindsym $mod+0 workspace $ws10
+
+# move window to workspace
+bindsym $mod+Shift+1 move container to workspace $ws1
+bindsym $mod+Shift+2 move container to workspace $ws2
+bindsym $mod+Shift+3 move container to workspace $ws3
+bindsym $mod+Shift+4 move container to workspace $ws4
+bindsym $mod+Shift+5 move container to workspace $ws5
+bindsym $mod+Shift+6 move container to workspace $ws6
+bindsym $mod+Shift+7 move container to workspace $ws7
+bindsym $mod+Shift+8 move container to workspace $ws8
+bindsym $mod+Shift+9 move container to workspace $ws9
+bindsym $mod+Shift+0 move container to workspace $ws10
+
+# wm actions
+bindsym $mod+Shift+c reload
+bindsym $mod+Shift+r restart
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Do you want to exit i3?' -b 'Yes, exit i3' 'i3-msg exit'"

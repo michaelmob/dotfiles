@@ -52,8 +52,14 @@ Plug 'justinmk/vim-sneak'
 Plug 'w0rp/ale'
 " Linter
 
+Plug 'christoomey/vim-tmux-navigator'
+" Seamless tmux navigation
+
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 " Snippets
+
+Plug 'ervandew/supertab'
+" Tab completion
 
 call plug#end()
 
@@ -67,6 +73,9 @@ if (has('termguicolors'))
   set termguicolors
 endif
 
+
+" Commands
+set showcmd
 
 " Line navigation
 nnoremap <expr> j v:count ? (v:count > 5 ? "m'" . v:count : '') . 'j' : 'gj'
@@ -146,6 +155,11 @@ tnoremap <Esc> <C-\><C-n>
 noremap <Leader>y "+y
 noremap <Leader>p "+p
 noremap <Leader>P "+P
+
+
+" Save
+noremap <Leader> :w<CR>
+noremap <C-s> :w<CR>
 
 
 " Airline
