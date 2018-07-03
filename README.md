@@ -1,4 +1,4 @@
-# 🐧Mike Mob's Dotfiles
+# Mike Mob's Dotfiles 🐧
 
 Here be my dotfiles. Included are configs for the programs I use and various scripts to control my system.
 
