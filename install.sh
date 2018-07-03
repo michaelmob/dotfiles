@@ -35,17 +35,14 @@ l() {
 # Link files below:
 l bashrc       ~/.bashrc
 l compton.conf ~/.config/compton.conf
-l compton.conf ~/.config/compton.conf
 l tmux.conf    ~/.tmux.conf
 l vimrc        ~/.vimrc
-l ideavimrc    ~/.ideavimrc
 l pypirc       ~/.pypirc
 
 # Link directories below:
 l i3           ~/.config/i3
 l clementine   ~/.config/Clementine
 l thunderbird  ~/.thunderbird
-l alacritty    ~/.config/alacritty
 l tmux         ~/.tmux
 l scripts      ~/Scripts
 l scripts      ~/.config/scripts
