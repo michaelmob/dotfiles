@@ -1,0 +1,64 @@
+# i3blocks config file
+#
+# Please see man i3blocks for a complete reference!
+# The man page is also hosted at http://vivien.github.io/i3blocks
+#
+
+# Global properties
+command=/usr/lib/i3blocks/$BLOCK_NAME
+separator_block_width=15
+markup=none
+
+
+# Volume indicator
+[volume]
+label=VOL
+command=echo $(pamixer --get-volume)%
+interval=once
+signal=1
+
+
+# Memory usage
+[memory]
+label=MEM
+interval=30
+
+
+# Disk usage
+[disk]
+label=HOME
+interval=30
+
+
+# CPU usage
+[cpu_usage]
+label=CPU
+interval=10
+min_width=CPU: 100.00%
+
+
+# Temperature
+[temperature]
+label=TEMP
+interval=10
+
+
+# Battery indicator
+[battery]
+label=BAT
+interval=30
+
+
+# Network
+[iface]
+color=#00FF00
+interval=10
+
+[wifi]
+interval=10
+
+
+# Date Time
+[time]
+command=date '+%m/%d/%Y %l:%M:%S'
+interval=1

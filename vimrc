@@ -32,6 +32,9 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 " Git :Gstatus :Gcommit
 
+Plug 'tpope/vim-repeat'
+" Enable repeat for supported plugins
+
 Plug 'mattn/emmet-vim'
 " Press tab after tag text to insert tag
 " html:5<tab> to insert html base template
@@ -58,8 +61,8 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 " Snippets
 
-Plug 'ervandew/supertab'
-" Tab completion
+Plug 'moll/vim-bbye'
+" Close vim buffer without messing up layout, :Bdelete
 
 call plug#end()
 
@@ -136,15 +139,16 @@ nnoremap <C-L> <C-W><C-L>
 
 
 " Buffer navigation
-noremap zn :bnext<CR>
-noremap zp :bprev<CR>
-noremap <C-q> :close<CR>
+noremap <Leader>j :bprev<CR>
+noremap <Leader>k :bnext<CR>
+noremap <Leader>h :bprev<CR>
+noremap <Leader>l :bnext<CR>
+noremap <Leader>q :Bdelete<CR>
 
 
 " Tab navigation
 noremap <C-t>n :tabp<CR>
 noremap <C-t>p :tabn<CR>
-noremap tn :bprev<CR>
 
 
 " Terminal
@@ -183,16 +187,13 @@ map T <Plug>Sneak_T
 
 " FZF
 noremap <Leader>b :Buffers<CR>
+noremap <Leader>s :Snippets<CR>
 noremap <C-p> :FZF<CR>
 
 
 " Easy Align
 " Start interactive EasyAlign in visual mode (e.g. vipga)
 xmap ga <Plug>(EasyAlign)
-
-
-" Start interactive EasyAlign for a motion/text object (e.g. gaip)
-nmap ga <Plug>(EasyAlign)
 
 
 " List

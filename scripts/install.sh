@@ -5,7 +5,7 @@
 # Delete dead symlinks
 # find -L $(pwd) -maxdepth 3 -type l -delete
 #
-cd $(readlink -f "${0%/*}/")  # Set cd to script's directory
+cd $(readlink -f "${0%/*}/")/..  # Set cd to script's directory
 
 c() { read -n 1 -p "$@ (y/N) " a && [ ${a,,} = "y" ] && return 0; }
 l() {
@@ -32,17 +32,19 @@ l() {
 }
 
 
-# Link files below:
+# Link files below
 l bashrc       ~/.bashrc
 l compton.conf ~/.config/compton.conf
 l tmux.conf    ~/.tmux.conf
 l vimrc        ~/.vimrc
 l pypirc       ~/.pypirc
 
-# Link directories below:
+# Link directories below
+l scripts      ~/Scripts
+l scripts      ~/.config/scripts
 l i3           ~/.config/i3
+l i3blocks     ~/.config/i3blocks
+l termite      ~/.config/termite
 l clementine   ~/.config/Clementine
 l thunderbird  ~/.thunderbird
 l tmux         ~/.tmux
-l scripts      ~/Scripts
-l scripts      ~/.config/scripts

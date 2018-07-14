@@ -8,11 +8,15 @@
 # GitHub: https://github.com/thetarkus
 #
 
+#
+# definitions
+#
+
 # modifier key
 set $mod Mod4
 
-# font
-font pango:monospace 8
+# terminal
+set $term termite
 
 
 #
@@ -20,8 +24,7 @@ font pango:monospace 8
 #
 
 exec --no-startup-id setxkbmap -option caps:escape
-exec --no-startup-id feh --bg-scale ~/Pictures/wallpaper.jpg
-exec --no-startup-id cbatticon
+exec --no-startup-id wal -i ~/Pictures/wallpapers
 exec --no-startup-id compton
 exec --no-startup-id redshift
 exec --no-startup-id syncthing-gtk --minimized
@@ -32,19 +35,25 @@ exec --no-startup-id syncthing-gtk --minimized
 #
 
 # terminal
-bindsym $mod+Return exec i3-sensible-terminal
+bindsym $mod+Return          exec $term
+
+# process viewer
+bindsym $mod+g               exec $term -e htop
 
 # launcher
-bindsym $mod+d exec rofi -show drun
+bindsym $mod+d               exec rofi -show drun
 
 # screenshot
-bindsym Ctrl+Shift+4 exec flameshot gui
+bindsym Ctrl+Shift+4         exec flameshot gui
+
+# change wallpaper
+bindsym $mod+Shift+bar       exec wal -i ~/Pictures/wallpapers
 
 # xf86 keys
-bindsym XF86AudioMute        exec pactl set-sink-mute 0 toggle
-bindsym XF86AudioLowerVolume exec pactl set-sink-volume 0 -5%
-bindsym XF86AudioRaiseVolume exec pactl set-sink-volume 0 +5%
-bindsym XF86AudioMicMute     exec pactl set-source-mute 1 toggle
+bindsym XF86AudioMicMute     exec pamixer --source 1 -t
+bindsym XF86AudioMute        exec ~/.config/scripts/volume.sh -t
+bindsym XF86AudioLowerVolume exec ~/.config/scripts/volume.sh -d 5
+bindsym XF86AudioRaiseVolume exec ~/.config/scripts/volume.sh -i 5
 bindsym XF86TouchpadToggle   exec ~/.config/scripts/touchpad.sh toggle
 
 
@@ -70,6 +79,59 @@ new_window pixel 3
 for_window [class="Clock-applet"] floating enable
 for_window [class="Xfce4-panel"]  floating enable
 for_window [class="Wrapper-1.0"]  floating enable
+for_window [class="lxqt-notificationd"] floating enable
+
+
+#
+# scratchpads
+#
+
+# dropdown
+for_window [instance="dropdown"] floating enable
+for_window [instance="dropdown"] resize set 800 300
+for_window [instance="dropdown"] move scratchpad
+for_window [instance="dropdown"] border pixel 5
+exec --no-startup-id $term --name dropdown -e "bash -c 'while true; do tmux; done'"
+bindsym $mod+apostrophe [instance="dropdown"] scratchpad show, [instance="dropdown"] move position center
+
+# calculator
+for_window [instance="math"] floating enable
+for_window [instance="math"] resize set 800 300
+for_window [instance="math"] move scratchpad
+for_window [instance="math"] border pixel 5
+exec --no-startup-id $term --name math -e "bash -c 'while true; do python; done'"
+bindsym $mod+c [instance="math"] scratchpad show, [instance="math"] move position center
+
+
+#
+# colors
+#
+
+# color variables
+set_from_resource $darkblack   color0  #000000
+set_from_resource $darkred     color1  #000000
+set_from_resource $darkgreen   color2  #000000
+set_from_resource $darkyellow  color3  #000000
+set_from_resource $darkblue    color4  #000000
+set_from_resource $darkmagenta color5  #000000
+set_from_resource $darkcyan    color6  #000000
+set_from_resource $darkwhite   color7  #000000
+set_from_resource $black       color8  #000000
+set_from_resource $red         color9  #000000
+set_from_resource $green       color10 #000000
+set_from_resource $yellow      color11 #000000
+set_from_resource $blue        color12 #000000
+set_from_resource $magenta     color13 #000000
+set_from_resource $cyan        color14 #000000
+set               $white       #FFFFFFFF
+set               $transparent #00000000
+
+# STATE                 BORDER   BG         TEXT       INDICATOR    CHILD_BORDER
+client.focused          $darkred $darkred   $white     $darkmagenta $darkred
+client.unfocused        $darkred $darkblack $darkwhite $darkblue    $darkblack
+client.focused_inactive $darkred $darkred   $white     $darkmagenta $darkblack
+client.urgent           $darkred $darkred   $darkwhite $darkred     $darkred
+client.background       $black
 
 
 #
@@ -92,8 +154,11 @@ bindsym $mod+Shift+BackSpace    gaps inner current set 0; gaps outer current set
 # i3 window management
 #
 
+# font
+font pango:DejaVu Sans Mono, Font Awesome 5 Free 10
+
 # kill focused window
-bindsym $mod+Shift+q kill
+bindsym $mod+Shift+q            [con_id="__focused__" instance="^(?!dropdown|math).*$"] kill
 
 # change focus
 bindsym $mod+h focus left
@@ -110,6 +175,7 @@ bindsym $mod+Shift+l move right
 # splits
 bindsym $mod+bar   split h
 bindsym $mod+minus split v
+bindsym $mod+t     split toggle
 
 # fullscreen
 bindsym $mod+f fullscreen toggle
@@ -180,3 +246,46 @@ bindsym $mod+Shift+0 move container to workspace $ws10
 bindsym $mod+Shift+c reload
 bindsym $mod+Shift+r restart
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Do you want to exit i3?' -b 'Yes, exit i3' 'i3-msg exit'"
+
+
+#
+# i3bar and i3blocks
+#
+
+# Desktop bar with more modules
+bar {
+  position       top
+  mode           dock
+  status_command i3blocks -c ~/.config/i3blocks/config_large
+  output         HDMI-A-0
+
+  colors {
+    background $darkblack
+    statusline $darkwhite
+    separator  $cyan
+
+    focused_workspace  $blue      $darkred   $white
+    active_workspace   $blue      $blue      $white
+    inactive_workspace $darkblack $darkblack $darkwhite
+    urgent_workspace   $darkblack $darkblack $darkwhite
+  }
+}
+
+# Laptop bar with fewer modules
+bar {
+  position       top
+  mode           dock
+  status_command i3blocks -c ~/.config/i3blocks/config_small
+  output LVDS1
+
+  colors {
+    background $darkblack
+    statusline $darkwhite
+    separator  $cyan
+
+    focused_workspace  $blue      $darkred   $white
+    active_workspace   $blue      $blue      $white
+    inactive_workspace $darkblack $darkblack $darkwhite
+    urgent_workspace   $darkblack $darkblack $darkwhite
+  }
+}
