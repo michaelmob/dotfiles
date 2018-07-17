@@ -64,6 +64,9 @@ Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 Plug 'moll/vim-bbye'
 " Close vim buffer without messing up layout, :Bdelete
 
+Plug 'Yggdroot/indentLine'
+" Spaces indent character
+
 call plug#end()
 
 
@@ -176,6 +179,11 @@ let g:airline_theme = 'atomic'
 " let g:netrw_liststyle = 3
 let g:netrw_bufsettings = 'noma nomod nu nobl nowrap ro'
 
+function NetrwBuf()
+  nmap <buffer> h -
+  nmap <buffer> l <CR>
+endfunction
+
 " Sneak
 let g:sneak#label = 1
 
@@ -200,6 +208,9 @@ xmap ga <Plug>(EasyAlign)
 set list
 set listchars=tab:▸·,trail:·,precedes:^,extends:$
 
+" 
+let g:indentLine_char = '¦'
+
 
 " File Types
 augroup FILETYPES
@@ -207,4 +218,5 @@ augroup FILETYPES
   autocmd FileType cpp setlocal shiftwidth=4
   autocmd FileType py setlocal shiftwidth=4
   autocmd FileType go setlocal shiftwidth=4
+  autocmd FileType netrw call NetrwBuf()
 augroup END

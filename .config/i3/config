@@ -264,7 +264,7 @@ bar {
     statusline $darkwhite
     separator  $cyan
 
-    focused_workspace  $blue      $darkred   $white
+    focused_workspace  $red       $darkred   $white
     active_workspace   $blue      $blue      $white
     inactive_workspace $darkblack $darkblack $darkwhite
     urgent_workspace   $darkblack $darkblack $darkwhite

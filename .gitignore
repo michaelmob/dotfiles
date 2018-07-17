@@ -1,8 +1,0 @@
-# Directories
-thunderbird/
-clementine/
-
-# Files
-.directory
-*.sync*
-pypirc
