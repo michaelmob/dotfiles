@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+[ "$XDG_CURRENT_DESKTOP" = "KDE" ] || [ "$XDG_CURRENT_DESKTOP" = "GNOME" ] || export QT_QPA_PLATFORMTHEME="qt5ct"
+export HOSTNAME=$(hostname)
+
+if [[ $HOSTNAME = "pc" ]]; then
+  xset s 300 60
+fi

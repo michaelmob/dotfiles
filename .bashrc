@@ -17,7 +17,7 @@ bg_mpv() { bg_run mpv $1 ; exit 0; }
 # Program Aliases
 alias v="$EDITOR"
 alias sv="sudo $EDITOR"
-alias tmux="tmux -f $XDG_CONFIG_HOME/.tmux/tmux.conf"
+alias tmux="tmux -f $XDG_CONFIG_HOME/tmux/tmux.conf"
 
 # Service Aliases
 alias weather="curl wttr.in/07653"

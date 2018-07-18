@@ -23,10 +23,23 @@ set $term termite
 # autostart programs
 #
 
+# map caps to escape
 exec --no-startup-id setxkbmap -option caps:escape
-exec --no-startup-id wal -i ~/Pictures/wallpapers
+
+# screen saver
+exec --no-startup-id xss-lock -n ~/.scripts/lock_notify.sh -- ~/.scripts/lock.sh
+exec --no-startup-id ~/.scripts/lightson+.sh
+
+# compositor
 exec --no-startup-id compton
+
+# flux
 exec --no-startup-id redshift
+
+# set wallpaper, colorize i3
+exec --no-startup-id wal -i ~/Pictures/wallpapers
+
+# sync tool
 exec --no-startup-id syncthing-gtk --minimized
 
 
