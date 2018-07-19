@@ -1,0 +1,12 @@
+xorg
+xss-lock
+i3-gaps
+i3lock-fancy
+i3blocks
+compton
+termite
+vim
+tmux
+feh
+flameshot
+neofetch

@@ -16,7 +16,7 @@
 set $mod Mod4
 
 # terminal
-set $term termite
+set $term st
 
 
 #
@@ -50,6 +50,9 @@ exec --no-startup-id syncthing-gtk --minimized
 # terminal
 bindsym $mod+Return          exec $term
 
+# file manager
+bindsym $mod+r               exec $term -e ~/.scripts/ranger.sh
+
 # process viewer
 bindsym $mod+g               exec $term -e htop
 
@@ -64,10 +67,10 @@ bindsym $mod+Shift+bar       exec wal -i ~/Pictures/wallpapers
 
 # xf86 keys
 bindsym XF86AudioMicMute     exec pamixer --source 1 -t
-bindsym XF86AudioMute        exec ~/.config/scripts/volume.sh -t
-bindsym XF86AudioLowerVolume exec ~/.config/scripts/volume.sh -d 5
-bindsym XF86AudioRaiseVolume exec ~/.config/scripts/volume.sh -i 5
-bindsym XF86TouchpadToggle   exec ~/.config/scripts/touchpad.sh toggle
+bindsym XF86AudioMute        exec ~/.scripts/volume.sh -t
+bindsym XF86AudioLowerVolume exec ~/.scripts/volume.sh -d 5
+bindsym XF86AudioRaiseVolume exec ~/.scripts/volume.sh -i 5
+bindsym XF86TouchpadToggle   exec ~/.scripts/touchpad.sh toggle
 
 
 #
@@ -104,7 +107,7 @@ for_window [instance="dropdown"] floating enable
 for_window [instance="dropdown"] resize set 800 300
 for_window [instance="dropdown"] move scratchpad
 for_window [instance="dropdown"] border pixel 5
-exec --no-startup-id $term --name dropdown -e "bash -c 'while true; do tmux; done'"
+exec --no-startup-id $term -n dropdown -e "bash -c 'while true; do tmux; done'"
 bindsym $mod+apostrophe [instance="dropdown"] scratchpad show, [instance="dropdown"] move position center
 
 # calculator
@@ -112,7 +115,7 @@ for_window [instance="math"] floating enable
 for_window [instance="math"] resize set 800 300
 for_window [instance="math"] move scratchpad
 for_window [instance="math"] border pixel 5
-exec --no-startup-id $term --name math -e "bash -c 'while true; do python; done'"
+exec --no-startup-id $term -n math -e "bash -c 'while true; do python; done'"
 bindsym $mod+c [instance="math"] scratchpad show, [instance="math"] move position center
 
 

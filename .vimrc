@@ -10,7 +10,7 @@ endif
 call plug#begin('~/.local/share/nvim/plugged')
 
 Plug 'chriskempson/base16-vim'
-" Colorschemes 
+" Colorschemes
 
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -31,7 +31,6 @@ Plug 'tpope/vim-commentary'
 
 Plug 'tpope/vim-fugitive'
 " Git :Gstatus :Gcommit
-
 Plug 'tpope/vim-repeat'
 " Enable repeat for supported plugins
 
@@ -72,11 +71,12 @@ call plug#end()
 
 " Colors
 syntax on
+set t_Co=256
 set background=dark
 colorscheme base16-monokai
 
 if (has('termguicolors'))
-  set termguicolors
+ set termguicolors
 endif
 
 
