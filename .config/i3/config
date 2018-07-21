@@ -96,6 +96,7 @@ for_window [class="Clock-applet"] floating enable
 for_window [class="Xfce4-panel"]  floating enable
 for_window [class="Wrapper-1.0"]  floating enable
 for_window [class="lxqt-notificationd"] floating enable
+for_window [class="Syncthing GTK"] floating enable
 
 
 #
@@ -103,20 +104,20 @@ for_window [class="lxqt-notificationd"] floating enable
 #
 
 # dropdown
-for_window [instance="dropdown"] floating enable
-for_window [instance="dropdown"] resize set 800 300
-for_window [instance="dropdown"] move scratchpad
-for_window [instance="dropdown"] border pixel 5
-exec --no-startup-id $term -n dropdown -e "bash -c 'while true; do tmux; done'"
-bindsym $mod+apostrophe [instance="dropdown"] scratchpad show, [instance="dropdown"] move position center
+for_window [class="dropdown"] floating enable
+for_window [class="dropdown"] resize set 800 300
+for_window [class="dropdown"] move scratchpad
+for_window [class="dropdown"] border pixel 5
+exec --no-startup-id $term -c dropdown -e bash -c 'while true; do tmux; done'
+bindsym $mod+apostrophe [class="dropdown"] scratchpad show, [class="dropdown"] move position center
 
 # calculator
-for_window [instance="math"] floating enable
-for_window [instance="math"] resize set 800 300
-for_window [instance="math"] move scratchpad
-for_window [instance="math"] border pixel 5
-exec --no-startup-id $term -n math -e "bash -c 'while true; do python; done'"
-bindsym $mod+c [instance="math"] scratchpad show, [instance="math"] move position center
+for_window [class="math"] floating enable
+for_window [class="math"] resize set 800 300
+for_window [class="math"] move scratchpad
+for_window [class="math"] border pixel 5
+exec --no-startup-id $term -c math -e bash -c 'while true; do python; done'
+bindsym $mod+c [class="math"] scratchpad show, [class="math"] move position center 
 
 
 #
