@@ -75,6 +75,10 @@ bindsym XF86AudioLowerVolume exec ~/.scripts/volume.sh -d 5
 bindsym XF86AudioRaiseVolume exec ~/.scripts/volume.sh -i 5
 bindsym XF86TouchpadToggle   exec ~/.scripts/touchpad.sh toggle
 
+# edit common configurations
+bindsym $mod+F1              exec $term -e ~/.scripts/ranger.sh ~/.config/i3
+bindsym $mod+F2              exec $term -e ~/.scripts/ranger.sh ~/.config/ranger
+
 
 #
 # mouse
@@ -100,6 +104,7 @@ for_window [class="Xfce4-panel"]  floating enable
 for_window [class="Wrapper-1.0"]  floating enable
 for_window [class="lxqt-notificationd"] floating enable
 for_window [class="Syncthing GTK"] floating enable
+for_window [class="qt5ct"] floating enable
 
 
 #
