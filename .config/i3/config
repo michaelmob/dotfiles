@@ -42,6 +42,9 @@ exec --no-startup-id wal -i ~/Pictures/wallpapers
 # sync tool
 exec --no-startup-id syncthing-gtk --minimized
 
+# drive mounting tool
+exec --no-startup-id udiskie -s
+
 
 #
 # application launchers

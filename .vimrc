@@ -10,6 +10,7 @@ endif
 call plug#begin('~/.local/share/nvim/plugged')
 
 Plug 'chriskempson/base16-vim'
+Plug 'dylanaraps/wal.vim'
 " Colorschemes
 
 Plug 'vim-airline/vim-airline'

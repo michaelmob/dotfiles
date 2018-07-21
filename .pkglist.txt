@@ -9,3 +9,11 @@ tmux
 feh
 flameshot
 neofetch
+udiskie
+ranger
+python-wal
+atool
+p7zip
+zip
+unzip
+unrar
