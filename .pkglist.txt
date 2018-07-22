@@ -1,5 +1,6 @@
 xorg
 xss-lock
+xscreensaver
 i3-gaps
 i3lock-fancy
 i3blocks
@@ -17,3 +18,5 @@ p7zip
 zip
 unzip
 unrar
+qt5ct
+qt5-styleplugins
