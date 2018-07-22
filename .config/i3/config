@@ -26,8 +26,9 @@ set $term st
 # map caps to escape
 exec --no-startup-id setxkbmap -option caps:escape
 
-# screen saver
-exec --no-startup-id xss-lock -n ~/.scripts/lock_notify.sh -- ~/.scripts/lock.sh
+# screensaver
+exec --no-startup-id screensaver
+exec --no-startup-id xss-lock -- xscreensaver-command -lock
 exec --no-startup-id ~/.scripts/lightson+.sh
 
 # compositor
@@ -68,6 +69,10 @@ bindsym Ctrl+Shift+4         exec flameshot gui
 # change wallpaper
 bindsym $mod+Shift+bar       exec wal -i ~/Pictures/wallpapers
 
+# edit common configurations
+bindsym $mod+F1              exec $term -e ~/.scripts/ranger.sh ~/.config/i3
+bindsym $mod+F2              exec $term -e ~/.scripts/ranger.sh ~/.config/ranger
+
 # xf86 keys
 bindsym XF86AudioMicMute     exec pamixer --source 1 -t
 bindsym XF86AudioMute        exec ~/.scripts/volume.sh -t
@@ -75,9 +80,6 @@ bindsym XF86AudioLowerVolume exec ~/.scripts/volume.sh -d 5
 bindsym XF86AudioRaiseVolume exec ~/.scripts/volume.sh -i 5
 bindsym XF86TouchpadToggle   exec ~/.scripts/touchpad.sh toggle
 
-# edit common configurations
-bindsym $mod+F1              exec $term -e ~/.scripts/ranger.sh ~/.config/i3
-bindsym $mod+F2              exec $term -e ~/.scripts/ranger.sh ~/.config/ranger
 
 
 #
@@ -105,6 +107,7 @@ for_window [class="Wrapper-1.0"]  floating enable
 for_window [class="lxqt-notificationd"] floating enable
 for_window [class="Syncthing GTK"] floating enable
 for_window [class="qt5ct"] floating enable
+for_window [class="Xscreensaver-demo"] floating enable
 
 
 #
