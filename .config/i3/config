@@ -29,10 +29,10 @@ exec --no-startup-id setxkbmap -option caps:escape
 exec --no-startup-id xset r rate 250 30
 
 # screensaver
-exec --no-startup-id xset s 180 30
 exec --no-startup-id xscreensaver
 exec --no-startup-id xss-lock -- xscreensaver-command -lock
 exec --no-startup-id ~/.scripts/lightson+.sh
+exec --no-startup-id xidlehook --time 15 --timer "systemctl suspend" --not-when-audio --not-when-fullscreen
 
 # compositor
 exec --no-startup-id compton

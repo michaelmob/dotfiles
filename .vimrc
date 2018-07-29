@@ -20,6 +20,8 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'tpope/vim-sensible'
 " Sensible defaults
 
+Plug 'francoiscabrol/ranger.vim'
+
 Plug 'tpope/vim-vinegar'
 " <hyphen> to open netrw
 
@@ -180,7 +182,7 @@ let g:airline_theme = 'atomic'
 " let g:netrw_liststyle = 3
 let g:netrw_bufsettings = 'noma nomod nu nobl nowrap ro'
 
-function NetrwBuf()
+function! NetrwBuf()
   nmap <buffer> h -
   nmap <buffer> l <CR>
 endfunction

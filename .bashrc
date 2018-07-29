@@ -10,13 +10,13 @@ export PS1="\[$(tput bold)\]\[$(tput setaf 1)\][\[$(tput setaf 3)\]\u\[$(tput se
 TERM=xterm-256color
 
 # Functions
-ranger() { [[ -z "$RANGER_LEVEL" ]] && ~/.scripts/ranger.sh || exit; }
+ranger() { [[ -z $RANGER_LEVEL ]] && ~/.scripts/ranger.sh || exit; }
 
 # Program Aliases
 alias v="$EDITOR"
 alias sv="sudo $EDITOR"
 alias tmux="tmux -f $XDG_CONFIG_HOME/tmux/tmux.conf"
-alias ranger="~/.scripts/ranger.sh"
+alias r="ranger"
 
 # Service Aliases
 alias weather="curl wttr.in/07653"
