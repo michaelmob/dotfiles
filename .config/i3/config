@@ -111,6 +111,7 @@ for_window [class="lxqt-notificationd"] floating enable
 for_window [class="Syncthing GTK"] floating enable
 for_window [class="qt5ct"] floating enable
 for_window [class="Xscreensaver-demo"] floating enable
+for_window [class="net-runelite-launcher-Launcher"] floating enable
 
 
 #
