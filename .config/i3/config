@@ -66,6 +66,12 @@ bindsym $mod+g               exec $term -e htop
 # launcher
 bindsym $mod+d               exec rofi -show drun
 
+# window switcher
+bindsym $mod+Tab             exec rofi -show window
+
+# ssh
+bindsym $mod+Shift+Tab       exec rofi -show ssh
+
 # screenshot
 bindsym Ctrl+Shift+4         exec flameshot gui
 
@@ -278,7 +284,6 @@ bindsym $mod+Shift+0 move container to workspace $ws10
 bindsym $mod+Shift+c reload
 bindsym $mod+Shift+r restart
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Do you want to exit i3?' -b 'Yes, exit i3' 'i3-msg exit'"
-
 
 #
 # i3bar and i3blocks

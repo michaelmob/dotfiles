@@ -9,67 +9,77 @@ endif
 
 call plug#begin('~/.local/share/nvim/plugged')
 
+
+" Colorschemes
 Plug 'chriskempson/base16-vim'
 Plug 'dylanaraps/wal.vim'
-" Colorschemes
 
+" Status line
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-" Line
 
-Plug 'tpope/vim-sensible'
 " Sensible defaults
+Plug 'tpope/vim-sensible'
 
+" Ranger file browser: <space>f
 Plug 'francoiscabrol/ranger.vim'
 
+" Better netrw defaults: <hyphen>
 Plug 'tpope/vim-vinegar'
-" <hyphen> to open netrw
 
-Plug 'tpope/vim-surround'
 " S in visual mode, followed by characters to surround with
 " <C-y><comma> to surround with tag
+Plug 'tpope/vim-surround'
 
-Plug 'tpope/vim-commentary'
 " gc in visual mode, or gc and movement to un/comment line
+Plug 'tpope/vim-commentary'
 
-Plug 'tpope/vim-fugitive'
 " Git :Gstatus :Gcommit
-Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-fugitive'
+"
 " Enable repeat for supported plugins
+Plug 'tpope/vim-repeat'
 
-Plug 'mattn/emmet-vim'
 " Press tab after tag text to insert tag
 " html:5<tab> to insert html base template
+Plug 'mattn/emmet-vim'
 
+" Language packs
 Plug 'sheerun/vim-polyglot'
-" Language packs 
 
+" Fuzzy finding, :Files, :Buffers, :Tags
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-" Fuzzy finding, :Files, :Buffers, :Tags
 
-Plug 'junegunn/vim-easy-align'
 " Vim alignment, vipga then delimeter, gaip then delimeter
+Plug 'junegunn/vim-easy-align'
 
-Plug 'justinmk/vim-sneak'
 " Jump to any location with s/S
+Plug 'justinmk/vim-sneak'
 
-Plug 'w0rp/ale'
 " Linter
+Plug 'w0rp/ale'
 
-Plug 'christoomey/vim-tmux-navigator'
 " Seamless tmux navigation
+Plug 'christoomey/vim-tmux-navigator'
 
-Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 " Snippets
+Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 
-Plug 'moll/vim-bbye'
 " Close vim buffer without messing up layout, :Bdelete
+Plug 'moll/vim-bbye'
 
-Plug 'Yggdroot/indentLine'
 " Spaces indent character
+Plug 'Yggdroot/indentLine'
+
+" File icons
+Plug 'ryanoasis/vim-devicons'
 
 call plug#end()
+
+
+" Encoding
+set encoding=UTF-8
 
 
 " Colors
@@ -110,6 +120,7 @@ set wrap!
 " Indentation
 set shiftwidth=2
 set tabstop=4
+set softtabstop=4
 set smarttab
 set expandtab
 
@@ -212,9 +223,10 @@ xmap ga <Plug>(EasyAlign)
 set list
 set listchars=tab:▸·,trail:·,precedes:^,extends:$
 
-" 
+" Indents
 let g:indentLine_char = '¦'
-
+let g:indentLine_leadingSpaceChar = '·'
+let g:indentLine_leadingSpaceEnabled = 1
 
 " File Types
 augroup FILETYPES
