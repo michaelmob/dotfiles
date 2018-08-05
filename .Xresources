@@ -1,0 +1,7 @@
+rofi.kb-accept-entry:      Control+m,Return,KP_Enter
+rofi.kb-remove-to-eol:     Control+c
+rofi.kb-row-up:            Up,Control+p,Control+k,ISO_Left_Tab
+rofi.kb-row-down:          Down,Control+n,Control+j
+rofi.kb-remove-char-back:  BackSpace
+rofi.kb-move-char-back:    Left,Control+b,Control+h
+rofi.kb-move-char-forward: Right,Control+f,Control+l
