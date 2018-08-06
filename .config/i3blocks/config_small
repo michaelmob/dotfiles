@@ -12,21 +12,21 @@ markup=none
 
 # Volume indicator
 [volume]
-label=VOL
-command=echo $(pamixer --get-volume)%
+label=奄
+command=echo $(pamixer --get-volume)%; [[ -z "${BLOCK_BUTTON}" ]] || i3-msg exec pavucontrol-qt
 interval=once
 signal=1
 
 
 # Memory usage
 [memory]
-label=MEM
+label=
 interval=30
 
 
 # Disk usage
 [disk]
-label=HOME
+label=
 interval=30
 
 
@@ -39,18 +39,19 @@ min_width=CPU: 100.00%
 
 # Temperature
 [temperature]
-label=TEMP
+label=
 interval=10
 
 
 # Battery indicator
 [battery]
-label=BAT
+label=
 interval=30
 
 
 # Network
 [iface]
+label=
 color=#00FF00
 interval=10
 
@@ -60,5 +61,6 @@ interval=10
 
 # Date Time
 [time]
+label=
 command=date '+%m/%d/%Y %l:%M:%S'
 interval=1

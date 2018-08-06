@@ -31,6 +31,8 @@ ld() { builtin cd $(< ~/.last_dir) ; }
 # Aliases
 alias resource="source ~/.bashrc"
 
+alias q="exit"
+alias :q="exit"
 alias v="$EDITOR"
 alias r="ranger"
 alias s="sudo"

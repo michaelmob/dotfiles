@@ -193,7 +193,7 @@ bindsym $mod+Shift+BackSpace    gaps inner current set 0; gaps outer current set
 #
 
 # font
-font pango:DejaVu Sans Mono, Font Awesome 5 Free 10
+font pango:Hack 10
 
 # kill focused window
 bindsym $mod+Shift+q            [con_id="__focused__" instance="^(?!dropdown|math).*$"] kill

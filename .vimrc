@@ -95,6 +95,8 @@ endif
 
 " Commands
 set showcmd
+nmap ; :
+
 
 " Line navigation
 nnoremap <expr> j v:count ? (v:count > 5 ? "m'" . v:count : '') . 'j' : 'gj'
@@ -114,8 +116,10 @@ set timeoutlen=1000 ttimeoutlen=0
 " Rulers
 set colorcolumn=80
 
+
 " Wrap
 set wrap!
+
 
 " Indentation
 set shiftwidth=2
@@ -159,14 +163,12 @@ nnoremap <C-L> <C-W><C-L>
 " Buffer navigation
 noremap <Leader>j :bprev<CR>
 noremap <Leader>k :bnext<CR>
-noremap <Leader>h :bprev<CR>
-noremap <Leader>l :bnext<CR>
 noremap <Leader>q :Bdelete<CR>
 
 
 " Tab navigation
-noremap <C-t>n :tabp<CR>
-noremap <C-t>p :tabn<CR>
+noremap <Leader>h :tabp<CR>
+noremap <Leader>l :tabn<CR>
 
 
 " Terminal
@@ -185,19 +187,20 @@ noremap <C-s> :w<CR>
 
 
 " Airline
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#buffer_nr_show = 1
+"let g:airline#extensions#tabline#enabled = 1
+"let g:airline#extensions#tabline#buffer_nr_show = 1
 let g:airline_theme = 'atomic'
 
 
 " Netrw
-" let g:netrw_liststyle = 3
+"let g:netrw_liststyle = 3
 let g:netrw_bufsettings = 'noma nomod nu nobl nowrap ro'
 
 function! NetrwBuf()
   nmap <buffer> h -
   nmap <buffer> l <CR>
 endfunction
+
 
 " Sneak
 let g:sneak#label = 1
@@ -212,6 +215,8 @@ map T <Plug>Sneak_T
 noremap <Leader>b :Buffers<CR>
 noremap <Leader>s :Snippets<CR>
 noremap <C-p> :FZF<CR>
+noremap <Leader>t :Windows<CR>
+noremap <Leader>m :Marks<CR>
 
 
 " Easy Align
@@ -223,10 +228,12 @@ xmap ga <Plug>(EasyAlign)
 set list
 set listchars=tab:▸·,trail:·,precedes:^,extends:$
 
+
 " Indents
 let g:indentLine_char = '¦'
 let g:indentLine_leadingSpaceChar = '·'
 let g:indentLine_leadingSpaceEnabled = 1
+
 
 " File Types
 augroup FILETYPES
