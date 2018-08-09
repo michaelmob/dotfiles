@@ -28,6 +28,10 @@ exec --no-startup-id ~/.scripts/touchpad.sh disable
 exec --no-startup-id setxkbmap -option caps:escape
 exec --no-startup-id xset r rate 250 30
 
+# scratchpads
+exec --no-startup-id $term -c dropdown -e bash -c 'while true; do tmux; done'
+exec --no-startup-id $term -c math -e bash -c 'while true; do python; done'
+
 # screensaver
 exec --no-startup-id xscreensaver
 exec --no-startup-id xss-lock -- xscreensaver-command -lock
@@ -129,7 +133,6 @@ for_window [class="dropdown"] floating enable
 for_window [class="dropdown"] resize set 800 300
 for_window [class="dropdown"] move scratchpad
 for_window [class="dropdown"] border pixel 5
-exec --no-startup-id $term -c dropdown -e bash -c 'while true; do tmux; done'
 bindsym $mod+apostrophe [class="dropdown"] scratchpad show, [class="dropdown"] move position center
 
 # calculator
@@ -137,7 +140,6 @@ for_window [class="math"] floating enable
 for_window [class="math"] resize set 800 300
 for_window [class="math"] move scratchpad
 for_window [class="math"] border pixel 5
-exec --no-startup-id $term -c math -e bash -c 'while true; do python; done'
 bindsym $mod+c [class="math"] scratchpad show, [class="math"] move position center 
 
 
