@@ -35,8 +35,8 @@ exec --no-startup-id $term -c math -e bash -c 'while true; do python; done'
 # screensaver
 exec --no-startup-id xscreensaver
 exec --no-startup-id xss-lock -- xscreensaver-command -lock
-exec --no-startup-id ~/.scripts/lightson+.sh
 exec --no-startup-id xidlehook --time 15 --timer "systemctl suspend" --not-when-audio --not-when-fullscreen
+exec --no-startup-id ~/.scripts/lightson+.sh
 
 # compositor
 exec --no-startup-id compton
@@ -285,7 +285,7 @@ bindsym $mod+Shift+0 move container to workspace $ws10
 # wm actions
 bindsym $mod+Shift+c reload
 bindsym $mod+Shift+r restart
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Do you want to exit i3?' -b 'Yes, exit i3' 'i3-msg exit'"
+#bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Do you want to exit i3?' -b 'Yes, exit i3' 'i3-msg exit'"
 
 #
 # i3bar and i3blocks
