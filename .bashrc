@@ -36,6 +36,5 @@ alias :q="exit"
 alias v="$EDITOR"
 alias r="ranger"
 alias s="sudo"
-alias tmux="tmux -f $XDG_CONFIG_HOME/tmux/tmux.conf"
 
 alias weather="curl wttr.in/07653"
