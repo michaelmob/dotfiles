@@ -24,7 +24,7 @@ set $term st
 #
 
 # mouse & keyboard
-exec --no-startup-id ~/.scripts/touchpad.sh disable
+exec --no-startup-id ~/.scripts/hardware/touchpad.sh disable
 exec --no-startup-id setxkbmap -option caps:escape
 exec --no-startup-id xset r rate 250 30
 
@@ -34,9 +34,7 @@ exec --no-startup-id $term -c math -e bash -c 'while true; do python; done'
 
 # screensaver
 exec --no-startup-id xscreensaver
-exec --no-startup-id xss-lock -- xscreensaver-command -lock
-exec --no-startup-id xidlehook --time 15 --timer "systemctl suspend" --not-when-audio --not-when-fullscreen
-exec --no-startup-id ~/.scripts/lightson+.sh
+exec --no-startup-id ~/.scripts/lightsonplus/lightson+
 
 # compositor
 exec --no-startup-id compton
@@ -62,7 +60,7 @@ exec --no-startup-id udiskie -s
 bindsym $mod+Return          exec $term
 
 # file manager
-bindsym $mod+r               exec $term -e ~/.scripts/ranger.sh
+bindsym $mod+r               exec $term -e ~/.scripts/run.sh /usr/bin/ranger
 
 # process viewer
 bindsym $mod+g               exec $term -e htop
@@ -83,14 +81,14 @@ bindsym Ctrl+Shift+4         exec flameshot gui
 bindsym $mod+Shift+bar       exec wal -i ~/Pictures/wallpapers
 
 # edit common configurations
-bindsym $mod+F1              exec $term -e ~/.scripts/ranger.sh ~/.config/i3
-bindsym $mod+F2              exec $term -e ~/.scripts/ranger.sh ~/.config/ranger
+bindsym $mod+F1              exec $term -e ~/.scripts/run.sh /usr/bin/ranger ~/.config/i3
+bindsym $mod+F2              exec $term -e ~/.scripts/run.sh /usr/bin/ranger ~/.config/ranger
 
 # xf86 keys
+bindsym XF86AudioRaiseVolume exec pamixer -i 5 && pkill -RTMIN+10 i3blocks 
+bindsym XF86AudioLowerVolume exec pamixer -d 5 && pkill -RTMIN+10 i3blocks
+bindsym XF86AudioMute        exec pamixer -t && pkill -RTMIN+10 i3blocks
 bindsym XF86AudioMicMute     exec pamixer --source 1 -t
-bindsym XF86AudioMute        exec ~/.scripts/volume.sh -t
-bindsym XF86AudioLowerVolume exec ~/.scripts/volume.sh -d 5
-bindsym XF86AudioRaiseVolume exec ~/.scripts/volume.sh -i 5
 bindsym XF86TouchpadToggle   exec ~/.scripts/touchpad.sh toggle
 
 
@@ -295,7 +293,7 @@ bindsym $mod+Shift+r restart
 bar {
   position       top
   mode           dock
-  status_command i3blocks -c ~/.config/i3blocks/config_large
+  status_command SCRIPT_DIR=~/.scripts/i3blocks-contrib i3blocks -c ~/.config/i3blocks/config
   output         HDMI-A-0
 
   colors {
@@ -314,7 +312,7 @@ bar {
 bar {
   position       top
   mode           dock
-  status_command i3blocks -c ~/.config/i3blocks/config_small
+  status_command SCRIPT_DIR=~/.scripts/i3blocks-contrib i3blocks -c ~/.config/i3blocks/config
   output LVDS1
 
   colors {

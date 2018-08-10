@@ -24,7 +24,7 @@ bind '"\e[1;5D": backward-word'
 [[ -f ~/.fzf.bash ]] && source ~/.fzf.bash
 
 # Functions
-ranger() { [[ -z $RANGER_LEVEL ]] && ~/.scripts/ranger.sh || exit ; }
+ranger() { [[ -z $RANGER_LEVEL ]] && ~/.scripts/run.sh /usr/bin/ranger || exit ; }
 cd() { builtin cd $@ && pwd > ~/.last_dir ; }
 ld() { builtin cd $(< ~/.last_dir) ; }
 
@@ -39,8 +39,3 @@ alias s="sudo"
 alias tmux="tmux -f $XDG_CONFIG_HOME/tmux/tmux.conf"
 
 alias weather="curl wttr.in/07653"
-
-alias gs="cd ~/Sync"
-alias gp="cd ~/Sync/Personal"
-alias gw="cd ~/Sync/Workspace"
-alias gc="cd ~/Sync/Config"
