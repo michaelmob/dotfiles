@@ -1,0 +1,4 @@
+ttf-nerd-fonts-hack-complete-git
+bitwarden-bin
+telegram-desktop-bin
+runelite
