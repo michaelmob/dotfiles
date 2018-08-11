@@ -1,5 +1,6 @@
 xorg
 xscreensaver
+xss-lock
 i3-gaps
 i3blocks
 compton
