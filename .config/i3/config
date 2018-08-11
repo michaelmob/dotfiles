@@ -29,8 +29,8 @@ exec --no-startup-id setxkbmap -option caps:escape
 exec --no-startup-id xset r rate 250 30
 
 # scratchpads
-exec --no-startup-id $term -c dropdown -e bash -c 'while true; do tmux; done'
-exec --no-startup-id $term -c math -e bash -c 'while true; do python; done'
+exec --no-startup-id $term -c dropdown -e bash -c 'while true; do source ~/.bashrc; tmux attach || tmux; done'
+exec --no-startup-id $term -c math -e bash -c 'while true; do source ~/.bashrc; python; done'
 
 # screensaver
 exec --no-startup-id xscreensaver
@@ -196,7 +196,7 @@ bindsym $mod+Shift+BackSpace    gaps inner current set 0; gaps outer current set
 font pango:Hack 10
 
 # kill focused window
-bindsym $mod+Shift+q            [con_id="__focused__" instance="^(?!dropdown|math).*$"] kill
+bindsym $mod+Shift+q            [con_id="__focused__" class="^(?!dropdown|math).*$"] kill
 
 # change focus
 bindsym $mod+h focus left

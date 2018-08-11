@@ -1,4 +1,5 @@
 " Plugins
+"
 if empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -188,7 +189,8 @@ noremap <C-s> :w<CR>
 " Airline
 "let g:airline#extensions#tabline#enabled = 1
 "let g:airline#extensions#tabline#buffer_nr_show = 1
-let g:airline_theme = 'atomic'
+"let g:airline_theme = 'atomic'
+let g:airline_powerline_fonts = 1
 
 
 " Netrw
