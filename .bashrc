@@ -19,6 +19,7 @@ bind '"\C-k": previous-history'
 bind '"\C-l": clear-screen'
 bind '"\e[1;5C": forward-word'
 bind '"\e[1;5D": backward-word'
+bind '"\e[P": forward-backward-delete-char'
 
 # FZF
 [[ -f ~/.fzf.bash ]] && source ~/.fzf.bash
