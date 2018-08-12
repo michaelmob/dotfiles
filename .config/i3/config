@@ -41,7 +41,7 @@ exec --no-startup-id ~/.scripts/lightsonplus/lightson+
 exec --no-startup-id compton
 
 # flux
-exec --no-startup-id redshift
+exec --no-startup-id redshift -l 40.7:-74
 
 # set wallpaper, colorize i3
 exec --no-startup-id wal -i ~/Pictures/wallpapers
