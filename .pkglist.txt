@@ -3,7 +3,6 @@ xscreensaver
 xss-lock
 i3-gaps
 i3blocks
-compton
 vim
 tmux
 feh
@@ -20,4 +19,3 @@ unrar
 qt5ct
 qt5-styleplugins
 the_silver_searcher
-
