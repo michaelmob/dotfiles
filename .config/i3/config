@@ -178,7 +178,6 @@ client.background       $black
 #
 
 # gaps
-smart_gaps off
 gaps inner 10
 
 # resize gaps
