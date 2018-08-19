@@ -81,6 +81,9 @@ bindsym Ctrl+Shift+4         exec flameshot gui
 # change wallpaper
 bindsym $mod+Shift+bar       exec wal -i ~/Pictures/wallpapers
 
+# firefox private browsing
+bindsym $mod+p               exec firefox --private-window https://startpage.com
+
 # edit common configurations
 bindsym $mod+F1              exec $term -e ~/.scripts/run.sh /usr/bin/ranger ~/.config/i3
 bindsym $mod+F2              exec $term -e ~/.scripts/run.sh /usr/bin/ranger ~/.config/ranger
