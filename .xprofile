@@ -5,4 +5,4 @@ export PATH=$PATH:/usr/local/bin
 export HOSTNAME="$(hostname)"
 export BROWSER="firefox"
 export TERMINAL="st"
-export EDITOR="vim"
+export EDITOR="nvim"

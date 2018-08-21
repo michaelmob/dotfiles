@@ -35,6 +35,7 @@ alias resource="source ~/.bashrc"
 
 alias q="exit"
 alias :q="exit"
+alias vim="$EDITOR"
 alias v="$EDITOR"
 alias r="ranger"
 alias s="sudo"
