@@ -1,7 +1,5 @@
-" Plugins
-"
-if empty(glob('~/.vim/autoload/plug.vim'))
-  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
+  silent !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   augroup PLUG
     autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
@@ -60,6 +58,9 @@ Plug 'justinmk/vim-sneak'
 
 " Linter
 Plug 'w0rp/ale'
+
+" Completion
+Plug 'Valloric/YouCompleteMe'
 
 " Seamless tmux navigation
 Plug 'christoomey/vim-tmux-navigator'
@@ -231,7 +232,8 @@ set listchars=tab:▸·,trail:·,precedes:^,extends:$
 
 
 " Indents
-let g:indentLine_char = '¦'
+" let g:indentLine_char = '¦'
+let g:indentLine_char = ''
 let g:indentLine_leadingSpaceChar = '·'
 let g:indentLine_leadingSpaceEnabled = 1
 

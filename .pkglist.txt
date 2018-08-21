@@ -3,7 +3,7 @@ xscreensaver
 xss-lock
 i3-gaps
 i3blocks
-vim
+neovim
 tmux
 feh
 flameshot
