@@ -18,7 +18,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
 " Sensible defaults
-Plug 'tpope/vim-sensible'
+" Plug 'tpope/vim-sensible'
 
 " Ranger file browser: <space>f
 Plug 'francoiscabrol/ranger.vim'
@@ -50,6 +50,9 @@ Plug 'sheerun/vim-polyglot'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
+" Register viewer
+Plug 'junegunn/vim-peekaboo'
+
 " Vim alignment, vipga then delimeter, gaip then delimeter
 Plug 'junegunn/vim-easy-align'
 
@@ -58,9 +61,6 @@ Plug 'justinmk/vim-sneak'
 
 " Linter
 Plug 'w0rp/ale'
-
-" Completion
-Plug 'Valloric/YouCompleteMe'
 
 " Seamless tmux navigation
 Plug 'christoomey/vim-tmux-navigator'
@@ -76,6 +76,17 @@ Plug 'Yggdroot/indentLine'
 
 " File icons
 Plug 'ryanoasis/vim-devicons'
+
+" Completion
+"Plug 'Valloric/YouCompleteMe'
+if has('nvim')
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+  Plug 'Shougo/deoplete.nvim'
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+endif
+let g:deoplete#enable_at_startup = 1
 
 call plug#end()
 
@@ -173,7 +184,7 @@ noremap <Leader>l :tabn<CR>
 
 
 " Terminal
-tnoremap <Esc> <C-\><C-n>
+tnoremap <leader><Esc> <C-\><C-n>
 
 
 " Cut and Paste
