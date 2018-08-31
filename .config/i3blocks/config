@@ -10,36 +10,30 @@ separator_block_width=15
 markup=none
 
 
-# Volume indicator
-# [volume]
-# label=奄
-# command=echo $(pamixer --get-volume)%; [[ -z "${BLOCK_BUTTON}" ]] || i3-msg exec pavucontrol-qt
-# interval=once
-# signal=10
-
+# Volume
 [volume-pulseaudio]
 command=$SCRIPT_DIR/volume-pulseaudio/volume-pulseaudio -F 3 -H '墳 ' -M '奔 ' -L '奔 ' -X 'M ' -c "#ff0000"
 interval=once
 signal=10
 
 
-# Memory usage
+# CPU
+[load_average]
+label=﬙
+command=$SCRIPT_DIR/load_average/load_average
+interval=10
+
+
+# Memory
 [memory]
 label=
 interval=30
 
 
-# Disk usage
+# Disk
 [disk]
 label=
 interval=30
-
-
-# CPU usage
-[cpu_usage]
-label=CPU
-interval=10
-min_width=CPU: 100.00%
 
 
 # Temperature
@@ -48,7 +42,7 @@ label=
 interval=10
 
 
-# Battery indicator
+# Battery
 [battery]
 label=
 interval=30
@@ -64,7 +58,7 @@ interval=10
 interval=10
 
 
-# Date Time
+# Date/Time
 [time]
 label=
 command=date '+%m/%d/%Y %l:%M:%S'
