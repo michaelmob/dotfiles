@@ -1,0 +1,10 @@
+" vim: set filetype=vim:
+" Theme
+set theme shydactyl
+
+" Close Tab
+unbind d
+bind X tabclose
+
+" Find
+unbind <C-f>
