@@ -33,8 +33,6 @@ exec --no-startup-id $term -c dropdown -e bash -c 'while true; do source ~/.bash
 exec --no-startup-id $term -c math -e bash -c 'while true; do source ~/.bashrc; python; done'
 
 # screensaver
-exec --no-startup-id xscreensaver
-exec --no-startup-id xss-lock -- xscreensaver-command -lock
 exec --no-startup-id ~/.scripts/lightsonplus/lightson+
 
 # compositor
