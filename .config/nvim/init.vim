@@ -1,3 +1,8 @@
+" vim: set filetype=vim:
+"""
+""" Plugins
+"""
+" Plug Installer
 if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
   silent !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -6,132 +11,76 @@ if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
   augroup END
 endif
 
+" Plugins
 call plug#begin('~/.local/share/nvim/plugged')
-
-
-" Colorschemes
-Plug 'chriskempson/base16-vim'
-Plug 'dylanaraps/wal.vim'
-
-" Status line
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-
-" Sensible defaults
-" Plug 'tpope/vim-sensible'
-
-" Ranger file browser: <space>f
-Plug 'francoiscabrol/ranger.vim'
-
-" Better netrw defaults: <hyphen>
-Plug 'tpope/vim-vinegar'
-
-" S in visual mode, followed by characters to surround with
-" <C-y><comma> to surround with tag
-Plug 'tpope/vim-surround'
-
-" gc in visual mode, or gc and movement to un/comment line
-Plug 'tpope/vim-commentary'
-
-" Git :Gstatus :Gcommit
-Plug 'tpope/vim-fugitive'
-"
-" Enable repeat for supported plugins
-Plug 'tpope/vim-repeat'
-
-" Press tab after tag text to insert tag
-" html:5<tab> to insert html base template
-Plug 'mattn/emmet-vim'
-
-" Language packs
-Plug 'sheerun/vim-polyglot'
-
-" Fuzzy finding, :Files, :Buffers, :Tags
+Plug 'chriskempson/base16-vim'  " Base16 colorschemes
+Plug 'vim-airline/vim-airline'  " Status line
+Plug 'vim-airline/vim-airline-themes'  " Status line themes
+Plug 'francoiscabrol/ranger.vim'  " Ranger file manager
+Plug 'sheerun/vim-polyglot'  " Defaults for languages
+Plug 'w0rp/ale'  " Linter
+Plug 'tpope/vim-vinegar'  " Better netrw defaults; <hyphen>
+Plug 'tpope/vim-surround'  " Surround text; [visual]S <p>
+Plug 'tpope/vim-commentary'  " Commenting; [visual]gc
+Plug 'tpope/vim-fugitive'  " Git; :Gstatus, :Gcommit, ...
+Plug 'tpope/vim-repeat'  " Repeat for supported plugins
+Plug 'mattn/emmet-vim'  " Emmet; tab after tag text, html:5<tab>
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
+Plug 'junegunn/fzf.vim'  " Fuzzy finder; :Files, :Buffers, :Tags
+Plug 'junegunn/vim-peekaboo'  " Register viewer; <quote>
+Plug 'junegunn/vim-easy-align'  " Text alignment; [visual]ga
+Plug 'justinmk/vim-sneak'  " Easy cursor jumping; s/S
+Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'  " Snippets for FZF
+Plug 'moll/vim-bbye'  " Close buffer; :Bdelete
+Plug 'Yggdroot/indentLine'  " Space indentation
+Plug 'ryanoasis/vim-devicons'  " File icons
 
-" Register viewer
-Plug 'junegunn/vim-peekaboo'
-
-" Vim alignment, vipga then delimeter, gaip then delimeter
-Plug 'junegunn/vim-easy-align'
-
-" Jump to any location with s/S
-Plug 'justinmk/vim-sneak'
-
-" Linter
-Plug 'w0rp/ale'
-
-" Seamless tmux navigation
-Plug 'christoomey/vim-tmux-navigator'
-
-" Snippets
-Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
-
-" Close vim buffer without messing up layout, :Bdelete
-Plug 'moll/vim-bbye'
-
-" Spaces indent character
-Plug 'Yggdroot/indentLine'
-
-" File icons
-Plug 'ryanoasis/vim-devicons'
-
-" Completion
-"Plug 'Valloric/YouCompleteMe'
+" Neovim-only Plugins
 if has('nvim')
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+
+" Vim-only Plugins
 else
+  Plug 'tpope/vim-sensible'  " Sensible defaults
   Plug 'Shougo/deoplete.nvim'
   Plug 'roxma/nvim-yarp'
   Plug 'roxma/vim-hug-neovim-rpc'
 endif
-let g:deoplete#enable_at_startup = 1
 
 call plug#end()
 
 
-" Encoding
-set encoding=UTF-8
-
-
-" Colors
+"""
+""" Built-in Settings
+"""
 syntax on
+colorscheme base16-monokai
+set encoding=UTF-8
 set t_Co=256
 set background=dark
-colorscheme base16-monokai
-
 if (has('termguicolors'))
  set termguicolors
 endif
 
+" List
+set list
+set listchars=tab:·,trail:·,precedes:^,extends:$
 
 " Commands
 set showcmd
-nmap ; :
-
-
-" Line navigation
-nnoremap <expr> j v:count ? (v:count > 5 ? "m'" . v:count : '') . 'j' : 'gj'
-nnoremap <expr> k v:count ? (v:count > 5 ? "m'" . v:count : '') . 'k' : 'gk'
 
 " Speed
-" set ttyfast
-" set lazyredraw
 set regexpengine=1
 
-
 " Timeouts
-set timeoutlen=1000 ttimeoutlen=0
-
+set timeoutlen=1000
+set ttimeoutlen=0
 
 " Rulers
 set colorcolumn=80
 
-
-" Wrap
+" Wrapping
 set wrap!
-
 
 " Indentation
 set shiftwidth=2
@@ -140,29 +89,46 @@ set softtabstop=4
 set smarttab
 set expandtab
 
-
 " Relative line numbers
 set number
 set relativenumber
-
 
 " Splits
 set splitbelow
 set splitright
 
-
 " Leader
 let g:mapleader = ' '
-
 
 " Sessions
 let g:sessions_dir = '~/vim-sessions'
 
 
+"""
+""" Built-in Mappings
+"""
+" Commands
+nmap ; :
+
 " New lines
 nnoremap <Enter> o<Esc>
 nnoremap <S-Enter> O<Esc>
 
+" Terminal
+tnoremap <leader><Esc> <C-\><C-n>
+
+" Cut and Paste
+noremap <Leader>y "+y
+noremap <Leader>p "+p
+noremap <Leader>P "+P
+
+" Save
+noremap <Space><Esc> :w<CR>
+noremap <C-s> :w<CR>
+
+" Line navigation
+nnoremap <expr> j v:count ? (v:count > 5 ? "m'" . v:count : '') . 'j' : 'gj'
+nnoremap <expr> k v:count ? (v:count > 5 ? "m'" . v:count : '') . 'k' : 'gk'
 
 " Split navigation
 map <Space> <Nop>
@@ -171,58 +137,31 @@ nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 
-
 " Buffer navigation
 noremap <Leader>j :bprev<CR>
 noremap <Leader>k :bnext<CR>
 noremap <Leader>q :Bdelete<CR>
-
 
 " Tab navigation
 noremap <Leader>h :tabp<CR>
 noremap <Leader>l :tabn<CR>
 
 
-" Terminal
-tnoremap <leader><Esc> <C-\><C-n>
-
-
-" Cut and Paste
-noremap <Leader>y "+y
-noremap <Leader>p "+p
-noremap <Leader>P "+P
-
-
-" Save
-noremap <Leader> :w<CR>
-noremap <C-s> :w<CR>
-
-
+"""
+""" Plugin Settings
+"""
 " Airline
-"let g:airline#extensions#tabline#enabled = 1
-"let g:airline#extensions#tabline#buffer_nr_show = 1
-"let g:airline_theme = 'atomic'
 let g:airline_powerline_fonts = 1
 
-
 " Netrw
-"let g:netrw_liststyle = 3
 let g:netrw_bufsettings = 'noma nomod nu nobl nowrap ro'
-
-function! NetrwBuf()
-  nmap <buffer> h -
-  nmap <buffer> l <CR>
-endfunction
-
 
 " Sneak
 let g:sneak#label = 1
-
 map f <Plug>Sneak_f
 map F <Plug>Sneak_F
 map t <Plug>Sneak_t
 map T <Plug>Sneak_T
-
 
 " FZF
 noremap <Leader>b :Buffers<CR>
@@ -231,23 +170,16 @@ noremap <C-p> :FZF<CR>
 noremap <Leader>t :Windows<CR>
 noremap <Leader>m :Marks<CR>
 
-
 " Easy Align
-" Start interactive EasyAlign in visual mode (e.g. vipga)
 xmap ga <Plug>(EasyAlign)
 
-
-" List
-set list
-set listchars=tab:▸·,trail:·,precedes:^,extends:$
-
-
 " Indents
-" let g:indentLine_char = '¦'
 let g:indentLine_char = ''
 let g:indentLine_leadingSpaceChar = '·'
 let g:indentLine_leadingSpaceEnabled = 1
 
+" Deoplete
+let g:deoplete#enable_at_startup = 1
 
 " File Types
 augroup FILETYPES
@@ -255,5 +187,4 @@ augroup FILETYPES
   autocmd FileType cpp setlocal shiftwidth=4
   autocmd FileType py setlocal shiftwidth=4
   autocmd FileType go setlocal shiftwidth=4
-  autocmd FileType netrw call NetrwBuf()
 augroup END
