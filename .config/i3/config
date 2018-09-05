@@ -180,6 +180,7 @@ client.background       $black
 
 # gaps
 gaps inner 10
+smart_gaps on
 
 # resize gaps
 bindsym $mod+Shift+minus        gaps inner current minus 5
