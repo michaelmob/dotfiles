@@ -43,9 +43,9 @@ interval=10
 
 
 # Battery
-[battery]
-label=
-interval=30
+# [battery]
+# label=
+# interval=30
 
 
 # Network
