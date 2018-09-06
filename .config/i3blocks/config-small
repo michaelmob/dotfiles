@@ -62,4 +62,4 @@ interval=10
 [time]
 label=
 command=date '+%m/%d/%Y %l:%M:%S'
-interval=1
+interval=2
