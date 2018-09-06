@@ -1,0 +1,65 @@
+# i3blocks config file
+#
+# Please see man i3blocks for a complete reference!
+# The man page is also hosted at http://vivien.github.io/i3blocks
+#
+
+# Global properties
+command=/usr/lib/i3blocks/$BLOCK_NAME
+separator_block_width=15
+markup=none
+
+
+# Volume
+[volume-pulseaudio]
+command=$SCRIPT_DIR/volume-pulseaudio/volume-pulseaudio -F 3 -H '墳 ' -M '奔 ' -L '奔 ' -X 'M ' -c "#ff0000"
+interval=once
+signal=10
+
+
+# CPU
+[load_average]
+label=﬙
+command=$SCRIPT_DIR/load_average/load_average
+interval=10
+
+
+# Memory
+[memory]
+label=
+interval=30
+
+
+# Disk
+[disk]
+label=
+interval=30
+
+
+# Temperature
+[temperature]
+label=
+interval=10
+
+
+# Battery
+[battery]
+label=
+interval=30
+
+
+# Network
+[iface]
+label=
+color=#00FF00
+interval=10
+
+[wifi]
+interval=10
+
+
+# Date/Time
+[time]
+label=
+command=date '+%m/%d/%Y %l:%M:%S'
+interval=1

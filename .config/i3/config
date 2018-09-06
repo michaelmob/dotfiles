@@ -80,7 +80,7 @@ bindsym Ctrl+Shift+4         exec flameshot gui
 bindsym $mod+Shift+bar       exec wal -i ~/Pictures/wallpapers
 
 # firefox private browsing
-bindsym $mod+p               exec firefox --private-window https://startpage.com
+bindsym $mod+p               exec firefox --private-window about:blank
 
 # edit common configurations
 bindsym $mod+F1              exec $term -e ~/.scripts/run.sh /usr/bin/ranger ~/.config/i3
@@ -91,7 +91,7 @@ bindsym XF86AudioRaiseVolume exec pamixer -i 5 && pkill -RTMIN+10 i3blocks
 bindsym XF86AudioLowerVolume exec pamixer -d 5 && pkill -RTMIN+10 i3blocks
 bindsym XF86AudioMute        exec pamixer -t && pkill -RTMIN+10 i3blocks
 bindsym XF86AudioMicMute     exec pamixer --source 1 -t
-bindsym XF86TouchpadToggle   exec ~/.scripts/touchpad.sh toggle
+bindsym XF86TouchpadToggle   exec ~/.scripts/hardware/touchpad.sh toggle
 
 
 
@@ -295,7 +295,7 @@ bindsym $mod+Shift+r restart
 bar {
   position       top
   mode           dock
-  status_command SCRIPT_DIR=~/.scripts/i3blocks-contrib i3blocks -c ~/.config/i3blocks/config
+  status_command SCRIPT_DIR=~/.scripts/i3blocks-contrib i3blocks -c ~/.config/i3blocks/config-large
   output         HDMI-A-0
 
   colors {
@@ -314,7 +314,7 @@ bar {
 bar {
   position       top
   mode           dock
-  status_command SCRIPT_DIR=~/.scripts/i3blocks-contrib i3blocks -c ~/.config/i3blocks/config
+  status_command SCRIPT_DIR=~/.scripts/i3blocks-contrib i3blocks -c ~/.config/i3blocks/config-small
   output LVDS1
 
   colors {
