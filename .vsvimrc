@@ -1,0 +1,26 @@
+set autoindent
+
+" Commands
+nmap ; :
+
+" New lines
+nnoremap <Enter> o<Esc>
+nnoremap <S-Enter> O<Esc>
+
+" Indent and append
+nnoremap cc ddO
+
+" Yanking and pasting
+vnoremap <space>y "*y
+nnoremap <space>p "*p
+nnoremap <space>P "*P
+
+" Saving
+nnoremap <space><esc> :w<CR>
+
+" Split navigation
+map <Space> <Nop>
+nnoremap <C-h> <C-W><C-H>
+nnoremap <C-j> <C-W><C-J>
+nnoremap <C-k> <C-W><C-K>
+nnoremap <C-l> <C-W><C-L>
