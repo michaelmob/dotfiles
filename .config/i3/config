@@ -30,7 +30,7 @@ exec --no-startup-id xset r rate 250 30
 
 # scratchpads
 exec --no-startup-id $term -c dropdown -e bash -c 'while true; do source ~/.bashrc; tmux attach || tmux; done'
-exec --no-startup-id $term -c math -e bash -c 'while true; do source ~/.bashrc; python; done'
+exec --no-startup-id $term -c math -e bash -c 'while true; do source ~/.bashrc; python -i -c "from math import *"; done'
 
 # screensaver
 exec --no-startup-id ~/.scripts/lightsonplus/lightson+
@@ -166,7 +166,7 @@ set_from_resource $cyan        color14 #000000
 set               $white       #FFFFFFFF
 set               $transparent #00000000
 
-# STATE                 BORDER   BG         TEXT       INDICATOR    CHILD_BORDER
+# state                 border   bg         text       indicator    child_border
 client.focused          $darkred $darkred   $white     $darkmagenta $darkred
 client.unfocused        $darkred $darkblack $darkwhite $darkblue    $darkblack
 client.focused_inactive $darkred $darkred   $white     $darkmagenta $darkblack
