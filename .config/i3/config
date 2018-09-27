@@ -30,7 +30,7 @@ exec --no-startup-id xset r rate 250 30
 
 # scratchpads
 exec --no-startup-id $term -c dropdown -e bash -c 'while true; do source ~/.bashrc; tmux attach || tmux; done'
-exec --no-startup-id $term -c math -e bash -c 'while true; do source ~/.bashrc; python -i -c "from math import *"; done'
+exec --no-startup-id $term -c math -e bash -c 'while true; do source ~/.bashrc; python ~/.scripts/calc.py; done'
 
 # screensaver
 exec --no-startup-id ~/.scripts/lightsonplus/lightson+
