@@ -14,6 +14,7 @@
 
 # modifier key
 set $mod Mod4
+set $alt Mod1
 
 # terminal
 set $term st
@@ -27,6 +28,7 @@ set $term st
 exec --no-startup-id ~/.scripts/hardware/touchpad.sh disable
 exec --no-startup-id setxkbmap -option caps:escape
 exec --no-startup-id xset r rate 250 30
+exec --no-startup-id alttab
 
 # scratchpads
 exec --no-startup-id $term -c dropdown -e bash -c 'while true; do source ~/.bashrc; tmux attach || tmux; done'
@@ -66,9 +68,6 @@ bindsym $mod+g               exec $term -e htop
 
 # launcher
 bindsym $mod+d               exec rofi -show drun
-
-# window switcher
-bindsym $mod+Tab             exec rofi -show window
 
 # ssh
 bindsym $mod+Shift+Tab       exec rofi -show ssh
@@ -269,6 +268,9 @@ bindsym $mod+7 workspace $ws7
 bindsym $mod+8 workspace $ws8
 bindsym $mod+9 workspace $ws9
 bindsym $mod+0 workspace $ws10
+
+# switch to last used workspace
+bindsym $mod+Tab workspace back_and_forth
 
 # move window to workspace
 bindsym $mod+Shift+1 move container to workspace $ws1
