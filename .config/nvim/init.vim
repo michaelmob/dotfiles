@@ -2,10 +2,20 @@
 """
 """ Plugins
 """
+if has('nvim')
+  let vimpath = '~/.local/share/nvim'
+  let plugpath = vimpath . '/site/autoload/plug.vim'
+  let pluginspath = vimpath . '/plugged'
+else
+  let vimpath = '~/.vim'
+  let plugpath = vimpath . '/autoload/plug.vim'
+  let pluginspath = vimpath . '/plugged'
+endif
+
 " Plug Installer
-if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
-  silent !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs
-    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+if empty(glob(plugpath))
+  exec 'silent !curl -fLo ' . plugpath . ' --create-dirs ' .
+    \ 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
   augroup PLUG
     autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
   augroup END
@@ -58,7 +68,7 @@ colorscheme base16-monokai
 set encoding=UTF-8
 set t_Co=256
 set background=dark
-if (has('termguicolors'))
+if has('termguicolors')
  set termguicolors
 endif
 
