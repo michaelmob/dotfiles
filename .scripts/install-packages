@@ -1,3 +1,5 @@
 #!/usr/bin/env bash
-sudo pacman --needed -S - < ~/.pkglist
-yay --needed -S - < ~/.pkglist-aur
+PM="yay -Syy --noconfirm --needed"
+
+[[ -f ~/.pkglist ]] && $PM - < ~/.pkglist
+[[ -f ~/.pkglist-aur ]] && $PM --aur - < ~/.pkglist-aur
