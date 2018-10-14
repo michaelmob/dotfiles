@@ -1,6 +1,7 @@
 xorg
 xscreensaver
 xss-lock
+openntpd
 i3-gaps
 i3blocks
 neovim
@@ -10,7 +11,7 @@ flameshot
 neofetch
 udiskie
 ranger
-python-wal
+python-pywal
 atool
 p7zip
 zip
