@@ -25,14 +25,14 @@ set $term st
 #
 
 # mouse & keyboard
-exec --no-startup-id ~/.scripts/hardware/touchpad.sh disable
+exec --no-startup-id ~/.scripts/touchpad disable
 exec --no-startup-id setxkbmap -option caps:escape
 exec --no-startup-id xset r rate 250 30
 exec --no-startup-id alttab
 
 # scratchpads
 exec --no-startup-id $term -c dropdown -e bash -c 'while true; do source ~/.bashrc; tmux attach || tmux; done'
-exec --no-startup-id $term -c math -e bash -c 'while true; do source ~/.bashrc; python ~/.scripts/calc.py; done'
+exec --no-startup-id $term -c math -e bash -c 'while true; do source ~/.bashrc; math; done'
 
 # screensaver
 exec --no-startup-id ~/.scripts/lightsonplus/lightson+
@@ -44,7 +44,7 @@ exec --no-startup-id compton
 exec --no-startup-id redshift -l 40.7:-74
 
 # set wallpaper, colorize i3
-exec --no-startup-id wal -i ~/Pictures/wallpapers
+exec --no-startup-id ~/.scripts/wal-set
 
 # sync tool
 exec --no-startup-id syncthing-gtk --minimized
@@ -61,7 +61,7 @@ exec --no-startup-id udiskie -s
 bindsym $mod+Return          exec $term
 
 # file manager
-bindsym $mod+r               exec $term -e ~/.scripts/run.sh /usr/bin/ranger
+bindsym $mod+r               exec $term -e ~/.scripts/ranger
 
 # process viewer
 bindsym $mod+g               exec $term -e htop
@@ -76,21 +76,21 @@ bindsym $mod+Shift+Tab       exec rofi -show ssh
 bindsym Ctrl+Shift+4         exec flameshot gui
 
 # change wallpaper
-bindsym $mod+Shift+bar       exec wal -i ~/Pictures/wallpapers
+bindsym $mod+Shift+bar       exec ~/.scripts/wal-set
 
 # firefox private browsing
 bindsym $mod+p               exec firefox --private-window about:blank
 
 # edit common configurations
-bindsym $mod+F1              exec $term -e ~/.scripts/run.sh /usr/bin/ranger ~/.config/i3
-bindsym $mod+F2              exec $term -e ~/.scripts/run.sh /usr/bin/ranger ~/.config/ranger
+bindsym $mod+F1              exec $term -e ~/.scripts/ranger ~/.config/i3
+bindsym $mod+F2              exec $term -e ~/.scripts/ranger ~/.config/ranger
 
 # xf86 keys
 bindsym XF86AudioRaiseVolume exec pamixer -i 5 && pkill -RTMIN+10 i3blocks 
 bindsym XF86AudioLowerVolume exec pamixer -d 5 && pkill -RTMIN+10 i3blocks
 bindsym XF86AudioMute        exec pamixer -t && pkill -RTMIN+10 i3blocks
 bindsym XF86AudioMicMute     exec pamixer --source 1 -t
-bindsym XF86TouchpadToggle   exec ~/.scripts/hardware/touchpad.sh toggle
+bindsym XF86TouchpadToggle   exec ~/.scripts/touchpad toggle
 
 
 
