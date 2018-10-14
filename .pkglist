@@ -4,6 +4,7 @@ xss-lock
 openntpd
 i3-gaps
 i3blocks
+dunst
 neovim
 tmux
 feh
