@@ -27,8 +27,8 @@ bind '"\e[P": forward-backward-delete-char'
 # Functions
 ranger() { ~/.scripts/ranger $@ ; }
 cd() { builtin cd "$@" && pwd > ~/.last_dir ; }
-ld() { builtin cd "$(< ~/.last_dir)" ; }
-sd() { builtin cd . ; }
+L() { builtin cd "$(< ~/.last_dir)" ; }
+S() { cd . ; }
 
 # Aliases
 alias resource="source ~/.bashrc"

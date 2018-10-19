@@ -26,9 +26,7 @@ call plug#begin('~/.local/share/nvim/plugged')
 Plug 'chriskempson/base16-vim'  " Base16 colorschemes
 Plug 'vim-airline/vim-airline'  " Status line
 Plug 'vim-airline/vim-airline-themes'  " Status line themes
-Plug 'francoiscabrol/ranger.vim'  " Ranger file manager
 Plug 'sheerun/vim-polyglot'  " Defaults for languages
-Plug 'w0rp/ale'  " Linter
 Plug 'tpope/vim-vinegar'  " Better netrw defaults; <hyphen>
 Plug 'tpope/vim-surround'  " Surround text; [visual]S <p>
 Plug 'tpope/vim-commentary'  " Commenting; [visual]gc
@@ -44,6 +42,7 @@ Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'  " Snippets for FZF
 Plug 'moll/vim-bbye'  " Close buffer; :Bdelete
 Plug 'Yggdroot/indentLine'  " Space indentation
 Plug 'ryanoasis/vim-devicons'  " File icons
+Plug 'OmniSharp/omnisharp-vim' " C# completion
 
 " Neovim-only Plugins
 if has('nvim')
@@ -190,6 +189,10 @@ let g:indentLine_leadingSpaceEnabled = 1
 
 " Deoplete
 let g:deoplete#enable_at_startup = 1
+call deoplete#enable()
+call deoplete#custom#option('sources', {
+  \   'cs': ['omnisharp'],
+  \ })
 
 " File Types
 augroup FILETYPES
