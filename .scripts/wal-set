@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 wal -i ~/Pictures/wallpapers
 reload-dunst
-betterlockscreen -u $(cat "${HOME}/.cache/wal/wal")
+betterlockscreen -u "$(cat ~/.cache/wal/wal)"

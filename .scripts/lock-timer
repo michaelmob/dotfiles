@@ -16,7 +16,7 @@ notifier () {
   # Fade to black -> turn screen off -> reset brightness
   if xbacklight > /dev/null 2>&1; then
     percent="$(xbacklight)"
-    trap "xbacklight $percent" EXIT
+    trap "xbacklight = $percent" EXIT
     xbacklight = 0 -time $milliseconds -steps $(($NOTIFY_SECONDS * 10))
     xset dpms force off
     xbacklight = $percent
