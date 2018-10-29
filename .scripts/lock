@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+pkill dunst
+echo -ne "\x2" | socat - UNIX-CONNECT:/tmp/xidlehook.sock
+reload-dunst

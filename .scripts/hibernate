@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+pkill dunst
+betterlockscreen --lock &
+sleep 1
+systemctl suspend
+wait
+$HOME/.scripts/reload-dunst &

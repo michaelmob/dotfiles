@@ -1,0 +1,77 @@
+#!/usr/bin/env bash
+source ~/.profile
+
+
+get-content () {
+  type $1 | sed '1,3d;$d;s/^\s{4}//g'
+}; export -f get-content
+
+
+notifier () {
+  # Save notifier pid
+  echo $$ > /tmp/xidlehook-notifier.pid
+  milliseconds=$(($NOTIFY_SECONDS * 1000))
+
+  # Monitor with controllable backlight
+  # Fade to black -> turn screen off -> reset brightness
+  if xbacklight > /dev/null 2>&1; then
+    percent="$(xbacklight)"
+    trap "xbacklight $percent" EXIT
+    xbacklight = 0 -time $milliseconds -steps $(($NOTIFY_SECONDS * 10))
+    xset dpms force off
+    xbacklight = $percent
+
+  # Monitor without controllable backlight
+  else
+    for (( i = $NOTIFY_SECONDS; i > 0; i-- )); do
+      notify-send -t 1000 "Computer will lock in $i seconds."
+      sleep 1
+    done
+    xset dpms force off
+  fi
+}
+
+
+canceller () {
+  # Kill notifier by PID, remove PID file
+  file="/tmp/xidlehook-notifier.pid"
+  [[ -f $file ]] && kill $(cat $file); rm -f $file
+}
+
+
+timer() {
+  # Do not rerun i3lock
+  pgrep i3lock > /dev/null 2>&1 && exit 1
+
+  # Kill notifications
+  pkill dunst
+
+  # Lock
+  betterlockscreen --lock
+
+  # Start dunst
+  reload-dunst
+}
+
+
+timer2 () {
+  systemctl suspend
+}
+
+
+socket="/tmp/xidlehook.sock"
+pid_file="/var/run/user/$UID/xidlehook.pid"
+rm -f $socket
+[[ -f $pid ]] && kill $(cat $pid); rm -f $pid
+xidlehook \
+  --notify $NOTIFY_SECONDS \
+  --notifier "$(get-content notifier)" \
+  --canceller "$(get-content canceller)" \
+  --time $LOCK_MINUTES \
+  --timer "$(get-content timer)" \
+  --time2 $SUSPEND_MINUTES \
+  --timer2 "$(get-content timer2)" \
+  --not-when-fullscreen \
+  --socket $socket &
+echo $! > $pid_file
+wait
