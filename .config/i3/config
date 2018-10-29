@@ -35,7 +35,8 @@ exec --no-startup-id $term -c dropdown -e bash -c 'while true; do source ~/.bash
 exec --no-startup-id $term -c math -e bash -c 'while true; do source ~/.bashrc; math; done'
 
 # screensaver
-exec --no-startup-id ~/.scripts/lightsonplus/lightson+
+exec --no-startup-id ~/.scripts/lock-timer
+#exec --no-startup-id ~/.scripts/lightsonplus/lightson+
 
 # compositor
 exec --no-startup-id compton
@@ -67,7 +68,7 @@ bindsym $mod+r               exec $term -e ~/.scripts/ranger
 bindsym $mod+g               exec $term -e htop
 
 # launcher
-bindsym $mod+d               exec rofi -show drun
+bindsym $mod+d               exec rofi -show run
 
 # ssh
 bindsym $mod+Shift+Tab       exec rofi -show ssh

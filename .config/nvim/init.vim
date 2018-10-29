@@ -23,9 +23,10 @@ endif
 
 " Plugins
 call plug#begin('~/.local/share/nvim/plugged')
-Plug 'chriskempson/base16-vim'  " Base16 colorschemes
+Plug 'morhetz/gruvbox'  " Gruvbox colorscheme
 Plug 'vim-airline/vim-airline'  " Status line
 Plug 'vim-airline/vim-airline-themes'  " Status line themes
+Plug 'mhinz/vim-startify'  " Vim start screen
 Plug 'sheerun/vim-polyglot'  " Defaults for languages
 Plug 'tpope/vim-vinegar'  " Better netrw defaults; <hyphen>
 Plug 'tpope/vim-surround'  " Surround text; [visual]S <p>
@@ -38,11 +39,11 @@ Plug 'junegunn/fzf.vim'  " Fuzzy finder; :Files, :Buffers, :Tags
 Plug 'junegunn/vim-peekaboo'  " Register viewer; <quote>
 Plug 'junegunn/vim-easy-align'  " Text alignment; [visual]ga
 Plug 'justinmk/vim-sneak'  " Easy cursor jumping; s/S
-Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'  " Snippets for FZF
 Plug 'moll/vim-bbye'  " Close buffer; :Bdelete
 Plug 'Yggdroot/indentLine'  " Space indentation
 Plug 'ryanoasis/vim-devicons'  " File icons
-Plug 'OmniSharp/omnisharp-vim' " C# completion
+Plug 'christoomey/vim-tmux-navigator'  " Tmux split navigation
+Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'  " Snippets for FZF
 
 " Neovim-only Plugins
 if has('nvim')
@@ -56,6 +57,9 @@ else
   Plug 'roxma/vim-hug-neovim-rpc'
 endif
 
+" Deoplete Sources
+Plug 'zchee/deoplete-jedi'  " Python autocompletion
+
 call plug#end()
 
 
@@ -63,7 +67,7 @@ call plug#end()
 """ Built-in Settings
 """
 syntax on
-colorscheme base16-monokai
+colorscheme gruvbox
 set encoding=UTF-8
 set t_Co=256
 set background=dark
@@ -73,7 +77,7 @@ endif
 
 " List
 set list
-set listchars=tab:·,trail:·,precedes:^,extends:$
+set listchars=tab:\ ,trail:\ ,precedes:^,extends:$,eol:¬
 
 " Commands
 set showcmd
@@ -123,8 +127,17 @@ nmap ; :
 nnoremap <Enter> o<Esc>
 nnoremap <S-Enter> O<Esc>
 
+"
+nnoremap <Esc> :nohlsearch<CR>
+
 " Terminal
 tnoremap <leader><Esc> <C-\><C-n>
+tnoremap <Esc> <C-\><C-n>
+tnoremap <C-P> i<C-P>
+tnoremap <C-H> <C-\><C-n><C-W><C-H>
+tnoremap <C-J> <C-\><C-n><C-W><C-J>
+tnoremap <C-K> <C-\><C-n><C-W><C-K>
+tnoremap <C-L> <C-\><C-n><C-W><C-L>
 
 " Cut and Paste
 noremap <Leader>y "+y
@@ -178,13 +191,14 @@ noremap <Leader>s :Snippets<CR>
 noremap <C-p> :FZF<CR>
 noremap <Leader>t :Windows<CR>
 noremap <Leader>m :Marks<CR>
+noremap <Leader>r :Tags<CR>
 
 " Easy Align
 xmap ga <Plug>(EasyAlign)
 
 " Indents
 let g:indentLine_char = ''
-let g:indentLine_leadingSpaceChar = '·'
+let g:indentLine_leadingSpaceChar = ' '
 let g:indentLine_leadingSpaceEnabled = 1
 
 " Deoplete
