@@ -128,7 +128,7 @@ nnoremap <Enter> o<Esc>
 nnoremap <S-Enter> O<Esc>
 
 "
-nnoremap <Esc> :nohlsearch<CR>
+nnoremap <Esc> :nohlsearch<CR>:redraw!<CR>
 
 " Terminal
 tnoremap <leader><Esc> <C-\><C-n>
