@@ -128,12 +128,18 @@ nmap ; :
 nnoremap <Enter> o<Esc>
 nnoremap <S-Enter> O<Esc>
 
-"
+" Remove highlight
 nnoremap <Esc> :nohlsearch<CR>
+
+" Write current directory
+nnoremap <leader>L :!echo %:p:h > ~/.last_dir<CR><CR>
+
+" Source
+nnoremap <leader>S :source $MYVIMRC<CR>
 
 " Terminal
 tnoremap <leader><Esc> <C-\><C-n>
-tnoremap <Esc> <C-\><C-n>
+"tnoremap <Esc> <C-\><C-n>
 tnoremap <C-P> i<C-P>
 tnoremap <C-H> <C-\><C-n><C-W><C-H>
 tnoremap <C-J> <C-\><C-n><C-W><C-J>
@@ -146,7 +152,7 @@ noremap <Leader>p "+p
 noremap <Leader>P "+P
 
 " Save
-noremap <Space><Esc> :redraw!<CR>:w<CR>
+noremap <Space><Esc> :nohlsearch<CR>:redraw!<CR>:w<CR>
 noremap <C-s> :w<CR>
 
 " Line navigation
