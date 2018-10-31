@@ -7,8 +7,10 @@ export EDITOR="nvim"
 export BROWSER="firefox"
 
 [[ -f ~/.bashrc ]] && source ~/.bashrc
-
 hostname="$(hostname)"
+
+# Lockscreen
+export LOCKSCREEN_EFFECT="dim"
 
 # Desktop
 if [[ $hostname = "pc" ]]; then
