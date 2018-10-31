@@ -1,2 +1,3 @@
 #!/usr/bin/env bash
+source ~/.bashrc
 [[ -z $RANGER_LEVEL ]] && /usr/bin/ranger $@ || exit
