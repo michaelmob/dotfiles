@@ -47,7 +47,7 @@ timer() {
   pkill dunst
 
   # Lock
-  betterlockscreen --lock
+  besterlockscreen --lock
 
   # Start dunst
   reload-dunst
@@ -62,7 +62,7 @@ timer2 () {
 socket="/tmp/xidlehook.sock"
 pid_file="/var/run/user/$UID/xidlehook.pid"
 rm -f $socket
-[[ -f $pid ]] && kill $(cat $pid); rm -f $pid
+[[ -f $pid_file ]] && kill $(cat $pid_file); rm -f $pid_file
 xidlehook \
   --notify $NOTIFY_SECONDS \
   --notifier "$(get-content notifier)" \
@@ -72,6 +72,7 @@ xidlehook \
   --time2 $SUSPEND_MINUTES \
   --timer2 "$(get-content timer2)" \
   --not-when-fullscreen \
+  --not-when-audio \
   --socket $socket &
 echo $! > $pid_file
 wait

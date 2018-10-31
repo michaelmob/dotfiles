@@ -33,6 +33,7 @@ Plug 'tpope/vim-surround'  " Surround text; [visual]S <p>
 Plug 'tpope/vim-commentary'  " Commenting; [visual]gc
 Plug 'tpope/vim-fugitive'  " Git; :Gstatus, :Gcommit, ...
 Plug 'tpope/vim-repeat'  " Repeat for supported plugins
+Plug 'tpope/vim-sleuth'  " Indentation detection
 Plug 'mattn/emmet-vim'  " Emmet; tab after tag text, html:5<tab>
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'  " Fuzzy finder; :Files, :Buffers, :Tags
@@ -128,7 +129,7 @@ nnoremap <Enter> o<Esc>
 nnoremap <S-Enter> O<Esc>
 
 "
-nnoremap <Esc> :nohlsearch<CR>:redraw!<CR>
+nnoremap <Esc> :nohlsearch<CR>
 
 " Terminal
 tnoremap <leader><Esc> <C-\><C-n>
@@ -145,7 +146,7 @@ noremap <Leader>p "+p
 noremap <Leader>P "+P
 
 " Save
-noremap <Space><Esc> :w<CR>
+noremap <Space><Esc> :redraw!<CR>:w<CR>
 noremap <C-s> :w<CR>
 
 " Line navigation
