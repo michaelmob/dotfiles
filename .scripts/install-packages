@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-PM="yay -Syy --noconfirm --needed"
+pm='yay -Syy --noconfirm --needed'
 
-[[ -f ~/.pkglist ]] && $PM - < ~/.pkglist
-[[ -f ~/.pkglist-aur ]] && $PM --aur - < ~/.pkglist-aur
+[[ -f '~/.pkglist' ]] && $pm - < ~/.pkglist
+[[ -f '~/.pkglist-aur' ]] && $pm --aur - < ~/.pkglist-aur

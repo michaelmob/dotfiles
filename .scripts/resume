@@ -1,0 +1,3 @@
+#!/bin/sh
+# Script ran on system resume from suspend.
+xset r rate 250 50
