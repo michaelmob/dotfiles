@@ -1,3 +1,5 @@
+Xcursor.size: 24
+
 rofi.kb-accept-entry:      Control+m,Return,KP_Enter
 rofi.kb-remove-to-eol:     Control+c
 rofi.kb-row-up:            Up,Control+p,Control+k,ISO_Left_Tab
