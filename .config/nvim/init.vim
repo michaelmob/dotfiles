@@ -125,8 +125,7 @@ let g:sessions_dir = '~/vim-sessions'
 nmap ; :
 
 " New lines
-nnoremap <Enter> o<Esc>
-nnoremap <S-Enter> O<Esc>
+nnoremap <Enter> i<Enter><Esc>
 
 " Remove highlight
 nnoremap <Esc> :nohlsearch<CR>

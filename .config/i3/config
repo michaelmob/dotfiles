@@ -31,7 +31,7 @@ exec --no-startup-id xset r rate 250 30
 exec --no-startup-id alttab
 
 # scratchpads
-exec --no-startup-id $term -c dropdown -e bash -c 'while true; do source ~/.bashrc; tmux attach || tmux; done'
+exec --no-startup-id $term -c dropdown -e bash -c 'while true; do source ~/.bashrc; tmux a -t scratch || tmux new -s scratch; done'
 exec --no-startup-id $term -c math -e bash -c 'while true; do source ~/.bashrc; math; done'
 
 # screensaver

@@ -1,0 +1,5 @@
+"\e[P": delete-char
+"\C-h": backward-word
+"\C-j": next-history
+"\C-k": previous-history
+"\C-l": forward-word
