@@ -1,6 +1,6 @@
 " vim: set filetype=vim:
 " Theme
-set theme shydactyl
+set theme dark
 
 " Close Tab
 unbind d

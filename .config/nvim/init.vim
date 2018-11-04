@@ -138,7 +138,6 @@ nnoremap <leader>S :source $MYVIMRC<CR>
 
 " Terminal
 tnoremap <leader><Esc> <C-\><C-n>
-"tnoremap <Esc> <C-\><C-n>
 tnoremap <C-P> i<C-P>
 tnoremap <C-H> <C-\><C-n><C-W><C-H>
 tnoremap <C-J> <C-\><C-n><C-W><C-J>
@@ -173,6 +172,9 @@ noremap <Leader>q :Bdelete<CR>
 " Tab navigation
 noremap <Leader>h :tabp<CR>
 noremap <Leader>l :tabn<CR>
+
+" Visual 
+vnoremap - g_
 
 
 """

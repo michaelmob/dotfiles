@@ -1,5 +1,8 @@
 "\e[P": delete-char
 "\C-h": backward-word
-"\C-j": next-history
-"\C-k": previous-history
+"\C-j": history-search-backward
+"\C-k": history-search-forward
 "\C-l": forward-word
+"\e[1;5D": backward-word
+"\e[1;5C": forward-word
+"\e[3;5~": shell-backward-kill-word
