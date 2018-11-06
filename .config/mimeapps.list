@@ -22,3 +22,4 @@ image/jpeg=lximage-qt.desktop;
 application/octet-stream=mpv.desktop;
 x-scheme-handler/mailto=userapp-Thunderbird-HE65PZ.desktop;
 message/rfc822=userapp-Thunderbird-HE65PZ.desktop;
+application/x-csh=sublime_text_3.desktop;

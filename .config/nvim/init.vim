@@ -111,11 +111,16 @@ set relativenumber
 set splitbelow
 set splitright
 
+" Conceal
+
 " Leader
 let g:mapleader = ' '
 
 " Sessions
 let g:sessions_dir = '~/vim-sessions'
+
+" Cursor line
+"set cursorline
 
 
 """
@@ -205,9 +210,11 @@ noremap <Leader>r :Tags<CR>
 xmap ga <Plug>(EasyAlign)
 
 " Indents
-let g:indentLine_char = ''
+let g:indentLine_char = '▏'
+let g:indentLine_color_gui = '#454545'
 let g:indentLine_leadingSpaceChar = ' '
 let g:indentLine_leadingSpaceEnabled = 1
+let g:indentLine_concealcursor = ''
 
 " Deoplete
 let g:deoplete#enable_at_startup = 1
@@ -223,3 +230,4 @@ augroup FILETYPES
   autocmd FileType py setlocal shiftwidth=4
   autocmd FileType go setlocal shiftwidth=4
 augroup END
+
