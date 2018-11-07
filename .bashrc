@@ -29,7 +29,7 @@ alias vim="$EDITOR"
 alias v="$EDITOR"
 alias r='ranger'
 alias s='sudo'
-alias ls='ls --color=auto'
+alias ls='ls --color=auto --group-directories-first'
 alias xclip='xclip -selection c'
 alias weather='curl wttr.in/07653'
 
