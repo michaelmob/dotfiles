@@ -106,9 +106,6 @@ let g:mapleader = ' '
 " Sessions
 let g:sessions_dir = '~/vim-sessions'
 
-" Cursor line
-set cursorline
-
 " Messages
 set shortmess+=c
 
