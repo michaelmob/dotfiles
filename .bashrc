@@ -24,7 +24,6 @@ S() { cd . ; }
 
 # Aliases
 alias re-source='source ~/.bashrc'
-
 alias :q='exit'
 alias vim="$EDITOR"
 alias v="$EDITOR"
@@ -33,3 +32,8 @@ alias s='sudo'
 alias ls='ls --color=auto'
 alias xclip='xclip -selection c'
 alias weather='curl wttr.in/07653'
+
+# Git Aliases
+alias gs='git status -uno'
+alias gc='git commit'
+alias gu='git add -u'
