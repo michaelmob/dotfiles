@@ -12,6 +12,8 @@ else
   let pluginspath = vimpath . '/plugged'
 endif
 
+
+
 " Plug Installer
 if empty(glob(plugpath))
   exec 'silent !curl -fLo ' . plugpath . ' --create-dirs ' .
@@ -20,6 +22,7 @@ if empty(glob(plugpath))
     autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
   augroup END
 endif
+
 
 " Plugins
 call plug#begin('~/.local/share/nvim/plugged')
@@ -44,23 +47,9 @@ Plug 'moll/vim-bbye'  " Close buffer; :Bdelete
 Plug 'Yggdroot/indentLine'  " Space indentation
 Plug 'ryanoasis/vim-devicons'  " File icons
 Plug 'christoomey/vim-tmux-navigator'  " Tmux split navigation
+Plug 'lifepillar/vim-mucomplete'  " Completion
+Plug 'davidhalter/jedi-vim'  " Jedi completion
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'  " Snippets for FZF
-
-" Neovim-only Plugins
-if has('nvim')
-  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-
-" Vim-only Plugins
-else
-  Plug 'tpope/vim-sensible'  " Sensible defaults
-  Plug 'Shougo/deoplete.nvim'
-  Plug 'roxma/nvim-yarp'
-  Plug 'roxma/vim-hug-neovim-rpc'
-endif
-
-" Deoplete Sources
-Plug 'zchee/deoplete-jedi'  " Python autocompletion
-
 call plug#end()
 
 
@@ -111,8 +100,6 @@ set relativenumber
 set splitbelow
 set splitright
 
-" Conceal
-
 " Leader
 let g:mapleader = ' '
 
@@ -120,8 +107,14 @@ let g:mapleader = ' '
 let g:sessions_dir = '~/vim-sessions'
 
 " Cursor line
-"set cursorline
+set cursorline
 
+" Messages
+set shortmess+=c
+
+" Completion
+set completeopt+=menuone,noinsert
+set completeopt-=preview
 
 """
 """ Built-in Mappings
@@ -212,16 +205,25 @@ xmap ga <Plug>(EasyAlign)
 " Indents
 let g:indentLine_char = '▏'
 let g:indentLine_color_gui = '#454545'
+
 let g:indentLine_leadingSpaceChar = ' '
 let g:indentLine_leadingSpaceEnabled = 1
 let g:indentLine_concealcursor = ''
 
-" Deoplete
-let g:deoplete#enable_at_startup = 1
-call deoplete#enable()
-call deoplete#custom#option('sources', {
-  \   'cs': ['omnisharp'],
-  \ })
+
+" Ultisnips
+let g:UltiSnipsUsePythonVersion = 3
+let g:UltiSnipsExpandTrigger = '<F5>'
+let g:UltiSnipsJumpForwardTrigger = '<C-L>'
+let g:UltiSnipsJumpBackwardTrigger = '<C-K>'
+
+
+" Mucomplete
+let g:mucomplete#enable_auto_at_startup = 1
+let g:mucomplete#chains = {}
+let g:mucomplete#chains.default = ['path', 'ulti', 'keyn']
+inoremap <silent> <expr> <CR> mucomplete#ultisnips#expand_snippet('<CR>')
+
 
 " File Types
 augroup FILETYPES
