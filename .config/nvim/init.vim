@@ -126,7 +126,7 @@ nnoremap <Enter> i<Enter><Esc>
 nnoremap <Esc> :nohlsearch<CR>
 
 " Write current directory
-nnoremap <leader>L :!echo %:p:h > ~/.last_dir<CR><CR>
+nnoremap <leader>L :!echo %:p:h > ~/.last-dir<CR><CR>
 
 " Source
 nnoremap <leader>S :source $MYVIMRC<CR>

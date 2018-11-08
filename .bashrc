@@ -18,17 +18,19 @@ export PS1="\[$(tput bold)\]\[$(tput setaf 1)\][\[$(tput setaf 3)\]\u\[$(tput se
 
 # Functions
 ranger() { ~/.scripts/ranger $@ ; }
-cd() { builtin cd "$@" && pwd > ~/.last_dir ; }
-L() { builtin cd "$(< ~/.last_dir)" ; }
+cd() { builtin cd "$@" && pwd > ~/.last-dir ; }
+L() { builtin cd "$(< ~/.last-dir)" ; }
 S() { cd . ; }
 
 # Aliases
-alias re-source='source ~/.bashrc'
 alias :q='exit'
+alias so='source ~/.bashrc'
 alias vim="$EDITOR"
 alias v="$EDITOR"
 alias r='ranger'
 alias s='sudo'
+alias t='~/.scripts/tmux'
+alias d='. ~/.scripts/save-dir'
 alias ls='ls --color=auto --group-directories-first'
 alias xclip='xclip -selection c'
 alias weather='curl wttr.in/07653'
