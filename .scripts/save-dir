@@ -1,0 +1,71 @@
+#!/usr/bin/env bash
+saved_dirs_file=~/.saved-dirs
+[[ -f "$saved_dirs_file" ]] || touch $saved_dirs_file
+
+
+usage () {
+  echo 'save-dir save A'
+  echo '  save current directory to A value'
+  echo
+  echo 'save-dir remove A'
+  echo '  remove saved directory value'
+  echo
+  echo 'save-dir A'
+  echo '  set current directory to directory saved in A value'
+}
+
+
+validate () {
+  [[ "$1" ]] || { echo 'Missing first argument.' && exit 1; }
+  [[ "$2" ]] || { echo 'Missing second argument.' && exit 1; }
+}
+
+
+get () {
+  grep -m 1 -oP "$1: \K(.*?)$" $saved_dirs_file
+}
+
+
+save () {
+  echo "$1: $(pwd)" >> $saved_dirs_file
+}
+
+
+remove () {
+  sed -i "/$1:/d" $saved_dirs_file
+}
+
+
+get-action () {
+  case "$1" in
+    save | set)
+      save "$2"
+      ;;
+
+    remove | delete)
+      remove "$2"
+      ;;
+
+    list)
+      cat $saved_dirs_file
+      ;;
+
+    get)
+      echo "$(get "$2")" 
+      ;;
+
+    go | cd)
+      cd "$(get "$2")"
+      ;;
+
+    help)
+      usage
+      ;;
+
+    *)
+      cd "$(get "$1")"
+      ;;
+  esac
+}
+
+get-action "$@"
