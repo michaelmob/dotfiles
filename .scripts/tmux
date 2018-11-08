@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+[[ "$1" ]] || { echo "Missing first argument." && exit 1; }
+case $1 in
+  kill) tmux kill-session -t $2 ;;
+  killall) tmux kill-session -a ;;
+  l | ls) tmux ls ;;
+  -*) tmux ${@:2} ;;
+  *) tmux a -t $1 || tmux new -s $1 ;;
+esac
+exit 0
