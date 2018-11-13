@@ -301,6 +301,8 @@ bar {
   mode           dock
   status_command SCRIPT_DIR=~/.scripts/i3blocks-contrib i3blocks -c ~/.config/i3blocks/config-large
   output         HDMI-A-0
+  output         DP1
+  output         DP2
 
   colors {
     background $darkblack

@@ -30,7 +30,7 @@ alias v="$EDITOR"
 alias r='ranger'
 alias s='sudo'
 alias t='~/.scripts/tmux'
-alias d='. ~/.scripts/save-dir'
+alias g='. ~/.scripts/save-dir'
 alias ls='ls --color=auto --group-directories-first'
 alias xclip='xclip -selection c'
 alias weather='curl wttr.in/07653'
