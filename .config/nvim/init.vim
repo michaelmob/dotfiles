@@ -119,6 +119,12 @@ set completeopt-=preview
 " Commands
 nmap ; :
 
+" Indentation
+nnoremap <Tab> >>
+nnoremap <S-Tab> << 
+vnoremap <Tab> >><Esc>'[V']
+vnoremap <S-Tab> <<<Esc>'[V']
+
 " New lines
 nnoremap <Enter> i<Enter><Esc>
 
