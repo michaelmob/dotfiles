@@ -13,7 +13,6 @@ else
 endif
 
 
-
 " Plug Installer
 if empty(glob(plugpath))
   exec 'silent !curl -fLo ' . plugpath . ' --create-dirs ' .
@@ -27,17 +26,14 @@ endif
 " Plugins
 call plug#begin('~/.local/share/nvim/plugged')
 
-" Neovim-specific
+" Neovim-specific or Vim-specific
 if has('nvim')
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-
-" Vim-specific
 else
   Plug 'Shougo/deoplete.nvim'
   Plug 'roxma/nvim-yarp'
   Plug 'roxma/vim-hug-neovim-rpc'
 endif
-
 
 Plug 'Shougo/denite.nvim'
 Plug 'Shougo/echodoc.vim'
@@ -62,8 +58,6 @@ Plug 'ryanoasis/vim-devicons'  " File icons
 Plug 'christoomey/vim-tmux-navigator'  " Tmux split navigation
 " Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'  " Snippets for FZF
 Plug 'zchee/deoplete-jedi'
-
-
 
 call plug#end()
 
@@ -137,6 +131,7 @@ set shortmess+=c
 set completeopt+=menuone,noinsert
 set completeopt-=preview
 
+
 """
 """ Built-in Mappings
 """
@@ -175,7 +170,7 @@ noremap <Leader>p "+p
 noremap <Leader>P "+P
 
 " Save
-noremap <Space><Esc> :nohlsearch<CR>:redraw!<CR>:w<CR>
+noremap <Space><Esc> :w<CR>
 noremap <C-s> :w<CR>
 
 " Line navigation
@@ -256,6 +251,11 @@ let g:UltiSnipsExpandTrigger = '<F5>'
 let g:UltiSnipsJumpForwardTrigger = '<C-L>'
 let g:UltiSnipsJumpBackwardTrigger = '<C-K>'
 
+
+
+"""
+""" Autocmd Groups
+"""
 " File Types
 augroup FILETYPES
   autocmd FileType c setlocal shiftwidth=4
@@ -264,3 +264,7 @@ augroup FILETYPES
   autocmd FileType go setlocal shiftwidth=4
 augroup END
 
+" Vim Events
+augroup EVENTS
+  autocmd FocusGained,VimResized * :redraw!
+augroup END
