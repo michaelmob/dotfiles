@@ -36,7 +36,7 @@ remove () {
 }
 
 
-get-action () {
+get_action () {
   case "$1" in
     save | set)
       save "$2"
@@ -46,15 +46,15 @@ get-action () {
       remove "$2"
       ;;
 
-    list)
-      cat $saved_dirs_file
+    ls | list)
+      cat "$saved_dirs_file"
       ;;
 
     get)
       echo "$(get "$2")" 
       ;;
 
-    go | cd)
+    cd)
       cd "$(get "$2")"
       ;;
 
@@ -68,4 +68,4 @@ get-action () {
   esac
 }
 
-get-action "$@"
+get_action "$@"
