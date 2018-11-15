@@ -26,30 +26,45 @@ endif
 
 " Plugins
 call plug#begin('~/.local/share/nvim/plugged')
-Plug 'morhetz/gruvbox'  " Gruvbox colorscheme
-Plug 'vim-airline/vim-airline'  " Status line
-Plug 'vim-airline/vim-airline-themes'  " Status line themes
-Plug 'mhinz/vim-startify'  " Vim start screen
-Plug 'sheerun/vim-polyglot'  " Defaults for languages
-Plug 'tpope/vim-vinegar'  " Better netrw defaults; <hyphen>
-Plug 'tpope/vim-surround'  " Surround text; [visual]S <p>
-Plug 'tpope/vim-commentary'  " Commenting; [visual]gc
-Plug 'tpope/vim-fugitive'  " Git; :Gstatus, :Gcommit, ...
-Plug 'tpope/vim-repeat'  " Repeat for supported plugins
-Plug 'tpope/vim-sleuth'  " Indentation detection
-Plug 'mattn/emmet-vim'  " Emmet; tab after tag text, html:5<tab>
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'  " Fuzzy finder; :Files, :Buffers, :Tags
-Plug 'junegunn/vim-peekaboo'  " Register viewer; <quote>
-Plug 'junegunn/vim-easy-align'  " Text alignment; [visual]ga
-Plug 'justinmk/vim-sneak'  " Easy cursor jumping; s/S
-Plug 'moll/vim-bbye'  " Close buffer; :Bdelete
+
+" Neovim-specific
+if has('nvim')
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+
+" Vim-specific
+else
+  Plug 'Shougo/deoplete.nvim'
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+endif
+
+
+Plug 'Shougo/denite.nvim'
+Plug 'Shougo/echodoc.vim'
+Plug 'Shougo/neosnippet.vim'
+Plug 'Shougo/neosnippet-snippets'
+Plug 'tpope/vim-vinegar'       " Better netrw defaults; <hyphen>
+Plug 'tpope/vim-surround'      " Surround text; [visual]S <p>
+Plug 'tpope/vim-commentary'    " Commenting; [visual]gc
+Plug 'tpope/vim-fugitive'      " Git; :Gstatus, :Gcommit, ...
+Plug 'tpope/vim-repeat'        " Repeat for supported plugins
+Plug 'tpope/vim-sleuth'        " Indentation detection
+Plug 'morhetz/gruvbox'                  " Gruvbox colorscheme
+Plug 'vim-airline/vim-airline'          " Status line
+Plug 'vim-airline/vim-airline-themes'   " Status line themes
+Plug 'mhinz/vim-startify'               " Vim start screen
+Plug 'sheerun/vim-polyglot'    " Defaults for languages
+Plug 'junegunn/vim-easy-align' " Text alignment; [visual]ga
+Plug 'justinmk/vim-sneak'      " Easy cursor jumping; s/S
+" Plug 'moll/vim-bbye'  " Close buffer; :Bdelete
 Plug 'Yggdroot/indentLine'  " Space indentation
 Plug 'ryanoasis/vim-devicons'  " File icons
 Plug 'christoomey/vim-tmux-navigator'  " Tmux split navigation
-Plug 'lifepillar/vim-mucomplete'  " Completion
-Plug 'davidhalter/jedi-vim'  " Jedi completion
-Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'  " Snippets for FZF
+" Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'  " Snippets for FZF
+Plug 'zchee/deoplete-jedi'
+
+
+
 call plug#end()
 
 
@@ -64,6 +79,12 @@ set background=dark
 if has('termguicolors')
  set termguicolors
 endif
+
+" Mouse
+set mouse=a
+
+" Cursor
+set scrolloff=2
 
 " List
 set list
@@ -96,6 +117,9 @@ set expandtab
 set number
 set relativenumber
 
+" Status
+set cmdheight=2
+
 " Splits
 set splitbelow
 set splitright
@@ -120,8 +144,8 @@ set completeopt-=preview
 nmap ; :
 
 " Indentation
-nnoremap <Tab> >>
-nnoremap <S-Tab> << 
+nnoremap <Tab> a<Tab><Esc>
+nnoremap <S-Tab> i<Tab><Esc>
 vnoremap <Tab> >><Esc>'[V']
 vnoremap <S-Tab> <<<Esc>'[V']
 
@@ -194,13 +218,26 @@ map F <Plug>Sneak_F
 map t <Plug>Sneak_t
 map T <Plug>Sneak_T
 
-" FZF
-noremap <Leader>b :Buffers<CR>
-noremap <Leader>s :Snippets<CR>
-noremap <C-p> :FZF<CR>
-noremap <Leader>t :Windows<CR>
-noremap <Leader>m :Marks<CR>
-noremap <Leader>r :Tags<CR>
+" Denite
+noremap <Leader>b :Denite buffer<CR>
+noremap <Leader>g :Denite grep<CR>
+noremap <Leader>f :Denite buffer file<CR>
+noremap <Leader>m :Denite mark<CR>
+noremap <Leader>t :Denite tag<CR>
+noremap <Leader>r :Denite register<CR>
+noremap <Leader>d :Denite dictionary<CR>
+
+" Deoplete
+let g:deoplete#enable_at_startup = 1
+inoremap <expr><C-g> deoplete#undo_completion()
+inoremap <expr><C-n> deoplete#manual_complete()
+imap <expr><silent><CR> pumvisible() ? deoplete#mappings#close_popup() .
+  \ '<Plug>(neosnippet_jump_or_expand)' : '<CR>'
+imap <expr><TAB> neosnippet#expandable_or_jumpable() ? 
+  \ '<Plug>(neosnippet_expand_or_jump)' : '<TAB>'
+
+" Echodoc
+let g:echodoc#enable_at_startup = 1
 
 " Easy Align
 xmap ga <Plug>(EasyAlign)
@@ -213,20 +250,11 @@ let g:indentLine_leadingSpaceChar = ' '
 let g:indentLine_leadingSpaceEnabled = 1
 let g:indentLine_concealcursor = ''
 
-
 " Ultisnips
 let g:UltiSnipsUsePythonVersion = 3
 let g:UltiSnipsExpandTrigger = '<F5>'
 let g:UltiSnipsJumpForwardTrigger = '<C-L>'
 let g:UltiSnipsJumpBackwardTrigger = '<C-K>'
-
-
-" Mucomplete
-let g:mucomplete#enable_auto_at_startup = 1
-let g:mucomplete#chains = {}
-let g:mucomplete#chains.default = ['path', 'ulti', 'keyn']
-inoremap <silent> <expr> <CR> mucomplete#ultisnips#expand_snippet('<CR>')
-
 
 " File Types
 augroup FILETYPES

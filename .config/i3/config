@@ -31,8 +31,8 @@ exec --no-startup-id xset r rate 250 30
 exec --no-startup-id alttab
 
 # scratchpads
-exec --no-startup-id $terminal -c dropdown -e scratchpad 'tmux a -t scratch || tmux new -s scratch'
-exec --no-startup-id $terminal -c math -e bash -c 'while true; do source ~/.bashrc; math; done'
+exec --no-startup-id $terminal -c dropdown -e bash -c 'source ~/.bashrc; while true; do tmux a -t scratch || tmux new -s scratch; done'
+exec --no-startup-id $terminal -c math -e bash -c 'source ~/.bashrc; while true; do math; done'
 
 # screensaver
 exec --no-startup-id lock-timer
@@ -81,7 +81,7 @@ bindsym Ctrl+Shift+4         exec flameshot gui
 bindsym $mod+Shift+bar       exec wal-set
 
 # firefox private browsing
-bindsym $mod+p               exec firefox --private-window about:blank
+bindsym Ctrl+$mod+p          exec firefox --private-window about:blank
 
 # edit common configurations
 bindsym $mod+F1              exec $terminal -e ~/.scripts/ranger ~/.config/i3
