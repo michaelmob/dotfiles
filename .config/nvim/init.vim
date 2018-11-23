@@ -77,7 +77,7 @@ if has('termguicolors')
 endif
 
 " Mouse
-set mouse=a
+" set mouse=a
 
 " Cursor
 set scrolloff=2
