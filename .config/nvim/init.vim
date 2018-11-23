@@ -12,7 +12,6 @@ else
   let pluginspath = vimpath . '/plugged'
 endif
 
-
 " Plug Installer
 if empty(glob(plugpath))
   exec 'silent !curl -fLo ' . plugpath . ' --create-dirs ' .
@@ -28,36 +27,39 @@ call plug#begin('~/.local/share/nvim/plugged')
 
 " Neovim-specific or Vim-specific
 if has('nvim')
-  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' } " Completion
+  Plug 'Shougo/defx.nvim',     { 'do': ':UpdateRemotePlugins' } " File manager
 else
-  Plug 'Shougo/deoplete.nvim'
-  Plug 'roxma/nvim-yarp'
-  Plug 'roxma/vim-hug-neovim-rpc'
+  Plug 'Shougo/deoplete.nvim'     " Completion
+  Plug 'Shougo/defx.nvim'         " File manager
+  Plug 'roxma/nvim-yarp'          " Remote plugin support for Vim 8
+  Plug 'roxma/vim-hug-neovim-rpc' " Neovim rpc client compatibility for Vim 8
 endif
 
-Plug 'Shougo/denite.nvim'
-Plug 'Shougo/echodoc.vim'
-Plug 'Shougo/neosnippet.vim'
-Plug 'Shougo/neosnippet-snippets'
-Plug 'tpope/vim-vinegar'       " Better netrw defaults; <hyphen>
-Plug 'tpope/vim-surround'      " Surround text; [visual]S <p>
-Plug 'tpope/vim-commentary'    " Commenting; [visual]gc
-Plug 'tpope/vim-fugitive'      " Git; :Gstatus, :Gcommit, ...
-Plug 'tpope/vim-repeat'        " Repeat for supported plugins
-Plug 'tpope/vim-sleuth'        " Indentation detection
-Plug 'morhetz/gruvbox'                  " Gruvbox colorscheme
-Plug 'vim-airline/vim-airline'          " Status line
-Plug 'vim-airline/vim-airline-themes'   " Status line themes
-Plug 'mhinz/vim-startify'               " Vim start screen
-Plug 'sheerun/vim-polyglot'    " Defaults for languages
-Plug 'junegunn/vim-easy-align' " Text alignment; [visual]ga
-Plug 'justinmk/vim-sneak'      " Easy cursor jumping; s/S
-" Plug 'moll/vim-bbye'  " Close buffer; :Bdelete
-Plug 'Yggdroot/indentLine'  " Space indentation
-Plug 'ryanoasis/vim-devicons'  " File icons
-Plug 'christoomey/vim-tmux-navigator'  " Tmux split navigation
-" Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'  " Snippets for FZF
-Plug 'zchee/deoplete-jedi'
+" Functionality
+Plug 'Shougo/denite.nvim'             " Helm for vim
+Plug 'Shougo/echodoc.vim'             " Docs in echo area
+Plug 'Shougo/neosnippet.vim'          " Snippet engine
+Plug 'Shougo/neosnippet-snippets'     " Snippets
+Plug 'zchee/deoplete-jedi'            " Python completion for deoplete
+Plug 'tpope/vim-surround'             " Surround text; [visual]S <p>
+Plug 'tpope/vim-commentary'           " Commenting; [visual]gc
+Plug 'tpope/vim-fugitive'             " Git; :Gstatus, :Gcommit, ...
+Plug 'tpope/vim-repeat'               " Repeat for supported plugins
+Plug 'tpope/vim-sleuth'               " Indentation detection
+Plug 'mhinz/vim-startify'             " Vim start screen
+Plug 'sheerun/vim-polyglot'           " Defaults for languages
+Plug 'junegunn/vim-easy-align'        " Text alignment; [visual]ga
+Plug 'justinmk/vim-sneak'             " Easy cursor jumping; s/S
+Plug 'christoomey/vim-tmux-navigator' " Tmux split navigation
+Plug 'moll/vim-bbye'                  " Close buffer; :Bdelete
+
+" UI
+Plug 'morhetz/gruvbox'                " Gruvbox colorscheme
+Plug 'vim-airline/vim-airline'        " Status line
+Plug 'vim-airline/vim-airline-themes' " Status line themes
+Plug 'ryanoasis/vim-devicons'         " File icons
+Plug 'Yggdroot/indentLine'            " Space indentation
 
 call plug#end()
 
@@ -112,7 +114,8 @@ set number
 set relativenumber
 
 " Status
-set cmdheight=2
+"set cmdheight=2
+set showmode!
 
 " Splits
 set splitbelow
@@ -148,7 +151,7 @@ vnoremap <S-Tab> <<<Esc>'[V']
 nnoremap <Enter> i<Enter><Esc>
 
 " Remove highlight
-nnoremap <Esc> :nohlsearch<CR>
+nnoremap <silent> <Esc> :nohlsearch<CR>
 
 " Write current directory
 nnoremap <leader>L :!echo %:p:h > ~/.last-dir<CR><CR>
@@ -237,6 +240,9 @@ let g:echodoc#enable_at_startup = 1
 " Easy Align
 xmap ga <Plug>(EasyAlign)
 
+" Defx
+nnoremap <silent> - :Defx<CR>
+
 " Indents
 let g:indentLine_char = '▏'
 let g:indentLine_color_gui = '#454545'
@@ -252,12 +258,48 @@ let g:UltiSnipsJumpForwardTrigger = '<C-L>'
 let g:UltiSnipsJumpBackwardTrigger = '<C-K>'
 
 
+"""
+""" Functions
+"""
+function! DefxBuf()
+  " Goto
+  nnoremap <silent><buffer><expr> ~ defx#do_action('cd')
+
+  " Netrw Navigation
+  nnoremap <silent><buffer><expr> <CR> defx#do_action('open')
+  nnoremap <silent><buffer><expr> - defx#do_action('cd', ['..'])
+  nnoremap <silent><buffer><expr> gh defx#do_action('change_vim_cwd')
+
+  " Ranger Navigation
+  nnoremap <silent><buffer><expr> l defx#do_action('open')
+  nnoremap <silent><buffer><expr> h defx#do_action('cd', ['..'])
+  
+  " Selection
+  nnoremap <silent><buffer><expr> v defx#do_action('toggle_select')
+  nnoremap <silent><buffer><expr> V defx#do_action('toggle_select_all')
+  nnoremap <silent><buffer><expr> zh defx#do_action('toggle_ignored_files')
+
+  " Files
+  nnoremap <silent><buffer><expr> yy defx#do_action('copy')
+  nnoremap <silent><buffer><expr> pp defx#do_action('paste')
+  nnoremap <silent><buffer><expr> A defx#do_action('rename')
+  nnoremap <silent><buffer><expr> dD defx#do_action('remove')
+  nnoremap <silent><buffer><expr> DD defx#do_action('remove_trash')
+  nnoremap <silent><buffer><expr> X defx#do_action('execute_system')
+  nnoremap <silent><buffer><expr> Y defx#do_action('yank_path')
+  nnoremap <silent><buffer><expr> i defx#do_action('drop')
+  nnoremap <silent><buffer><expr> o defx#do_action('new_file')
+  nnoremap <silent><buffer><expr> O defx#do_action('new_directory')
+endfunction
+
+
 
 """
 """ Autocmd Groups
 """
 " File Types
 augroup FILETYPES
+  autocmd FileType defx call DefxBuf()
   autocmd FileType c setlocal shiftwidth=4
   autocmd FileType cpp setlocal shiftwidth=4
   autocmd FileType py setlocal shiftwidth=4
