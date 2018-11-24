@@ -34,8 +34,8 @@ exec --no-startup-id alttab
 exec --no-startup-id $terminal -c dropdown -e bash -c 'source ~/.bashrc; while true; do tmux a -t scratch || tmux new -s scratch; done'
 exec --no-startup-id $terminal -c math -e bash -c 'source ~/.bashrc; while true; do math; done'
 
-# screensaver
-exec --no-startup-id lock-timer
+# power manager
+exec --no-startup-id hypersomnia
 
 # compositor
 exec --no-startup-id compton
@@ -54,6 +54,9 @@ exec --no-startup-id udiskie -s
 
 # network manager
 exec --no-startup-id nm-applet
+
+# cursor
+exec --no-startup-id unclutter
 
 #
 # application launchers

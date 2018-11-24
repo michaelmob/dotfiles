@@ -11,17 +11,18 @@ markup=none
 
 
 # Volume
-[volume-pulseaudio]
-command=$SCRIPT_DIR/volume-pulseaudio/volume-pulseaudio -F 3 -H '墳 ' -M '奔 ' -L '奔 ' -X 'M ' -c "#ff0000"
+[volume]
+command=$SCRIPT_DIR/volume/volume
+label=奔
 interval=once
 signal=10
 
 
 # CPU
-[load_average]
+[cpu_usage]
 label=﬙
-command=$SCRIPT_DIR/load_average/load_average
-interval=10
+command=$SCRIPT_DIR/cpu_usage/cpu_usage
+interval=5
 
 
 # Memory
