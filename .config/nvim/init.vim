@@ -28,10 +28,8 @@ call plug#begin('~/.local/share/nvim/plugged')
 " Neovim-specific or Vim-specific
 if has('nvim')
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' } " Completion
-  Plug 'Shougo/defx.nvim',     { 'do': ':UpdateRemotePlugins' } " File manager
 else
   Plug 'Shougo/deoplete.nvim'     " Completion
-  Plug 'Shougo/defx.nvim'         " File manager
   Plug 'roxma/nvim-yarp'          " Remote plugin support for Vim 8
   Plug 'roxma/vim-hug-neovim-rpc' " Neovim rpc client compatibility for Vim 8
 endif
@@ -43,6 +41,7 @@ Plug 'Shougo/neosnippet.vim'          " Snippet engine
 Plug 'Shougo/neosnippet-snippets'     " Snippets
 Plug 'zchee/deoplete-jedi'            " Python completion for deoplete
 Plug 'tpope/vim-surround'             " Surround text; [visual]S <p>
+Plug 'tpope/vim-vinegar'              " Make netrw usable
 Plug 'tpope/vim-commentary'           " Commenting; [visual]gc
 Plug 'tpope/vim-fugitive'             " Git; :Gstatus, :Gcommit, ...
 Plug 'tpope/vim-repeat'               " Repeat for supported plugins
@@ -53,6 +52,7 @@ Plug 'junegunn/vim-easy-align'        " Text alignment; [visual]ga
 Plug 'justinmk/vim-sneak'             " Easy cursor jumping; s/S
 Plug 'christoomey/vim-tmux-navigator' " Tmux split navigation
 Plug 'moll/vim-bbye'                  " Close buffer; :Bdelete
+Plug 'majutsushi/tagbar'              " Class outline viewer
 
 " UI
 Plug 'morhetz/gruvbox'                " Gruvbox colorscheme
@@ -60,6 +60,7 @@ Plug 'vim-airline/vim-airline'        " Status line
 Plug 'vim-airline/vim-airline-themes' " Status line themes
 Plug 'ryanoasis/vim-devicons'         " File icons
 Plug 'Yggdroot/indentLine'            " Space indentation
+Plug 'junegunn/goyo.vim'              " Distraction free writing
 
 call plug#end()
 
@@ -121,9 +122,6 @@ set showmode!
 set splitbelow
 set splitright
 
-" Leader
-let g:mapleader = ' '
-
 " Sessions
 let g:sessions_dir = '~/vim-sessions'
 
@@ -168,9 +166,9 @@ tnoremap <C-K> <C-\><C-n><C-W><C-K>
 tnoremap <C-L> <C-\><C-n><C-W><C-L>
 
 " Cut and Paste
-noremap <Leader>y "+y
-noremap <Leader>p "+p
-noremap <Leader>P "+P
+noremap <Space>y "+y
+noremap <Space>p "+p
+noremap <Space>P "+P
 
 " Save
 noremap <Space><Esc> :w<CR>
@@ -188,13 +186,13 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 
 " Buffer navigation
-noremap <Leader>j :bprev<CR>
-noremap <Leader>k :bnext<CR>
-noremap <Leader>q :Bdelete<CR>
+noremap <Space>j :bprev<CR>
+noremap <Space>k :bnext<CR>
+noremap <Space>q :Bdelete<CR>
 
 " Tab navigation
-noremap <Leader>h :tabp<CR>
-noremap <Leader>l :tabn<CR>
+noremap <Space>h :tabp<CR>
+noremap <Space>l :tabn<CR>
 
 " Visual 
 vnoremap - g_
@@ -217,13 +215,13 @@ map t <Plug>Sneak_t
 map T <Plug>Sneak_T
 
 " Denite
-noremap <Leader>b :Denite buffer<CR>
-noremap <Leader>g :Denite grep<CR>
-noremap <Leader>f :Denite buffer file<CR>
-noremap <Leader>m :Denite mark<CR>
-noremap <Leader>t :Denite tag<CR>
-noremap <Leader>r :Denite register<CR>
-noremap <Leader>d :Denite dictionary<CR>
+noremap <Space>b :Denite buffer<CR>
+noremap <Space>g :Denite grep<CR>
+noremap <Space>f :Denite buffer file<CR>
+noremap <Space>m :Denite mark<CR>
+noremap <Space>t :Denite tag<CR>
+noremap <Space>r :Denite register<CR>
+noremap <Space>d :Denite dictionary<CR>
 
 " Deoplete
 let g:deoplete#enable_at_startup = 1
@@ -240,13 +238,9 @@ let g:echodoc#enable_at_startup = 1
 " Easy Align
 xmap ga <Plug>(EasyAlign)
 
-" Defx
-nnoremap <silent> - :Defx<CR>
-
 " Indents
 let g:indentLine_char = '▏'
 let g:indentLine_color_gui = '#454545'
-
 let g:indentLine_leadingSpaceChar = ' '
 let g:indentLine_leadingSpaceEnabled = 1
 let g:indentLine_concealcursor = ''
@@ -257,41 +251,16 @@ let g:UltiSnipsExpandTrigger = '<F5>'
 let g:UltiSnipsJumpForwardTrigger = '<C-L>'
 let g:UltiSnipsJumpBackwardTrigger = '<C-K>'
 
-
-"""
-""" Functions
-"""
-function! DefxBuf()
-  " Goto
-  nnoremap <silent><buffer><expr> ~ defx#do_action('cd')
-
-  " Netrw Navigation
-  nnoremap <silent><buffer><expr> <CR> defx#do_action('open')
-  nnoremap <silent><buffer><expr> - defx#do_action('cd', ['..'])
-  nnoremap <silent><buffer><expr> gh defx#do_action('change_vim_cwd')
-
-  " Ranger Navigation
-  nnoremap <silent><buffer><expr> l defx#do_action('open')
-  nnoremap <silent><buffer><expr> h defx#do_action('cd', ['..'])
-  
-  " Selection
-  nnoremap <silent><buffer><expr> v defx#do_action('toggle_select')
-  nnoremap <silent><buffer><expr> V defx#do_action('toggle_select_all')
-  nnoremap <silent><buffer><expr> zh defx#do_action('toggle_ignored_files')
-
-  " Files
-  nnoremap <silent><buffer><expr> yy defx#do_action('copy')
-  nnoremap <silent><buffer><expr> pp defx#do_action('paste')
-  nnoremap <silent><buffer><expr> A defx#do_action('rename')
-  nnoremap <silent><buffer><expr> dD defx#do_action('remove')
-  nnoremap <silent><buffer><expr> DD defx#do_action('remove_trash')
-  nnoremap <silent><buffer><expr> X defx#do_action('execute_system')
-  nnoremap <silent><buffer><expr> Y defx#do_action('yank_path')
-  nnoremap <silent><buffer><expr> i defx#do_action('drop')
-  nnoremap <silent><buffer><expr> o defx#do_action('new_file')
-  nnoremap <silent><buffer><expr> O defx#do_action('new_directory')
+" Netrw
+let g:netrw_localrmdir='rm -r'
+function! NetrwBuf()
+  "let b:netrw_sid = matchstr(maparg('%', 'n'), '<SNR>\d\+_')  " Get <SID> of netrw
+  "nmap d :call <C-r>=b:netrw_sid<CR>NetrwMakeDir('')<CR>
+  nmap <buffer> <silent> <nowait> t %
 endfunction
 
+" Tagbar
+nnoremap <Space>e :TagbarToggle<CR>
 
 
 """
@@ -299,7 +268,7 @@ endfunction
 """
 " File Types
 augroup FILETYPES
-  autocmd FileType defx call DefxBuf()
+  autocmd FileType netrw call NetrwBuf()
   autocmd FileType c setlocal shiftwidth=4
   autocmd FileType cpp setlocal shiftwidth=4
   autocmd FileType py setlocal shiftwidth=4

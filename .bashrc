@@ -20,7 +20,7 @@ export PS1="\[$(tput bold)\]\[$(tput setaf 1)\][\[$(tput setaf 3)\]\u\[$(tput se
 ranger() { ~/.scripts/ranger $@ ; }
 cd() { builtin cd "$@" && pwd > ~/.last-dir ; }
 L() { builtin cd "$(< ~/.last-dir)" ; }
-S() { cd . ; }
+S() { pwd > ~/.last-dir ; }
 
 # Aliases
 alias :q='exit'
@@ -37,5 +37,6 @@ alias weather='curl wttr.in/07653'
 
 # Git Aliases
 alias gs='git status -uno'
+alias gd='git diff HEAD'
 alias gc='git commit'
 alias gu='git add -u'

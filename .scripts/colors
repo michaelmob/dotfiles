@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+colors=("black" "red" "green" "yellow" "blue" "magenta" "cyan" "white" "black" "red" "green" "yellow" "blue" "magenta" "cyan")
+for i in {0..14}; do
+  echo -e "\e[38;5;${i}m color$i ${colors[$i]} \e[0m"
+done
+echo
