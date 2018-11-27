@@ -1,3 +1,4 @@
 #!/usr/bin/env bash
 export HS_RESUME_COMMAND='xset dpms force on; ~/.scripts/resume'
-hypersomnia
+export HS_NOTIFY_STYLE='fade'
+hypersomnia $@

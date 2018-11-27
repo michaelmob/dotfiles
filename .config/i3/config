@@ -35,7 +35,7 @@ exec --no-startup-id $terminal -c dropdown -e bash -c 'source ~/.bashrc; while t
 exec --no-startup-id $terminal -c math -e bash -c 'source ~/.bashrc; while true; do math; done'
 
 # power manager
-exec --no-startup-id hypersomnia
+exec --no-startup-id run-hypersomnia
 
 # compositor
 exec --no-startup-id compton
