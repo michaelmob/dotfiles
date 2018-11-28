@@ -126,8 +126,8 @@ for_window [class="Syncthing GTK"] floating enable
 for_window [class="qt5ct"] floating enable
 for_window [class="Xscreensaver-demo"] floating enable
 for_window [class="net-runelite-launcher-Launcher"] floating enable
-for_window [class="lxappearance"] floating enable
-for_window [class="lxappearance"] floating enable
+for_window [class="Lxappearance"] floating enable
+for_window [class="Wpg"] floating enable
 
 
 #
