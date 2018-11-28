@@ -1,4 +1,0 @@
-#!/usr/bin/env bash
-wal -i ~/Pictures/wallpapers
-reload-dunst
-besterlockscreen -u -e 'dim'

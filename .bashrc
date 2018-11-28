@@ -2,7 +2,7 @@ stty -ixon
 shopt -s autocd
 
 # Colors
-(cat ~/.cache/wal/sequences &)
+(cat $HOME/.config/wpg/sequences &)
 
 # Local Variables
 

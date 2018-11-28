@@ -44,7 +44,7 @@ exec --no-startup-id compton
 exec --no-startup-id redshift -l 40.7:-74
 
 # set wallpaper, colorize i3
-exec --no-startup-id wal-set
+exec --no-startup-id set-colors
 
 # sync tool
 exec --no-startup-id syncthing-gtk --minimized
@@ -81,7 +81,7 @@ bindsym $mod+Shift+Tab       exec rofi -show ssh
 bindsym Ctrl+Shift+4         exec flameshot gui
 
 # change wallpaper
-bindsym $mod+Shift+bar       exec wal-set
+bindsym $mod+Shift+bar       exec set-colors
 
 # firefox private browsing
 bindsym Ctrl+$mod+p          exec firefox --private-window about:blank
@@ -126,6 +126,8 @@ for_window [class="Syncthing GTK"] floating enable
 for_window [class="qt5ct"] floating enable
 for_window [class="Xscreensaver-demo"] floating enable
 for_window [class="net-runelite-launcher-Launcher"] floating enable
+for_window [class="lxappearance"] floating enable
+for_window [class="lxappearance"] floating enable
 
 
 #
@@ -331,7 +333,7 @@ bar {
     statusline $darkwhite
     separator  $cyan
 
-    focused_workspace  $blue      $darkred   $white
+    focused_workspace  $red       $darkred   $white
     active_workspace   $blue      $blue      $white
     inactive_workspace $darkblack $darkblack $darkwhite
     urgent_workspace   $darkblack $darkblack $darkwhite
