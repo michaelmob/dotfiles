@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 wallpaper="$(find "$HOME/Pictures/wallpapers/" | sort -R | head -n 1)"
-wpg -a "$wallpaper" && wpg -A "$wallpaper"
+wpg -A "$wallpaper"
 wpg -s "$wallpaper"
