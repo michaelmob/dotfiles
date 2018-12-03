@@ -107,11 +107,10 @@ set colorcolumn=80
 set wrap!
 
 " Indentation
-set shiftwidth=2
+set shiftwidth=0
 set tabstop=4
-set softtabstop=4
+set noexpandtab
 set smarttab
-set expandtab
 
 " Live substitution
 set inccommand=nosplit
@@ -220,13 +219,14 @@ map t <Plug>Sneak_t
 map T <Plug>Sneak_T
 
 " Denite
-noremap <Space>b :Denite buffer<CR>
-noremap <Space>g :Denite grep<CR>
-noremap <Space>f :Denite buffer file<CR>
-noremap <Space>m :Denite mark<CR>
-noremap <Space>t :Denite tag<CR>
-noremap <Space>r :Denite register<CR>
-noremap <Space>d :Denite dictionary<CR>
+noremap <silent> ' :Denite buffer<CR>
+noremap <silent> <Space>b :Denite buffer<CR>
+noremap <silent> <Space>g :Denite grep<CR>
+noremap <silent> <Space>f :Denite buffer file<CR>
+noremap <silent> <Space>m :Denite mark<CR>
+noremap <silent> <Space>t :Denite tag<CR>
+noremap <silent> <Space>r :Denite register<CR>
+noremap <silent> <Space>d :Denite dictionary<CR>
 
 " Deoplete
 let g:deoplete#enable_at_startup = 1
@@ -280,7 +280,7 @@ let g:highlightedyank_highlight_duration = 250
 " File Types
 augroup FILETYPES
   autocmd FileType netrw call NetrwBuf()
-  autocmd FileType c setlocal shiftwidth=4 tabstop=4 noexpandtab
+  autocmd FileType python setlocal shiftwidth=2 ts=2 sts=2 expandtab
 augroup END
 
 " Vim Events

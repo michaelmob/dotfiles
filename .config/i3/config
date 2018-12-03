@@ -128,6 +128,7 @@ for_window [class="Xscreensaver-demo"] floating enable
 for_window [class="net-runelite-launcher-Launcher"] floating enable
 for_window [class="Lxappearance"] floating enable
 for_window [class="Wpg"] floating enable
+for_window [class="tridactyl_editor"] floating enable
 
 
 #
