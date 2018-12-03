@@ -39,7 +39,6 @@ Plug 'Shougo/denite.nvim'             " Helm for vim
 Plug 'Shougo/echodoc.vim'             " Docs in echo area
 Plug 'Shougo/neosnippet.vim'          " Snippet engine
 Plug 'Shougo/neosnippet-snippets'     " Snippets
-Plug 'zchee/deoplete-jedi'            " Python completion for deoplete
 Plug 'tpope/vim-surround'             " Surround text; [visual]S <p>
 Plug 'tpope/vim-vinegar'              " Make netrw usable
 Plug 'tpope/vim-commentary'           " Commenting; [visual]gc
@@ -55,6 +54,8 @@ Plug 'machakann/vim-highlightedyank'  " Briefly highlight yanked text
 Plug 'christoomey/vim-tmux-navigator' " Tmux split navigation
 Plug 'moll/vim-bbye'                  " Close buffer; :Bdelete
 Plug 'majutsushi/tagbar'              " Class outline viewer
+Plug 'zchee/deoplete-jedi'            " Python completion for deoplete
+Plug 'zchee/deoplete-clang'           " Clang completions
 
 " UI
 Plug 'morhetz/gruvbox'                " Gruvbox colorscheme
@@ -153,13 +154,13 @@ nnoremap <Enter> i<Enter><Esc>
 nnoremap <silent> <Esc> :nohlsearch<CR>
 
 " Write current directory
-nnoremap <leader>L :!echo %:p:h > ~/.last-dir<CR><CR>
+nnoremap <Space>L :!echo %:p:h > ~/.last-dir<CR><CR>
 
 " Source
-nnoremap <leader>S :source $MYVIMRC<CR>
+nnoremap <Space>S :source $MYVIMRC<CR>
 
 " Terminal
-tnoremap <leader><Esc> <C-\><C-n>
+tnoremap <Space><Esc> <C-\><C-n>
 tnoremap <C-P> i<C-P>
 tnoremap <C-H> <C-\><C-n><C-W><C-H>
 tnoremap <C-J> <C-\><C-n><C-W><C-J>
@@ -198,6 +199,9 @@ noremap <Space>l :tabn<CR>
 " Visual 
 vnoremap - g_
 
+nmap <C-m> :make<CR>
+
+
 
 """
 """ Plugin Settings
@@ -228,6 +232,9 @@ noremap <Space>d :Denite dictionary<CR>
 let g:deoplete#enable_at_startup = 1
 inoremap <expr><C-g> deoplete#undo_completion()
 inoremap <expr><C-n> deoplete#manual_complete()
+imap <C-k> <Plug>(neosnippet_expand_or_jump)
+smap <C-k> <Plug>(neosnippet_expand_or_jump)
+xmap <C-k> <Plug>(neosnippet_expand_target)
 imap <expr><silent><CR> pumvisible() ? deoplete#mappings#close_popup() .
   \ '<Plug>(neosnippet_jump_or_expand)' : '<CR>'
 imap <expr><TAB> neosnippet#expandable_or_jumpable() ? 
@@ -273,10 +280,7 @@ let g:highlightedyank_highlight_duration = 250
 " File Types
 augroup FILETYPES
   autocmd FileType netrw call NetrwBuf()
-  autocmd FileType c setlocal shiftwidth=4
-  autocmd FileType cpp setlocal shiftwidth=4
-  autocmd FileType py setlocal shiftwidth=4
-  autocmd FileType go setlocal shiftwidth=4
+  autocmd FileType c setlocal shiftwidth=4 tabstop=4 noexpandtab
 augroup END
 
 " Vim Events
