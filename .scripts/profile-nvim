@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+nvim "$@" \
+  --cmd ":profile start profile.log" \
+  --cmd ':profile func *' \
+  --cmd ':profile file *'
