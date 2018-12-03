@@ -50,6 +50,8 @@ Plug 'mhinz/vim-startify'             " Vim start screen
 Plug 'sheerun/vim-polyglot'           " Defaults for languages
 Plug 'junegunn/vim-easy-align'        " Text alignment; [visual]ga
 Plug 'justinmk/vim-sneak'             " Easy cursor jumping; s/S
+Plug 'tommcdo/vim-exchange'           " Swap selections of code
+Plug 'machakann/vim-highlightedyank'  " Briefly highlight yanked text
 Plug 'christoomey/vim-tmux-navigator' " Tmux split navigation
 Plug 'moll/vim-bbye'                  " Close buffer; :Bdelete
 Plug 'majutsushi/tagbar'              " Class outline viewer
@@ -110,12 +112,14 @@ set softtabstop=4
 set smarttab
 set expandtab
 
+" Live substitution
+set inccommand=nosplit
+
 " Relative line numbers
 set number
 set relativenumber
 
 " Status
-"set cmdheight=2
 set showmode!
 
 " Splits
@@ -136,9 +140,6 @@ set completeopt-=preview
 """
 """ Built-in Mappings
 """
-" Commands
-nmap ; :
-
 " Indentation
 nnoremap <Tab> a<Tab><Esc>
 nnoremap <S-Tab> i<Tab><Esc>
@@ -261,6 +262,9 @@ endfunction
 
 " Tagbar
 nnoremap <Space>e :TagbarToggle<CR>
+
+" Highlightedyank
+let g:highlightedyank_highlight_duration = 250
 
 
 """
