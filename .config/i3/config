@@ -41,7 +41,7 @@ exec --no-startup-id run-hypersomnia
 exec --no-startup-id compton
 
 # flux
-exec --no-startup-id redshift -l 40.7:-74
+exec --no-startup-id redshift -m vidmode -l 40.7:-74
 
 # set wallpaper, colorize i3
 exec --no-startup-id set-colors

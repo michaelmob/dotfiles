@@ -268,7 +268,7 @@ function! NetrwBuf()
 endfunction
 
 " Tagbar
-nnoremap <Space>e :TagbarToggle<CR>
+nnoremap <Space>T :TagbarToggle<CR>
 
 " Highlightedyank
 let g:highlightedyank_highlight_duration = 250

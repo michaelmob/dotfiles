@@ -1608,10 +1608,3 @@ python Dashboard.start()
 # Local Variables:
 # mode: python
 # End:
-
-dashboard -style prompt_not_running '\[\e[1;31m\]>>>\[\e[0m\]'
-set pagination off
-define mr
-make
-run
-end
