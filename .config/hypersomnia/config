@@ -1,2 +1,8 @@
 #!/usr/bin/env bash
-HS_NOTIFY_STYLE='fade'
+if [[ "$(hostname)" == 'pc' ]]; then
+	HS_LOCK_COMMAND='besterlockscreen -l'
+	HS_NOTIFY_SECONDS='120'
+	HS_SCREEN_OFF_SECONDS='180'
+	HS_LOCK_SECONDS='300'
+	HS_SLEEP_SECONDS='300'
+fi

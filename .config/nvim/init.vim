@@ -23,30 +23,25 @@ endif
 
 
 " Plugins
-call plug#begin('~/.local/share/nvim/plugged')
+call plug#begin(pluginspath)
 
-" Neovim-specific or Vim-specific
-if has('nvim')
-  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' } " Completion
-else
-  Plug 'Shougo/deoplete.nvim'     " Completion
-  Plug 'roxma/nvim-yarp'          " Remote plugin support for Vim 8
-  Plug 'roxma/vim-hug-neovim-rpc' " Neovim rpc client compatibility for Vim 8
-endif
+" Vim 8 Compatibility
+Plug 'roxma/nvim-yarp'          " Remote plugin support for Vim 8
+Plug 'roxma/vim-hug-neovim-rpc' " Neovim rpc client compatibility for Vim 8
 
 " Functionality
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }  " Completion
+Plug 'Shougo/defx.nvim',     { 'do': ':UpdateRemotePlugins' }  " File manager
 Plug 'Shougo/denite.nvim'             " Helm for vim
 Plug 'Shougo/echodoc.vim'             " Docs in echo area
 Plug 'Shougo/neosnippet.vim'          " Snippet engine
 Plug 'Shougo/neosnippet-snippets'     " Snippets
 Plug 'tpope/vim-surround'             " Surround text; [visual]S <p>
-Plug 'tpope/vim-vinegar'              " Make netrw usable
 Plug 'tpope/vim-commentary'           " Commenting; [visual]gc
 Plug 'tpope/vim-fugitive'             " Git; :Gstatus, :Gcommit, ...
 Plug 'tpope/vim-repeat'               " Repeat for supported plugins
 Plug 'tpope/vim-sleuth'               " Indentation detection
 Plug 'mhinz/vim-startify'             " Vim start screen
-Plug 'sheerun/vim-polyglot'           " Defaults for languages
 Plug 'junegunn/vim-easy-align'        " Text alignment; [visual]ga
 Plug 'justinmk/vim-sneak'             " Easy cursor jumping; s/S
 Plug 'tommcdo/vim-exchange'           " Swap selections of code
@@ -54,16 +49,22 @@ Plug 'machakann/vim-highlightedyank'  " Briefly highlight yanked text
 Plug 'christoomey/vim-tmux-navigator' " Tmux split navigation
 Plug 'moll/vim-bbye'                  " Close buffer; :Bdelete
 Plug 'majutsushi/tagbar'              " Class outline viewer
-Plug 'zchee/deoplete-jedi'            " Python completion for deoplete
-Plug 'zchee/deoplete-clang'           " Clang completions
 
 " UI
 Plug 'morhetz/gruvbox'                " Gruvbox colorscheme
 Plug 'vim-airline/vim-airline'        " Status line
 Plug 'vim-airline/vim-airline-themes' " Status line themes
 Plug 'ryanoasis/vim-devicons'         " File icons
+Plug 'kristijanhusak/defx-icons'      " File icons for Defx
 Plug 'Yggdroot/indentLine'            " Space indentation
 Plug 'junegunn/goyo.vim'              " Distraction free writing
+Plug 'junegunn/limelight.vim'         " Only highlight current section in Goyo
+
+" Language
+Plug 'sheerun/vim-polyglot'           " Defaults for languages
+Plug 'posva/vim-vue'                  " Vue syntax highlighting
+Plug 'zchee/deoplete-jedi'            " Python completion for deoplete
+Plug 'zchee/deoplete-clang'           " Clang completions
 
 call plug#end()
 
@@ -152,6 +153,10 @@ nnoremap <Enter> i<Enter><Esc>
 " Remove highlight
 nnoremap <silent> <Esc> :nohlsearch<CR>
 
+" Searching
+set ignorecase
+set smartcase
+
 " Write current directory
 nnoremap <Space>L :!echo %:p:h > ~/.last-dir<CR><CR>
 
@@ -198,7 +203,7 @@ noremap <Space>l :tabn<CR>
 " Visual 
 vnoremap - g_
 
-nmap <C-m> :make<CR>
+nmap <silent> M :make<CR>
 
 
 
@@ -240,6 +245,33 @@ imap <expr><silent><CR> pumvisible() ? deoplete#mappings#close_popup() .
 imap <expr><TAB> neosnippet#expandable_or_jumpable() ? 
   \ '<Plug>(neosnippet_expand_or_jump)' : '<TAB>'
 
+" Defx
+let g:defx_icons_enable_syntax_highlight = 0
+nnoremap <silent> - :Defx `expand('%:p:h')` -search=`expand('%:p')` -columns=icons:filename:type<CR>
+function! DefxBuf()
+  " Goto
+  nnoremap <silent><buffer><expr> ~ defx#do_action('cd')
+  " Vinegar Navigation
+  nnoremap <silent><buffer><expr> <CR> defx#do_action('open')
+  nnoremap <silent><buffer><expr> - defx#do_action('cd', ['..'])
+  nnoremap <silent><buffer><expr> gh defx#do_action('change_vim_cwd')
+  " Selection
+  nnoremap <silent><buffer><expr> v defx#do_action('toggle_select')
+  nnoremap <silent><buffer><expr> V defx#do_action('toggle_select_all')
+  nnoremap <silent><buffer><expr> zh defx#do_action('toggle_ignored_files')
+  " Manipulation
+  nnoremap <silent><buffer><expr> yy defx#do_action('copy')
+  nnoremap <silent><buffer><expr> pp defx#do_action('paste')
+  nnoremap <silent><buffer><expr> A defx#do_action('rename')
+  nnoremap <silent><buffer><expr> dD defx#do_action('remove')
+  nnoremap <silent><buffer><expr> DD defx#do_action('remove_trash')
+  nnoremap <silent><buffer><expr> X defx#do_action('execute_system')
+  nnoremap <silent><buffer><expr> Y defx#do_action('yank_path')
+  nnoremap <silent><buffer><expr> i defx#do_action('drop')
+  nnoremap <silent><buffer><expr> t defx#do_action('new_file')
+  nnoremap <silent><buffer><expr> o defx#do_action('new_directory')
+endfunction
+
 " Echodoc
 let g:echodoc#enable_at_startup = 1
 
@@ -259,31 +291,52 @@ let g:UltiSnipsExpandTrigger = '<F5>'
 let g:UltiSnipsJumpForwardTrigger = '<C-L>'
 let g:UltiSnipsJumpBackwardTrigger = '<C-K>'
 
-" Netrw
-let g:netrw_localrmdir='rm -r'
-function! NetrwBuf()
-  "let b:netrw_sid = matchstr(maparg('%', 'n'), '<SNR>\d\+_')  " Get <SID> of netrw
-  "nmap d :call <C-r>=b:netrw_sid<CR>NetrwMakeDir('')<CR>
-  nmap <buffer> <silent> <nowait> t %
-endfunction
-
 " Tagbar
 nnoremap <Space>T :TagbarToggle<CR>
 
 " Highlightedyank
 let g:highlightedyank_highlight_duration = 250
 
+" Goyo
+nmap <silent> <Space>G :Goyo<CR>
+let g:goyo_linenr = 1
+function! s:goyo_enter()
+  let g:goyo_wrap = &wrap  " Store previous wrap setting.
+  set wrap
+  Limelight
+endfunction
+function! s:goyo_leave()
+  if g:goyo_wrap == 0 | set nowrap | endif  " Restore previous wrap setting.
+  Limelight!
+endfunction
+
+
+"""
+""" Functions
+"""
+function! TwoSpaceIndent()
+  setlocal shiftwidth=2
+  setlocal tabstop=2
+  setlocal softtabstop=2
+  setlocal expandtab
+endfunction
 
 """
 """ Autocmd Groups
 """
 " File Types
 augroup FILETYPES
-  autocmd FileType netrw call NetrwBuf()
-  autocmd FileType python setlocal shiftwidth=2 ts=2 sts=2 expandtab
+  autocmd FileType defx call DefxBuf()
+  autocmd FileType vim call TwoSpaceIndent()
+  autocmd FileType python call TwoSpaceIndent()
+  autocmd FileType html call TwoSpaceIndent()
+  autocmd FileType vue call TwoSpaceIndent()
+  autocmd FileType json call TwoSpaceIndent()
 augroup END
 
 " Vim Events
 augroup EVENTS
   autocmd FocusGained,VimResized * :redraw!
+  autocmd User GoyoEnter nested call <SID>goyo_enter()
+  autocmd User GoyoLeave nested call <SID>goyo_leave()
 augroup END

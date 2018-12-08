@@ -6,7 +6,7 @@ case "$1" in
     notify-send -t 5000 "Hypersomnia has been paused for $duration."
     ;;
   unpause*)
-    [[ "${1#*-}" = 'manual' ]] && typeof='manually' || typeof='automatically'
-    notify-send -t 5000 "Hypersomnia has been $typeof unpaused."
+    [[ "${1#*-}" = 'automatic' ]] && typeof='automatically '
+    notify-send -t 5000 "Hypersomnia has been ${typeof}unpaused."
     ;;
 esac
