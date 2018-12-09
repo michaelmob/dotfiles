@@ -3,7 +3,7 @@
 
 export PATH="$PATH:$HOME/.scripts"
 export TERMINAL='st'
-export EDITOR='nvim'
+export EDITOR='vim'
 export BROWSER='firefox'
 
 [[ -f ~/.bashrc ]] && source ~/.bashrc

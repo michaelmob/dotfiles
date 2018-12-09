@@ -26,12 +26,19 @@ endif
 call plug#begin(pluginspath)
 
 " Vim 8 Compatibility
-Plug 'roxma/nvim-yarp'          " Remote plugin support for Vim 8
-Plug 'roxma/vim-hug-neovim-rpc' " Neovim rpc client compatibility for Vim 8
+if has('nvim')
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }  " Completion
+  Plug 'Shougo/defx.nvim',     { 'do': ':UpdateRemotePlugins' }  " File manager
+else
+  Plug 'Shougo/deoplete.nvim'     " Completion
+  Plug 'Shougo/defx.nvim'         " File manager
+  Plug 'roxma/nvim-yarp'          " Remote plugin support for Vim 8
+  Plug 'roxma/vim-hug-neovim-rpc' " Neovim rpc client compatibility for Vim 8
+  Plug 'tpope/vim-sensible'       " Sensible defaults
+  Plug 'markonm/traces.vim'       " Live substitute for vim
+endif
 
 " Functionality
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }  " Completion
-Plug 'Shougo/defx.nvim',     { 'do': ':UpdateRemotePlugins' }  " File manager
 Plug 'Shougo/denite.nvim'             " Helm for vim
 Plug 'Shougo/echodoc.vim'             " Docs in echo area
 Plug 'Shougo/neosnippet.vim'          " Snippet engine
@@ -86,6 +93,10 @@ endif
 
 " Cursor
 set scrolloff=2
+set cursorline
+let &t_SI.="\e[5 q"
+let &t_SR.="\e[4 q"
+let &t_EI.="\e[1 q"
 
 " List
 set list
@@ -95,7 +106,7 @@ set listchars=tab:\ ,trail:\ ,precedes:^,extends:$,eol:¬
 set showcmd
 
 " Speed
-set regexpengine=1
+" set regexpengine=1
 
 " Timeouts
 set timeoutlen=1000
@@ -114,7 +125,9 @@ set noexpandtab
 set smarttab
 
 " Live substitution
-set inccommand=nosplit
+if has('nvim')
+  set inccommand=nosplit
+endif
 
 " Relative line numbers
 set number
@@ -277,14 +290,14 @@ let g:echodoc#enable_at_startup = 1
 
 " Easy Align
 xmap ga <Plug>(EasyAlign)
-
+    
 " Indents
 let g:indentLine_char = '▏'
 let g:indentLine_color_gui = '#454545'
 let g:indentLine_leadingSpaceChar = ' '
 let g:indentLine_leadingSpaceEnabled = 1
 let g:indentLine_concealcursor = ''
-
+"
 " Ultisnips
 let g:UltiSnipsUsePythonVersion = 3
 let g:UltiSnipsExpandTrigger = '<F5>'
