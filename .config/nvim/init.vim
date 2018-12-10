@@ -28,10 +28,8 @@ call plug#begin(pluginspath)
 " Vim 8 Compatibility
 if has('nvim')
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }  " Completion
-  Plug 'Shougo/defx.nvim',     { 'do': ':UpdateRemotePlugins' }  " File manager
 else
   Plug 'Shougo/deoplete.nvim'     " Completion
-  Plug 'Shougo/defx.nvim'         " File manager
   Plug 'roxma/nvim-yarp'          " Remote plugin support for Vim 8
   Plug 'roxma/vim-hug-neovim-rpc' " Neovim rpc client compatibility for Vim 8
   Plug 'tpope/vim-sensible'       " Sensible defaults
@@ -44,6 +42,7 @@ Plug 'Shougo/echodoc.vim'             " Docs in echo area
 Plug 'Shougo/neosnippet.vim'          " Snippet engine
 Plug 'Shougo/neosnippet-snippets'     " Snippets
 Plug 'tpope/vim-surround'             " Surround text; [visual]S <p>
+Plug 'tpope/vim-vinegar'              " Better netrw defaults
 Plug 'tpope/vim-commentary'           " Commenting; [visual]gc
 Plug 'tpope/vim-fugitive'             " Git; :Gstatus, :Gcommit, ...
 Plug 'tpope/vim-repeat'               " Repeat for supported plugins
@@ -56,13 +55,14 @@ Plug 'machakann/vim-highlightedyank'  " Briefly highlight yanked text
 Plug 'christoomey/vim-tmux-navigator' " Tmux split navigation
 Plug 'moll/vim-bbye'                  " Close buffer; :Bdelete
 Plug 'majutsushi/tagbar'              " Class outline viewer
+Plug 'unblevable/quick-scope'         " Highlighting for f and t
 
 " UI
+Plug 'haishanh/night-owl.vim'         " Night-owl colorscheme
 Plug 'morhetz/gruvbox'                " Gruvbox colorscheme
 Plug 'vim-airline/vim-airline'        " Status line
 Plug 'vim-airline/vim-airline-themes' " Status line themes
 Plug 'ryanoasis/vim-devicons'         " File icons
-Plug 'kristijanhusak/defx-icons'      " File icons for Defx
 Plug 'Yggdroot/indentLine'            " Space indentation
 Plug 'junegunn/goyo.vim'              " Distraction free writing
 Plug 'junegunn/limelight.vim'         " Only highlight current section in Goyo
@@ -194,8 +194,8 @@ noremap <Space><Esc> :w<CR>
 noremap <C-s> :w<CR>
 
 " Line navigation
-nnoremap <expr> j v:count ? (v:count > 5 ? "m'" . v:count : '') . 'j' : 'gj'
-nnoremap <expr> k v:count ? (v:count > 5 ? "m'" . v:count : '') . 'k' : 'gk'
+nnoremap <expr> <silent> j v:count ? (v:count > 5 ? "m'" . v:count : '') . 'j' : 'gj'
+nnoremap <expr> <silent> k v:count ? (v:count > 5 ? "m'" . v:count : '') . 'k' : 'gk'
 
 " Split navigation
 map <Space> <Nop>
@@ -213,7 +213,7 @@ noremap <Space>q :Bdelete<CR>
 noremap <Space>h :tabp<CR>
 noremap <Space>l :tabn<CR>
 
-" Visual 
+" Visual
 vnoremap - g_
 
 nmap <silent> M :make<CR>
@@ -224,17 +224,40 @@ nmap <silent> M :make<CR>
 """ Plugin Settings
 """
 " Airline
+if !exists('g:airline_symbols') | let g:airline_symbols = {} | endif
 let g:airline_powerline_fonts = 1
-
-" Netrw
-let g:netrw_bufsettings = 'noma nomod nu nobl nowrap ro'
+let g:airline_left_sep = ''
+let g:airline_right_sep = ''
+let g:airline_section_z = ' %#__accent_bold#%l/%L%#__restore__# : %2v '
+let g:airline_mode_map = {
+  \ '__' : '-',
+  \ 'c'  : 'C',
+  \ 'i'  : 'I',
+  \ 'ic' : 'I',
+  \ 'ix' : 'I',
+  \ 'n'  : 'N',
+  \ 'ni' : 'N',
+  \ 'no' : 'N',
+  \ 'R'  : 'R',
+  \ 'Rv' : 'R',
+  \ 's'  : 'S',
+  \ 'S'  : 'S',
+  \ '' : 'S',
+  \ 't'  : 'T',
+  \ 'v'  : 'V',
+  \ 'V'  : 'V',
+  \ '' : 'V',
+  \ }
+let g:airline#extensions#whitespace#symbol = '!'
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#left_sep = ' '
+let g:airline#extensions#tabline#left_alt_sep = '|'
 
 " Sneak
 let g:sneak#label = 1
-map f <Plug>Sneak_f
-map F <Plug>Sneak_F
-map t <Plug>Sneak_t
-map T <Plug>Sneak_T
+
+" Quickscope 
+let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 
 " Denite
 noremap <silent> ' :Denite buffer<CR>
@@ -255,42 +278,14 @@ smap <C-k> <Plug>(neosnippet_expand_or_jump)
 xmap <C-k> <Plug>(neosnippet_expand_target)
 imap <expr><silent><CR> pumvisible() ? deoplete#mappings#close_popup() .
   \ '<Plug>(neosnippet_jump_or_expand)' : '<CR>'
-imap <expr><TAB> neosnippet#expandable_or_jumpable() ? 
+imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
   \ '<Plug>(neosnippet_expand_or_jump)' : '<TAB>'
 
-" Defx
-let g:defx_icons_enable_syntax_highlight = 0
-nnoremap <silent> - :Defx `expand('%:p:h')` -search=`expand('%:p')` -columns=icons:filename:type<CR>
-function! DefxBuf()
-  " Goto
-  nnoremap <silent><buffer><expr> ~ defx#do_action('cd')
-  " Vinegar Navigation
-  nnoremap <silent><buffer><expr> <CR> defx#do_action('open')
-  nnoremap <silent><buffer><expr> - defx#do_action('cd', ['..'])
-  nnoremap <silent><buffer><expr> gh defx#do_action('change_vim_cwd')
-  " Selection
-  nnoremap <silent><buffer><expr> v defx#do_action('toggle_select')
-  nnoremap <silent><buffer><expr> V defx#do_action('toggle_select_all')
-  nnoremap <silent><buffer><expr> zh defx#do_action('toggle_ignored_files')
-  " Manipulation
-  nnoremap <silent><buffer><expr> yy defx#do_action('copy')
-  nnoremap <silent><buffer><expr> pp defx#do_action('paste')
-  nnoremap <silent><buffer><expr> A defx#do_action('rename')
-  nnoremap <silent><buffer><expr> dD defx#do_action('remove')
-  nnoremap <silent><buffer><expr> DD defx#do_action('remove_trash')
-  nnoremap <silent><buffer><expr> X defx#do_action('execute_system')
-  nnoremap <silent><buffer><expr> Y defx#do_action('yank_path')
-  nnoremap <silent><buffer><expr> i defx#do_action('drop')
-  nnoremap <silent><buffer><expr> t defx#do_action('new_file')
-  nnoremap <silent><buffer><expr> o defx#do_action('new_directory')
-endfunction
-
-" Echodoc
 let g:echodoc#enable_at_startup = 1
 
 " Easy Align
 xmap ga <Plug>(EasyAlign)
-    
+
 " Indents
 let g:indentLine_char = '▏'
 let g:indentLine_color_gui = '#454545'
@@ -303,6 +298,19 @@ let g:UltiSnipsUsePythonVersion = 3
 let g:UltiSnipsExpandTrigger = '<F5>'
 let g:UltiSnipsJumpForwardTrigger = '<C-L>'
 let g:UltiSnipsJumpBackwardTrigger = '<C-K>'
+
+" Netrw
+let g:netrw_bufsettings = 'noma nomod nu nobl nowrap ro'
+let g:netrw_localrmdir='rm -r'
+function! Netrw(cmd)
+  if exists('b:sid') | execute "call " . b:sid . a:cmd | endif
+endfunction
+function! NetrwBuf()
+  " Find Netrw functions here:
+  " https://github.com/vim/vim/blob/master/runtime/autoload/netrw.vim
+  let b:sid = matchstr(maparg('%', 'n'), '<SNR>\d\+_')  " Netrw's <SID>
+  nmap <buffer> t :call Netrw("NetrwOpenFile(1)")<CR>
+endfunction
 
 " Tagbar
 nnoremap <Space>T :TagbarToggle<CR>
@@ -339,6 +347,7 @@ endfunction
 """
 " File Types
 augroup FILETYPES
+  autocmd FileType netrw call NetrwBuf()
   autocmd FileType defx call DefxBuf()
   autocmd FileType vim call TwoSpaceIndent()
   autocmd FileType python call TwoSpaceIndent()

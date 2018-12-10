@@ -23,9 +23,7 @@ case $1 in
 
   # Attach or create new session.
   *)
-    file="$HOME/.scripts/save-dir"
-    dir="$($file get $1)"
-    [[ -d "$dir" ]] && cd "$dir"
+    $HOME/.scripts/save-dir cd "$1"
     tmux a -t $1 || tmux new -s $1
     ;;
 esac

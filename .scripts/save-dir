@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-saved_dirs_file=~/.saved-dirs
-[[ -f "$saved_dirs_file" ]] || touch $saved_dirs_file
+saved_dirs_file="$HOME/.saved-dirs"
+[[ -f "$saved_dirs_file" ]] || touch "$saved_dirs_file"
 
 
 usage () {
@@ -15,34 +15,29 @@ usage () {
 }
 
 
-validate () {
-  [[ "$1" ]] || { echo 'Missing first argument.' && exit 1; }
-  [[ "$2" ]] || { echo 'Missing second argument.' && exit 1; }
-}
-
-
 get () {
-  grep -m 1 -oP "$1: \K(.*?)$" $saved_dirs_file
+  grep -m 1 -oP "$1: \K(.*?)$" "$saved_dirs_file"
 }
 
 
 save () {
-  echo "$1: $(pwd)" >> $saved_dirs_file
+  remove "$1"
+  echo "$1: $(pwd)" >> "$saved_dirs_file"
 }
 
 
 remove () {
-  sed -i "/$1:/d" $saved_dirs_file
+  sed -i "/$1:/d" "$saved_dirs_file"
 }
 
 
 get_action () {
   case "$1" in
-    save | set)
+    add | save | set)
       save "$2"
       ;;
 
-    remove | delete)
+    remove | delete | del | rm)
       remove "$2"
       ;;
 
@@ -63,9 +58,10 @@ get_action () {
       ;;
 
     *)
-      cd "$(get "$1")"
+      dir="$(get "$1")" && [[ -d "$dir" ]] && cd "$dir" || usage
       ;;
   esac
 }
 
-get_action "$@"
+
+[[ -z "$1" ]] && usage || get_action "$@"
