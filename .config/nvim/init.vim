@@ -47,7 +47,6 @@ Plug 'tpope/vim-commentary'           " Commenting; [visual]gc
 Plug 'tpope/vim-fugitive'             " Git; :Gstatus, :Gcommit, ...
 Plug 'tpope/vim-repeat'               " Repeat for supported plugins
 Plug 'tpope/vim-sleuth'               " Indentation detection
-Plug 'mhinz/vim-startify'             " Vim start screen
 Plug 'junegunn/vim-easy-align'        " Text alignment; [visual]ga
 Plug 'justinmk/vim-sneak'             " Easy cursor jumping; s/S
 Plug 'tommcdo/vim-exchange'           " Swap selections of code
