@@ -118,17 +118,22 @@ focus_follows_mouse no
 new_window pixel 3
 
 # window rules
-for_window [class="Clock-applet"] floating enable
-for_window [class="Xfce4-panel"]  floating enable
-for_window [class="Wrapper-1.0"]  floating enable
-for_window [class="lxqt-notificationd"] floating enable
-for_window [class="Syncthing GTK"] floating enable
-for_window [class="qt5ct"] floating enable
-for_window [class="Xscreensaver-demo"] floating enable
+for_window [instance="float"]                       floating enable
+for_window [class="Clock-applet"]                   floating enable
+for_window [class="Xfce4-panel"]                    floating enable
+for_window [class="Wrapper-1.0"]                    floating enable
+for_window [class="lxqt-notificationd"]             floating enable
+for_window [class="Syncthing GTK"]                  floating enable
+for_window [class="qt5ct"]                          floating enable
+for_window [class="Xscreensaver-demo"]              floating enable
 for_window [class="net-runelite-launcher-Launcher"] floating enable
-for_window [class="Lxappearance"] floating enable
-for_window [class="Wpg"] floating enable
-for_window [class="tridactyl_editor"] floating enable
+for_window [class="Lxappearance"]                   floating enable
+for_window [class="Wpg"]                            floating enable
+for_window [class="tridactyl_editor"]               floating enable
+for_window [class="Arandr"]                         floating enable
+
+no_focus [tiling]
+no_focus [floating]
 
 
 #
@@ -205,7 +210,7 @@ bindsym $mod+Shift+apostrophe   gaps inner current set 0; gaps outer current set
 font pango:Hack 10
 
 # kill focused window
-bindsym $mod+Shift+q            [con_id="__focused__" class="^(?!dropdown|math).*$"] kill
+bindsym $mod+Shift+q [con_id="__focused__" class="^(?!dropdown|math).*$"] kill
 
 # change focus
 bindsym $mod+h focus left
@@ -227,6 +232,9 @@ bindsym $mod+t     split toggle
 # fullscreen
 bindsym $mod+f fullscreen toggle
 
+# sticky
+bindsym $mod+z sticky toggle
+
 # layouts
 bindsym $mod+s layout stacking
 bindsym $mod+w layout tabbed
@@ -242,16 +250,10 @@ bindsym $mod+space focus mode_toggle
 bindsym $mod+a focus parent
 
 # resize window
-bindsym $mod+y resize shrink width 30 px or 10 ppt
-bindsym $mod+u resize grow height 30 px or 10 ppt
-bindsym $mod+i resize shrink height 30 px or 10 ppt
-bindsym $mod+o resize grow width 30 px or 10 ppt
-
-# resize window (smaller)
-bindsym $mod+Shift+y resize shrink width 15 px or 5 ppt
-bindsym $mod+Shift+u resize grow height 15 px or 5 ppt
-bindsym $mod+Shift+i resize shrink height 15 px or 5 ppt
-bindsym $mod+Shift+o resize grow width 15 px or 5 ppt
+bindsym $mod+Shift+y resize shrink width 30 px or 10 ppt
+bindsym $mod+Shift+u resize grow height 30 px or 10 ppt
+bindsym $mod+Shift+i resize shrink height 30 px or 10 ppt
+bindsym $mod+Shift+o resize grow width 30 px or 10 ppt
 
 # workspaces
 set $ws1  "1"

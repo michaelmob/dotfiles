@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-class="$(xprop | grep -oP 'WM_CLASS(.*?)"\K(.*?)(?=")')"
-echo "for_window [class=\"$class\"] floating enable"

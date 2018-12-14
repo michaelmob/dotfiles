@@ -36,8 +36,10 @@ else
   Plug 'markonm/traces.vim'       " Live substitute for vim
 endif
 
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+
 " Functionality
-Plug 'Shougo/denite.nvim'             " Helm for vim
 Plug 'Shougo/echodoc.vim'             " Docs in echo area
 Plug 'Shougo/neosnippet.vim'          " Snippet engine
 Plug 'Shougo/neosnippet-snippets'     " Snippets
@@ -68,7 +70,6 @@ Plug 'junegunn/limelight.vim'         " Only highlight current section in Goyo
 
 " Language
 Plug 'sheerun/vim-polyglot'           " Defaults for languages
-Plug 'posva/vim-vue'                  " Vue syntax highlighting
 Plug 'zchee/deoplete-jedi'            " Python completion for deoplete
 Plug 'zchee/deoplete-clang'           " Clang completions
 
@@ -92,7 +93,7 @@ endif
 
 " Cursor
 set scrolloff=2
-set cursorline
+set nocursorline
 let &t_SI.="\e[5 q"
 let &t_SR.="\e[4 q"
 let &t_EI.="\e[1 q"
@@ -193,8 +194,8 @@ noremap <Space><Esc> :w<CR>
 noremap <C-s> :w<CR>
 
 " Line navigation
-nnoremap <expr> <silent> j v:count ? (v:count > 5 ? "m'" . v:count : '') . 'j' : 'gj'
-nnoremap <expr> <silent> k v:count ? (v:count > 5 ? "m'" . v:count : '') . 'k' : 'gk'
+"nnoremap <expr> <silent> j v:count ? (v:count > 5 ? "m'" . v:count : '') . 'j' : 'gj'
+"nnoremap <expr> <silent> k v:count ? (v:count > 5 ? "m'" . v:count : '') . 'k' : 'gk'
 
 " Split navigation
 map <Space> <Nop>
@@ -207,6 +208,8 @@ nnoremap <C-L> <C-W><C-L>
 noremap <Space>j :bprev<CR>
 noremap <Space>k :bnext<CR>
 noremap <Space>q :Bdelete<CR>
+noremap <C-p> :bprev<CR>
+noremap <C-n> :bnext<CR>
 
 " Tab navigation
 noremap <Space>h :tabp<CR>
@@ -262,7 +265,8 @@ let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 noremap <silent> ' :Denite buffer<CR>
 noremap <silent> <Space>b :Denite buffer<CR>
 noremap <silent> <Space>g :Denite grep<CR>
-noremap <silent> <Space>f :Denite buffer file<CR>
+"noremap <silent> <Space>f :Denite buffer file_rec<CR>
+noremap <silent> <Space>f :FZF<CR>
 noremap <silent> <Space>m :Denite mark<CR>
 noremap <silent> <Space>t :Denite tag<CR>
 noremap <silent> <Space>r :Denite register<CR>

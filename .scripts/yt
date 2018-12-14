@@ -1,2 +1,5 @@
 #!/usr/bin/env bash
-mpv --really-quiet "$@" & disown
+mpv \
+	--x11-name 'float' \
+	--geometry='50%x50%' \
+	--really-quiet "$@" & disown
