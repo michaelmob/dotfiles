@@ -12,6 +12,7 @@ else
   let pluginspath = vimpath . '/plugged'
 endif
 
+ 
 " Plug Installer
 if empty(glob(plugpath))
   exec 'silent !curl -fLo ' . plugpath . ' --create-dirs ' .
@@ -26,23 +27,16 @@ endif
 call plug#begin(pluginspath)
 
 " Vim 8 Compatibility
-if has('nvim')
-  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }  " Completion
-else
-  Plug 'Shougo/deoplete.nvim'     " Completion
-  Plug 'roxma/nvim-yarp'          " Remote plugin support for Vim 8
-  Plug 'roxma/vim-hug-neovim-rpc' " Neovim rpc client compatibility for Vim 8
+if !has('nvim')
   Plug 'tpope/vim-sensible'       " Sensible defaults
   Plug 'markonm/traces.vim'       " Live substitute for vim
 endif
 
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' } 
+Plug 'junegunn/fzf.vim'  " Fuzzy finder
 
 " Functionality
-Plug 'Shougo/echodoc.vim'             " Docs in echo area
-Plug 'Shougo/neosnippet.vim'          " Snippet engine
-Plug 'Shougo/neosnippet-snippets'     " Snippets
+Plug 'lifepillar/vim-mucomplete'      " Autocompletion
 Plug 'tpope/vim-surround'             " Surround text; [visual]S <p>
 Plug 'tpope/vim-vinegar'              " Better netrw defaults
 Plug 'tpope/vim-commentary'           " Commenting; [visual]gc
@@ -57,9 +51,10 @@ Plug 'christoomey/vim-tmux-navigator' " Tmux split navigation
 Plug 'moll/vim-bbye'                  " Close buffer; :Bdelete
 Plug 'majutsushi/tagbar'              " Class outline viewer
 Plug 'unblevable/quick-scope'         " Highlighting for f and t
+Plug 'SirVer/ultisnips'               " Snippets engine
+Plug 'honza/vim-snippets'             " Snippets
 
 " UI
-Plug 'haishanh/night-owl.vim'         " Night-owl colorscheme
 Plug 'morhetz/gruvbox'                " Gruvbox colorscheme
 Plug 'vim-airline/vim-airline'        " Status line
 Plug 'vim-airline/vim-airline-themes' " Status line themes
@@ -70,8 +65,7 @@ Plug 'junegunn/limelight.vim'         " Only highlight current section in Goyo
 
 " Language
 Plug 'sheerun/vim-polyglot'           " Defaults for languages
-Plug 'zchee/deoplete-jedi'            " Python completion for deoplete
-Plug 'zchee/deoplete-clang'           " Clang completions
+Plug 'davidhalter/jedi-vim'           " Python autocompletion
 
 call plug#end()
 
@@ -89,7 +83,7 @@ if has('termguicolors')
 endif
 
 " Mouse
-" set mouse=a
+"set mouse=a
 
 " Cursor
 set scrolloff=2
@@ -98,6 +92,7 @@ let &t_SI.="\e[5 q"
 let &t_SR.="\e[4 q"
 let &t_EI.="\e[1 q"
 
+
 " List
 set list
 set listchars=tab:\ ,trail:\ ,precedes:^,extends:$,eol:¬
@@ -105,8 +100,11 @@ set listchars=tab:\ ,trail:\ ,precedes:^,extends:$,eol:¬
 " Commands
 set showcmd
 
-" Speed
-" set regexpengine=1
+" Conceal
+set conceallevel=0
+
+" Regex Engine
+"set regexpengine=1
 
 " Timeouts
 set timeoutlen=1000
@@ -151,15 +149,10 @@ set completeopt+=menuone,noinsert
 set completeopt-=preview
 
 
+
 """
 """ Built-in Mappings
 """
-" Indentation
-nnoremap <Tab> a<Tab><Esc>
-nnoremap <S-Tab> i<Tab><Esc>
-vnoremap <Tab> >><Esc>'[V']
-vnoremap <S-Tab> <<<Esc>'[V']
-
 " New lines
 nnoremap <Enter> i<Enter><Esc>
 
@@ -261,30 +254,25 @@ let g:sneak#label = 1
 " Quickscope 
 let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 
-" Denite
-noremap <silent> ' :Denite buffer<CR>
-noremap <silent> <Space>b :Denite buffer<CR>
-noremap <silent> <Space>g :Denite grep<CR>
-"noremap <silent> <Space>f :Denite buffer file_rec<CR>
-noremap <silent> <Space>f :FZF<CR>
-noremap <silent> <Space>m :Denite mark<CR>
-noremap <silent> <Space>t :Denite tag<CR>
-noremap <silent> <Space>r :Denite register<CR>
-noremap <silent> <Space>d :Denite dictionary<CR>
-
-" Deoplete
-let g:deoplete#enable_at_startup = 1
-inoremap <expr><C-g> deoplete#undo_completion()
-inoremap <expr><C-n> deoplete#manual_complete()
-imap <C-k> <Plug>(neosnippet_expand_or_jump)
-smap <C-k> <Plug>(neosnippet_expand_or_jump)
-xmap <C-k> <Plug>(neosnippet_expand_target)
-imap <expr><silent><CR> pumvisible() ? deoplete#mappings#close_popup() .
-  \ '<Plug>(neosnippet_jump_or_expand)' : '<CR>'
-imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-  \ '<Plug>(neosnippet_expand_or_jump)' : '<TAB>'
-
+" Echodoc
 let g:echodoc#enable_at_startup = 1
+
+" Mucomplete
+let g:mucomplete#enable_auto_at_startup = 1
+let g:mucomplete#chains = {}
+let g:mucomplete#chains.default = ['path', 'ulti', 'omni', 'keyn', 'dict', 'uspl']
+let g:mucomplete#cycle_with_trigger = "<C-d>"
+
+imap <unique> <C-n> <plug>(MUcompleteFwd)
+imap <expr> <down> mucomplete#extend_fwd("\<down>")
+inoremap <silent> <expr> <CR> mucomplete#ultisnips#expand_snippet("\<CR>")
+
+
+" Ultisnips
+let g:UltiSnipsExpandTrigger = "<c-e>"
+let g:UltiSnipsJumpForwardTrigger = "<c-f>"
+let g:UltiSnipsJumpBackwardTrigger = "<c-b>"
+
 
 " Easy Align
 xmap ga <Plug>(EasyAlign)
