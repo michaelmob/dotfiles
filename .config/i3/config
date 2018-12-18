@@ -97,6 +97,13 @@ bindsym XF86AudioMute        exec pamixer -t && pkill -RTMIN+10 i3blocks
 bindsym XF86AudioMicMute     exec pamixer --source 1 -t
 bindsym XF86TouchpadToggle   exec touchpad toggle
 
+# music
+bindsym Pause                exec playerctl play-pause
+bindsym XF86AudioPlay        exec playerctl play-pause
+bindsym XF86AudioStop        exec playerctl stop
+bindsym XF86AudioPrev        exec playerctl previous
+bindsym XF86AudioNext        exec playerctl next
+
 
 
 #
