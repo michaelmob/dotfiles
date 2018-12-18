@@ -24,8 +24,9 @@ Default applications can be changed by editing `~/.profile` or `~/.config/mimeap
 
 | Program | Name | Description |
 |---|---|---|
-| Browser | [Brave]() | Fast, freedom-respecting web browser. |
-| Editor | [Vim]() | Modal editor. |
+| Terminal Emulator | [st](https://github.com/thetarkus/st) | Suckless terminal. |
+| Browser | [Brave](https://brave.com/) | Fast, freedom-respecting web browser. |
+| Editor | [Vim](https://www.vim.org/) | Modal editor. |
 | Password Manager | [Bitwarden](https://bitwarden.com/) | Open-source password manager. |
 | E-mail | [Thunderbird](https://www.thunderbird.net/en-US/) | E-mail client by Mozilla. |
 
@@ -35,7 +36,7 @@ Default applications can be changed by editing `~/.profile` or `~/.config/mimeap
 | Font | Name | Location |
 |---|---|---|
 | Sans-Serif | [Droid Sans](https://fonts.google.com/?query=droid&selection.family=Cardo) | `~/.config/fontconfig/conf.d/10-sans-serif.conf` |
-| Monospace | [Hack](https://github.com/source-foundry/Hack) | `~/.config/fontconfig/conf.d/10-mono.conf` |
+| Monospace | [FuraMono Nerd Font](https://github.com/ryanoasis/nerd-fonts) | `~/.config/fontconfig/conf.d/10-mono.conf` |
 | Emoji | [Twemoji](https://github.com/twitter/twemoji) | `~/.config/fontconfig/99-emoji.conf` |
 
 

@@ -55,6 +55,7 @@ Plug 'SirVer/ultisnips'               " Snippets engine
 Plug 'honza/vim-snippets'             " Snippets
 
 " UI
+Plug 'drewtempelmeyer/palenight.vim'  " Palenight colorscheme
 Plug 'morhetz/gruvbox'                " Gruvbox colorscheme
 Plug 'vim-airline/vim-airline'        " Status line
 Plug 'vim-airline/vim-airline-themes' " Status line themes
@@ -254,25 +255,19 @@ let g:sneak#label = 1
 " Quickscope 
 let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 
-" Echodoc
-let g:echodoc#enable_at_startup = 1
-
 " Mucomplete
 let g:mucomplete#enable_auto_at_startup = 1
 let g:mucomplete#chains = {}
 let g:mucomplete#chains.default = ['path', 'ulti', 'omni', 'keyn', 'dict', 'uspl']
 let g:mucomplete#cycle_with_trigger = "<C-d>"
-
-imap <unique> <C-n> <plug>(MUcompleteFwd)
+imap <silent> <C-n> <plug>(MUcompleteFwd)
 imap <expr> <down> mucomplete#extend_fwd("\<down>")
-inoremap <silent> <expr> <CR> mucomplete#ultisnips#expand_snippet("\<CR>")
-
+imap <silent> <expr> <CR> mucomplete#ultisnips#expand_snippet("\<CR>")
 
 " Ultisnips
 let g:UltiSnipsExpandTrigger = "<c-e>"
 let g:UltiSnipsJumpForwardTrigger = "<c-f>"
 let g:UltiSnipsJumpBackwardTrigger = "<c-b>"
-
 
 " Easy Align
 xmap ga <Plug>(EasyAlign)
@@ -313,13 +308,19 @@ let g:highlightedyank_highlight_duration = 250
 nmap <silent> <Space>G :Goyo<CR>
 let g:goyo_linenr = 1
 function! s:goyo_enter()
-  let g:goyo_wrap = &wrap  " Store previous wrap setting.
+  let g:goyo_wrap = &wrap
+  let g:goyo_linebreak = &linebreak
   set wrap
-  Limelight
+  set linebreak
+  nnoremap <expr> k (v:count == 0 ? 'gk' : 'k')
+  nnoremap <expr> j (v:count == 0 ? 'gj' : 'j')
+  noremap  <buffer> <silent> 0 g0
+  noremap  <buffer> <silent> $ g$
 endfunction
 function! s:goyo_leave()
-  if g:goyo_wrap == 0 | set nowrap | endif  " Restore previous wrap setting.
-  Limelight!
+  if g:goyo_wrap == 0 | set nowrap | endif  
+  if g:goyo_linebreak == 0 | set linebreak | endif  
+  unmap j | unmap k | unmap 0 | unmap $
 endfunction
 
 
