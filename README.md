@@ -36,7 +36,7 @@ Default applications can be changed by editing `~/.profile` or `~/.config/mimeap
 | Font | Name | Location |
 |---|---|---|
 | Sans-Serif | [Droid Sans](https://fonts.google.com/?query=droid&selection.family=Cardo) | `~/.config/fontconfig/conf.d/10-sans-serif.conf` |
-| Monospace | [FuraMono Nerd Font](https://github.com/ryanoasis/nerd-fonts) | `~/.config/fontconfig/conf.d/10-mono.conf` |
+| Monospace | [Source Code Pro (SauceCodePro Nerd Font)](https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/SourceCodePro) | `~/.config/fontconfig/conf.d/10-mono.conf` |
 | Emoji | [Twemoji](https://github.com/twitter/twemoji) | `~/.config/fontconfig/99-emoji.conf` |
 
 
