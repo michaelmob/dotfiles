@@ -21,45 +21,27 @@ set $terminal st
 
 
 #
-# autostart programs
+# autostart
 #
 
-# mouse & keyboard
 exec --no-startup-id touchpad disable
 exec --no-startup-id setxkbmap -option caps:escape
 exec --no-startup-id xset r rate 250 30
 exec --no-startup-id alttab
-
-# scratchpads
-exec --no-startup-id $terminal -c dropdown -e bash -c 'source ~/.bashrc; while true; do tmux a -t scratch || tmux new -s scratch; done'
-exec --no-startup-id $terminal -c math -e bash -c 'source ~/.bashrc; while true; do math; done'
-
-# power manager
-exec --no-startup-id run-hypersomnia
-
-# compositor
+# exec --no-startup-id $terminal -c dropdown -e bash -c 'source ~/.bashrc; while true; do tmux a -t scratch || tmux new -s scratch; done'
+# exec --no-startup-id $terminal -c math -e bash -c 'source ~/.bashrc; while true; do math; done'
+exec --no-startup-id scratchpad
+exec --no-startup-id hypersomnia
 exec --no-startup-id compton
-
-# flux
 exec --no-startup-id redshift -m vidmode -l 40.7:-74
-
-# set wallpaper, colorize i3
 exec --no-startup-id set-colors
-
-# sync tool
 exec --no-startup-id syncthing-gtk --minimized
-
-# drive mounting tool
 exec --no-startup-id udiskie -s
-
-# network manager
 exec --no-startup-id nm-applet
-
-# cursor
 exec --no-startup-id unclutter
 
 #
-# application launchers
+# launchers
 #
 
 # terminal
@@ -147,11 +129,11 @@ no_focus [floating]
 #
 
 # dropdown
-for_window [class="dropdown"] floating enable
-for_window [class="dropdown"] resize set 800 300
-for_window [class="dropdown"] move scratchpad
-for_window [class="dropdown"] border pixel 5
-bindsym $mod+apostrophe [class="dropdown"] scratchpad show, [class="dropdown"] move position center
+for_window [class="scratch"] floating enable
+for_window [class="scratch"] resize set 800 300
+for_window [class="scratch"] move scratchpad
+for_window [class="scratch"] border pixel 5
+bindsym $mod+apostrophe [class="scratch"] scratchpad show, [class="scratch"] move position center
 
 # calculator
 for_window [class="math"] floating enable
@@ -216,7 +198,7 @@ bindsym $mod+Shift+apostrophe   gaps inner current set 0; gaps outer current set
 font pango:Hack 10
 
 # kill focused window
-bindsym $mod+Shift+q [con_id="__focused__" class="^(?!dropdown|math).*$"] kill
+bindsym $mod+Shift+q [con_id="__focused__" class="^(?!scratch|math).*$"] kill
 
 # change focus
 bindsym $mod+h focus left

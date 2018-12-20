@@ -1,5 +1,13 @@
 #!/usr/bin/env bash
-source ~/.bashrc
-while true; do
-  eval "$@"
-done
+
+launch() {
+  #
+  # Launch scratchpad.
+  #     $1 -> window class name
+  #     $2 -> command.
+  xdotool search --class "$1" || \
+    $TERMINAL -c "$1" -- bash -c "source ~/.bashrc; while true; do $2; done " & disown
+}
+
+launch math    "$HOME/.scripts/math"
+launch scratch 'tmux a -t scratch || tmux new -s scratch'
