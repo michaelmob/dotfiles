@@ -197,7 +197,7 @@ bindsym $mod+Shift+apostrophe   gaps inner current set 0; gaps outer current set
 font pango:Hack 10
 
 # kill focused window
-bindsym $mod+Shift+q [con_id="__focused__" class="^(?!scratch|math).*$"] kill
+bindsym $mod+Shift+q [con_id="__focused__" class="^(?!scratch|math|mpv).*$"] kill
 
 # change focus
 bindsym $mod+h focus left
