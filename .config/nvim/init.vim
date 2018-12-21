@@ -312,15 +312,18 @@ function! s:goyo_enter()
   let g:goyo_linebreak = &linebreak
   set wrap
   set linebreak
-  nnoremap <expr> k (v:count == 0 ? 'gk' : 'k')
   nnoremap <expr> j (v:count == 0 ? 'gj' : 'j')
-  noremap  <buffer> <silent> 0 g0
-  noremap  <buffer> <silent> $ g$
+  nnoremap <expr> k (v:count == 0 ? 'gk' : 'k')
+  nnoremap <expr> 0 g0
+  nnoremap <expr> $ g$
 endfunction
 function! s:goyo_leave()
   if g:goyo_wrap == 0 | set nowrap | endif  
   if g:goyo_linebreak == 0 | set linebreak | endif  
-  unmap j | unmap k | unmap 0 | unmap $
+  unmap j
+  unmap k
+  unmap 0
+  unmap $
 endfunction
 
 
