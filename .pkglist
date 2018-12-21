@@ -3,6 +3,12 @@ git
 openntpd
 i3-gaps
 i3blocks
+cups
+cups-pdf
+gutenprint
+ghostscript
+avahi
+system-config-printer
 dunst
 gvim
 tmux
