@@ -249,6 +249,13 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#left_sep = ' '
 let g:airline#extensions#tabline#left_alt_sep = '|'
 
+" FZF
+nnoremap <Space>f :FZF<CR>
+nnoremap <Space>b :Buffers<CR>
+nnoremap <Space>m :Marks<CR>
+nnoremap <Space>t :Tags<CR>
+nnoremap <Space>s :Ag<CR>
+
 " Sneak
 let g:sneak#label = 1
 

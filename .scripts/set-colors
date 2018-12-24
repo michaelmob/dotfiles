@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
-wallpaper="$(find "$HOME/Pictures/wallpapers/" | sort -R | head -n 1)"
-wpg -A "$wallpaper"
-wpg -s "$wallpaper"
+dir="$HOME/Pictures/wallpapers"
+wp="$(find "$dir" | sort -R | head -n 1)"
+wpg -A "$wp"
+wpg -s "$wp"
+rm $dir/*_wal_sample.png
