@@ -12,7 +12,7 @@ else
   let pluginspath = vimpath . '/plugged'
 endif
 
- 
+
 " Plug Installer
 if empty(glob(plugpath))
   exec 'silent !curl -fLo ' . plugpath . ' --create-dirs ' .
@@ -32,7 +32,7 @@ if !has('nvim')
   Plug 'markonm/traces.vim'       " Live substitute for vim
 endif
 
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' } 
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'  " Fuzzy finder
 
 " Functionality
@@ -93,7 +93,6 @@ let &t_SI.="\e[5 q"
 let &t_SR.="\e[4 q"
 let &t_EI.="\e[1 q"
 
-
 " List
 set list
 set listchars=tab:\ ,trail:\ ,precedes:^,extends:$,eol:¬
@@ -122,6 +121,9 @@ set shiftwidth=0
 set tabstop=4
 set noexpandtab
 set smarttab
+
+" Leader
+let mapleader = '<Space>'
 
 " Live substitution
 if has('nvim')
@@ -165,13 +167,13 @@ set ignorecase
 set smartcase
 
 " Write current directory
-nnoremap <Space>L :!echo %:p:h > ~/.last-dir<CR><CR>
+nnoremap <Leader>L :!echo %:p:h > ~/.last-dir<CR><CR>
 
 " Source
-nnoremap <Space>S :source $MYVIMRC<CR>
+nnoremap <Leader>S :source $MYVIMRC<CR>
 
 " Terminal
-tnoremap <Space><Esc> <C-\><C-n>
+tnoremap <Leader><Esc> <C-\><C-n>
 tnoremap <C-P> i<C-P>
 tnoremap <C-H> <C-\><C-n><C-W><C-H>
 tnoremap <C-J> <C-\><C-n><C-W><C-J>
@@ -179,35 +181,37 @@ tnoremap <C-K> <C-\><C-n><C-W><C-K>
 tnoremap <C-L> <C-\><C-n><C-W><C-L>
 
 " Cut and Paste
-noremap <Space>y "+y
-noremap <Space>p "+p
-noremap <Space>P "+P
+noremap <Leader>y "+y
+noremap <Leader>p "+p
+noremap <Leader>P "+P
 
 " Save
 noremap <Space><Esc> :w<CR>
 noremap <C-s> :w<CR>
 
-" Line navigation
-"nnoremap <expr> <silent> j v:count ? (v:count > 5 ? "m'" . v:count : '') . 'j' : 'gj'
-"nnoremap <expr> <silent> k v:count ? (v:count > 5 ? "m'" . v:count : '') . 'k' : 'gk'
-
-" Split navigation
-map <Space> <Nop>
-nnoremap <C-H> <C-W><C-H>
-nnoremap <C-J> <C-W><C-J>
-nnoremap <C-K> <C-W><C-K>
-nnoremap <C-L> <C-W><C-L>
-
 " Buffer navigation
-noremap <Space>j :bprev<CR>
-noremap <Space>k :bnext<CR>
-noremap <Space>q :Bdelete<CR>
+noremap <Leader>j :bprev<CR>
+noremap <Leader>k :bnext<CR>
+noremap <Leader>q :Bdelete<CR>
 noremap <C-p> :bprev<CR>
 noremap <C-n> :bnext<CR>
 
 " Tab navigation
-noremap <Space>h :tabp<CR>
-noremap <Space>l :tabn<CR>
+noremap <Leader>h :tabp<CR>
+noremap <Leader>l :tabn<CR>
+
+" Split navigation
+map <Leader> <Nop>
+nnoremap <C-h> <C-w><C-h>
+nnoremap <C-j> <C-w><C-j>
+nnoremap <C-k> <C-w><C-k>
+nnoremap <C-l> <C-w><C-l>
+
+" Split Resizing
+nnoremap <C-w><C-y> :vertical resize -5<CR>
+nnoremap <C-w><C-u> :resize -5<CR>
+nnoremap <C-w><C-i> :resize +5<CR>
+nnoremap <C-w><C-o> :vertical resize +5<CR>
 
 " Visual
 vnoremap - g_
@@ -250,16 +254,16 @@ let g:airline#extensions#tabline#left_sep = ' '
 let g:airline#extensions#tabline#left_alt_sep = '|'
 
 " FZF
-nnoremap <Space>f :FZF<CR>
-nnoremap <Space>b :Buffers<CR>
-nnoremap <Space>m :Marks<CR>
-nnoremap <Space>t :Tags<CR>
-nnoremap <Space>s :Ag<CR>
+nnoremap <Leader>f :FZF<CR>
+nnoremap <Leader>b :Buffers<CR>
+nnoremap <Leader>m :Marks<CR>
+nnoremap <Leader>t :Tags<CR>
+nnoremap <Leader>s :Ag<CR>
 
 " Sneak
 let g:sneak#label = 1
 
-" Quickscope 
+" Quickscope
 let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 
 " Mucomplete
@@ -285,7 +289,8 @@ let g:indentLine_color_gui = '#454545'
 let g:indentLine_leadingSpaceChar = ' '
 let g:indentLine_leadingSpaceEnabled = 1
 let g:indentLine_concealcursor = ''
-"
+let g:indentLine_conceallevel = 0
+
 " Ultisnips
 let g:UltiSnipsUsePythonVersion = 3
 let g:UltiSnipsExpandTrigger = '<F5>'
@@ -306,13 +311,13 @@ function! NetrwBuf()
 endfunction
 
 " Tagbar
-nnoremap <Space>T :TagbarToggle<CR>
+nnoremap <Leader>T :TagbarToggle<CR>
 
 " Highlightedyank
 let g:highlightedyank_highlight_duration = 250
 
 " Goyo
-nmap <silent> <Space>G :Goyo<CR>
+nmap <silent> <Leader>G :Goyo<CR>
 let g:goyo_linenr = 1
 function! s:goyo_enter()
   let g:goyo_wrap = &wrap
@@ -325,8 +330,8 @@ function! s:goyo_enter()
   nnoremap <expr> $ g$
 endfunction
 function! s:goyo_leave()
-  if g:goyo_wrap == 0 | set nowrap | endif  
-  if g:goyo_linebreak == 0 | set linebreak | endif  
+  if g:goyo_wrap == 0 | set nowrap | endif
+  if g:goyo_linebreak == 0 | set linebreak | endif
   unmap j
   unmap k
   unmap 0

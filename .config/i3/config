@@ -16,8 +16,6 @@
 set $mod Mod4
 set $alt Mod1
 
-# terminal
-set $terminal st
 
 
 #
@@ -43,13 +41,13 @@ exec --no-startup-id unclutter
 #
 
 # terminal
-bindsym $mod+Return          exec $terminal
+bindsym $mod+Return          exec $TERMINAL
 
 # file manager
-bindsym $mod+r               exec $terminal -e ~/.scripts/ranger
+bindsym $mod+r               exec $FM
 
 # process viewer
-bindsym $mod+g               exec $terminal -e ~/.scripts/htop
+bindsym $mod+g               exec $TERMINAL -e ~/.scripts/htop
 
 # launcher
 bindsym $mod+d               exec rofi -show run
@@ -67,8 +65,8 @@ bindsym $mod+Shift+bar       exec set-colors
 bindsym Ctrl+$mod+p          exec firefox --private-window about:blank
 
 # edit common configurations
-bindsym $mod+F1              exec $terminal -e ~/.scripts/ranger ~/.config/i3
-bindsym $mod+F2              exec $terminal -e ~/.scripts/ranger ~/.config/ranger
+bindsym $mod+F1              exec $TERMINAL -e ~/.scripts/ranger ~/.config/i3
+bindsym $mod+F2              exec $TERMINAL -e ~/.scripts/ranger ~/.config/ranger
 
 # xf86 keys
 bindsym XF86AudioRaiseVolume exec pamixer -i 5 && pkill -RTMIN+10 i3blocks 
@@ -119,6 +117,8 @@ for_window [class="Wpg"]                floating enable
 for_window [class="tridactyl_editor"]   floating enable
 for_window [class="Arandr"]             floating enable
 for_window [class="pcmanfm-qt"]         floating enable
+for_window [class="Spacefm"]            floating enable
+for_window [class="feh"]                floating enable
 
 no_focus [floating]
 
@@ -237,6 +237,10 @@ bindsym $mod+space focus mode_toggle
 bindsym $mod+a focus parent
 
 # resize window
+bindsym $mod+y resize shrink width 15 px or 5 ppt
+bindsym $mod+u resize grow height 15 px or 5 ppt
+bindsym $mod+i resize shrink height 15 px or 5 ppt
+bindsym $mod+o resize grow width 15 px or 5 ppt
 bindsym $mod+Shift+y resize shrink width 30 px or 10 ppt
 bindsym $mod+Shift+u resize grow height 30 px or 10 ppt
 bindsym $mod+Shift+i resize shrink height 30 px or 10 ppt

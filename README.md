@@ -9,7 +9,7 @@
 | Display Manager | [LightDM](https://www.freedesktop.org/wiki/Software/LightDM/) | Lightweight, cross-desktop display manager. |
 | Window Manager | [i3](https://i3wm.org/) with [i3bar](https://i3wm.org/i3bar/) | Tiling window manager. |
 | Power Manager | [Hypersomnia](https://github.com/thetarkus/hypersomnia) | Desktop-Environment Agnostic Lock and Sleep Tool. |
-| File Manager | [ranger](https://github.com/ranger/ranger) | Vim-inspired file manager. |
+| File Manager | [Spacefm](https://github.com/IgnorantGuru/spacefm) | Fork of [pcmanfm](https://wiki.lxde.org/en/PCManFM). |
 | Screen Locker | [i3lock](https://i3wm.org/i3lock/) with [besterlockscreen](https://github.com/thetarkus/besterlockscreen) | Fork of [betterlockscreen](https://github.com/pavanjadhaw/betterlockscreen) with wpgtk/pywal integration. |
 | Theme Manager | [LXappearance](https://wiki.lxde.org/en/LXAppearance) and [wpgtk](https://github.com/deviantfero/wpgtk) | Theme, colorscheme and wallpaper manager. |
 | Compositor | tryone144's fork of [Compton](https://github.com/tryone144/compton) | Compton with dual kawase blur. |
