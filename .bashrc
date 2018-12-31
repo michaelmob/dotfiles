@@ -16,8 +16,8 @@ export PS1="\[$(tput bold)\]\[$(tput setaf 1)\][\[$(tput setaf 3)\]\u\[$(tput se
 # Functions
 ifind() { find . -iname "*$1*"; }
 ranger() { ~/.scripts/ranger $@ ; }
-cd() { builtin cd "$@" && pwd > ~/.last-dir ; }
-L() { builtin cd "$(< ~/.last-dir)" ; }
+cd() { builtin cd "$@" && pwd > ~/.previous-dir ; }
+L() { builtin cd "$(< ~/.previous-dir)" ; }
 S() { pwd > ~/.last-dir ; }
 
 # Bash aliases
@@ -26,11 +26,10 @@ alias so='source ~/.bashrc'
 
 # Script aliases
 alias t='~/.scripts/tmux'
-alias g='. ~/.scripts/save-dir'
+alias b='. ~/.scripts/bookmark'
 
 # Program aliases
 alias vim="$EDITOR"
-alias v="$EDITOR"
 alias r='ranger'
 alias s='sudo'
 alias ls='ls --color=auto --group-directories-first'
