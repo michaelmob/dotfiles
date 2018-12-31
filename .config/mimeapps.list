@@ -1,21 +1,22 @@
 [Default Applications]
 image/jpeg=feh.desktop
+text/html=brave.desktop
+application/x-extension-htm=brave.desktop
+application/x-extension-html=brave.desktop
+application/x-extension-shtml=brave.desktop
+application/x-extension-xhtml=brave.desktop
+application/x-extension-xht=brave.desktop
+application/xhtml+xml=brave.desktop
 x-scheme-handler/discord-409416265891971072=discord-409416265891971072.desktop
 x-scheme-handler/http=brave.desktop
 x-scheme-handler/https=brave.desktop
 x-scheme-handler/ftp=brave.desktop
 x-scheme-handler/chrome=brave.desktop
-text/html=brave.desktop
-application/x-extension-htm=brave.desktop
-application/x-extension-html=brave.desktop
-application/x-extension-shtml=brave.desktop
-application/xhtml+xml=brave.desktop
-application/x-extension-xhtml=brave.desktop
-application/x-extension-xht=brave.desktop
-x-scheme-handler/tg=telegramdesktop.desktop
-inode/directory=ranger.desktop
 x-scheme-handler/mailto=userapp-Thunderbird-HE65PZ.desktop
+x-scheme-handler/tg=telegramdesktop.desktop
+inode/directory=spacefm.desktop
 message/rfc822=userapp-Thunderbird-HE65PZ.desktop
+video/x-msvideo=mpv.desktop;
 
 [Added Associations]
 image/jpeg=lximage-qt.desktop;
@@ -23,3 +24,4 @@ application/octet-stream=mpv.desktop;
 x-scheme-handler/mailto=userapp-Thunderbird-HE65PZ.desktop;
 message/rfc822=userapp-Thunderbird-HE65PZ.desktop;
 application/x-csh=sublime_text_3.desktop;
+video/x-msvideo=mpv.desktop;

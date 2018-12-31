@@ -1,4 +1,4 @@
-# vim: filetype=i3
+# vim: filetype=i3config
 
 #
 # Mike Mob's i3-gaps configuration
@@ -32,7 +32,7 @@ exec --no-startup-id compton
 exec --no-startup-id redshift -m vidmode -l 40.7:-74
 exec --no-startup-id set-colors
 exec --no-startup-id syncthing-gtk --minimized
-exec --no-startup-id udiskie -s
+exec --no-startup-id udiskie --smart-tray
 exec --no-startup-id nm-applet
 exec --no-startup-id unclutter
 
@@ -95,12 +95,14 @@ floating_modifier $mod
 focus_follows_mouse no
 
 
+
 #
 # windows
 #
 
 # window settings
 new_window pixel 3
+
 
 # window rules
 for_window [instance="float"]           floating enable
@@ -118,9 +120,10 @@ for_window [class="tridactyl_editor"]   floating enable
 for_window [class="Arandr"]             floating enable
 for_window [class="pcmanfm-qt"]         floating enable
 for_window [class="Spacefm"]            floating enable
+for_window [class="Pavucontrol"]        floating enable
 for_window [class="feh"]                floating enable
 
-no_focus [floating]
+#no_focus [floating]
 
 
 #
@@ -241,10 +244,14 @@ bindsym $mod+y resize shrink width 15 px or 5 ppt
 bindsym $mod+u resize grow height 15 px or 5 ppt
 bindsym $mod+i resize shrink height 15 px or 5 ppt
 bindsym $mod+o resize grow width 15 px or 5 ppt
-bindsym $mod+Shift+y resize shrink width 30 px or 10 ppt
-bindsym $mod+Shift+u resize grow height 30 px or 10 ppt
-bindsym $mod+Shift+i resize shrink height 30 px or 10 ppt
-bindsym $mod+Shift+o resize grow width 30 px or 10 ppt
+bindsym $mod+Shift+y resize shrink width 5 px or 1 ppt
+bindsym $mod+Shift+u resize grow height 5 px or 1 ppt
+bindsym $mod+Shift+i resize shrink height 5 px or 1 ppt
+bindsym $mod+Shift+o resize grow width 5 px or 1 ppt
+
+# switch to last used workspace
+bindsym $mod+Tab workspace back_and_forth
+workspace_auto_back_and_forth yes
 
 # workspaces
 set $ws1  "1"
@@ -269,9 +276,6 @@ bindsym $mod+7 workspace $ws7
 bindsym $mod+8 workspace $ws8
 bindsym $mod+9 workspace $ws9
 bindsym $mod+0 workspace $ws10
-
-# switch to last used workspace
-bindsym $mod+Tab workspace back_and_forth
 
 # move window to workspace
 bindsym $mod+Shift+1 move container to workspace $ws1
