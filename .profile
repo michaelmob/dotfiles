@@ -6,6 +6,6 @@ export PATH="$PATH:$HOME/.local/bin:$HOME/.scripts"
 export TERMINAL='st'
 export EDITOR='vim'
 export BROWSER='brave'
-export FM='spacefm'
+export FM='pcmanfm-qt'
 
 [[ -f ~/.bashrc ]] && source ~/.bashrc

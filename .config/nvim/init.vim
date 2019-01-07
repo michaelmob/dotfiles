@@ -66,7 +66,6 @@ Plug 'vim-airline/vim-airline-themes'     " Status line themes
 Plug 'ryanoasis/vim-devicons'             " File icons
 Plug 'Yggdroot/indentLine'                " Space indentation
 Plug 'junegunn/goyo.vim'                  " Distraction free writing
-Plug 'JamshedVesuna/vim-markdown-preview' " Markdown live preview
 
 " Language
 Plug 'sheerun/vim-polyglot'               " Defaults for languages
@@ -284,6 +283,13 @@ let g:mucomplete#cycle_with_trigger = "<C-d>"
 imap <silent> <C-n> <plug>(MUcompleteFwd)
 imap <expr> <down> mucomplete#extend_fwd("\<down>")
 imap <silent> <expr> <CR> mucomplete#ultisnips#expand_snippet("\<CR>")
+
+" Persistent Undo
+if has('persistent_undo')
+  let &undodir = expand('$HOME/.vim/undo')
+  call system('mkdir -p ' . &undodir)
+  set undofile
+endif
 
 " Ultisnips
 let g:UltiSnipsExpandTrigger = "<c-e>"
