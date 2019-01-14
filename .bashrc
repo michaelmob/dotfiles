@@ -9,16 +9,15 @@ export TERM='xterm-256color'
 export HISTCONTROL='ignoreboth'
 export LANG='en_US.UTF-8'
 export PS1="\[$(tput bold)\]\[$(tput setaf 1)\][\[$(tput setaf 3)\]\u\[$(tput setaf 2)\]@\[$(tput setaf 4)\]\h \[$(tput setaf 5)\]\W\[$(tput setaf 1)\]]\[$(tput setaf 7)\]\\$ \[$(tput sgr0)\]"
+export OLDPWD="$(<~/.previous-dir)"
 
 # FZF
 [[ -f ~/.fzf.bash ]] && source ~/.fzf.bash
 
 # Functions
-ifind() { find . -iname "*$1*"; }
-ranger() { ~/.scripts/ranger $@ ; }
+ifind() { find . -iname "*$@*" ; }
 cd() { builtin cd "$@" && pwd > ~/.previous-dir ; }
-L() { builtin cd "$(< ~/.previous-dir)" ; }
-S() { pwd > ~/.last-dir ; }
+L() { builtin cd "$(<~/.previous-dir)" ; }
 
 # Bash aliases
 alias :q='exit'
@@ -30,12 +29,11 @@ alias b='. ~/.scripts/bookmark'
 
 # Program aliases
 alias vim="$EDITOR"
-alias r='ranger'
-alias s='sudo'
 alias ls='ls --color=auto --group-directories-first'
 alias xclip='xclip -selection c'
 alias weather='curl wttr.in/07653'
 alias gdb='gdb -q'
+alias n='nnn'
 
 # Git aliases
 alias gs='git status -uno'

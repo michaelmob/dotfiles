@@ -36,12 +36,14 @@ exec --no-startup-id unclutter
 exec --no-startup-id set-colors
 exec --no-startup-id spacefm -d
 
-# tray applications
+# daemons
 exec --no-startup-id syncthing-gtk --minimized
 exec --no-startup-id udiskie --smart-tray
 exec --no-startup-id redshift -m vidmode -l 40.7:-74
 exec --no-startup-id kdeconnect-indicator
 exec --no-startup-id nm-applet
+exec --no-startup-id greenclip daemon
+exec --no-startup-id /opt/i3-sticky/i3-sticky
 
 
 
@@ -63,6 +65,9 @@ bindsym $mod+d               exec rofi -show run
 
 # ssh
 bindsym $mod+Shift+Tab       exec rofi -show ssh
+
+# clipboard manager
+bindsym $mod+Shift+d         exec rofi -modi "clipboard:greenclip print" -show clipboard -run-command '{cmd}'
 
 # screenshot
 bindsym Ctrl+Shift+4         exec flameshot gui
@@ -90,6 +95,7 @@ bindsym XF86AudioPlay        exec playerctl play-pause
 bindsym XF86AudioStop        exec playerctl stop
 bindsym XF86AudioPrev        exec playerctl previous
 bindsym XF86AudioNext        exec playerctl next
+
 
 
 
@@ -233,6 +239,10 @@ bindsym $mod+f fullscreen toggle
 
 # sticky
 bindsym $mod+z sticky toggle, floating enable
+bindsym $mod+Shift+z exec --no-startup-id i3-input -F "[con_id=__focused__] mark _sticky_%s"
+bindsym Ctrl+$mod+1 exec --no-startup-id /opt/i3-sticky/i3-sticky-open 1
+bindsym Ctrl+$mod+2 exec --no-startup-id /opt/i3-sticky/i3-sticky-open 2
+bindsym Ctrl+$mod+3 exec --no-startup-id /opt/i3-sticky/i3-sticky-open 3
 
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle

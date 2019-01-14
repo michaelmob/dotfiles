@@ -10,6 +10,7 @@
 | Window Manager | [i3](https://i3wm.org/) with [i3bar](https://i3wm.org/i3bar/) | Tiling window manager. |
 | Power Manager | [Hypersomnia](https://github.com/thetarkus/hypersomnia) | Desktop-Environment Agnostic Lock and Sleep Tool. |
 | File Manager | [Spacefm](https://github.com/IgnorantGuru/spacefm) | Fork of [pcmanfm](https://wiki.lxde.org/en/PCManFM). |
+| Password Manager | [Bitwarden](https://bitwarden.com/) | Open-source password manager. |
 | Screen Locker | [i3lock](https://i3wm.org/i3lock/) with [besterlockscreen](https://github.com/thetarkus/besterlockscreen) | Fork of [betterlockscreen](https://github.com/pavanjadhaw/betterlockscreen) with wpgtk/pywal integration. |
 | Theme Manager | [LXappearance](https://wiki.lxde.org/en/LXAppearance) and [wpgtk](https://github.com/deviantfero/wpgtk) | Theme, colorscheme and wallpaper manager. |
 | Compositor | tryone144's fork of [Compton](https://github.com/tryone144/compton) | Compton with dual kawase blur. |
@@ -25,10 +26,10 @@ Default applications can be changed by editing `~/.profile` or `~/.config/mimeap
 | Program | Name | Description |
 |---|---|---|
 | Terminal Emulator | [st](https://github.com/thetarkus/st) | Suckless terminal. |
-| Browser | [Brave](https://brave.com/) | Fast, freedom-respecting web browser. |
-| Editor | [Vim](https://www.vim.org/) | Modal editor. |
-| Password Manager | [Bitwarden](https://bitwarden.com/) | Open-source password manager. |
-| E-mail | [Thunderbird](https://www.thunderbird.net/en-US/) | E-mail client by Mozilla. |
+| Web Browser | [Brave](https://brave.com/) | Fast, freedom-respecting web browser. |
+| Text Editor | [Vim](https://www.vim.org/) | Modal editor. |
+| E-mail Client | [Thunderbird](https://www.thunderbird.net/en-US/) | E-mail client by Mozilla. |
+| Image Viewer | [sxiv](https://github.com/muennich/sxiv) | Simple X image viewer. |
 
 
 

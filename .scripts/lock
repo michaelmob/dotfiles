@@ -1,5 +1,0 @@
-#!/usr/bin/env bash
-hypersomnia -l        # Lock
-hypersomnia -b 0 500  # Fade out
-hypersomnia -s        # Screen off
-hypersomnia -b        # Restore screen brightness

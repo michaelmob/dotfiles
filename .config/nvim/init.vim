@@ -28,51 +28,63 @@ call plug#begin(pluginspath)
 
 " Vim 8 Compatibility
 if !has('nvim')
-  Plug 'tpope/vim-sensible'       " Sensible defaults
-  Plug 'markonm/traces.vim'       " Live substitute for vim
+  Plug 'tpope/vim-sensible'  " Sensible defaults
+  Plug 'markonm/traces.vim'  " Live substitute for Vim
 endif
 
-" Finder
+" Files
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
+Plug 'junegunn/fzf.vim'               " Fuzzy finder
+Plug 'tpope/vim-vinegar'              " Better netrw defaults
 
-" Functionality
-Plug 'lifepillar/vim-mucomplete'          " Autocompletion
-Plug 'tpope/vim-commentary'               " Commenting; [visual]gc
-Plug 'tpope/vim-surround'                 " Surround text; [visual]S <p>
-Plug 'tpope/vim-fugitive'                 " Git; :Gstatus, :Gcommit, ...
-Plug 'tpope/vim-vinegar'                  " Better netrw defaults
-Plug 'tpope/vim-repeat'                   " Repeat for supported plugins
-Plug 'tpope/vim-sleuth'                   " Indentation detection
-Plug 'tpope/vim-eunuch'                   " Unix shell commands
-Plug 'junegunn/vim-easy-align'            " Text alignment; [visual]ga
-Plug 'justinmk/vim-sneak'                 " Easy cursor jumping; s/S
-Plug 'tommcdo/vim-exchange'               " Swap selections of code
-Plug 'machakann/vim-highlightedyank'      " Briefly highlight yanked text
-Plug 'christoomey/vim-tmux-navigator'     " Tmux split navigation
-Plug 'moll/vim-bbye'                      " Close buffer; :Bdelete
-Plug 'majutsushi/tagbar'                  " Class outline viewer
-Plug 'unblevable/quick-scope'             " Highlighting for f and t
-Plug 'SirVer/ultisnips'                   " Snippets engine
-Plug 'honza/vim-snippets'                 " Snippets
-Plug 'xolox/vim-session'                  " Session management
-Plug 'xolox/vim-misc'                     " Extended standard library
+" Snippets
+Plug 'SirVer/ultisnips'               " Snippets engine
+Plug 'honza/vim-snippets'             " Snippets
+
+" Navigation
+Plug 'unblevable/quick-scope'         " Highlighting for f and t
+Plug 'justinmk/vim-sneak'             " Easy cursor jumping; s/S
+Plug 'christoomey/vim-tmux-navigator' " Tmux split navigation
+
+" Autocompletion
+Plug 'lifepillar/vim-mucomplete'      " Autocompletion
+
+" Session
+Plug 'xolox/vim-session'              " Session management
+Plug 'xolox/vim-misc'                 " Extended standard library
+
+" Text
+Plug 'tpope/vim-commentary'           " Commenting; [visual]gc
+Plug 'machakann/vim-sandwich'         " Text surroundings
+Plug 'junegunn/vim-easy-align'        " Text alignment; [visual]ga
+Plug 'tommcdo/vim-exchange'           " Swap selections of code
+
+" Visual
+Plug 'Yggdroot/indentLine'            " Space indentation
+Plug 'machakann/vim-highlightedyank'  " Briefly highlight yanked text
+
+" Themes
+Plug 'drewtempelmeyer/palenight.vim'  " Palenight colorscheme
+Plug 'morhetz/gruvbox'                " Gruvbox colorscheme
 
 " UI
-Plug 'drewtempelmeyer/palenight.vim'      " Palenight colorscheme
-Plug 'morhetz/gruvbox'                    " Gruvbox colorscheme
-Plug 'vim-airline/vim-airline'            " Status line
-Plug 'vim-airline/vim-airline-themes'     " Status line themes
-Plug 'ryanoasis/vim-devicons'             " File icons
-Plug 'Yggdroot/indentLine'                " Space indentation
-Plug 'junegunn/goyo.vim'                  " Distraction free writing
+Plug 'itchyny/lightline.vim'
+Plug 'junegunn/goyo.vim'              " Distraction free writing
+Plug 'majutsushi/tagbar'              " Class outline viewer
+
+" Functionality
+Plug 'tpope/vim-repeat'               " Repeat for supported plugins
+Plug 'tpope/vim-fugitive'             " Git; :Gstatus, :Gcommit, ...
+Plug 'tpope/vim-sleuth'               " Indentation detection
+Plug 'tpope/vim-eunuch'               " Unix shell commands
+Plug 'moll/vim-bbye'                  " Close buffer; :Bdelete
 
 " Language
-Plug 'sheerun/vim-polyglot'               " Defaults for languages
-Plug 'davidhalter/jedi-vim'               " Python autocompletion
+Plug 'sheerun/vim-polyglot'           " Defaults for languages
+Plug 'davidhalter/jedi-vim'           " Python autocompletion
 
 " Syntax
-Plug 'mboughaba/i3config.vim'             " i3 syntax highlighting
+Plug 'mboughaba/i3config.vim'         " i3 syntax highlighting
 
 call plug#end()
 
@@ -164,11 +176,9 @@ set completeopt-=preview
 """
 """ Built-in Mappings
 """
+
 " New lines
 nnoremap <Enter> i<Enter><Esc>
-
-" Remove highlight
-nnoremap <silent> <Esc> :nohlsearch<CR>
 
 " Make
 nnoremap <silent> M :make<CR>
@@ -178,18 +188,18 @@ set ignorecase
 set smartcase
 
 " Write current directory
-nnoremap <Leader>L :!echo %:p:h > ~/.last-dir<CR><CR>
+nnoremap <Leader>L :!echo %:p:h > ~/.previous-dir<CR><CR>
 
 " Source
 nnoremap <Leader>S :source $MYVIMRC<CR>
 
 " Terminal
 tnoremap <Leader><Esc> <C-\><C-n>
-tnoremap <C-P> i<C-P>
-tnoremap <C-H> <C-\><C-n><C-W><C-H>
-tnoremap <C-J> <C-\><C-n><C-W><C-J>
-tnoremap <C-K> <C-\><C-n><C-W><C-K>
-tnoremap <C-L> <C-\><C-n><C-W><C-L>
+tnoremap <C-p> i<C-P>
+tnoremap <C-h> <C-\><C-n><C-W><C-H>
+tnoremap <C-j> <C-\><C-n><C-W><C-J>
+tnoremap <C-k> <C-\><C-n><C-W><C-K>
+tnoremap <C-l> <C-\><C-n><C-W><C-L>
 
 " Cut and Paste
 noremap <Leader>y "+y
@@ -204,8 +214,8 @@ noremap <C-s> :w<CR>
 noremap <Leader>j :bprev<CR>
 noremap <Leader>k :bnext<CR>
 noremap <Leader>q :Bdelete<CR>
-noremap <C-p> :bprev<CR>
-noremap <C-n> :bnext<CR>
+noremap <C-p> :tabprev<CR>
+noremap <C-n> :tabnext<CR>
 
 " Tab navigation
 noremap <Leader>h :tabp<CR>
@@ -217,6 +227,9 @@ nnoremap <C-h> <C-w><C-h>
 nnoremap <C-j> <C-w><C-j>
 nnoremap <C-k> <C-w><C-k>
 nnoremap <C-l> <C-w><C-l>
+" inoremap <C-j> <Nop>
+" inoremap <C-k> <Nop>
+" inoremap <C-l> <Nop>
 
 " Split Resizing
 nnoremap <C-w><C-y> :vertical resize -5<CR>
@@ -232,35 +245,10 @@ vnoremap - g_
 """
 """ Plugin Settings
 """
-" Airline
-if !exists('g:airline_symbols') | let g:airline_symbols = {} | endif
-let g:airline_powerline_fonts = 1
-let g:airline_left_sep = ''
-let g:airline_right_sep = ''
-let g:airline_section_z = ' %#__accent_bold#%l/%L%#__restore__# : %2v '
-let g:airline_mode_map = {
-  \ '__' : '-',
-  \ 'c'  : 'C',
-  \ 'i'  : 'I',
-  \ 'ic' : 'I',
-  \ 'ix' : 'I',
-  \ 'n'  : 'N',
-  \ 'ni' : 'N',
-  \ 'no' : 'N',
-  \ 'R'  : 'R',
-  \ 'Rv' : 'R',
-  \ 's'  : 'S',
-  \ 'S'  : 'S',
-  \ '' : 'S',
-  \ 't'  : 'T',
-  \ 'v'  : 'V',
-  \ 'V'  : 'V',
-  \ '' : 'V',
-  \ }
-let g:airline#extensions#whitespace#symbol = '!'
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#left_sep = ' '
-let g:airline#extensions#tabline#left_alt_sep = '|'
+
+" Vim Sessions
+let g:session_autosave = 'no'
+let g:session_autoload = 'no'
 
 " FZF
 nnoremap <Leader>f :FZF<CR>
@@ -340,18 +328,18 @@ function! s:goyo_enter()
   let g:goyo_linebreak = &linebreak
   set wrap
   set linebreak
-  nnoremap <expr> j (v:count == 0 ? 'gj' : 'j')
-  nnoremap <expr> k (v:count == 0 ? 'gk' : 'k')
-  nnoremap 0 g0
-  nnoremap $ g$
+  nnoremap <silent> <expr> j (v:count == 0 ? 'gj' : 'j')
+  nnoremap <silent> <expr> k (v:count == 0 ? 'gk' : 'k')
+  nnoremap <silent> 0 g0
+  nnoremap <silent> $ g$
 endfunction
 function! s:goyo_leave()
   if g:goyo_wrap == 0 | set nowrap | endif
   if g:goyo_linebreak == 0 | set linebreak | endif
-  unmap j
-  unmap k
-  unmap 0
-  unmap $
+  nnoremap <silent> j j
+  nnoremap <silent> k k
+  nnoremap <silent> 0 g0
+  nnoremap <silent> $ g$
 endfunction
 
 
