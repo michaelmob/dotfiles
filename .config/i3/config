@@ -8,6 +8,8 @@
 # GitHub: https://github.com/thetarkus
 #
 
+
+
 #
 # definitions
 #
@@ -31,19 +33,17 @@ exec --no-startup-id xset r rate 250 30
 exec --no-startup-id hypersomnia
 exec --no-startup-id compton
 exec --no-startup-id scratchpad
-exec --no-startup-id alttab
 exec --no-startup-id unclutter
-exec --no-startup-id set-colors
-exec --no-startup-id spacefm -d
+exec --no-startup-id colors set
 
 # daemons
+exec --no-startup-id /opt/i3-sticky/i3-sticky
 exec --no-startup-id syncthing-gtk --minimized
 exec --no-startup-id udiskie --smart-tray
 exec --no-startup-id redshift -m vidmode -l 40.7:-74
 exec --no-startup-id kdeconnect-indicator
 exec --no-startup-id nm-applet
 exec --no-startup-id greenclip daemon
-exec --no-startup-id /opt/i3-sticky/i3-sticky
 
 
 
@@ -63,9 +63,6 @@ bindsym $mod+g               exec $TERMINAL -e ~/.scripts/htop
 # launcher
 bindsym $mod+d               exec rofi -show run
 
-# ssh
-bindsym $mod+Shift+Tab       exec rofi -show ssh
-
 # clipboard manager
 bindsym $mod+Shift+d         exec rofi -modi "clipboard:greenclip print" -show clipboard -run-command '{cmd}'
 
@@ -73,14 +70,7 @@ bindsym $mod+Shift+d         exec rofi -modi "clipboard:greenclip print" -show c
 bindsym Ctrl+Shift+4         exec flameshot gui
 
 # change wallpaper
-bindsym $mod+Shift+bar       exec set-colors
-
-# firefox private browsing
-bindsym Ctrl+$mod+p          exec firefox --private-window about:blank
-
-# edit common configurations
-bindsym $mod+F1              exec $TERMINAL -e ~/.scripts/ranger ~/.config/i3
-bindsym $mod+F2              exec $TERMINAL -e ~/.scripts/ranger ~/.config/ranger
+bindsym $mod+Shift+bar       exec colors set
 
 # xf86 keys
 bindsym XF86AudioRaiseVolume exec pamixer -i 5 && pkill -RTMIN+10 i3blocks
@@ -95,7 +85,6 @@ bindsym XF86AudioPlay        exec playerctl play-pause
 bindsym XF86AudioStop        exec playerctl stop
 bindsym XF86AudioPrev        exec playerctl previous
 bindsym XF86AudioNext        exec playerctl next
-
 
 
 
@@ -118,7 +107,6 @@ focus_follows_mouse no
 # window settings
 new_window pixel 3
 
-
 # window rules
 for_window [instance="float"]           floating enable
 for_window [class="Clock-applet"]       floating enable
@@ -138,7 +126,6 @@ for_window [class="Spacefm"]            floating enable
 for_window [class="Pavucontrol"]        floating enable
 for_window [class="feh"]                floating enable
 
-#no_focus [floating]
 
 
 #
@@ -158,6 +145,7 @@ for_window [class="math"] resize set 800 300
 for_window [class="math"] move scratchpad
 for_window [class="math"] border pixel 5
 bindsym $mod+c [class="math"] scratchpad show, [class="math"] move position center
+
 
 
 #
@@ -191,6 +179,7 @@ client.urgent           $darkred $darkred   $darkwhite $darkred     $darkred
 client.background       $black
 
 
+
 #
 # i3-gaps management
 #
@@ -205,6 +194,7 @@ bindsym $mod+Shift+plus         gaps inner current plus 5
 bindsym $mod+Shift+bracketleft  gaps outer current minus 5
 bindsym $mod+Shift+bracketright gaps outer current plus 5
 bindsym $mod+Shift+apostrophe   gaps inner current set 0; gaps outer current set 0
+
 
 
 #
@@ -313,6 +303,8 @@ bindsym $mod+Shift+c reload
 bindsym $mod+Shift+r restart
 bindsym $mod+Shift+BackSpace exec "i3-nagbar -t warning -m 'Do you want to exit i3?' -b 'Yes, exit i3' 'i3-msg exit'"
 
+
+
 #
 # i3bar and i3blocks
 #
@@ -337,6 +329,7 @@ bar {
     urgent_workspace   $darkblack $darkblack $darkwhite
   }
 }
+
 
 # Laptop bar with fewer modules
 bar {

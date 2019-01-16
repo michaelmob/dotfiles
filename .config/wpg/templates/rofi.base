@@ -1,5 +1,5 @@
 rofi.modi:             run,window,ssh
-rofi.width:            50
+rofi.width:            30
 rofi.lines:            15
 rofi.columns:          1
 rofi.color-normal:     #00<COLOR0>, #<COLOR15>, #00<COLOR0>, #<COLORACT>, #<COLOR15>
