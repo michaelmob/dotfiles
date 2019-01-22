@@ -4,7 +4,9 @@ case "$1" in
     wp="${2:-$WALLPAPER_PATH}"
     [[ "$wp" ]] || { echo 'Missing wallpaper path.' && exit 0; }
     [[ -d "$wp" ]] && wp="$(find "$wp" -type f | shuf -n 1)"
+    wpg -A "$wp"
     wpg -s "$wp"
+    rm "$(dirname "$wp")"/*_wal_sample.png
     ;;
 
   reload)
