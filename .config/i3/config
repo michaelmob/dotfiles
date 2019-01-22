@@ -39,7 +39,7 @@ exec --no-startup-id colors set
 # daemons
 exec --no-startup-id /opt/i3-sticky/i3-sticky
 exec --no-startup-id syncthing-gtk --minimized
-exec --no-startup-id udiskie --smart-tray
+exec --no-startup-id udiskie --no-automount --smart-tray
 exec --no-startup-id redshift -m vidmode -l 40.7:-74
 exec --no-startup-id kdeconnect-indicator
 exec --no-startup-id nm-applet
