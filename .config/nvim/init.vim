@@ -12,7 +12,6 @@ else
   let pluginspath = vimpath . '/plugged'
 endif
 
-
 " Plug Installer
 if empty(glob(plugpath))
   exec 'silent !curl -fLo ' . plugpath . ' --create-dirs ' .
@@ -28,9 +27,19 @@ call plug#begin(pluginspath)
 
 " Vim 8 Compatibility
 if !has('nvim')
-  Plug 'tpope/vim-sensible'  " Sensible defaults
-  Plug 'markonm/traces.vim'  " Live substitute for Vim
+  Plug 'tpope/vim-sensible'    " Sensible defaults
+  Plug 'markonm/traces.vim'    " Live substitute for Vim
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+  Plug 'Shougo/deoplete.nvim'  " Auto-completion
 endif
+
+" Autocompletion
+Plug 'autozimu/LanguageClient-neovim', {
+  \   'branch': 'next',
+  \   'do': 'bash install.sh',
+  \ }
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
 " Files
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -46,26 +55,24 @@ Plug 'unblevable/quick-scope'         " Highlighting for f and t
 Plug 'justinmk/vim-sneak'             " Easy cursor jumping; s/S
 Plug 'christoomey/vim-tmux-navigator' " Tmux split navigation
 
-" Autocompletion
-Plug 'lifepillar/vim-mucomplete'      " Autocompletion
-
 " Session
 Plug 'xolox/vim-session'              " Session management
 Plug 'xolox/vim-misc'                 " Extended standard library
 
 " Text
 Plug 'tpope/vim-commentary'           " Commenting; [visual]gc
-Plug 'machakann/vim-sandwich'         " Text surroundings
+Plug 'tpope/vim-surround'             " Text surroundings
 Plug 'junegunn/vim-easy-align'        " Text alignment; [visual]ga
 Plug 'tommcdo/vim-exchange'           " Swap selections of code
 
 " Visual
 Plug 'Yggdroot/indentLine'            " Space indentation
 Plug 'machakann/vim-highlightedyank'  " Briefly highlight yanked text
+Plug 'romainl/vim-cool'               " Unhighlight searches
 
 " Themes
-Plug 'drewtempelmeyer/palenight.vim'  " Palenight colorscheme
 Plug 'morhetz/gruvbox'                " Gruvbox colorscheme
+Plug 'deviantfero/wpgtk.vim'
 
 " UI
 Plug 'itchyny/lightline.vim'
@@ -97,8 +104,16 @@ colorscheme gruvbox
 set encoding=UTF-8
 set t_Co=256
 set background=dark
+set hidden
 if has('termguicolors')
  set termguicolors
+endif
+
+" Persistent Undo
+if has('persistent_undo')
+  let &undodir = expand('$HOME/.vim/undo')
+  call system('mkdir -p ' . &undodir)
+  set undofile
 endif
 
 " Mouse
@@ -122,14 +137,14 @@ set showcmd
 set conceallevel=0
 
 " Regex Engine
-"set regexpengine=1
+set regexpengine=1
 
 " Timeouts
 set timeoutlen=1000
 set ttimeoutlen=0
 
 " Rulers
-set colorcolumn=80
+set colorcolumn=81
 
 " Wrapping
 set wrap!
@@ -150,9 +165,7 @@ endif
 
 " Line numbers
 set number
-if !has('nvim')
-  set relativenumber  " Huge performance issue in neovim
-endif
+set relativenumber
 
 " Status
 set showmode!
@@ -162,7 +175,7 @@ set splitbelow
 set splitright
 
 " Sessions
-let g:sessions_dir = '~/vim-sessions'
+let g:sessions_dir = '~/.vim/sessions'
 
 " Messages
 set shortmess+=c
@@ -227,9 +240,6 @@ nnoremap <C-h> <C-w><C-h>
 nnoremap <C-j> <C-w><C-j>
 nnoremap <C-k> <C-w><C-k>
 nnoremap <C-l> <C-w><C-l>
-" inoremap <C-j> <Nop>
-" inoremap <C-k> <Nop>
-" inoremap <C-l> <Nop>
 
 " Split Resizing
 nnoremap <C-w><C-y> :vertical resize -5<CR>
@@ -239,6 +249,7 @@ nnoremap <C-w><C-o> :vertical resize +5<CR>
 
 " Visual
 vnoremap - g_
+vnoremap // y/<C-R>"<CR>
 
 
 
@@ -263,21 +274,17 @@ let g:sneak#label = 1
 " Quickscope
 let g:qs_highlight_on_keys = ['F', 'T', 'f', 't']
 
-" Mucomplete
-let g:mucomplete#enable_auto_at_startup = 1
-let g:mucomplete#chains = {}
-let g:mucomplete#chains.default = ['path', 'ulti', 'omni', 'keyn', 'dict', 'uspl']
-let g:mucomplete#cycle_with_trigger = "<C-d>"
-imap <silent> <C-n> <plug>(MUcompleteFwd)
-imap <expr> <down> mucomplete#extend_fwd("\<down>")
-imap <silent> <expr> <CR> mucomplete#ultisnips#expand_snippet("\<CR>")
+" Deoplete
+let g:deoplete#enable_at_startup = 1
 
-" Persistent Undo
-if has('persistent_undo')
-  let &undodir = expand('$HOME/.vim/undo')
-  call system('mkdir -p ' . &undodir)
-  set undofile
-endif
+" Language Server Protocol
+let g:LanguageClient_serverCommands = {
+  \   'sh': ['/usr/local/bin/bash-language-server', 'start'],
+  \}
+nnoremap <F5> :call LanguageClient_contextMenu()<CR>
+nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
+nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
 
 " Ultisnips
 let g:UltiSnipsExpandTrigger = "<c-e>"
@@ -361,13 +368,13 @@ endfunction
 """
 " File Types
 augroup FILETYPES
-  autocmd FileType netrw call NetrwBuf()
-  autocmd FileType defx call DefxBuf()
-  autocmd FileType vim call TwoSpaceIndent()
+  autocmd FileType netrw  call NetrwBuf()
+  autocmd FileType defx   call DefxBuf()
+  autocmd FileType vim    call TwoSpaceIndent()
   autocmd FileType python call TwoSpaceIndent()
-  autocmd FileType html call TwoSpaceIndent()
-  autocmd FileType vue call TwoSpaceIndent()
-  autocmd FileType json call TwoSpaceIndent()
+  autocmd FileType html   call TwoSpaceIndent()
+  autocmd FileType vue    call TwoSpaceIndent()
+  autocmd FileType json   call TwoSpaceIndent()
 augroup END
 
 " Vim Events
