@@ -9,7 +9,8 @@
 | Display Manager | [LightDM](https://www.freedesktop.org/wiki/Software/LightDM/) | Lightweight, cross-desktop display manager. |
 | Window Manager | [i3](https://i3wm.org/) with [i3bar](https://i3wm.org/i3bar/) | Tiling window manager. |
 | Power Manager | [Hypersomnia](https://github.com/thetarkus/hypersomnia) | Desktop-Environment Agnostic Lock and Sleep Tool. |
-| File Manager | [Spacefm](https://github.com/IgnorantGuru/spacefm) | Fork of [pcmanfm](https://wiki.lxde.org/en/PCManFM). |
+| File Manager | [pcmanfm-qt](https://github.com/lxqt/pcmanfm-qt) and [vifm](https://vifm.info/) | Graphical and console based file managers. |
+| Clipboard Manager | [greenclip](https://github.com/erebe/greenclip) | Clipboard selections with rofi. |
 | Password Manager | [Bitwarden](https://bitwarden.com/) | Open-source password manager. |
 | Screen Locker | [i3lock](https://i3wm.org/i3lock/) with [besterlockscreen](https://github.com/thetarkus/besterlockscreen) | Fork of [betterlockscreen](https://github.com/pavanjadhaw/betterlockscreen) with wpgtk/pywal integration. |
 | Theme Manager | [LXappearance](https://wiki.lxde.org/en/LXAppearance) and [wpgtk](https://github.com/deviantfero/wpgtk) | Theme, colorscheme and wallpaper manager. |
@@ -27,7 +28,7 @@ Default applications can be changed by editing `~/.profile` or `~/.config/mimeap
 |---|---|---|
 | Terminal Emulator | [st](https://github.com/thetarkus/st) | Suckless terminal. |
 | Web Browser | [Brave](https://brave.com/) | Fast, freedom-respecting web browser. |
-| Text Editor | [Vim](https://www.vim.org/) | Modal editor. |
+| Text Editor | [Neovim](https://neovim.io/) | Modal editor. Fork of [vim](https://www.vim.org/). |
 | E-mail Client | [Thunderbird](https://www.thunderbird.net/en-US/) | E-mail client by Mozilla. |
 | Image Viewer | [sxiv](https://github.com/muennich/sxiv) | Simple X image viewer. |
 
