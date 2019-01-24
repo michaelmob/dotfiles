@@ -4,7 +4,7 @@
 
 # Default Applications
 export TERMINAL='st'
-export EDITOR='vim'
+export EDITOR='nvim'
 export BROWSER='brave'
 export FM='pcmanfm-qt'
 
