@@ -37,6 +37,7 @@ exec --no-startup-id unclutter
 exec --no-startup-id colors set
 
 # daemons
+exec --no-startup-id dunst
 exec --no-startup-id /opt/i3-sticky/i3-sticky
 exec --no-startup-id syncthing-gtk --minimized
 exec --no-startup-id udiskie --no-automount --smart-tray
