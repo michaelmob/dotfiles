@@ -1,5 +1,6 @@
 [colors]
 foreground = "#<COLOR15>"
+background = "#<COLOR8>"
 
 [global]
 ### Display ###

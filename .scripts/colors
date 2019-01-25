@@ -11,7 +11,7 @@ case "$1" in
 
   reload)
     i3-msg reload
-    pkill dunst && dunst &
+    killall dunst; dunst &
     besterlockscreen -u -e ''
     ;;
 
