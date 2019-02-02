@@ -1,0 +1,84 @@
+#!/usr/bin/env bash
+export XBACKLIGHT_RESTORE_FILE=$HOME/.cache/brightness
+export XBACKLIGHT_NOTIFY=-80
+brightness_xbacklight() {
+	# Change the screen brightness using xbacklight. (hardware)
+	# Set XBACKLIGHT_NOTIFY to a negative value to subtract brightness
+	# Set XBACKLIGHT_NOTIFY to a positive value to set an absolute brightness
+	pkill xbacklight
+
+	# restore brightness
+	if [[ $1 = 'restore' ]]; then
+		[[ -f $XBACKLIGHT_RESTORE_FILE ]] && \
+			xbacklight -set $(<$XBACKLIGHT_RESTORE_FILE) && \
+			rm -f $XBACKLIGHT_RESTORE_FILE
+		return
+	fi
+
+	# set brightness
+	from=$(xbacklight -get)
+	to=$XBACKLIGHT_NOTIFY
+	(( $to < 0 )) && to=$(echo "x=$from+$to;if(x<1)x=1;x" | bc -l)
+	xbacklight -set $to
+	echo $from > $XBACKLIGHT_RESTORE_FILE
+}; export -f brightness_xbacklight
+
+
+export XRANDR_RESTORE=1
+export XRANDR_NOTIFY=0.5
+brightness_xrandr() {
+	# Change the screen brightness using xrandr. (software fallback)
+	# Set XRANDR_RESTORE to the brightness value to restore to
+	# Set XRANDR_NOTIFY to the brightness value to notify with
+	[[ $1 = 'restore' ]] && percent=$XRANDR_RESTORE || percent=$XRANDR_NOTIFY
+	while IFS=$'\n' read -r display; do
+		xrandr --output $display --brightness $percent
+	done <<< "$(xrandr | grep -oP '.*(?= connected)')"
+}; export -f brightness_xrandr
+
+
+brightness() {
+	# Use xbacklight or fallback to xrandr.
+	xbacklight 2> /dev/null && brightness_xbacklight $@ || brightness_xrandr $@
+}; export -f brightness
+
+
+if [[ $HOSTNAME == 'pc' ]]; then
+	export NOTIFY_SECONDS=120
+	export SCREEN_OFF_SECONDS=140
+	export LOCK_SECONDS=160
+	export SLEEP_SECONDS=300
+else
+	export NOTIFY_SECONDS=60
+	export SCREEN_OFF_SECONDS=80
+	export LOCK_SECONDS=100
+	export SLEEP_SECONDS=240
+fi
+
+
+idlelock.sh \
+	--lock-on-sleep \
+	--inhibit 'fullscreen' \
+	--unlock 'pkill i3lock' \
+	\
+	`# Restore screen to full brightness on user activity.` \
+	--restore 'brightness restore' \
+	\
+	`# Notify user of inactivity by dimming the screen.` \
+	-$NOTIFY_SECONDS 'notify' \
+		+command 'brightness notify' \
+	\
+	`# Turn the screen off 20 seconds later.` \
+	-$SCREEN_OFF_SECONDS 'screen off' \
+		+command 'xset dpms force off' \
+	\
+	`# Run the screen locker 40 seconds after turning the screen off.` \
+	-$LOCK_SECONDS 'lock' \
+		+command 'pgrep -x i3lock || besterlockscreen -l' \
+	\
+	`# Suspend the system after 5 total minutes of inactivity.` \
+	-$SLEEP_SECONDS 'sleep' \
+		+command 'systemctl suspend' \
+		+restore 'sleep 1 && xset dpms force on' `# Turn screen on after system resumes.` \
+		+inhibit 'audio' `# Do not sleep when audio is playing.` \
+		+repeat `# Retry every 300 seconds of inactivity even after inhibited.`
