@@ -28,18 +28,21 @@ call plug#begin(pluginspath)
 " Vim 8 Compatibility
 if !has('nvim')
   Plug 'tpope/vim-sensible'    " Sensible defaults
-  Plug 'markonm/traces.vim'    " Live substitute for Vim
-  Plug 'roxma/nvim-yarp'
+  Plug 'markonm/traces.vim'    " Live substitute for Vim 8
   Plug 'roxma/vim-hug-neovim-rpc'
-  Plug 'Shougo/deoplete.nvim'  " Auto-completion
 endif
 
 " Autocompletion
-Plug 'autozimu/LanguageClient-neovim', {
-  \   'branch': 'next',
-  \   'do': 'bash install.sh',
-  \ }
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'roxma/nvim-yarp'
+Plug 'ncm2/ncm2'
+Plug 'ncm2/ncm2-bufword'
+Plug 'ncm2/ncm2-path'
+Plug 'ncm2/ncm2-jedi'
+Plug 'ncm2/ncm2-github'
+Plug 'ncm2/ncm2-tmux'
+Plug 'ncm2/ncm2-ultisnips'
+Plug 'phpactor/ncm2-phpactor'
+
 
 " Files
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -72,7 +75,6 @@ Plug 'romainl/vim-cool'               " Unhighlight searches
 
 " Themes
 Plug 'morhetz/gruvbox'                " Gruvbox colorscheme
-Plug 'deviantfero/wpgtk.vim'
 
 " UI
 Plug 'itchyny/lightline.vim'
@@ -89,6 +91,7 @@ Plug 'moll/vim-bbye'                  " Close buffer; :Bdelete
 " Language
 Plug 'sheerun/vim-polyglot'           " Defaults for languages
 Plug 'davidhalter/jedi-vim'           " Python autocompletion
+Plug 'phpactor/phpactor', {'do': 'composer install', 'for': 'php'}
 
 " Syntax
 Plug 'mboughaba/i3config.vim'         " i3 syntax highlighting
@@ -274,22 +277,15 @@ let g:sneak#label = 1
 " Quickscope
 let g:qs_highlight_on_keys = ['F', 'T', 'f', 't']
 
-" Deoplete
-let g:deoplete#enable_at_startup = 1
-
-" Language Server Protocol
-let g:LanguageClient_serverCommands = {
-  \   'sh': ['/usr/local/bin/bash-language-server', 'start'],
-  \}
-nnoremap <F5> :call LanguageClient_contextMenu()<CR>
-nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
-nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
-nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
-
 " Ultisnips
-let g:UltiSnipsExpandTrigger = "<c-e>"
+"let g:UltiSnipsExpandTrigger = "<c-e>"
 let g:UltiSnipsJumpForwardTrigger = "<c-f>"
 let g:UltiSnipsJumpBackwardTrigger = "<c-b>"
+let g:UltiSnipsRemoveSelectModeMappings = 0
+
+" ncm2
+autocmd BufEnter * call ncm2#enable_for_buffer()
+inoremap <silent><expr> <CR> pumvisible() ? ncm2_ultisnips#expand_or("", 'n') : "\<CR>"
 
 " Easy Align
 xmap ga <Plug>(EasyAlign)
@@ -302,12 +298,6 @@ let g:indentLine_leadingSpaceEnabled = 1
 let g:indentLine_concealcursor = ''
 let g:indentLine_conceallevel = 0
 
-" Ultisnips
-let g:UltiSnipsUsePythonVersion = 3
-let g:UltiSnipsExpandTrigger = '<F5>'
-let g:UltiSnipsJumpForwardTrigger = '<C-L>'
-let g:UltiSnipsJumpBackwardTrigger = '<C-K>'
-
 " Netrw
 let g:netrw_bufsettings = 'noma nomod nu nobl nowrap ro'
 let g:netrw_localrmdir='rm -r'
@@ -315,7 +305,6 @@ function! Netrw(cmd)
   if exists('b:sid') | execute "call " . b:sid . a:cmd | endif
 endfunction
 function! NetrwBuf()
-  " Find Netrw functions here:
   " https://github.com/vim/vim/blob/master/runtime/autoload/netrw.vim
   let b:sid = matchstr(maparg('%', 'n'), '<SNR>\d\+_')  " Netrw's <SID>
   nmap <buffer> t :call Netrw("NetrwOpenFile(1)")<CR>
@@ -355,7 +344,6 @@ endfunction
 """ Functions
 """
 function! TwoSpaceIndent()
-  setlocal shiftwidth=2
   setlocal tabstop=2
   setlocal softtabstop=2
   setlocal expandtab
@@ -369,7 +357,6 @@ endfunction
 " File Types
 augroup FILETYPES
   autocmd FileType netrw  call NetrwBuf()
-  autocmd FileType defx   call DefxBuf()
   autocmd FileType vim    call TwoSpaceIndent()
   autocmd FileType python call TwoSpaceIndent()
   autocmd FileType html   call TwoSpaceIndent()
