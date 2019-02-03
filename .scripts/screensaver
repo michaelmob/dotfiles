@@ -32,7 +32,10 @@ brightness_xrandr() {
 	# Set XRANDR_NOTIFY to the brightness value to notify with
 	[[ $1 = 'restore' ]] && percent=$XRANDR_RESTORE || percent=$XRANDR_NOTIFY
 	while IFS=$'\n' read -r display; do
-		xrandr --output $display --brightness $percent
+		for i in {1..5}; do
+			xrandr --output $display --brightness $percent && continue
+			sleep 1
+		done &
 	done <<< "$(xrandr | grep -oP '.*(?= connected)')"
 }; export -f brightness_xrandr
 
@@ -48,11 +51,13 @@ if [[ $HOSTNAME == 'pc' ]]; then
 	export SCREEN_OFF_SECONDS=140
 	export LOCK_SECONDS=160
 	export SLEEP_SECONDS=300
+	export NETWORK_DEVICE=enp5s0
 else
 	export NOTIFY_SECONDS=60
 	export SCREEN_OFF_SECONDS=80
 	export LOCK_SECONDS=100
 	export SLEEP_SECONDS=240
+	export NETWORK_DEVICE=wlp2s0
 fi
 
 
@@ -80,5 +85,7 @@ idlelock.sh \
 	-$SLEEP_SECONDS 'sleep' \
 		+command 'systemctl suspend' \
 		+restore 'sleep 1 && xset dpms force on' `# Turn screen on after system resumes.` \
+		+inhibit "network $NETWORK_DEVICE 1000" `# Do not sleep when network is busy at 1Mbps.` \
+		+inhibit 'cpu 2' `# Do not sleep when CPU is busy.` \
 		+inhibit 'audio' `# Do not sleep when audio is playing.` \
 		+repeat `# Retry every 300 seconds of inactivity even after inhibited.`
