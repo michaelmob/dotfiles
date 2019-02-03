@@ -8,10 +8,11 @@
 |---|---|---|
 | Display Manager | [LightDM](https://www.freedesktop.org/wiki/Software/LightDM/) | Lightweight, cross-desktop display manager. |
 | Window Manager | [i3](https://i3wm.org/) with [i3bar](https://i3wm.org/i3bar/) | Tiling window manager. |
-| Power Manager | [Hypersomnia](https://github.com/thetarkus/hypersomnia) | Desktop-Environment Agnostic Lock and Sleep Tool. |
+
 | File Manager | [pcmanfm-qt](https://github.com/lxqt/pcmanfm-qt) and [vifm](https://vifm.info/) | Graphical and console based file managers. |
 | Clipboard Manager | [greenclip](https://github.com/erebe/greenclip) | Clipboard selections with rofi. |
 | Password Manager | [Bitwarden](https://bitwarden.com/) | Open-source password manager. |
+| Screen Saver | [idlelock.sh](https://github.com/thetarkus/idlelock.sh) | Versatile auto-locking script. |
 | Screen Locker | [i3lock](https://i3wm.org/i3lock/) with [besterlockscreen](https://github.com/thetarkus/besterlockscreen) | Fork of [betterlockscreen](https://github.com/pavanjadhaw/betterlockscreen) with wpgtk/pywal integration. |
 | Theme Manager | [LXappearance](https://wiki.lxde.org/en/LXAppearance) and [wpgtk](https://github.com/deviantfero/wpgtk) | Theme, colorscheme and wallpaper manager. |
 | Compositor | tryone144's fork of [Compton](https://github.com/tryone144/compton) | Compton with dual kawase blur. |
