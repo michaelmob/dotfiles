@@ -1,8 +1,0 @@
-"\C-h": backward-word
-"\C-j": history-search-backward
-"\C-k": history-search-forward
-"\C-l": forward-word
-"\e[1;5D": backward-word
-"\e[1;5C": forward-word
-"\e[P": delete-char
-"\e[M": kill-word

@@ -1,3 +1,4 @@
+set -o vi
 stty -ixon
 shopt -s autocd
 
