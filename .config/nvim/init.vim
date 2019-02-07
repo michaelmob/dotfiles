@@ -30,10 +30,15 @@ if !has('nvim')
   Plug 'tpope/vim-sensible'    " Sensible defaults
   Plug 'markonm/traces.vim'    " Live substitute for Vim 8
   Plug 'roxma/vim-hug-neovim-rpc'
+else
+  Plug 'radenling/vim-dispatch-neovim'
 endif
 
 " Autocompletion
 Plug 'roxma/nvim-yarp'
+Plug 'phpactor/ncm2-phpactor'
+Plug 'prabirshrestha/async.vim'
+Plug 'prabirshrestha/vim-lsp'
 Plug 'ncm2/ncm2'
 Plug 'ncm2/ncm2-bufword'
 Plug 'ncm2/ncm2-path'
@@ -41,8 +46,7 @@ Plug 'ncm2/ncm2-jedi'
 Plug 'ncm2/ncm2-github'
 Plug 'ncm2/ncm2-tmux'
 Plug 'ncm2/ncm2-ultisnips'
-Plug 'phpactor/ncm2-phpactor'
-
+Plug 'ncm2/ncm2-vim-lsp'
 
 " Files
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -67,6 +71,7 @@ Plug 'tpope/vim-commentary'           " Commenting; [visual]gc
 Plug 'tpope/vim-surround'             " Text surroundings
 Plug 'junegunn/vim-easy-align'        " Text alignment; [visual]ga
 Plug 'tommcdo/vim-exchange'           " Swap selections of code
+Plug 'jiangmiao/auto-pairs'           " {}, ''
 
 " Visual
 Plug 'Yggdroot/indentLine'            " Space indentation
@@ -82,6 +87,8 @@ Plug 'junegunn/goyo.vim'              " Distraction free writing
 Plug 'majutsushi/tagbar'              " Class outline viewer
 
 " Functionality
+Plug 'tpope/vim-dispatch'             " Async build & test dispatcher
+Plug 'tpope/vim-dadbod'               " Database interface
 Plug 'tpope/vim-repeat'               " Repeat for supported plugins
 Plug 'tpope/vim-fugitive'             " Git; :Gstatus, :Gcommit, ...
 Plug 'tpope/vim-sleuth'               " Indentation detection
@@ -89,12 +96,13 @@ Plug 'tpope/vim-eunuch'               " Unix shell commands
 Plug 'moll/vim-bbye'                  " Close buffer; :Bdelete
 
 " Language
-Plug 'sheerun/vim-polyglot'           " Defaults for languages
 Plug 'davidhalter/jedi-vim'           " Python autocompletion
 Plug 'phpactor/phpactor', {'do': 'composer install', 'for': 'php'}
 
 " Syntax
+Plug 'sheerun/vim-polyglot'           " Defaults for languages
 Plug 'mboughaba/i3config.vim'         " i3 syntax highlighting
+
 
 call plug#end()
 
@@ -278,14 +286,9 @@ let g:sneak#label = 1
 let g:qs_highlight_on_keys = ['F', 'T', 'f', 't']
 
 " Ultisnips
-"let g:UltiSnipsExpandTrigger = "<c-e>"
 let g:UltiSnipsJumpForwardTrigger = "<c-f>"
 let g:UltiSnipsJumpBackwardTrigger = "<c-b>"
 let g:UltiSnipsRemoveSelectModeMappings = 0
-
-" ncm2
-autocmd BufEnter * call ncm2#enable_for_buffer()
-inoremap <silent><expr> <CR> pumvisible() ? ncm2_ultisnips#expand_or("", 'n') : "\<CR>"
 
 " Easy Align
 xmap ga <Plug>(EasyAlign)
@@ -337,6 +340,23 @@ function! s:goyo_leave()
   nnoremap <silent> 0 g0
   nnoremap <silent> $ g$
 endfunction
+
+" Auto pairs
+let g:AutoPairsMapCR=0
+inoremap <silent> <Plug>(MyCR) <CR><C-R>=AutoPairsReturn()<CR>
+
+" ncm2
+autocmd BufEnter * call ncm2#enable_for_buffer()
+inoremap <silent><expr> <CR> pumvisible() ? ncm2_ultisnips#expand_or('', 'n') : '<CR><C-R>=AutoPairsReturn()<CR>'
+
+" LanguageClient
+if executable('bash-language-server')
+  au User lsp_setup call lsp#register_server({
+        \ 'name': 'bash-language-server',
+        \ 'cmd': {server_info->[&shell, &shellcmdflag, 'bash-language-server start']},
+        \ 'whitelist': ['sh'],
+        \ })
+endif
 
 
 
