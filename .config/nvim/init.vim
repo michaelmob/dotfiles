@@ -21,87 +21,92 @@ if empty(glob(plugpath))
   augroup END
 endif
 
-
 " Plugins
 call plug#begin(pluginspath)
 
-" Vim 8 Compatibility
+" Vim 8
 if !has('nvim')
-  Plug 'tpope/vim-sensible'    " Sensible defaults
-  Plug 'markonm/traces.vim'    " Live substitute for Vim 8
-  Plug 'roxma/vim-hug-neovim-rpc'
-else
-  Plug 'radenling/vim-dispatch-neovim'
+  Plug 'tpope/vim-sensible'            " Sensible defaults
+  Plug 'markonm/traces.vim'            " Live substitute for Vim 8
+  Plug 'roxma/vim-hug-neovim-rpc'      " Neovim RPC client for Vim 8
 endif
 
-" Autocompletion
-Plug 'roxma/nvim-yarp'
-Plug 'phpactor/ncm2-phpactor'
-Plug 'prabirshrestha/async.vim'
-Plug 'prabirshrestha/vim-lsp'
-Plug 'ncm2/ncm2'
-Plug 'ncm2/ncm2-bufword'
-Plug 'ncm2/ncm2-path'
-Plug 'ncm2/ncm2-jedi'
-Plug 'ncm2/ncm2-github'
-Plug 'ncm2/ncm2-tmux'
-Plug 'ncm2/ncm2-ultisnips'
-Plug 'ncm2/ncm2-vim-lsp'
+" Dependencies
+Plug 'roxma/nvim-yarp'                 " Remote plugin framework
+Plug 'prabirshrestha/async.vim'        " Async job control API
+Plug 'prabirshrestha/vim-lsp'          " Language Server Protocl
+if has('nvim')
+  Plug 'radenling/vim-dispatch-neovim' " Neovim's term for Vim 8 plugins
+endif
+
+" Completion
+Plug 'ncm2/ncm2'                       " Completion framework
+Plug 'ncm2/ncm2-bufword'               " Addon: completion from current buffer
+Plug 'ncm2/ncm2-path'                  " Addon: completion from path
+Plug 'ncm2/ncm2-jedi'                  " Addon: completion for python
+Plug 'ncm2/ncm2-github'                " Addon: completion for github links
+Plug 'ncm2/ncm2-tmux'                  " Addon: completion for tmux panes
+Plug 'ncm2/ncm2-ultisnips'             " Addon: completion from ultisnips engine
+Plug 'ncm2/ncm2-vim-lsp'               " Addon: completion from language clients
+Plug 'phpactor/ncm2-phpactor'          " Addon: completion for PHP
 
 " Files
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'               " Fuzzy finder
-Plug 'tpope/vim-vinegar'              " Better netrw defaults
+Plug 'junegunn/fzf.vim'                " Fuzzy file finder
+Plug 'scrooloose/nerdtree'             " Tree file browser
 
 " Snippets
-Plug 'SirVer/ultisnips'               " Snippets engine
-Plug 'honza/vim-snippets'             " Snippets
+Plug 'SirVer/ultisnips'                " Snippets engine
+Plug 'honza/vim-snippets'              " Snippets
 
 " Navigation
-Plug 'unblevable/quick-scope'         " Highlighting for f and t
-Plug 'justinmk/vim-sneak'             " Easy cursor jumping; s/S
-Plug 'christoomey/vim-tmux-navigator' " Tmux split navigation
+Plug 'unblevable/quick-scope'          " Highlighting for f and t
+Plug 'justinmk/vim-sneak'              " Easy cursor jumping; s/S
+Plug 'christoomey/vim-tmux-navigator'  " Tmux split navigation
 
 " Session
-Plug 'xolox/vim-session'              " Session management
-Plug 'xolox/vim-misc'                 " Extended standard library
+Plug 'xolox/vim-session'               " Session management
+Plug 'xolox/vim-misc'                  " Extended standard library
 
 " Text
-Plug 'tpope/vim-commentary'           " Commenting; [visual]gc
-Plug 'tpope/vim-surround'             " Text surroundings
-Plug 'junegunn/vim-easy-align'        " Text alignment; [visual]ga
-Plug 'tommcdo/vim-exchange'           " Swap selections of code
-Plug 'jiangmiao/auto-pairs'           " {}, ''
+Plug 'tpope/vim-commentary'            " Commenting; [visual]gc
+Plug 'tpope/vim-surround'              " Text surroundings
+Plug 'junegunn/vim-easy-align'         " Text alignment; [visual]ga
+Plug 'tommcdo/vim-exchange'            " Swap selections of code
+Plug 'jiangmiao/auto-pairs'            " {}, ''
 
 " Visual
-Plug 'Yggdroot/indentLine'            " Space indentation
-Plug 'machakann/vim-highlightedyank'  " Briefly highlight yanked text
-Plug 'romainl/vim-cool'               " Unhighlight searches
+Plug 'Yggdroot/indentLine'             " Space indentation
+Plug 'machakann/vim-highlightedyank'   " Briefly highlight yanked text
+Plug 'romainl/vim-cool'                " Unhighlight searches
 
 " Themes
-Plug 'morhetz/gruvbox'                " Gruvbox colorscheme
+Plug 'morhetz/gruvbox'                 " Gruvbox colorscheme
+Plug 'drewtempelmeyer/palenight.vim'   " Palenight colorscheme
 
 " UI
-Plug 'itchyny/lightline.vim'
-Plug 'junegunn/goyo.vim'              " Distraction free writing
-Plug 'majutsushi/tagbar'              " Class outline viewer
+Plug 'vim-airline/vim-airline'         " Status line
+Plug 'vim-airline/vim-airline-themes'  " Colorschemes for vim airline
+Plug 'ryanoasis/vim-devicons'          " Icons for NERDTree and Airline
+Plug 'junegunn/goyo.vim'               " Distraction free writing
+Plug 'majutsushi/tagbar'               " Class outline viewer
 
 " Functionality
-Plug 'tpope/vim-dispatch'             " Async build & test dispatcher
-Plug 'tpope/vim-dadbod'               " Database interface
-Plug 'tpope/vim-repeat'               " Repeat for supported plugins
-Plug 'tpope/vim-fugitive'             " Git; :Gstatus, :Gcommit, ...
-Plug 'tpope/vim-sleuth'               " Indentation detection
-Plug 'tpope/vim-eunuch'               " Unix shell commands
-Plug 'moll/vim-bbye'                  " Close buffer; :Bdelete
+Plug 'tpope/vim-dispatch'              " Async build & test dispatcher
+Plug 'tpope/vim-dadbod'                " Database interface
+Plug 'tpope/vim-repeat'                " Repeat for supported plugins
+Plug 'tpope/vim-fugitive'              " Git; :Gstatus, :Gcommit, ...
+Plug 'tpope/vim-sleuth'                " Indentation detection
+Plug 'tpope/vim-eunuch'                " Unix shell commands
+Plug 'moll/vim-bbye'                   " Close buffer; :Bdelete
 
-" Language
-Plug 'davidhalter/jedi-vim'           " Python autocompletion
+" Languages
+Plug 'davidhalter/jedi-vim'            " Python autocompletion
 Plug 'phpactor/phpactor', {'do': 'composer install', 'for': 'php'}
 
 " Syntax
-Plug 'sheerun/vim-polyglot'           " Defaults for languages
-Plug 'mboughaba/i3config.vim'         " i3 syntax highlighting
+Plug 'sheerun/vim-polyglot'            " Defaults for languages
+Plug 'mboughaba/i3config.vim'          " i3 syntax highlighting
 
 
 call plug#end()
@@ -145,7 +150,7 @@ set listchars=tab:\ ,trail:\ ,precedes:^,extends:$,eol:¬
 set showcmd
 
 " Conceal
-set conceallevel=0
+set conceallevel=2
 
 " Regex Engine
 set regexpengine=1
@@ -272,6 +277,13 @@ vnoremap // y/<C-R>"<CR>
 let g:session_autosave = 'no'
 let g:session_autoload = 'no'
 
+" Airline
+if !exists('g:airline_symbols')
+  let g:airline_symbols = {}
+endif
+let g:airline_powerline_fonts = 1
+let g:airline_symbols.linenr = 'Ξ'
+
 " FZF
 nnoremap <Leader>f :FZF<CR>
 nnoremap <Leader>b :Buffers<CR>
@@ -294,14 +306,13 @@ let g:UltiSnipsRemoveSelectModeMappings = 0
 xmap ga <Plug>(EasyAlign)
 
 " Indents
-let g:indentLine_char = '▏'
-let g:indentLine_color_gui = '#454545'
+let g:indentLine_char = ''
 let g:indentLine_leadingSpaceChar = ' '
-let g:indentLine_leadingSpaceEnabled = 1
-let g:indentLine_concealcursor = ''
-let g:indentLine_conceallevel = 0
+let g:indentLine_conceallevel  = &conceallevel
+let g:indentLine_concealcursor = &concealcursor
 
 " Netrw
+let g:netrw_liststyle = 3
 let g:netrw_bufsettings = 'noma nomod nu nobl nowrap ro'
 let g:netrw_localrmdir='rm -r'
 function! Netrw(cmd)
@@ -312,6 +323,9 @@ function! NetrwBuf()
   let b:sid = matchstr(maparg('%', 'n'), '<SNR>\d\+_')  " Netrw's <SID>
   nmap <buffer> t :call Netrw("NetrwOpenFile(1)")<CR>
 endfunction
+
+" NERDTree
+nnoremap <silent> - :NERDTreeToggle<CR>
 
 " Tagbar
 nnoremap <Leader>T :TagbarToggle<CR>
@@ -349,13 +363,13 @@ inoremap <silent> <Plug>(MyCR) <CR><C-R>=AutoPairsReturn()<CR>
 autocmd BufEnter * call ncm2#enable_for_buffer()
 inoremap <silent><expr> <CR> pumvisible() ? ncm2_ultisnips#expand_or('', 'n') : '<CR><C-R>=AutoPairsReturn()<CR>'
 
-" LanguageClient
+" vim-lsp
 if executable('bash-language-server')
   au User lsp_setup call lsp#register_server({
-        \ 'name': 'bash-language-server',
-        \ 'cmd': {server_info->[&shell, &shellcmdflag, 'bash-language-server start']},
-        \ 'whitelist': ['sh'],
-        \ })
+    \   'name': 'bash-language-server',
+    \   'cmd': {server_info->[&shell, &shellcmdflag, 'bash-language-server start']},
+    \   'whitelist': ['sh'],
+    \ })
 endif
 
 
@@ -376,12 +390,12 @@ endfunction
 """
 " File Types
 augroup FILETYPES
-  autocmd FileType netrw  call NetrwBuf()
-  autocmd FileType vim    call TwoSpaceIndent()
-  autocmd FileType python call TwoSpaceIndent()
-  autocmd FileType html   call TwoSpaceIndent()
-  autocmd FileType vue    call TwoSpaceIndent()
-  autocmd FileType json   call TwoSpaceIndent()
+  autocmd FileType netrw    call NetrwBuf()
+  autocmd FileType vim      call TwoSpaceIndent()
+  autocmd FileType python   call TwoSpaceIndent()
+  autocmd FileType html     call TwoSpaceIndent()
+  autocmd FileType vue      call TwoSpaceIndent()
+  autocmd FileType json     call TwoSpaceIndent()
 augroup END
 
 " Vim Events
