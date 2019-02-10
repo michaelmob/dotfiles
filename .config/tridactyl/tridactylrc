@@ -1,10 +1,9 @@
-" vim: set filetype=vim:
-" Theme
-set theme dark
+# Close buffers
+bind <S-x> bdelete
 
-" Close Tab
-unbind d
-bind X tabclose
+# Pager-like binds
+bind u scrollpage -0.5
+bind d scrollpage  0.5
 
-" Find
-unbind <C-f>
+# Tabs
+bind <C-u> undo
