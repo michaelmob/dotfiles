@@ -1,9 +1,9 @@
-# Close buffers
+" Close buffers
 bind <S-x> bdelete
 
-# Pager-like binds
+" Pager-like binds
 bind u scrollpage -0.5
 bind d scrollpage  0.5
 
-# Tabs
+" Tabs
 bind <C-u> undo
