@@ -1,11 +1,10 @@
 #!/usr/bin/env bash
 export XBACKLIGHT_RESTORE_FILE=$HOME/.cache/brightness
-export XBACKLIGHT_NOTIFY=-80
+export XBACKLIGHT_NOTIFY=-40
 brightness_xbacklight() {
 	# Change the screen brightness using xbacklight. (hardware)
 	# Set XBACKLIGHT_NOTIFY to a negative value to subtract brightness
 	# Set XBACKLIGHT_NOTIFY to a positive value to set an absolute brightness
-	pkill xbacklight
 
 	# restore brightness
 	if [[ $1 = 'restore' ]]; then
@@ -31,12 +30,13 @@ brightness_xrandr() {
 	# Set XRANDR_RESTORE to the brightness value to restore to
 	# Set XRANDR_NOTIFY to the brightness value to notify with
 	[[ $1 = 'restore' ]] && percent=$XRANDR_RESTORE || percent=$XRANDR_NOTIFY
-	while IFS=$'\n' read -r display; do
-		for i in {1..5}; do
-			xrandr --output $display --brightness $percent && continue
-			sleep 1
-		done &
-	done <<< "$(xrandr | grep -oP '.*(?= connected)')"
+	for i in {1..5}; do
+		while IFS=$'\n' read -r display; do
+			[[ -z $display ]] && continue
+			xrandr --output $display --brightness $percent && return
+		done <<< "$(xrandr | grep -oP '.*(?= connected)')"
+		sleep 1
+	done
 }; export -f brightness_xrandr
 
 
@@ -61,7 +61,7 @@ else
 fi
 
 
-idlelock.sh \
+exec idlelock.sh \
 	--lock-on-sleep \
 	--inhibit 'fullscreen' \
 	--unlock 'pkill i3lock' \
@@ -74,7 +74,7 @@ idlelock.sh \
 		+command 'brightness notify' \
 	\
 	`# Turn the screen off 20 seconds later.` \
-	-$SCREEN_OFF_SECONDS 'screen off' \
+	-$SCREEN_OFF_SECONDS 'screen_off' \
 		+command 'xset dpms force off' \
 	\
 	`# Run the screen locker 40 seconds after turning the screen off.` \
