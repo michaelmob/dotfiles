@@ -396,6 +396,7 @@ augroup FILETYPES
   autocmd FileType html     call TwoSpaceIndent()
   autocmd FileType vue      call TwoSpaceIndent()
   autocmd FileType json     call TwoSpaceIndent()
+  autocmd FileType netrw    setlocal bufhidden=delete
 augroup END
 
 " Vim Events
