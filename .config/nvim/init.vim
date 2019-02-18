@@ -53,7 +53,7 @@ Plug 'phpactor/ncm2-phpactor'          " Addon: completion for PHP
 " Files
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'                " Fuzzy file finder
-Plug 'scrooloose/nerdtree'             " Tree file browser
+Plug 'tpope/vim-vinegar'               " Netrw improvements
 
 " Snippets
 Plug 'SirVer/ultisnips'                " Snippets engine
@@ -325,7 +325,7 @@ function! NetrwBuf()
 endfunction
 
 " NERDTree
-nnoremap <silent> - :NERDTreeToggle<CR>
+nnoremap <silent> <Leader>n :NERDTreeToggle<CR>
 
 " Tagbar
 nnoremap <Leader>T :TagbarToggle<CR>
