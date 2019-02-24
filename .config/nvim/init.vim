@@ -345,7 +345,6 @@ endfunction
 
 " Auto pairs
 let g:AutoPairsMapCR=0
-inoremap <silent> <Plug>(MyCR) <CR><C-R>=AutoPairsReturn()<CR>
 
 " ncm2
 autocmd BufEnter * call ncm2#enable_for_buffer()
