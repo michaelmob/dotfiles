@@ -231,8 +231,6 @@ noremap <C-s> :w<CR>
 noremap <Leader>j :bprev<CR>
 noremap <Leader>k :bnext<CR>
 noremap <Leader>q :Bdelete<CR>
-noremap <C-p> :tabprev<CR>
-noremap <C-n> :tabnext<CR>
 
 " Tab navigation
 noremap <Leader>h :tabp<CR>
@@ -260,7 +258,6 @@ vnoremap // y/<C-R>"<CR>
 """
 """ Plugin Settings
 """
-
 " Vim Sessions
 let g:session_autosave = 'no'
 let g:session_autoload = 'no'
