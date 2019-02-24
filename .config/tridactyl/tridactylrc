@@ -1,9 +1,10 @@
-" Close buffers
-bind <S-x> bdelete
-
 " Pager-like binds
 bind u scrollpage -0.5
 bind d scrollpage  0.5
 
-" Tabs
+" Buffers
 bind <C-u> undo
+bind <S-x> bdelete
+bind cs tabopen -c school
+bind cp tabopen -c personal
+bind ca tabopen -c shopping
