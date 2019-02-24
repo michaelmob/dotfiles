@@ -363,28 +363,12 @@ endif
 
 
 """
-""" Functions
-"""
-function! TwoSpaceIndent()
-  setlocal tabstop=2
-  setlocal softtabstop=2
-  setlocal expandtab
-endfunction
-
-
-
-"""
 """ Autocmd Groups
 """
 " File Types
 augroup FILETYPES
-  autocmd FileType netrw    call NetrwBuf()
-  autocmd FileType vim      call TwoSpaceIndent()
-  autocmd FileType python   call TwoSpaceIndent()
-  autocmd FileType html     call TwoSpaceIndent()
-  autocmd FileType vue      call TwoSpaceIndent()
-  autocmd FileType json     call TwoSpaceIndent()
-  autocmd FileType netrw    setlocal bufhidden=delete
+  autocmd FileType netrw call NetrwBuf() | setlocal bufhidden=delete
+  autocmd FileType vim   let b:autopairs_enabled = 0
 augroup END
 
 " Vim Events
