@@ -256,17 +256,6 @@ vnoremap // y/<C-R>"<CR>
 """
 """ Plugin Settings
 """
-" Vim Sessions
-let g:session_autosave = 'no'
-let g:session_autoload = 'no'
-
-" Airline
-if !exists('g:airline_symbols')
-  let g:airline_symbols = {}
-endif
-let g:airline_powerline_fonts = 1
-let g:airline_symbols.linenr = 'Ξ'
-
 " FZF
 nnoremap <Leader>f :FZF<CR>
 nnoremap <Leader>b :Buffers<CR>
@@ -276,9 +265,6 @@ nnoremap <Leader>s :Ag<CR>
 
 " Sneak
 let g:sneak#label = 1
-
-" Quickscope
-let g:qs_highlight_on_keys = ['F', 'T', 'f', 't']
 
 " Ultisnips
 let g:UltiSnipsJumpForwardTrigger = "<c-f>"
@@ -306,12 +292,6 @@ function! NetrwBuf()
   let b:sid = matchstr(maparg('%', 'n'), '<SNR>\d\+_')  " Netrw's <SID>
   nmap <buffer> t :call Netrw("NetrwOpenFile(1)")<CR>
 endfunction
-
-" NERDTree
-nnoremap <silent> <Leader>n :NERDTreeToggle<CR>
-
-" Tagbar
-nnoremap <Leader>T :TagbarToggle<CR>
 
 " Highlightedyank
 let g:highlightedyank_highlight_duration = 250
