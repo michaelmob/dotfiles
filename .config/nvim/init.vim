@@ -60,7 +60,7 @@ Plug 'SirVer/ultisnips'                " Snippets engine
 Plug 'honza/vim-snippets'              " Snippets
 
 " Navigation
-Plug 'unblevable/quick-scope'          " Highlighting for f and t
+Plug 'rhysd/clever-f.vim'              " Extend f, t, F, T
 Plug 'justinmk/vim-sneak'              " Easy cursor jumping; s/S
 Plug 'christoomey/vim-tmux-navigator'  " Tmux split navigation
 
