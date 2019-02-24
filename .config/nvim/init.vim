@@ -107,7 +107,7 @@ call plug#end()
 """ Built-in Settings
 """
 syntax on
-colorscheme gruvbox
+colorscheme base16-default-dark
 set encoding=UTF-8
 set t_Co=256
 set background=dark
@@ -122,9 +122,6 @@ if has('persistent_undo')
   call system('mkdir -p ' . &undodir)
   set undofile
 endif
-
-" Mouse
-"set mouse=a
 
 " Cursor
 set scrolloff=2
