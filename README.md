@@ -8,7 +8,7 @@
 |---|---|---|
 | Display Manager | [LightDM](https://www.freedesktop.org/wiki/Software/LightDM/) | Lightweight, cross-desktop display manager. |
 | Window Manager | [i3](https://i3wm.org/) with [i3bar](https://i3wm.org/i3bar/) | Tiling window manager. |
-| File Manager | [pcmanfm-qt](https://github.com/lxqt/pcmanfm-qt) and [vifm](https://vifm.info/) | Graphical and console based file managers. |
+| File Manager | [pcmanfm-qt](https://github.com/lxqt/pcmanfm-qt) and [lf](https://github.com/gokcehan/lf) | Graphical and console based file managers. |
 | Clipboard Manager | [greenclip](https://github.com/erebe/greenclip) | Clipboard selections with rofi. |
 | Screen Saver | [idlelock.sh](https://github.com/thetarkus/idlelock.sh) | Versatile auto-locking script. |
 | Screen Locker | [i3lock](https://i3wm.org/i3lock/) with [besterlockscreen](https://github.com/thetarkus/besterlockscreen) | Fork of [betterlockscreen](https://github.com/pavanjadhaw/betterlockscreen) with wpgtk/pywal integration. |
