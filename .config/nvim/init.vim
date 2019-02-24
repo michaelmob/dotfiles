@@ -77,15 +77,10 @@ Plug 'machakann/vim-highlightedyank'   " Briefly highlight yanked text
 Plug 'romainl/vim-cool'                " Unhighlight searches
 
 " Themes
-Plug 'morhetz/gruvbox'                 " Gruvbox colorscheme
-Plug 'drewtempelmeyer/palenight.vim'   " Palenight colorscheme
+Plug 'chriskempson/base16-vim'         " Base16 theme architecture
 
 " UI
-Plug 'vim-airline/vim-airline'         " Status line
-Plug 'vim-airline/vim-airline-themes'  " Colorschemes for vim airline
-Plug 'ryanoasis/vim-devicons'          " Icons for NERDTree and Airline
 Plug 'junegunn/goyo.vim'               " Distraction free writing
-Plug 'majutsushi/tagbar'               " Class outline viewer
 
 " Functionality
 Plug 'tpope/vim-dispatch'              " Async build & test dispatcher
