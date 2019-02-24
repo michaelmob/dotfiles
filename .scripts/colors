@@ -12,7 +12,7 @@ case "$1" in
   reload)
     i3-msg reload
     killall dunst; dunst &
-    besterlockscreen -u -e ''
+    besterlockscreen -u "$(cat ~/.cache/wal/wal)" -e ''
     ;;
 
   show)
