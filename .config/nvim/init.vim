@@ -261,7 +261,7 @@ nnoremap <Leader>f :FZF<CR>
 nnoremap <Leader>b :Buffers<CR>
 nnoremap <Leader>m :Marks<CR>
 nnoremap <Leader>t :Tags<CR>
-nnoremap <Leader>s :Ag<CR>
+nnoremap <Leader>s :Rg<CR>
 
 " Sneak
 let g:sneak#label = 1
