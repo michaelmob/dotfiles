@@ -64,10 +64,6 @@ Plug 'unblevable/quick-scope'          " Highlighting for f and t
 Plug 'justinmk/vim-sneak'              " Easy cursor jumping; s/S
 Plug 'christoomey/vim-tmux-navigator'  " Tmux split navigation
 
-" Session
-Plug 'xolox/vim-session'               " Session management
-Plug 'xolox/vim-misc'                  " Extended standard library
-
 " Text
 Plug 'tpope/vim-commentary'            " Commenting; [visual]gc
 Plug 'tpope/vim-surround'              " Text surroundings
