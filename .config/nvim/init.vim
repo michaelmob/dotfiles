@@ -233,8 +233,8 @@ noremap <Leader>k :bnext<CR>
 noremap <Leader>q :Bdelete<CR>
 
 " Tab navigation
-noremap <Leader>h :tabp<CR>
-noremap <Leader>l :tabn<CR>
+noremap <Leader>h :tabprev<CR>
+noremap <Leader>l :tabnext<CR>
 
 " Split navigation
 map <Leader> <Nop>
