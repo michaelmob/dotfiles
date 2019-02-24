@@ -151,7 +151,7 @@ set ttimeoutlen=0
 set colorcolumn=81
 
 " Wrapping
-set wrap!
+set nowrap
 
 " Indentation
 set shiftwidth=0
@@ -172,14 +172,14 @@ set number
 set relativenumber
 
 " Status
-set showmode!
+set showmode
 
 " Splits
 set splitbelow
 set splitright
 
 " Sessions
-let g:sessions_dir = '~/.vim/sessions'
+let g:sessions_dir = vimpath + '/sessions'
 
 " Messages
 set shortmess+=c
