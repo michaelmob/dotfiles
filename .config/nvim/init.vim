@@ -193,7 +193,6 @@ set completeopt-=preview
 """
 """ Built-in Mappings
 """
-
 " New lines
 nnoremap <Enter> i<Enter><Esc>
 
@@ -212,7 +211,6 @@ nnoremap <Leader>S :source $MYVIMRC<CR>
 
 " Terminal
 tnoremap <Leader><Esc> <C-\><C-n>
-tnoremap <C-p> i<C-P>
 tnoremap <C-h> <C-\><C-n><C-W><C-H>
 tnoremap <C-j> <C-\><C-n><C-W><C-J>
 tnoremap <C-k> <C-\><C-n><C-W><C-K>
