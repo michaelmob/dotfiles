@@ -1,91 +1,68 @@
 #!/usr/bin/env bash
-export XBACKLIGHT_RESTORE_FILE=$HOME/.cache/brightness
-export XBACKLIGHT_NOTIFY=-40
-brightness_xbacklight() {
-	# Change the screen brightness using xbacklight. (hardware)
-	# Set XBACKLIGHT_NOTIFY to a negative value to subtract brightness
-	# Set XBACKLIGHT_NOTIFY to a positive value to set an absolute brightness
 
-	# restore brightness
-	if [[ $1 = 'restore' ]]; then
-		[[ -f $XBACKLIGHT_RESTORE_FILE ]] && \
-			xbacklight -set $(<$XBACKLIGHT_RESTORE_FILE) && \
-			rm -f $XBACKLIGHT_RESTORE_FILE
-		return
-	fi
-
-	# set brightness
-	from=$(xbacklight -get)
-	to=$XBACKLIGHT_NOTIFY
-	(( $to < 0 )) && to=$(echo "x=$from+$to;if(x<1)x=1;x" | bc -l)
-	xbacklight -set $to
-	echo $from > $XBACKLIGHT_RESTORE_FILE
-}; export -f brightness_xbacklight
+#
+# PID
+#
+cache_path=$HOME/.cache/idlelock.sh
+pid_file=$cache_path/pid
+mkdir -p $HOME/.cache/idlelock.sh
+[[ -f $pid_file ]] && kill $(<$pid_file)
+trap "rm -f $pid_file" EXIT INT TERM
+echo $$ > $cache_path/pid
 
 
-export XRANDR_RESTORE=1
-export XRANDR_NOTIFY=0.5
-brightness_xrandr() {
-	# Change the screen brightness using xrandr. (software fallback)
-	# Set XRANDR_RESTORE to the brightness value to restore to
-	# Set XRANDR_NOTIFY to the brightness value to notify with
-	[[ $1 = 'restore' ]] && percent=$XRANDR_RESTORE || percent=$XRANDR_NOTIFY
-	for i in {1..5}; do
-		while IFS=$'\n' read -r display; do
-			[[ -z $display ]] && continue
-			xrandr --output $display --brightness $percent && return
-		done <<< "$(xrandr | grep -oP '.*(?= connected)')"
-		sleep 1
-	done
-}; export -f brightness_xrandr
 
-
-brightness() {
-	# Use xbacklight or fallback to xrandr.
-	xbacklight 2> /dev/null && brightness_xbacklight $@ || brightness_xrandr $@
-}; export -f brightness
-
-
+#
+# Setting
+#
 if [[ $HOSTNAME == 'pc' ]]; then
-	export NOTIFY_SECONDS=120
-	export SCREEN_OFF_SECONDS=140
-	export LOCK_SECONDS=160
-	export SLEEP_SECONDS=300
-	export NETWORK_DEVICE=enp5s0
+	# NOTIFY_SECONDS=120
+	NOTIFY_SECONDS=5
+	SCREEN_OFF_SECONDS=140
+	LOCK_SECONDS=160
+	SLEEP_SECONDS=300
+	NETWORK_DEVICE=enp5s0
+	NOTIFY_BRIGHTNESS=50
 else
-	export NOTIFY_SECONDS=60
-	export SCREEN_OFF_SECONDS=80
-	export LOCK_SECONDS=100
-	export SLEEP_SECONDS=240
-	export NETWORK_DEVICE=wlp2s0
+	NOTIFY_SECONDS=60
+	SCREEN_OFF_SECONDS=80
+	LOCK_SECONDS=100
+	SLEEP_SECONDS=240
+	NETWORK_DEVICE=wlp2s0
+	NOTIFY_BRIGHTNESS=20
 fi
 
 
+
+#
+# idlelock.sh
+#
 exec idlelock.sh \
 	--lock-on-sleep \
 	--inhibit 'fullscreen' \
-	--unlock 'pkill i3lock' \
+	--inhibit "pause $HOME/.cache/idlelock.sh/pause" \
+	--unlock-cmd 'pkill i3lock' \
 	\
 	`# Restore screen to full brightness on user activity.` \
-	--restore 'brightness restore' \
+	--restore-cmd '/usr/share/idlelock.sh/set-brightness.sh restore' \
 	\
 	`# Notify user of inactivity by dimming the screen.` \
-	-$NOTIFY_SECONDS 'notify' \
-		+command 'brightness notify' \
+	--timer $NOTIFY_SECONDS \
+		+command "/usr/share/idlelock.sh/set-brightness.sh $NOTIFY_BRIGHTNESS" \
 	\
 	`# Turn the screen off 20 seconds later.` \
-	-$SCREEN_OFF_SECONDS 'screen_off' \
+	--timer $SCREEN_OFF_SECONDS \
 		+command 'xset dpms force off' \
 	\
 	`# Run the screen locker 40 seconds after turning the screen off.` \
-	-$LOCK_SECONDS 'lock' \
+	--timer $LOCK_SECONDS \
 		+command 'pgrep -x i3lock || besterlockscreen -l' \
+		+primary \
 	\
 	`# Suspend the system after 5 total minutes of inactivity.` \
-	-$SLEEP_SECONDS 'sleep' \
+	--timer $SLEEP_SECONDS \
 		+command 'systemctl suspend' \
 		+restore 'sleep 1 && xset dpms force on' `# Turn screen on after system resumes.` \
 		+inhibit "network $NETWORK_DEVICE 1000" `# Do not sleep when network is busy at 1Mbps.` \
 		+inhibit 'cpu 2' `# Do not sleep when CPU is busy.` \
-		+inhibit 'audio' `# Do not sleep when audio is playing.` \
 		+repeat `# Retry every 300 seconds of inactivity even after inhibited.`
