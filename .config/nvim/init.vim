@@ -28,27 +28,10 @@ call plug#begin(pluginspath)
 if !has('nvim')
   Plug 'tpope/vim-sensible'            " Sensible defaults
   Plug 'markonm/traces.vim'            " Live substitute for Vim 8
-  Plug 'roxma/vim-hug-neovim-rpc'      " Neovim RPC client for Vim 8
-endif
-
-" Dependencies
-Plug 'roxma/nvim-yarp'                 " Remote plugin framework
-Plug 'prabirshrestha/async.vim'        " Async job control API
-Plug 'prabirshrestha/vim-lsp'          " Language Server Protocl
-if has('nvim')
-  Plug 'radenling/vim-dispatch-neovim' " Neovim's term for Vim 8 plugins
 endif
 
 " Completion
-Plug 'ncm2/ncm2'                       " Completion framework
-Plug 'ncm2/ncm2-bufword'               " Addon: completion from current buffer
-Plug 'ncm2/ncm2-path'                  " Addon: completion from path
-Plug 'ncm2/ncm2-jedi'                  " Addon: completion for python
-Plug 'ncm2/ncm2-github'                " Addon: completion for github links
-Plug 'ncm2/ncm2-tmux'                  " Addon: completion for tmux panes
-Plug 'ncm2/ncm2-ultisnips'             " Addon: completion from ultisnips engine
-Plug 'ncm2/ncm2-vim-lsp'               " Addon: completion from language clients
-Plug 'phpactor/ncm2-phpactor'          " Addon: completion for PHP
+Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
 
 " Files
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -83,21 +66,14 @@ Plug 'chriskempson/base16-vim'         " Base16 theme architecture
 Plug 'junegunn/goyo.vim'               " Distraction free writing
 
 " Functionality
-Plug 'tpope/vim-dispatch'              " Async build & test dispatcher
-Plug 'tpope/vim-dadbod'                " Database interface
 Plug 'tpope/vim-repeat'                " Repeat for supported plugins
 Plug 'tpope/vim-fugitive'              " Git; :Gstatus, :Gcommit, ...
 Plug 'tpope/vim-sleuth'                " Indentation detection
 Plug 'tpope/vim-eunuch'                " Unix shell commands
 Plug 'moll/vim-bbye'                   " Close buffer; :Bdelete
 
-" Languages
-Plug 'davidhalter/jedi-vim'            " Python autocompletion
-Plug 'phpactor/phpactor', {'do': 'composer install', 'for': 'php'}
-
 " Syntax
 Plug 'sheerun/vim-polyglot'            " Defaults for languages
-Plug 'mboughaba/i3config.vim'          " i3 syntax highlighting
 
 
 call plug#end()
@@ -194,10 +170,7 @@ set completeopt-=preview
 """ Built-in Mappings
 """
 " New lines
-nnoremap <Enter> i<Enter><Esc>
-
-" Make
-nnoremap <silent> M :make<CR>
+nnoremap <CR> i<CR><Esc>
 
 " Searching
 set ignorecase
@@ -205,9 +178,6 @@ set smartcase
 
 " Write current directory
 nnoremap <Leader>L :!echo %:p:h > ~/.previous-dir<CR><CR>
-
-" Source
-nnoremap <Leader>S :source $MYVIMRC<CR>
 
 " Terminal
 tnoremap <Leader><Esc> <C-\><C-n>
@@ -223,16 +193,19 @@ noremap <Leader>P "+P
 
 " Save
 noremap <Space><Esc> :w<CR>
-noremap <C-s> :w<CR>
 
 " Buffer navigation
-noremap <Leader>j :bprev<CR>
-noremap <Leader>k :bnext<CR>
 noremap <Leader>q :Bdelete<CR>
 
 " Tab navigation
 noremap <Leader>h :tabprev<CR>
 noremap <Leader>l :tabnext<CR>
+
+" Line navigation
+nnoremap <S-h> _
+nnoremap <S-l> g_
+vnoremap <S-h> _
+vnoremap <S-l> g_
 
 " Split navigation
 map <Leader> <Nop>
@@ -241,14 +214,13 @@ nnoremap <C-j> <C-w><C-j>
 nnoremap <C-k> <C-w><C-k>
 nnoremap <C-l> <C-w><C-l>
 
-" Split Resizing
+" Split resizing
 nnoremap <C-w><C-y> :vertical resize -5<CR>
 nnoremap <C-w><C-u> :resize -5<CR>
 nnoremap <C-w><C-i> :resize +5<CR>
 nnoremap <C-w><C-o> :vertical resize +5<CR>
 
 " Visual
-vnoremap - g_
 vnoremap // y/<C-R>"<CR>
 
 
@@ -320,19 +292,6 @@ endfunction
 
 " Auto pairs
 let g:AutoPairsMapCR=0
-
-" ncm2
-autocmd BufEnter * call ncm2#enable_for_buffer()
-inoremap <silent><expr> <CR> pumvisible() ? ncm2_ultisnips#expand_or('', 'n') : '<CR><C-R>=AutoPairsReturn()<CR>'
-
-" vim-lsp
-if executable('bash-language-server')
-  au User lsp_setup call lsp#register_server({
-    \   'name': 'bash-language-server',
-    \   'cmd': {server_info->[&shell, &shellcmdflag, 'bash-language-server start']},
-    \   'whitelist': ['sh'],
-    \ })
-endif
 
 
 
