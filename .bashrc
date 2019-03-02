@@ -2,7 +2,7 @@ stty -ixon
 shopt -s autocd
 
 # Colors
-(cat $HOME/.config/wpg/sequences &)
+[[ $HOSTNAME = 'pc' ]] || (cat $HOME/.config/wpg/sequences &)
 
 # Environment variables
 export TERM='xterm-256color'
@@ -40,3 +40,5 @@ alias gs='git status -uno'
 alias gd='git diff HEAD'
 alias gc='git commit'
 alias gu='git add -u'
+
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
