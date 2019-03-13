@@ -36,7 +36,7 @@ Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
 " Files
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'                " Fuzzy file finder
-Plug 'tpope/vim-vinegar'               " Netrw improvements
+Plug 'scrooloose/nerdtree'             " File browser
 
 " Snippets
 Plug 'SirVer/ultisnips'                " Snippets engine
@@ -52,7 +52,7 @@ Plug 'tpope/vim-commentary'            " Commenting; [visual]gc
 Plug 'tpope/vim-surround'              " Text surroundings
 Plug 'junegunn/vim-easy-align'         " Text alignment; [visual]ga
 Plug 'tommcdo/vim-exchange'            " Swap selections of code
-Plug 'jiangmiao/auto-pairs'            " {}, ''
+"Plug 'jiangmiao/auto-pairs'            " {}, ''
 
 " Visual
 Plug 'Yggdroot/indentLine'             " Space indentation
@@ -74,6 +74,9 @@ Plug 'moll/vim-bbye'                   " Close buffer; :Bdelete
 
 " Syntax
 Plug 'sheerun/vim-polyglot'            " Defaults for languages
+
+" Languages
+Plug 'phpactor/phpactor', {'for': 'php', 'do': 'composer install'}  " PHP
 
 
 call plug#end()
@@ -229,11 +232,21 @@ vnoremap // y/<C-R>"<CR>
 """ Plugin Settings
 """
 " FZF
+let rg_args = {'options': '--delimiter : --nth 4..'}
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading -g "!node_modules" --color=always --smart-case '.shellescape(<q-args>), 1,
+  \   <bang>0 ? fzf#vim#with_preview(rg_args, 'up:60%')
+  \           : fzf#vim#with_preview(rg_args, 'right:50%:hidden', '?'),
+  \   <bang>0)
 nnoremap <Leader>f :FZF<CR>
 nnoremap <Leader>b :Buffers<CR>
 nnoremap <Leader>m :Marks<CR>
 nnoremap <Leader>t :Tags<CR>
 nnoremap <Leader>s :Rg<CR>
+
+" NERDTree
+nnoremap <Leader>n :NERDTreeToggle<CR>
 
 " Sneak
 let g:sneak#label = 1
@@ -251,19 +264,6 @@ let g:indentLine_char = ''
 let g:indentLine_leadingSpaceChar = ' '
 let g:indentLine_conceallevel  = &conceallevel
 let g:indentLine_concealcursor = &concealcursor
-
-" Netrw
-let g:netrw_liststyle = 3
-let g:netrw_bufsettings = 'noma nomod nu nobl nowrap ro'
-let g:netrw_localrmdir='rm -r'
-function! Netrw(cmd)
-  if exists('b:sid') | execute "call " . b:sid . a:cmd | endif
-endfunction
-function! NetrwBuf()
-  " https://github.com/vim/vim/blob/master/runtime/autoload/netrw.vim
-  let b:sid = matchstr(maparg('%', 'n'), '<SNR>\d\+_')  " Netrw's <SID>
-  nmap <buffer> t :call Netrw("NetrwOpenFile(1)")<CR>
-endfunction
 
 " Highlightedyank
 let g:highlightedyank_highlight_duration = 250
@@ -291,8 +291,10 @@ function! s:goyo_leave()
 endfunction
 
 " Auto pairs
-let g:AutoPairsMapCR=0
+let g:AutoPairsMapCR = 0
 
+" Vim-vue
+let g:vue_disable_pre_processors = 1
 
 
 """
@@ -300,8 +302,7 @@ let g:AutoPairsMapCR=0
 """
 " File Types
 augroup FILETYPES
-  autocmd FileType netrw call NetrwBuf() | setlocal bufhidden=delete
-  autocmd FileType vim   let b:autopairs_enabled = 0
+  autocmd FileType vim let b:autopairs_enabled = 0
 augroup END
 
 " Vim Events
