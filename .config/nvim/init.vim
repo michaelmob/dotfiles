@@ -36,7 +36,9 @@ Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
 " Files
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'                " Fuzzy file finder
-Plug 'scrooloose/nerdtree'             " File browser
+Plug 'tpope/vim-vinegar'
+"Plug 'scrooloose/nerdtree'             " File browser
+"Plug 'lambdalisue/fila.vim'
 
 " Snippets
 Plug 'SirVer/ultisnips'                " Snippets engine
@@ -52,7 +54,7 @@ Plug 'tpope/vim-commentary'            " Commenting; [visual]gc
 Plug 'tpope/vim-surround'              " Text surroundings
 Plug 'junegunn/vim-easy-align'         " Text alignment; [visual]ga
 Plug 'tommcdo/vim-exchange'            " Swap selections of code
-"Plug 'jiangmiao/auto-pairs'            " {}, ''
+Plug 'jiangmiao/auto-pairs'            " {}, ''
 
 " Visual
 Plug 'Yggdroot/indentLine'             " Space indentation
@@ -64,6 +66,7 @@ Plug 'chriskempson/base16-vim'         " Base16 theme architecture
 
 " UI
 Plug 'junegunn/goyo.vim'               " Distraction free writing
+Plug 'itchyny/lightline.vim'           " Status line
 
 " Functionality
 Plug 'tpope/vim-repeat'                " Repeat for supported plugins
@@ -99,12 +102,13 @@ endif
 if has('persistent_undo')
   let &undodir = expand('$HOME/.vim/undo')
   call system('mkdir -p ' . &undodir)
-  set undofile
+  se undofile
 endif
 
 " Cursor
 set scrolloff=2
 set nocursorline
+set updatetime=300
 let &t_SI.="\e[5 q"
 let &t_SR.="\e[4 q"
 let &t_EI.="\e[1 q"
@@ -115,6 +119,7 @@ set listchars=tab:\ ,trail:\ ,precedes:^,extends:$,eol:¬
 
 " Commands
 set showcmd
+set cmdheight=2
 
 " Conceal
 set conceallevel=2
@@ -245,6 +250,39 @@ nnoremap <Leader>m :Marks<CR>
 nnoremap <Leader>t :Tags<CR>
 nnoremap <Leader>s :Rg<CR>
 
+" Lightline
+let g:lightline = {
+  \  'active': {
+  \    'left': [ [ 'mode', 'paste' ],
+  \              [ 'readonly', 'filename', 'modified' ] ]
+  \  },
+  \  'right':  [ [ 'lineinfo' ],
+  \              [ 'percent' ],
+  \              [ 'cocstatus', 'fileformat', 'fileencoding', 'filetype', 'charvaluehex' ] ],
+  \  'component_function': {
+  \    'cocstatus': 'coc#status',
+  \    'filename': 'LightLineFilename'
+  \  },
+  \}
+function! LightLineFilename()
+  return expand('%')
+endfunction
+
+" netrw
+let g:netrw_errorlvl = 2
+let g:netrw_liststyle = 1
+let g:netrw_sizestyle = 'H'
+
+" coc.nvim
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+nnoremap <silent> <space>d  :<C-u>CocList diagnostics<cr>
+nmap <silent> [c <Plug>(coc-diagnostic-prev)
+nmap <silent> ]c <Plug>(coc-diagnostic-next)
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
 " NERDTree
 nnoremap <Leader>n :NERDTreeToggle<CR>
 
@@ -303,6 +341,7 @@ let g:vue_disable_pre_processors = 1
 " File Types
 augroup FILETYPES
   autocmd FileType vim let b:autopairs_enabled = 0
+  autocmd FileType vue syntax sync fromstart
 augroup END
 
 " Vim Events
