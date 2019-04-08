@@ -38,7 +38,6 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'                " Fuzzy file finder
 Plug 'tpope/vim-vinegar'
 "Plug 'scrooloose/nerdtree'             " File browser
-"Plug 'lambdalisue/fila.vim'
 
 " Snippets
 Plug 'SirVer/ultisnips'                " Snippets engine
@@ -54,7 +53,6 @@ Plug 'tpope/vim-commentary'            " Commenting; [visual]gc
 Plug 'tpope/vim-surround'              " Text surroundings
 Plug 'junegunn/vim-easy-align'         " Text alignment; [visual]ga
 Plug 'tommcdo/vim-exchange'            " Swap selections of code
-Plug 'jiangmiao/auto-pairs'            " {}, ''
 
 " Visual
 Plug 'Yggdroot/indentLine'             " Space indentation
@@ -74,6 +72,7 @@ Plug 'tpope/vim-fugitive'              " Git; :Gstatus, :Gcommit, ...
 Plug 'tpope/vim-sleuth'                " Indentation detection
 Plug 'tpope/vim-eunuch'                " Unix shell commands
 Plug 'moll/vim-bbye'                   " Close buffer; :Bdelete
+Plug 'wellle/targets.vim'
 
 " Syntax
 Plug 'sheerun/vim-polyglot'            " Defaults for languages
@@ -156,7 +155,7 @@ set number
 set relativenumber
 
 " Status
-set showmode
+set noshowmode
 
 " Splits
 set splitbelow
@@ -172,20 +171,21 @@ set shortmess+=c
 set completeopt+=menuone,noinsert
 set completeopt-=preview
 
+" Searching
+set ignorecase
+set smartcase
+
 
 
 """
 """ Built-in Mappings
 """
-" New lines
-nnoremap <CR> i<CR><Esc>
-
-" Searching
-set ignorecase
-set smartcase
-
 " Write current directory
 nnoremap <Leader>L :!echo %:p:h > ~/.previous-dir<CR><CR>
+
+" Visual
+vnoremap // y/<C-R>"<CR>
+xnoremap gs y:%s/<C-r>"//g<Left><Left>
 
 " Terminal
 tnoremap <Leader><Esc> <C-\><C-n>
@@ -202,10 +202,11 @@ noremap <Leader>P "+P
 " Save
 noremap <Space><Esc> :w<CR>
 
-" Buffer navigation
+" Buffers
 noremap <Leader>q :Bdelete<CR>
+noremap <Tab> <c-^>
 
-" Tab navigation
+" Tabs
 noremap <Leader>h :tabprev<CR>
 noremap <Leader>l :tabnext<CR>
 
@@ -214,6 +215,10 @@ nnoremap <S-h> _
 nnoremap <S-l> g_
 vnoremap <S-h> _
 vnoremap <S-l> g_
+
+nnoremap <CR> i<CR><Esc>
+vnoremap J :m '>+1<CR>gv=gv
+vnoremap K :m '<-2<CR>gv=gv
 
 " Split navigation
 map <Leader> <Nop>
@@ -227,9 +232,6 @@ nnoremap <C-w><C-y> :vertical resize -5<CR>
 nnoremap <C-w><C-u> :resize -5<CR>
 nnoremap <C-w><C-i> :resize +5<CR>
 nnoremap <C-w><C-o> :vertical resize +5<CR>
-
-" Visual
-vnoremap // y/<C-R>"<CR>
 
 
 
@@ -282,6 +284,8 @@ nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
+
+let g:coc_global_extensions = 'coc-pairs coc-json coc-tsserver'
 
 " NERDTree
 nnoremap <Leader>n :NERDTreeToggle<CR>
