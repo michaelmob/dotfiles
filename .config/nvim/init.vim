@@ -72,6 +72,7 @@ Plug 'tpope/vim-sleuth'                " Indentation detection
 Plug 'tpope/vim-eunuch'                " Unix shell commands
 Plug 'moll/vim-bbye'                   " Close buffer; :Bdelete
 Plug 'wellle/targets.vim'
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
 
 " Syntax
 Plug 'sheerun/vim-polyglot'            " Defaults for languages
@@ -179,7 +180,6 @@ set smartcase
 """
 """ Built-in Mappings
 """
-
 " Semi-colon as colon
 nnoremap ; :
 
@@ -201,6 +201,9 @@ tnoremap <C-l> <C-\><C-n><C-W><C-L>
 noremap <Leader>y "+y
 noremap <Leader>p "+p
 noremap <Leader>P "+P
+
+" Text
+nnoremap c* *Ncgn
 
 " Save
 noremap <Space><Esc> :w<CR>
@@ -291,8 +294,10 @@ nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
 let g:coc_global_extensions = [
-  \  'coc-pairs', 'coc-lists',
-  \  'coc-tsserver', 'coc-json'
+  \  'coc-pairs', 'coc-lists', 'coc-highlight',
+  \  'coc-tsserver', 'coc-json', 'coc-css', 'coc-vetur', 'coc-html', 'coc-emmet',
+  \  'coc-snippets', 'coc-ultisnips',
+  \  'coc-emoji'
   \]
 
 " NERDTree
@@ -352,7 +357,6 @@ let g:vue_disable_pre_processors = 1
 """
 " File Types
 augroup FILETYPES
-  autocmd FileType vim let b:autopairs_enabled = 0
   autocmd FileType vue syntax sync fromstart
 augroup END
 
