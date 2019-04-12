@@ -36,8 +36,7 @@ Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
 " Files
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'                " Fuzzy file finder
-Plug 'tpope/vim-vinegar'
-"Plug 'scrooloose/nerdtree'             " File browser
+Plug 'tpope/vim-vinegar'               " Netrw
 
 " Snippets
 Plug 'SirVer/ultisnips'                " Snippets engine
@@ -83,12 +82,11 @@ Plug 'phpactor/phpactor', {'for': 'php', 'do': 'composer install'}  " PHP
 
 call plug#end()
 
-
 """
 """ Built-in Settings
 """
 syntax on
-colorscheme base16-default-dark
+colorscheme base16-onedark
 set encoding=UTF-8
 set t_Co=256
 set background=dark
@@ -181,6 +179,10 @@ set smartcase
 """
 """ Built-in Mappings
 """
+
+" Semi-colon as colon
+nnoremap ; :
+
 " Write current directory
 nnoremap <Leader>L :!echo %:p:h > ~/.previous-dir<CR><CR>
 
@@ -255,16 +257,18 @@ nnoremap <Leader>s :Rg<CR>
 
 " Lightline
 let g:lightline = {
+  \  'colorscheme': 'one',
   \  'active': {
   \    'left': [ [ 'mode', 'paste' ],
-  \              [ 'readonly', 'filename', 'modified' ] ]
+  \              [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
   \  },
   \  'right':  [ [ 'lineinfo' ],
   \              [ 'percent' ],
   \              [ 'cocstatus', 'fileformat', 'fileencoding', 'filetype', 'charvaluehex' ] ],
   \  'component_function': {
   \    'cocstatus': 'coc#status',
-  \    'filename': 'LightLineFilename'
+  \    'filename': 'LightLineFilename',
+  \    'gitbranch': 'fugitive#head'
   \  },
   \}
 function! LightLineFilename()
@@ -286,7 +290,10 @@ nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
-let g:coc_global_extensions = 'coc-pairs coc-json coc-tsserver'
+let g:coc_global_extensions = [
+  \  'coc-pairs', 'coc-lists',
+  \  'coc-tsserver', 'coc-json'
+  \]
 
 " NERDTree
 nnoremap <Leader>n :NERDTreeToggle<CR>
