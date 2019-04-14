@@ -64,6 +64,7 @@ Plug 'chriskempson/base16-vim'         " Base16 theme architecture
 " UI
 Plug 'junegunn/goyo.vim'               " Distraction free writing
 Plug 'itchyny/lightline.vim'           " Status line
+Plug 'blueyed/vim-diminactive'
 
 " Functionality
 Plug 'tpope/vim-repeat'                " Repeat for supported plugins
@@ -73,6 +74,7 @@ Plug 'tpope/vim-eunuch'                " Unix shell commands
 Plug 'moll/vim-bbye'                   " Close buffer; :Bdelete
 Plug 'wellle/targets.vim'
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
+Plug 'chrisbra/Recover.vim'
 
 " Syntax
 Plug 'sheerun/vim-polyglot'            " Defaults for languages
@@ -283,6 +285,11 @@ let g:netrw_errorlvl = 2
 let g:netrw_liststyle = 1
 let g:netrw_sizestyle = 'H'
 
+function! NetrwBuffer()
+  noremap <buffer> t :norm %<CR>
+  nunmap <buffer> <space>s
+endfunction
+
 " coc.nvim
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 nnoremap <silent> <space>d  :<C-u>CocList diagnostics<cr>
@@ -305,6 +312,7 @@ nnoremap <Leader>n :NERDTreeToggle<CR>
 
 " Sneak
 let g:sneak#label = 1
+let g:sneak#map_netrw = 0
 
 " Ultisnips
 let g:UltiSnipsJumpForwardTrigger = "<c-f>"
@@ -358,6 +366,7 @@ let g:vue_disable_pre_processors = 1
 " File Types
 augroup FILETYPES
   autocmd FileType vue syntax sync fromstart
+  autocmd FileType netrw call NetrwBuffer()
 augroup END
 
 " Vim Events
