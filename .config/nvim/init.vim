@@ -57,6 +57,7 @@ Plug 'tommcdo/vim-exchange'            " Swap selections of code
 Plug 'Yggdroot/indentLine'             " Space indentation
 Plug 'machakann/vim-highlightedyank'   " Briefly highlight yanked text
 Plug 'romainl/vim-cool'                " Unhighlight searches
+Plug 'luochen1990/rainbow'             " Rainbow parenthesis
 
 " Themes
 Plug 'chriskempson/base16-vim'         " Base16 theme architecture
@@ -71,6 +72,7 @@ Plug 'tpope/vim-repeat'                " Repeat for supported plugins
 Plug 'tpope/vim-fugitive'              " Git; :Gstatus, :Gcommit, ...
 Plug 'tpope/vim-sleuth'                " Indentation detection
 Plug 'tpope/vim-eunuch'                " Unix shell commands
+Plug 'tpope/vim-obsession'             " Automatic sessions
 Plug 'moll/vim-bbye'                   " Close buffer; :Bdelete
 Plug 'wellle/targets.vim'
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
@@ -89,7 +91,7 @@ call plug#end()
 """ Built-in Settings
 """
 syntax on
-colorscheme base16-onedark
+colorscheme base16-default-dark
 set encoding=UTF-8
 set t_Co=256
 set background=dark
@@ -139,9 +141,9 @@ set colorcolumn=81
 set nowrap
 
 " Indentation
-set shiftwidth=0
+set shiftwidth=4
 set tabstop=4
-set noexpandtab
+set expandtab
 set smarttab
 
 " Leader
@@ -262,7 +264,7 @@ nnoremap <Leader>s :Rg<CR>
 
 " Lightline
 let g:lightline = {
-  \  'colorscheme': 'one',
+  \  'colorscheme': 'powerline',
   \  'active': {
   \    'left': [ [ 'mode', 'paste' ],
   \              [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
@@ -359,6 +361,17 @@ let g:AutoPairsMapCR = 0
 " Vim-vue
 let g:vue_disable_pre_processors = 1
 
+" Rainbow parenthesis
+let g:rainbow_active = 1
+
+" Session
+function! AutoloadSession()
+  if !argc() && filereadable('session.vim')
+    source session.vim
+    Obsess! session.vim
+  endif
+endfunction
+
 
 """
 """ Autocmd Groups
@@ -374,4 +387,9 @@ augroup EVENTS
   autocmd FocusGained,VimResized * :redraw!
   autocmd User GoyoEnter nested call <SID>goyo_enter()
   autocmd User GoyoLeave nested call <SID>goyo_leave()
+  autocmd VimEnter * nested call AutoloadSession()
+augroup END
+
+" Session
+augroup SESSION
 augroup END
