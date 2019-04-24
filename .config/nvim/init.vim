@@ -65,7 +65,7 @@ Plug 'chriskempson/base16-vim'         " Base16 theme architecture
 " UI
 Plug 'junegunn/goyo.vim'               " Distraction free writing
 Plug 'itchyny/lightline.vim'           " Status line
-Plug 'blueyed/vim-diminactive'
+Plug 'TaDaa/vimade'
 
 " Functionality
 Plug 'tpope/vim-repeat'                " Repeat for supported plugins
@@ -243,6 +243,11 @@ nnoremap <C-w><C-u> :resize -5<CR>
 nnoremap <C-w><C-i> :resize +5<CR>
 nnoremap <C-w><C-o> :vertical resize +5<CR>
 
+" Prevent accidents
+inoremap <C-h> <Nop>
+inoremap <C-j> <Nop>
+inoremap <C-k> <Nop>
+inoremap <C-l> <Nop>
 
 
 """
@@ -364,6 +369,10 @@ let g:vue_disable_pre_processors = 1
 " Rainbow parenthesis
 let g:rainbow_active = 1
 
+" Vimade
+let g:vimade = {}
+let g:vimade.fadelevel = 0.8
+
 " Session
 function! AutoloadSession()
   if !argc() && filereadable('session.vim')
@@ -371,6 +380,7 @@ function! AutoloadSession()
     Obsess! session.vim
   endif
 endfunction
+
 
 
 """
