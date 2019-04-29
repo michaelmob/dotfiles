@@ -52,6 +52,7 @@ Plug 'tpope/vim-commentary'            " Commenting; [visual]gc
 Plug 'tpope/vim-surround'              " Text surroundings
 Plug 'junegunn/vim-easy-align'         " Text alignment; [visual]ga
 Plug 'tommcdo/vim-exchange'            " Swap selections of code
+Plug 'vimwiki/vimwiki'                 " Personal wiki
 
 " Visual
 Plug 'Yggdroot/indentLine'             " Space indentation
@@ -63,9 +64,8 @@ Plug 'luochen1990/rainbow'             " Rainbow parenthesis
 Plug 'chriskempson/base16-vim'         " Base16 theme architecture
 
 " UI
-Plug 'junegunn/goyo.vim'               " Distraction free writing
 Plug 'itchyny/lightline.vim'           " Status line
-Plug 'TaDaa/vimade'
+Plug 'TaDaa/vimade'                    " Dim inactive panes
 
 " Functionality
 Plug 'tpope/vim-repeat'                " Repeat for supported plugins
@@ -75,8 +75,9 @@ Plug 'tpope/vim-eunuch'                " Unix shell commands
 Plug 'tpope/vim-obsession'             " Automatic sessions
 Plug 'moll/vim-bbye'                   " Close buffer; :Bdelete
 Plug 'wellle/targets.vim'
+Plug 'vim-scripts/vim-auto-save'       " Auto-saving
+Plug 'chrisbra/Recover.vim'            " Easier recovery
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
-Plug 'chrisbra/Recover.vim'
 
 " Syntax
 Plug 'sheerun/vim-polyglot'            " Defaults for languages
@@ -375,9 +376,9 @@ let g:vimade.fadelevel = 0.8
 
 " Session
 function! AutoloadSession()
-  if !argc() && filereadable('session.vim')
-    source session.vim
-    Obsess! session.vim
+  if !argc() && filereadable('.session.vim')
+    source .session.vim
+    Obsess! .session.vim
   endif
 endfunction
 
