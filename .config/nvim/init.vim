@@ -292,6 +292,7 @@ endfunction
 let g:netrw_errorlvl = 2
 let g:netrw_liststyle = 1
 let g:netrw_sizestyle = 'H'
+let g:netrw_bufsettings = 'noma nomod nu nobl nowrap ro'
 
 function! NetrwBuffer()
   noremap <buffer> t :norm %<CR>
