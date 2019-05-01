@@ -218,8 +218,9 @@ noremap <Leader>q :Bdelete<CR>
 noremap <Tab> <c-^>
 
 " Tabs
-noremap <Leader>h :tabprev<CR>
-noremap <Leader>l :tabnext<CR>
+noremap <silent> <C-p> :tabprev<CR>
+noremap <silent> <C-n> :tabnext<CR>
+
 
 " Line navigation
 nnoremap <S-h> _
