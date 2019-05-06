@@ -64,8 +64,9 @@ Plug 'luochen1990/rainbow'             " Rainbow parenthesis
 Plug 'chriskempson/base16-vim'         " Base16 theme architecture
 
 " UI
-Plug 'itchyny/lightline.vim'           " Status line
-Plug 'TaDaa/vimade'                    " Dim inactive panes
+Plug 'vim-airline/vim-airline'
+"Plug 'itchyny/lightline.vim'           " Status line
+"Plug 'TaDaa/vimade'                    " Dim inactive panes
 
 " Functionality
 Plug 'tpope/vim-repeat'                " Repeat for supported plugins
@@ -250,6 +251,7 @@ inoremap <C-h> <Nop>
 inoremap <C-j> <Nop>
 inoremap <C-k> <Nop>
 inoremap <C-l> <Nop>
+nnoremap <S-k> <Nop>
 
 
 """
@@ -267,27 +269,10 @@ nnoremap <Leader>f :FZF<CR>
 nnoremap <Leader>b :Buffers<CR>
 nnoremap <Leader>m :Marks<CR>
 nnoremap <Leader>t :Tags<CR>
-nnoremap <Leader>s :Rg<CR>
+nnoremap <Leader>s :Ag<CR>
 
-" Lightline
-let g:lightline = {
-  \  'colorscheme': 'powerline',
-  \  'active': {
-  \    'left': [ [ 'mode', 'paste' ],
-  \              [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
-  \  },
-  \  'right':  [ [ 'lineinfo' ],
-  \              [ 'percent' ],
-  \              [ 'cocstatus', 'fileformat', 'fileencoding', 'filetype', 'charvaluehex' ] ],
-  \  'component_function': {
-  \    'cocstatus': 'coc#status',
-  \    'filename': 'LightLineFilename',
-  \    'gitbranch': 'fugitive#head'
-  \  },
-  \}
-function! LightLineFilename()
-  return expand('%')
-endfunction
+" fugitive
+command Gtdiff tabedit %|Gdiff
 
 " netrw
 let g:netrw_errorlvl = 2
@@ -312,9 +297,8 @@ nmap <silent> gr <Plug>(coc-references)
 
 let g:coc_global_extensions = [
   \  'coc-pairs', 'coc-lists', 'coc-highlight',
-  \  'coc-tsserver', 'coc-json', 'coc-css', 'coc-vetur', 'coc-html', 'coc-emmet',
-  \  'coc-snippets', 'coc-ultisnips',
-  \  'coc-emoji'
+  \  'coc-tsserver', 'coc-json', 'coc-css', 'coc-vetur', 'coc-html',
+  \  'coc-emmet', 'coc-snippets', 'coc-ultisnips', 'coc-emoji'
   \]
 
 " NERDTree
