@@ -272,7 +272,7 @@ nnoremap <Leader>t :Tags<CR>
 nnoremap <Leader>s :Ag<CR>
 
 " fugitive
-command Gtdiff tabedit %|Gdiff
+command! Gtdiff tabedit %|Gdiff
 
 " netrw
 let g:netrw_errorlvl = 2
@@ -367,6 +367,9 @@ function! AutoloadSession()
     Obsess! .session.vim
   endif
 endfunction
+
+" Markdown preview
+let g:mkdp_auto_close = 0
 
 
 
