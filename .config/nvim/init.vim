@@ -65,8 +65,6 @@ Plug 'chriskempson/base16-vim'         " Base16 theme architecture
 
 " UI
 Plug 'vim-airline/vim-airline'
-"Plug 'itchyny/lightline.vim'           " Status line
-"Plug 'TaDaa/vimade'                    " Dim inactive panes
 
 " Functionality
 Plug 'tpope/vim-repeat'                " Repeat for supported plugins
@@ -83,11 +81,9 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
 " Syntax
 Plug 'sheerun/vim-polyglot'            " Defaults for languages
 
-" Languages
-Plug 'phpactor/phpactor', {'for': 'php', 'do': 'composer install'}  " PHP
-
 
 call plug#end()
+
 
 """
 """ Built-in Settings
@@ -111,12 +107,9 @@ endif
 
 " Cursor
 set scrolloff=2
+set sidescrolloff=1
 set nocursorline
 set updatetime=300
-set guicursor=
-let &t_SI.="\e[5 q"
-let &t_SR.="\e[4 q"
-let &t_EI.="\e[1 q"
 
 " List
 set list
@@ -124,7 +117,6 @@ set listchars=tab:\ ,trail:\ ,precedes:^,extends:$,eol:¬
 
 " Commands
 set showcmd
-set cmdheight=2
 
 " Conceal
 set conceallevel=2
@@ -194,7 +186,7 @@ nnoremap <Leader>L :!echo %:p:h > ~/.previous-dir<CR><CR>
 
 " Visual
 vnoremap // y/<C-R>"<CR>
-xnoremap gs y:%s/<C-r>"//g<Left><Left>
+xnoremap R y:%s/<C-r>"//g<Left><Left>
 
 " Terminal
 tnoremap <Leader><Esc> <C-\><C-n>
@@ -294,6 +286,7 @@ nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
+nmap <silent> gs <Plug>(coc-action-workspaceSymbols)
 
 let g:coc_global_extensions = [
   \  'coc-pairs', 'coc-lists', 'coc-highlight',
@@ -325,28 +318,6 @@ let g:indentLine_concealcursor = &concealcursor
 " Highlightedyank
 let g:highlightedyank_highlight_duration = 250
 
-" Goyo
-nmap <silent> <Leader>G :Goyo<CR>
-let g:goyo_linenr = 1
-function! s:goyo_enter()
-  let g:goyo_wrap = &wrap
-  let g:goyo_linebreak = &linebreak
-  set wrap
-  set linebreak
-  nnoremap <silent> <expr> j (v:count == 0 ? 'gj' : 'j')
-  nnoremap <silent> <expr> k (v:count == 0 ? 'gk' : 'k')
-  nnoremap <silent> 0 g0
-  nnoremap <silent> $ g$
-endfunction
-function! s:goyo_leave()
-  if g:goyo_wrap == 0 | set nowrap | endif
-  if g:goyo_linebreak == 0 | set linebreak | endif
-  nnoremap <silent> j j
-  nnoremap <silent> k k
-  nnoremap <silent> 0 g0
-  nnoremap <silent> $ g$
-endfunction
-
 " Auto pairs
 let g:AutoPairsMapCR = 0
 
@@ -356,11 +327,7 @@ let g:vue_disable_pre_processors = 1
 " Rainbow parenthesis
 let g:rainbow_active = 1
 
-" Vimade
-let g:vimade = {}
-let g:vimade.fadelevel = 0.8
-
-" Session
+" vim-obsession
 function! AutoloadSession()
   if !argc() && filereadable('.session.vim')
     source .session.vim
@@ -378,18 +345,13 @@ let g:mkdp_auto_close = 0
 """
 " File Types
 augroup FILETYPES
-  autocmd FileType vue syntax sync fromstart
   autocmd FileType netrw call NetrwBuffer()
+  autocmd FileType vue syntax sync fromstart
+  autocmd FileType vue,javascript autocmd BufWritePre <buffer> %s/\s\+$//e
 augroup END
 
 " Vim Events
 augroup EVENTS
   autocmd FocusGained,VimResized * :redraw!
-  autocmd User GoyoEnter nested call <SID>goyo_enter()
-  autocmd User GoyoLeave nested call <SID>goyo_leave()
   autocmd VimEnter * nested call AutoloadSession()
-augroup END
-
-" Session
-augroup SESSION
 augroup END

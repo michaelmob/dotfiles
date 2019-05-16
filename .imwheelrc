@@ -1,4 +1,4 @@
-".*-browser"
+".*"
     None, Up, Button4, 4
     None, Down, Button5, 4
     Shift_L,   Up,   Shift_L|Button4, 4
