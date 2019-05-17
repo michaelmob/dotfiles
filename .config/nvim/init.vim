@@ -64,6 +64,7 @@ Plug 'luochen1990/rainbow'             " Rainbow parenthesis
 Plug 'chriskempson/base16-vim'         " Base16 theme architecture
 
 " UI
+Plug 'airblade/vim-gitgutter'
 Plug 'vim-airline/vim-airline'
 
 " Functionality
@@ -94,8 +95,10 @@ set encoding=UTF-8
 set t_Co=256
 set background=dark
 set hidden
-if has('termguicolors')
- set termguicolors
+if exists('+termguicolors')
+  " let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+  " let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+  set termguicolors
 endif
 
 " Persistent Undo
@@ -265,6 +268,7 @@ nnoremap <Leader>s :Ag<CR>
 
 " fugitive
 command! Gtdiff tabedit %|Gdiff
+command! Gtstatus Gtabedit :
 
 " netrw
 let g:netrw_errorlvl = 2
@@ -312,8 +316,6 @@ xmap ga <Plug>(EasyAlign)
 " Indents
 let g:indentLine_char = ''
 let g:indentLine_leadingSpaceChar = ' '
-let g:indentLine_conceallevel  = &conceallevel
-let g:indentLine_concealcursor = &concealcursor
 
 " Highlightedyank
 let g:highlightedyank_highlight_duration = 250
@@ -348,6 +350,7 @@ augroup FILETYPES
   autocmd FileType netrw call NetrwBuffer()
   autocmd FileType vue syntax sync fromstart
   autocmd FileType vue,javascript autocmd BufWritePre <buffer> %s/\s\+$//e
+  autocmd FileType markdown let b:indentLine_enabled = 0
 augroup END
 
 " Vim Events
