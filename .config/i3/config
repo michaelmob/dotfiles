@@ -18,33 +18,28 @@
 set $mod Mod4
 set $alt Mod1
 
+# workspaces
+set $ws1  "1"
+set $ws2  "2"
+set $ws3  "3"
+set $ws4  "4"
+set $ws5  "5"
+set $ws6  "6"
+set $ws7  "7"
+set $ws8  "8"
+set $ws9  "9"
+set $ws10 "10"
+
 
 
 #
 # autostart
 #
 
-# hardware
-exec --no-startup-id touchpad disable
-exec --no-startup-id setxkbmap -option caps:escape
-exec --no-startup-id xset r rate 250 30
-
 # environment
-exec --no-startup-id screensaver
 exec --no-startup-id compton
 exec --no-startup-id scratchpad
-exec --no-startup-id unclutter
-exec --no-startup-id colors set
-
-# daemons
-exec --no-startup-id dunst
-exec --no-startup-id /opt/i3-sticky/i3-sticky
-exec --no-startup-id syncthing-gtk --minimized
-exec --no-startup-id udiskie --no-automount --smart-tray
-exec --no-startup-id redshift -m vidmode -l 40.7:-74
-exec --no-startup-id kdeconnect-indicator
-exec --no-startup-id nm-applet
-exec --no-startup-id greenclip daemon
+exec feh --bg-scale ~/Pictures/Flowerbed.jpg
 
 
 
@@ -61,31 +56,8 @@ bindsym $mod+r               exec $FM
 # process viewer
 bindsym $mod+g               exec $TERMINAL -e ~/.scripts/htop
 
-# launcher
-bindsym $mod+d               exec rofi -show run
-
-# clipboard manager
-bindsym $mod+Shift+d         exec rofi -modi "clipboard:greenclip print" -show clipboard -run-command '{cmd}'
-
 # screenshot
 bindsym Ctrl+Shift+4         exec flameshot gui
-
-# change wallpaper
-bindsym $mod+Shift+bar       exec colors set
-
-# xf86 keys
-bindsym XF86AudioRaiseVolume exec pamixer -i 5 && pkill -RTMIN+10 i3blocks
-bindsym XF86AudioLowerVolume exec pamixer -d 5 && pkill -RTMIN+10 i3blocks
-bindsym XF86AudioMute        exec pamixer -t && pkill -RTMIN+10 i3blocks
-bindsym XF86AudioMicMute     exec pamixer --source 1 -t
-bindsym XF86TouchpadToggle   exec touchpad toggle
-
-# music
-bindsym Pause                exec playerctl play-pause
-bindsym XF86AudioPlay        exec playerctl play-pause
-bindsym XF86AudioStop        exec playerctl stop
-bindsym XF86AudioPrev        exec playerctl previous
-bindsym XF86AudioNext        exec playerctl next
 
 
 
@@ -108,6 +80,10 @@ focus_follows_mouse no
 # window settings
 new_window pixel 3
 
+# window placement
+for_window [class='Mail']               move to workspace $ws10
+for_window [class='spotify']            move to workspace $ws9
+
 # window rules
 for_window [instance="float"]           floating enable
 for_window [class="Clock-applet"]       floating enable
@@ -126,6 +102,16 @@ for_window [class="pcmanfm-qt"]         floating enable
 for_window [class="Spacefm"]            floating enable
 for_window [class="Pavucontrol"]        floating enable
 for_window [class="feh"]                floating enable
+for_window [class="plasmashell"]        floating enable
+for_window [class="Plasma"]             floating enable
+for_window [title="plasma-desktop"]     floating enable
+for_window [class="krunner"]            floating enable
+for_window [class="Kmix"]               floating enable
+for_window [class="Klipper"]            floating enable
+for_window [class="Plasmoidviewer"]     floating enable
+for_window [class="lattedock"]          floating enable, no_focus
+for_window [title="Desktop — Plasma"]   kill, floating enable, border none
+for_window [class="plasmashell" window_type="notification"] floating enable, border none, move right 700px, move down 450px, no_focus
 
 
 
@@ -134,18 +120,12 @@ for_window [class="feh"]                floating enable
 #
 
 # dropdown
-for_window [class="scratch"] floating enable
-for_window [class="scratch"] resize set 800 300
-for_window [class="scratch"] move scratchpad
-for_window [class="scratch"] border pixel 5
-bindsym $mod+apostrophe [class="scratch"] scratchpad show, [class="scratch"] move position center
+for_window [instance="scratch"] floating enable, resize set 800 300, move scratchpad, border pixel 5
+bindsym $mod+apostrophe [instance="scratch"] scratchpad show, [class="scratch"] move position center
 
 # calculator
-for_window [class="math"] floating enable
-for_window [class="math"] resize set 800 300
-for_window [class="math"] move scratchpad
-for_window [class="math"] border pixel 5
-bindsym $mod+c [class="math"] scratchpad show, [class="math"] move position center
+for_window [instance="math"] floating enable, resize set 800 300, move scratchpad, border pixel 5
+bindsym $mod+c [instance="math"] scratchpad show, [class="math"] move position center
 
 
 
@@ -155,13 +135,13 @@ bindsym $mod+c [class="math"] scratchpad show, [class="math"] move position cent
 
 # color variables
 set_from_resource $darkblack   color0  #000000
-set_from_resource $darkred     color1  #000000
+set_from_resource $darkred     color1  #D74424
 set_from_resource $darkgreen   color2  #000000
 set_from_resource $darkyellow  color3  #000000
-set_from_resource $darkblue    color4  #000000
-set_from_resource $darkmagenta color5  #000000
+set_from_resource $darkblue    color4  #444366
+set_from_resource $darkmagenta color5  #F49E63
 set_from_resource $darkcyan    color6  #000000
-set_from_resource $darkwhite   color7  #000000
+set_from_resource $darkwhite   color7  #EEEEEE
 set_from_resource $black       color8  #000000
 set_from_resource $red         color9  #000000
 set_from_resource $green       color10 #000000
@@ -174,8 +154,8 @@ set               $transparent #00000000
 
 # state                 border   bg         text       indicator    child_border
 client.focused          $darkred $darkred   $white     $darkmagenta $darkred
-client.unfocused        $darkred $darkblack $darkwhite $darkblue    $darkblack
-client.focused_inactive $darkred $darkred   $white     $darkmagenta $darkblack
+client.unfocused        $darkred $darkblack $darkwhite $darkblue    $transparent
+client.focused_inactive $darkred $darkred   $white     $darkmagenta $darkred
 client.urgent           $darkred $darkred   $darkwhite $darkred     $darkred
 client.background       $black
 
@@ -231,9 +211,6 @@ bindsym $mod+f fullscreen toggle
 # sticky
 bindsym $mod+z sticky toggle, floating enable
 bindsym $mod+Shift+z exec --no-startup-id i3-input -F "[con_id=__focused__] mark _sticky_%s"
-bindsym Ctrl+$mod+1 exec --no-startup-id /opt/i3-sticky/i3-sticky-open 1
-bindsym Ctrl+$mod+2 exec --no-startup-id /opt/i3-sticky/i3-sticky-open 2
-bindsym Ctrl+$mod+3 exec --no-startup-id /opt/i3-sticky/i3-sticky-open 3
 
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle
@@ -263,18 +240,6 @@ bindsym $mod+Shift+o resize grow width 5 px or 1 ppt
 bindsym $mod+Tab workspace back_and_forth
 workspace_auto_back_and_forth yes
 
-# workspaces
-set $ws1  "1"
-set $ws2  "2"
-set $ws3  "3"
-set $ws4  "4"
-set $ws5  "5"
-set $ws6  "6"
-set $ws7  "7"
-set $ws8  "8"
-set $ws9  "9"
-set $ws10 "10"
-
 # switch workspaces
 bindsym $mod+1 workspace $ws1
 bindsym $mod+2 workspace $ws2
@@ -303,50 +268,3 @@ bindsym $mod+Shift+0 move container to workspace $ws10
 bindsym $mod+Shift+c reload
 bindsym $mod+Shift+r restart
 bindsym $mod+Shift+BackSpace exec "i3-nagbar -t warning -m 'Do you want to exit i3?' -b 'Yes, exit i3' 'i3-msg exit'"
-
-
-
-#
-# i3bar and i3blocks
-#
-
-# Desktop bar with more modules
-bar {
-  position       top
-  mode           dock
-  status_command SCRIPT_DIR=~/.scripts/i3blocks-contrib i3blocks -c ~/.config/i3blocks/config-large
-  output         HDMI-A-0
-  output         DP1
-  output         DP2
-
-  colors {
-    background $darkblack
-    statusline $darkwhite
-    separator  $cyan
-
-    focused_workspace  $red       $darkred   $white
-    active_workspace   $blue      $blue      $white
-    inactive_workspace $darkblack $darkblack $darkwhite
-    urgent_workspace   $darkblack $darkblack $darkwhite
-  }
-}
-
-
-# Laptop bar with fewer modules
-bar {
-  position       top
-  mode           dock
-  status_command SCRIPT_DIR=~/.scripts/i3blocks-contrib i3blocks -c ~/.config/i3blocks/config-small
-  output LVDS1
-
-  colors {
-    background $darkblack
-    statusline $darkwhite
-    separator  $cyan
-
-    focused_workspace  $red       $darkred   $white
-    active_workspace   $blue      $blue      $white
-    inactive_workspace $darkblack $darkblack $darkwhite
-    urgent_workspace   $darkblack $darkblack $darkwhite
-  }
-}

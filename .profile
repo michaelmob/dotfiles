@@ -3,10 +3,10 @@
 	export QT_QPA_PLATFORMTHEME='qt5ct'
 
 # Default Applications
-export TERMINAL='st'
+export TERMINAL='alacritty'
 export EDITOR='nvim'
-export BROWSER='firefox'
-export FM='pcmanfm-qt'
+export BROWSER='brave'
+export FM='dolphin'
 
 # Paths
 export PATH="$PATH:$HOME/.local/bin:$HOME/.scripts"
