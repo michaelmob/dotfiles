@@ -5,7 +5,7 @@ launch() {
   #     $1 -> window class name
   #     $2 -> command.
   xdotool search --class $1 && return 1
-  $TERMINAL --class $1 -e bash -c "source $HOME/.bashrc;while :;do $2;done" & disown
+  $TERMINAL --class $1 -t $1 -e bash -c "source $HOME/.bashrc;while :;do $2;done" & disown
 }
 
 launch math    "$HOME/.scripts/math"

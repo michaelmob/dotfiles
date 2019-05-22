@@ -39,7 +39,7 @@ set $ws10 "10"
 # environment
 exec --no-startup-id compton
 exec --no-startup-id scratchpad
-exec feh --bg-scale ~/Pictures/Flowerbed.jpg
+exec --no-startup-id feh --bg-scale ~/Pictures/Flowerbed.jpg
 
 
 
@@ -51,13 +51,16 @@ exec feh --bg-scale ~/Pictures/Flowerbed.jpg
 bindsym $mod+Return          exec $TERMINAL
 
 # file manager
-bindsym $mod+r               exec $FM
+bindsym $mod+f               exec $FM
 
 # process viewer
-bindsym $mod+g               exec $TERMINAL -e ~/.scripts/htop
+bindsym $mod+colon           exec $TERMINAL -e htop
 
 # screenshot
 bindsym Ctrl+Shift+4         exec flameshot gui
+
+# xkill
+bindsym $mod+x               exec $TERMINAL -e xkill
 
 
 
@@ -71,6 +74,8 @@ floating_modifier $mod
 # do not focus window on mouseover
 focus_follows_mouse no
 
+# switch to spotify window
+bindsym --whole-window button12 exec xdotool key Return
 
 
 #
@@ -109,7 +114,6 @@ for_window [class="krunner"]            floating enable
 for_window [class="Kmix"]               floating enable
 for_window [class="Klipper"]            floating enable
 for_window [class="Plasmoidviewer"]     floating enable
-for_window [class="lattedock"]          floating enable, no_focus
 for_window [title="Desktop — Plasma"]   kill, floating enable, border none
 for_window [class="plasmashell" window_type="notification"] floating enable, border none, move right 700px, move down 450px, no_focus
 
@@ -121,11 +125,15 @@ for_window [class="plasmashell" window_type="notification"] floating enable, bor
 
 # dropdown
 for_window [instance="scratch"] floating enable, resize set 800 300, move scratchpad, border pixel 5
-bindsym $mod+apostrophe [instance="scratch"] scratchpad show, [class="scratch"] move position center
+bindsym $mod+apostrophe [instance="scratch"] scratchpad show, move position center
 
 # calculator
 for_window [instance="math"] floating enable, resize set 800 300, move scratchpad, border pixel 5
-bindsym $mod+c [instance="math"] scratchpad show, [class="math"] move position center
+bindsym $mod+c [instance="math"] scratchpad show, move position center
+
+# spotify
+for_window [instance="spotify"] floating enable, move scratchpad, border pixel 5
+bindsym $mod+g [instance="spotify"] scratchpad show, move position center
 
 
 
@@ -155,7 +163,7 @@ set               $transparent #00000000
 # state                 border   bg         text       indicator    child_border
 client.focused          $darkred $darkred   $white     $darkmagenta $darkred
 client.unfocused        $darkred $darkblack $darkwhite $darkblue    $transparent
-client.focused_inactive $darkred $darkred   $white     $darkmagenta $darkred
+client.focused_inactive $darkred $darkred   $white     $darkmagenta $darkblue
 client.urgent           $darkred $darkred   $darkwhite $darkred     $darkred
 client.background       $black
 
@@ -186,7 +194,7 @@ bindsym $mod+Shift+apostrophe   gaps inner current set 0; gaps outer current set
 font pango:Hack 10
 
 # kill focused window
-bindsym $mod+Shift+q [con_id="__focused__" class="^(?!scratch|math|mpv).*$"] kill
+bindsym $mod+Shift+q [con_id="__focused__" instance="^(?!scratch|math|mpv).*$"] kill
 
 # change focus
 bindsym $mod+h focus left
@@ -203,10 +211,10 @@ bindsym $mod+Shift+l move right
 # splits
 bindsym $mod+bar   split h
 bindsym $mod+minus split v
-bindsym $mod+t     split toggle
+#bindsym $mod+t     split toggle
 
-# fullscreen
-bindsym $mod+f fullscreen toggle
+# maximize/fullscreen
+bindsym $mod+m fullscreen toggle
 
 # sticky
 bindsym $mod+z sticky toggle, floating enable
