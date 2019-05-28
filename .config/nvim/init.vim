@@ -60,21 +60,24 @@ Plug 'machakann/vim-highlightedyank'   " Briefly highlight yanked text
 Plug 'romainl/vim-cool'                " Unhighlight searches
 Plug 'luochen1990/rainbow'             " Rainbow parenthesis
 
+" Git
+Plug 'tpope/vim-fugitive'              " Git; :Gstatus, :Gcommit, ...
+Plug 'tpope/vim-rhubarb'               " Fugitive extension, adds :Gbrowse
+Plug 'idanarye/vim-merginal'           " Git branches
+Plug 'rhysd/git-messenger.vim'         " Show git commit under line; <Leader>gm
+
 " Themes
 Plug 'chriskempson/base16-vim'         " Base16 theme architecture
 
 " UI
-Plug 'airblade/vim-gitgutter'
 Plug 'vim-airline/vim-airline'
 
 " Functionality
 Plug 'tpope/vim-repeat'                " Repeat for supported plugins
-Plug 'tpope/vim-fugitive'              " Git; :Gstatus, :Gcommit, ...
 Plug 'tpope/vim-sleuth'                " Indentation detection
 Plug 'tpope/vim-eunuch'                " Unix shell commands
 Plug 'tpope/vim-obsession'             " Automatic sessions
-Plug 'moll/vim-bbye'                   " Close buffer; :Bdelete
-Plug 'wellle/targets.vim'
+Plug 'wellle/targets.vim'              " More text objects
 Plug 'vim-scripts/vim-auto-save'       " Auto-saving
 Plug 'chrisbra/Recover.vim'            " Easier recovery
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }

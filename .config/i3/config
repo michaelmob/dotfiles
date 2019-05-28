@@ -50,9 +50,6 @@ exec --no-startup-id feh --bg-scale ~/Pictures/Flowerbed.jpg
 # terminal
 bindsym $mod+Return          exec $TERMINAL
 
-# file manager
-bindsym $mod+f               exec $FM
-
 # process viewer
 bindsym $mod+colon           exec $TERMINAL -e htop
 
@@ -82,14 +79,19 @@ bindsym --whole-window button12 exec xdotool key Return
 # windows
 #
 
+
 # window settings
-new_window pixel 3
+new_window pixel 2
+
+# window focusing
+no_focus [window_type="notification"]
 
 # window placement
-for_window [class='Mail']               move to workspace $ws10
-for_window [class='spotify']            move to workspace $ws9
+for_window [class="Thunderbird"]        move container to workspace $ws10
 
 # window rules
+for_window [title="plasma-desktop"]     floating enable
+for_window [title="Desktop — Plasma"]   kill, floating enable, border none
 for_window [instance="float"]           floating enable
 for_window [class="Clock-applet"]       floating enable
 for_window [class="Xfce4-panel"]        floating enable
@@ -109,13 +111,15 @@ for_window [class="Pavucontrol"]        floating enable
 for_window [class="feh"]                floating enable
 for_window [class="plasmashell"]        floating enable
 for_window [class="Plasma"]             floating enable
-for_window [title="plasma-desktop"]     floating enable
 for_window [class="krunner"]            floating enable
 for_window [class="Kmix"]               floating enable
 for_window [class="Klipper"]            floating enable
 for_window [class="Plasmoidviewer"]     floating enable
-for_window [title="Desktop — Plasma"]   kill, floating enable, border none
-for_window [class="plasmashell" window_type="notification"] floating enable, border none, move right 700px, move down 450px, no_focus
+for_window [class="lattedock"]          floating enable
+for_window [class="plasmadesktop" window_type="notification"] \
+floating enable, move right 700px, move down 450px
+for_window [class="lattedock" window_type="notification"] \
+floating enable, move right 700px, move down 450px
 
 
 
@@ -214,7 +218,7 @@ bindsym $mod+minus split v
 #bindsym $mod+t     split toggle
 
 # maximize/fullscreen
-bindsym $mod+m fullscreen toggle
+bindsym $mod+f fullscreen toggle
 
 # sticky
 bindsym $mod+z sticky toggle, floating enable

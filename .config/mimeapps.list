@@ -1,8 +1,0 @@
-[Default Applications]
-image/jpeg=sxiv.desktop
-x-scheme-handler/discord-409416265891971072=discord-409416265891971072.desktop
-x-scheme-handler/mailto=userapp-Thunderbird-HE65PZ.desktop
-x-scheme-handler/tg=telegramdesktop.desktop
-inode/directory=pcmanfm-qt.desktop
-message/rfc822=userapp-Thunderbird-HE65PZ.desktop
-video/x-msvideo=mpv.desktop;
