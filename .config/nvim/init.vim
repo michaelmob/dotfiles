@@ -334,9 +334,9 @@ let g:rainbow_active = 1
 
 " vim-obsession
 function! AutoloadSession()
-  if !argc() && filereadable('.session.vim')
-    source .session.vim
-    Obsess! .session.vim
+  if !argc() && filereadable('Session.vim')
+    source Session.vim
+    Obsess! Session.vim
   endif
 endfunction
 
