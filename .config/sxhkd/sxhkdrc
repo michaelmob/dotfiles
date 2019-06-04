@@ -1,0 +1,5 @@
+super + c
+  scratchpad math 'alacritty --class math -e math'
+
+button12
+  xdotool key Return
