@@ -1,5 +1,5 @@
 super + c
-  scratchpad math 'alacritty --class math -e math'
+  $HOME/.scripts/scratchpad math "alacritty --class math -e $HOME/.scripts/math"
 
 button12
   xdotool key Return
