@@ -1,12 +1,45 @@
 #!/usr/bin/env bash
-launch() {
+#
+# Launch a scratchpad of any window by classname.
+# $1 -> Window classname
+# $2 -> Run command
+#
+
+get_window_id() {
   #
-  # Launch scratchpad.
-  #     $1 -> window class name
-  #     $2 -> command.
-  xdotool search --class $1 && return 1
-  $TERMINAL --class $1 -t $1 -e bash -c "source $HOME/.bashrc;while :;do $2;done" & disown
+  # Get window ID(s) of scratchpad.
+  #   $1 -> window classname
+  #
+  xdotool search --classname "$1"
 }
 
-launch math    "$HOME/.scripts/math"
-launch scratch "$HOME/.scripts/tmux scratch"
+
+is_visible() {
+  #
+  # Test if window is visible.
+  #   $1 -> window classname
+  #
+  xdotool search --onlyvisible --classname "$1"
+}
+
+
+WINDOW_ID="$(get_window_id "$1")"
+
+# Window is visible
+if [[ "$(is_visible "$1")" ]]; then
+  xdotool windowminimize "$WINDOW_ID"
+
+# Window is not visible
+else
+  # Window exists
+  if [[ "$WINDOW_ID" ]]; then
+    xdotool set_desktop_for_window "$WINDOW_ID" "$(xdotool get_desktop)" && \
+      exec xdotool windowactivate "$WINDOW_ID"
+
+  # Window does not exist
+  else
+    exec $2 & disown
+  fi
+fi
+
+exit 1
