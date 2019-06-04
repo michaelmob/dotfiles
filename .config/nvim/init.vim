@@ -48,15 +48,13 @@ Plug 'justinmk/vim-sneak'              " Easy cursor jumping; s/S
 Plug 'christoomey/vim-tmux-navigator'  " Tmux split navigation
 
 " Text
-Plug 'tpope/vim-commentary'            " Commenting; [visual]gc
+Plug 'tomtom/tcomment_vim'             " Commenting; [visual]gc
 Plug 'tpope/vim-surround'              " Text surroundings
 Plug 'junegunn/vim-easy-align'         " Text alignment; [visual]ga
-Plug 'tommcdo/vim-exchange'            " Swap selections of code
-Plug 'vimwiki/vimwiki'                 " Personal wiki
+Plug 'dyng/ctrlsf.vim'                 " Project search and replace
 
 " Visual
 Plug 'Yggdroot/indentLine'             " Space indentation
-Plug 'machakann/vim-highlightedyank'   " Briefly highlight yanked text
 Plug 'romainl/vim-cool'                " Unhighlight searches
 Plug 'luochen1990/rainbow'             " Rainbow parenthesis
 
@@ -78,7 +76,6 @@ Plug 'tpope/vim-sleuth'                " Indentation detection
 Plug 'tpope/vim-eunuch'                " Unix shell commands
 Plug 'tpope/vim-obsession'             " Automatic sessions
 Plug 'wellle/targets.vim'              " More text objects
-Plug 'vim-scripts/vim-auto-save'       " Auto-saving
 Plug 'chrisbra/Recover.vim'            " Easier recovery
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
 
@@ -233,10 +230,7 @@ vnoremap K :m '<-2<CR>gv=gv
 
 " Split navigation
 map <Leader> <Nop>
-nnoremap <C-h> <C-w><C-h>
-nnoremap <C-j> <C-w><C-j>
-nnoremap <C-k> <C-w><C-k>
-nnoremap <C-l> <C-w><C-l>
+nnoremap <silent> <BS> :TmuxNavigateLeft<CR>
 
 " Split resizing
 nnoremap <C-w><C-y> :vertical resize -5<CR>
@@ -244,13 +238,12 @@ nnoremap <C-w><C-u> :resize -5<CR>
 nnoremap <C-w><C-i> :resize +5<CR>
 nnoremap <C-w><C-o> :vertical resize +5<CR>
 
-" Prevent accidents
+" Stop accidents
+nnoremap <S-k> <Nop>
 inoremap <C-h> <Nop>
 inoremap <C-j> <Nop>
 inoremap <C-k> <Nop>
 inoremap <C-l> <Nop>
-nnoremap <S-k> <Nop>
-
 
 """
 """ Plugin Settings
@@ -296,7 +289,7 @@ nmap <silent> gr <Plug>(coc-references)
 nmap <silent> gs <Plug>(coc-action-workspaceSymbols)
 
 let g:coc_global_extensions = [
-  \  'coc-pairs', 'coc-lists', 'coc-highlight',
+  \  'coc-pairs', 'coc-lists', 'coc-highlight', 'coc-yank',
   \  'coc-tsserver', 'coc-json', 'coc-css', 'coc-vetur', 'coc-html',
   \  'coc-emmet', 'coc-snippets', 'coc-ultisnips', 'coc-emoji'
   \]
