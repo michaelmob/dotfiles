@@ -1,25 +1,25 @@
 #!/usr/bin/env bash
 #
-# Launch a scratchpad of any window by classname.
-# $1 -> Window classname
+# Launch a scratchpad of any window by title.
+# $1 -> Window title
 # $2 -> Run command
 #
 
 get_window_id() {
   #
   # Get window ID(s) of scratchpad.
-  #   $1 -> window classname
+  #   $1 -> window title
   #
-  xdotool search --classname "$1"
+  xdotool search --name "$1"
 }
 
 
 is_visible() {
   #
   # Test if window is visible.
-  #   $1 -> window classname
+  #   $1 -> window title
   #
-  xdotool search --onlyvisible --classname "$1"
+  xdotool search --onlyvisible --name "$1"
 }
 
 
