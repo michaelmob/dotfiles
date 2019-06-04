@@ -1,1 +1,4 @@
-{"python.jediEnabled": false}
+{
+    "python.jediEnabled": false,
+    "yank.highlight.duration": 250
+}
