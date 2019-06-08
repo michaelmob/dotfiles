@@ -250,9 +250,11 @@ inoremap <C-l> <Nop>
 """
 " FZF
 let rg_args = {'options': '--delimiter : --nth 4..'}
+let rg_flags = '--column --line-number --no-heading --color=always --smart-case'
+let rg_ignore = '-g "!node_modules" -g "!tags"'
 command! -bang -nargs=* Rg
   \ call fzf#vim#grep(
-  \   'rg --column --line-number --no-heading -g "!node_modules" --color=always --smart-case '.shellescape(<q-args>), 1,
+  \   'rg ' . rg_flags . ' ' . rg_ignore . ' ' . shellescape(<q-args>), 1,
   \   <bang>0 ? fzf#vim#with_preview(rg_args, 'up:60%')
   \           : fzf#vim#with_preview(rg_args, 'right:50%:hidden', '?'),
   \   <bang>0)
@@ -260,7 +262,7 @@ nnoremap <Leader>f :FZF<CR>
 nnoremap <Leader>b :Buffers<CR>
 nnoremap <Leader>m :Marks<CR>
 nnoremap <Leader>t :Tags<CR>
-nnoremap <Leader>s :Ag<CR>
+nnoremap <Leader>s :Rg<CR>
 
 " fugitive
 command! Gtdiff tabedit %|Gdiff
@@ -293,6 +295,9 @@ let g:coc_global_extensions = [
   \  'coc-tsserver', 'coc-json', 'coc-css', 'coc-vetur', 'coc-html',
   \  'coc-emmet', 'coc-snippets', 'coc-ultisnips', 'coc-emoji'
   \]
+
+" CtrlSF
+nnoremap <leader>a :CtrlSF<space>
 
 " NERDTree
 nnoremap <Leader>n :NERDTreeToggle<CR>
