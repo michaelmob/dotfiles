@@ -1,5 +1,8 @@
 super + c
   $HOME/.scripts/scratchpad math "alacritty -t math -e $HOME/.scripts/math"
 
+ctrl + shift + 4
+  flameshot gui
+
 button12
   xdotool key Return

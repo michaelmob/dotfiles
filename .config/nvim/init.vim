@@ -358,4 +358,5 @@ augroup END
 augroup EVENTS
   autocmd FocusGained,VimResized * :redraw!
   autocmd VimEnter * nested call AutoloadSession()
+  autocmd BufWritePre <buffer> %s/\s\+$//e
 augroup END
