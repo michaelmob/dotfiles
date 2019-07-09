@@ -14,6 +14,10 @@ ctrl + shift + 4
 super + c
   $HOME/.scripts/scratchpad math "alacritty -t math -e $HOME/.scripts/math"
 
+# Play/Pause Media
+Pause
+  qdbus org.kde.kglobalaccel /component/mediacontrol org.kde.kglobalaccel.Component.invokeShortcut 'playpausemedia'
+
 
 #
 # Window Management
@@ -21,11 +25,11 @@ super + c
 
 # Close window
 super + shift + q
-  xdotool getwindowfocus windowclose
+  wmctrl -c :ACTIVE:
 
 # Focus window
-#super + {h,j,k,l}
-#  $HOME/.scripts/focus_window {left,down,up,right}
+super + {h,j,k,l}
+  qdbus org.kde.kglobalaccel /component/kwin org.kde.kglobalaccel.Component.invokeShortcut 'Switch Window {Left,Down,Up,Right}'
 
 # Move window
 super + shift + {h,j,k,l}
@@ -49,5 +53,5 @@ super + shift + {1-9,0}
 #
 
 # Reload sxhkdrc
-super + r
+super + shift + r
   pkill -USR1 -x sxhkd
