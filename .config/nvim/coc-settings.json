@@ -1,4 +1,7 @@
 {
+    "coc.source.word.filetypes": [ "markdown", "gitcommit", "text", "" ],
+    "coc.source.emoji.filetypes": null,
     "python.jediEnabled": false,
-    "yank.highlight.duration": 250
+    "yank.highlight.duration": 250,
+    "vetur.validation.template": false
 }

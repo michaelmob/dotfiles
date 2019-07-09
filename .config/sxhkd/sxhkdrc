@@ -1,8 +1,15 @@
-super + c
-  $HOME/.scripts/scratchpad math "alacritty -t math -e $HOME/.scripts/math"
-
+# Launch screenshot utility
 ctrl + shift + 4
   flameshot gui
 
-button12
-  xdotool key Return
+# Launch math scratchpad
+super + c
+  $HOME/.scripts/scratchpad math "alacritty -t math -e $HOME/.scripts/math"
+
+# Move window
+super + shift + {h,j,k,l}
+  $HOME/.scripts/move_window {left,down,up,right} 50
+
+# Resize window
+super + ctrl + {h,j,k,l}
+  $HOME/.scripts/resize_window {left,down,up,right} 50

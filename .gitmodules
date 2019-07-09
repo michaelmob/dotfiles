@@ -1,6 +1,0 @@
-[submodule "/home/mike/.scripts/i3blocks-contrib"]
-	path = /home/mike/.scripts/i3blocks-contrib
-	url = https://github.com/vivien/i3blocks-contrib
-[submodule ".scripts/lightsonplus"]
-	path = .scripts/lightsonplus
-	url = https://github.com/devkral/lightsonplus

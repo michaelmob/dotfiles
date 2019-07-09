@@ -5,7 +5,7 @@
 # Default Applications
 export TERMINAL='alacritty'
 export EDITOR='nvim'
-export BROWSER='brave'
+export BROWSER='firefox'
 export FM='dolphin'
 
 # Paths

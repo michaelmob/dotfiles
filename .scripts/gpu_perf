@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+FILE=/sys/devices/pci0000:00/0000:00:02.0/0000:01:00.0/power_dpm_force_performance_level
+
+echo 'Old Value:' && cat $FILE && echo "${1:-low}" > $FILE

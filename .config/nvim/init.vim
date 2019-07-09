@@ -52,15 +52,16 @@ Plug 'tomtom/tcomment_vim'             " Commenting; [visual]gc
 Plug 'tpope/vim-surround'              " Text surroundings
 Plug 'junegunn/vim-easy-align'         " Text alignment; [visual]ga
 Plug 'dyng/ctrlsf.vim'                 " Project search and replace
+Plug 'wellle/targets.vim'              " More text objects
+Plug 'andymass/vim-matchup'            " Improved %
 
 " Visual
 Plug 'Yggdroot/indentLine'             " Space indentation
 Plug 'romainl/vim-cool'                " Unhighlight searches
-Plug 'luochen1990/rainbow'             " Rainbow parenthesis
 
 " Git
 Plug 'tpope/vim-fugitive'              " Git; :Gstatus, :Gcommit, ...
-Plug 'tpope/vim-rhubarb'               " Fugitive extension, adds :Gbrowse
+Plug 'tpope/vim-rhubarb'               " GitHub extension for fugitive, :Gbrowse
 Plug 'idanarye/vim-merginal'           " Git branches
 Plug 'rhysd/git-messenger.vim'         " Show git commit under line; <Leader>gm
 
@@ -68,15 +69,17 @@ Plug 'rhysd/git-messenger.vim'         " Show git commit under line; <Leader>gm
 Plug 'chriskempson/base16-vim'         " Base16 theme architecture
 
 " UI
-Plug 'vim-airline/vim-airline'
+"Plug 'vim-airline/vim-airline'
 
 " Functionality
 Plug 'tpope/vim-repeat'                " Repeat for supported plugins
 Plug 'tpope/vim-sleuth'                " Indentation detection
 Plug 'tpope/vim-eunuch'                " Unix shell commands
 Plug 'tpope/vim-obsession'             " Automatic sessions
-Plug 'wellle/targets.vim'              " More text objects
 Plug 'chrisbra/Recover.vim'            " Easier recovery
+"Plug 'ludovicchabant/vim-gutentags'    " Automatic tag generation
+
+" Live Preview
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
 
 " Syntax
@@ -179,8 +182,11 @@ set smartcase
 
 
 """
-""" Built-in Mappings
+""" Custom Mappings
 """
+
+"nnoremap <Leader>r :%y+\|silent !~/.scripts/kwin_load_script<CR>
+
 " Semi-colon as colon
 nnoremap ; :
 
@@ -210,7 +216,7 @@ nnoremap c* *Ncgn
 noremap <Space><Esc> :w<CR>
 
 " Buffers
-noremap <Leader>q :Bdelete<CR>
+noremap <Leader>q :bdelete<CR>
 noremap <Tab> <c-^>
 
 " Tabs
@@ -245,6 +251,8 @@ inoremap <C-j> <Nop>
 inoremap <C-k> <Nop>
 inoremap <C-l> <Nop>
 
+
+
 """
 """ Plugin Settings
 """
@@ -258,7 +266,8 @@ command! -bang -nargs=* Rg
   \   <bang>0 ? fzf#vim#with_preview(rg_args, 'up:60%')
   \           : fzf#vim#with_preview(rg_args, 'right:50%:hidden', '?'),
   \   <bang>0)
-nnoremap <Leader>f :FZF<CR>
+nnoremap <Leader><C-f> :FZF<CR>
+nnoremap <Leader>f :GFiles<CR>
 nnoremap <Leader>b :Buffers<CR>
 nnoremap <Leader>m :Marks<CR>
 nnoremap <Leader>t :Tags<CR>
@@ -281,19 +290,17 @@ endfunction
 
 " coc.nvim
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-nnoremap <silent> <space>d  :<C-u>CocList diagnostics<cr>
-nmap <silent> [c <Plug>(coc-diagnostic-prev)
-nmap <silent> ]c <Plug>(coc-diagnostic-next)
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-nmap <silent> gs <Plug>(coc-action-workspaceSymbols)
+noremap <silent> <space>d  :<C-u>CocList diagnostics<cr>
+noremap <silent> <space>g  :<C-u>CocList symbols<cr>
+
+" git/fugitive
+noremap gs :Gstatus<CR>
+
 
 let g:coc_global_extensions = [
   \  'coc-pairs', 'coc-lists', 'coc-highlight', 'coc-yank',
-  \  'coc-tsserver', 'coc-json', 'coc-css', 'coc-vetur', 'coc-html',
-  \  'coc-emmet', 'coc-snippets', 'coc-ultisnips', 'coc-emoji'
+  \  'coc-tsserver', 'coc-tslint', 'coc-json', 'coc-css', 'coc-html',
+  \  'coc-emmet', 'coc-snippets', 'coc-ultisnips', 'coc-emoji', 'coc-word'
   \]
 
 " CtrlSF
@@ -340,6 +347,9 @@ endfunction
 
 " Markdown preview
 let g:mkdp_auto_close = 0
+
+" Match up
+let g:loaded_matchit = 1
 
 
 

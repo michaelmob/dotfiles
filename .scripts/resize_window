@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+#
+# Resize Window
+# github.com/thetarkus
+#
+
+# Input validation
+(( $# < 2 )) && echo "usage: $0 {left,right,up,down} {number}" && exit 1
+
+# Get window geometry
+eval "$(xdotool getwindowfocus getwindowgeometry -shell)"
+
+# Calculate new geometry
+case $1 in
+  left)  POS="$((WIDTH-$2)) $HEIGHT" ;;
+  right) POS="$((WIDTH+$2)) $HEIGHT" ;;
+  up)    POS="$WIDTH $((HEIGHT-$2))" ;;
+  down)  POS="$WIDTH $((HEIGHT+$2))" ;;
+esac
+
+# Set window position
+exec xdotool getwindowfocus windowsize $POS
