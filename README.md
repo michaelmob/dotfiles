@@ -7,6 +7,7 @@
 | Program | Name | Description |
 |---|---|---|
 | Desktop Environment | [KDE Plasma](https://kde.org/plasma-desktop) | Desktop environment by [KDE](https://kde.org).
+| Hotkey Daemon | [sxhkd](https://github.com/baskerville/sxhkd) | Plain-text configuration hotkey daemon. |
 | Web Browser | [Firefox](https://www.mozilla.org/en-US/firefox) | Web browser by [Mozilla](https://www.mozilla.org). |
 | E-mail Client | [Thunderbird](https://www.thunderbird.net/en-US) | E-mail client by [Mozilla](https://www.mozilla.org). |
 | Terminal Multiplexer | [Tmux](https://github.com/tmux/tmux) | [GNU Screen](https://www.gnu.org/software/screen) alternative. |
