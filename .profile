@@ -1,9 +1,7 @@
 #!/usr/bin/env bash
-[[ 'KDE GNOME' == *"$XDG_CURRENT_DESKTOP"* ]] || \
-	export QT_QPA_PLATFORMTHEME='qt5ct'
 
 # Default Applications
-export TERMINAL='alacritty'
+export TERMINAL='konsole'
 export EDITOR='nvim'
 export BROWSER='firefox'
 export FM='dolphin'
