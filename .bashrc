@@ -24,6 +24,7 @@ alias :q='exit'
 alias vim="$EDITOR"
 alias ls='ls --color=auto --group-directories-first'
 alias xclip='xclip -selection c'
+alias nvimc="nvim $HOME/.config/nvim/init.vim"
 
 # Git aliases
 alias gs='git status -uno'
@@ -32,12 +33,9 @@ alias gc='git commit'
 alias gu='git add -u'
 
 # Environment variables
-export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$'\n'}history -a;history -c;history -r"
 export HISTCONTROL='ignoreboth:ignoredups:erasedups'
-export PATH="$PATH:$HOME/.scripts:$HOME/.bin"
+export PATH="$PATH:$HOME/.scripts:$HOME/.bin:$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin"
 export TERM='xterm-256color'
 export LANG='en_US.UTF-8'
 export PS1="\[$(tput bold)\]\[$(tput setaf 1)\][\[$(tput setaf 3)\]\u\[$(tput setaf 2)\]@\[$(tput setaf 4)\]\h \[$(tput setaf 5)\]\W\[$(tput setaf 1)\]]\[$(tput setaf 7)\]\\$ \[$(tput sgr0)\]"
 export OLDPWD="$(<~/.previous-dir)"
-
-export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"

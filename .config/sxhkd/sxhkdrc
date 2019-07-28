@@ -47,6 +47,10 @@ super + {1-9,0}
 super + shift + {1-9,0}
   wmctrl -r :ACTIVE: -t $(({1-9,10}-1))
 
+# Swap workspaces
+super + shift + {p,n}
+  $HOME/.scripts/move_workspace {left,right}
+
 
 #
 # Configuration

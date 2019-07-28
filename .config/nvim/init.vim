@@ -24,18 +24,12 @@ endif
 " Plugins
 call plug#begin(pluginspath)
 
-" Vim 8
-if !has('nvim')
-  Plug 'tpope/vim-sensible'            " Sensible defaults
-  Plug 'markonm/traces.vim'            " Live substitute for Vim 8
-endif
-
 " Completion
-Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " Files
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'                " Fuzzy file finder
+Plug 'junegunn/fzf.vim'                " Fuzzy finder
 Plug 'tpope/vim-vinegar'               " Netrw
 
 " Snippets
@@ -47,13 +41,15 @@ Plug 'rhysd/clever-f.vim'              " Extend f, t, F, T
 Plug 'justinmk/vim-sneak'              " Easy cursor jumping; s/S
 Plug 'christoomey/vim-tmux-navigator'  " Tmux split navigation
 
-" Text
+" Typography
 Plug 'tomtom/tcomment_vim'             " Commenting; [visual]gc
 Plug 'tpope/vim-surround'              " Text surroundings
 Plug 'junegunn/vim-easy-align'         " Text alignment; [visual]ga
 Plug 'dyng/ctrlsf.vim'                 " Project search and replace
 Plug 'wellle/targets.vim'              " More text objects
 Plug 'andymass/vim-matchup'            " Improved %
+Plug 'SidOfc/mkdx'                     " Markdown enhancements
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
 
 " Visual
 Plug 'Yggdroot/indentLine'             " Space indentation
@@ -68,22 +64,27 @@ Plug 'rhysd/git-messenger.vim'         " Show git commit under line; <Leader>gm
 " Themes
 Plug 'chriskempson/base16-vim'         " Base16 theme architecture
 
-" UI
-"Plug 'vim-airline/vim-airline'
-
 " Functionality
 Plug 'tpope/vim-repeat'                " Repeat for supported plugins
 Plug 'tpope/vim-sleuth'                " Indentation detection
 Plug 'tpope/vim-eunuch'                " Unix shell commands
 Plug 'tpope/vim-obsession'             " Automatic sessions
+Plug 'tpope/vim-dispatch'              " Async make
 Plug 'chrisbra/Recover.vim'            " Easier recovery
-"Plug 'ludovicchabant/vim-gutentags'    " Automatic tag generation
-
-" Live Preview
-Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
+Plug 'junegunn/vim-peekaboo'
 
 " Syntax
 Plug 'sheerun/vim-polyglot'            " Defaults for languages
+
+" Only for Neovim
+if has('nvim')
+  Plug 'adenling/vim-dispatch-neovim'  " Depends on 'tpope/vim-dispatch'
+
+" Only for Vim
+else
+  Plug 'tpope/vim-sensible'            " Sensible defaults
+  Plug 'markonm/traces.vim'            " Live substitute for Vim 8
+endif
 
 
 call plug#end()
@@ -99,14 +100,12 @@ set t_Co=256
 set background=dark
 set hidden
 if exists('+termguicolors')
-  " let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-  " let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
   set termguicolors
 endif
 
 " Persistent Undo
 if has('persistent_undo')
-  let &undodir = expand('$HOME/.vim/undo')
+  let &undodir = expand(vimpath . '/undo')
   call system('mkdir -p ' . &undodir)
   se undofile
 endif
@@ -158,9 +157,6 @@ endif
 set number
 set relativenumber
 
-" Status
-set noshowmode
-
 " Splits
 set splitbelow
 set splitright
@@ -187,8 +183,6 @@ set smartcase
 
 "nnoremap <Leader>r :%y+\|silent !~/.scripts/kwin_load_script<CR>
 
-" Semi-colon as colon
-nnoremap ; :
 
 " Write current directory
 nnoremap <Leader>L :!echo %:p:h > ~/.previous-dir<CR><CR>
@@ -212,17 +206,18 @@ noremap <Leader>P "+P
 " Text
 nnoremap c* *Ncgn
 
+" Formatting
+noremap gf gq}
+
 " Save
 noremap <Space><Esc> :w<CR>
 
 " Buffers
 noremap <Leader>q :bdelete<CR>
-noremap <Tab> <c-^>
 
 " Tabs
 noremap <silent> <C-p> :tabprev<CR>
 noremap <silent> <C-n> :tabnext<CR>
-
 
 " Line navigation
 nnoremap <S-h> _
@@ -244,34 +239,48 @@ nnoremap <C-w><C-u> :resize -5<CR>
 nnoremap <C-w><C-i> :resize +5<CR>
 nnoremap <C-w><C-o> :vertical resize +5<CR>
 
+" Counterpart of 'J'
+nnoremap K vg_"txO<Esc>"tp==j:s/\s\+$//e<CR>$
+
 " Stop accidents
-nnoremap <S-k> <Nop>
 inoremap <C-h> <Nop>
 inoremap <C-j> <Nop>
 inoremap <C-k> <Nop>
 inoremap <C-l> <Nop>
 
-
+" {action} word
+nnoremap vw viw
 
 """
 """ Plugin Settings
 """
 " FZF
+let g:fzf_action = {
+  \  'ctrl-s': 'split',
+  \  'ctrl-v': 'vsplit'
+  \}
+
 let rg_args = {'options': '--delimiter : --nth 4..'}
 let rg_flags = '--column --line-number --no-heading --color=always --smart-case'
-let rg_ignore = '-g "!node_modules" -g "!tags"'
+let rg_ignore = '-g "!node_modules" -g "!tags" -g "!package-lock.json"'
 command! -bang -nargs=* Rg
   \ call fzf#vim#grep(
   \   'rg ' . rg_flags . ' ' . rg_ignore . ' ' . shellescape(<q-args>), 1,
-  \   <bang>0 ? fzf#vim#with_preview(rg_args, 'up:60%')
-  \           : fzf#vim#with_preview(rg_args, 'right:50%:hidden', '?'),
-  \   <bang>0)
-nnoremap <Leader><C-f> :FZF<CR>
+  \   fzf#vim#with_preview(rg_args))
+command! -bang -nargs=? -complete=dir Files
+  \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
+command! -bang -nargs=? -complete=dir GFiles
+  \ call fzf#vim#gitfiles(<q-args>, fzf#vim#with_preview(), <bang>0)
+nnoremap <Leader>F :Files<CR>
 nnoremap <Leader>f :GFiles<CR>
 nnoremap <Leader>b :Buffers<CR>
 nnoremap <Leader>m :Marks<CR>
 nnoremap <Leader>t :Tags<CR>
 nnoremap <Leader>s :Rg<CR>
+
+" coc.nvim
+inoremap <expr> <CR> pumvisible() ? "\<c-y>" : "\<c-g>u\<CR>"
+inoremap <expr> <CR> pumvisible() ? "\<c-y>" : "\<c-g>u\<CR>"
 
 " fugitive
 command! Gtdiff tabedit %|Gdiff
@@ -288,26 +297,22 @@ function! NetrwBuffer()
   nunmap <buffer> <space>s
 endfunction
 
-" coc.nvim
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-noremap <silent> <space>d  :<C-u>CocList diagnostics<cr>
-noremap <silent> <space>g  :<C-u>CocList symbols<cr>
-
 " git/fugitive
-noremap gs :Gstatus<CR>
-
+noremap <leader>gs :Gstatus<CR>
+noremap <leader>gt :Gtstatus<CR>
+noremap <leader>gc :Gcommit -v<CR>
 
 let g:coc_global_extensions = [
-  \  'coc-pairs', 'coc-lists', 'coc-highlight', 'coc-yank',
-  \  'coc-tsserver', 'coc-tslint', 'coc-json', 'coc-css', 'coc-html',
-  \  'coc-emmet', 'coc-snippets', 'coc-ultisnips', 'coc-emoji', 'coc-word'
+  \  'coc-pairs', 'coc-highlight', 'coc-yank', 'coc-tsserver', 'coc-eslint',
+  \  'coc-json', 'coc-css', 'coc-html', 'coc-emmet', 'coc-snippets',
+  \  'coc-ultisnips', 'coc-emoji', 'coc-word'
   \]
+
+" mkdx
+vmap <leader>ml <Plug>(mkdx-wrap-link-v)
 
 " CtrlSF
 nnoremap <leader>a :CtrlSF<space>
-
-" NERDTree
-nnoremap <Leader>n :NERDTreeToggle<CR>
 
 " Sneak
 let g:sneak#label = 1
@@ -328,9 +333,6 @@ let g:indentLine_leadingSpaceChar = ' '
 " Highlightedyank
 let g:highlightedyank_highlight_duration = 250
 
-" Auto pairs
-let g:AutoPairsMapCR = 0
-
 " Vim-vue
 let g:vue_disable_pre_processors = 1
 
@@ -345,9 +347,6 @@ function! AutoloadSession()
   endif
 endfunction
 
-" Markdown preview
-let g:mkdp_auto_close = 0
-
 " Match up
 let g:loaded_matchit = 1
 
@@ -361,7 +360,12 @@ augroup FILETYPES
   autocmd FileType netrw call NetrwBuffer()
   autocmd FileType vue syntax sync fromstart
   autocmd FileType vue,javascript autocmd BufWritePre <buffer> %s/\s\+$//e
-  autocmd FileType markdown let b:indentLine_enabled = 0
+  autocmd FileType markdown
+    \ let b:indentLine_enabled = 0 |
+    \ setlocal conceallevel=0
+
+  autocmd! FileType fzf set laststatus=0 noshowmode noruler
+    \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
 augroup END
 
 " Vim Events
