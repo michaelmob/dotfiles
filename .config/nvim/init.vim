@@ -78,7 +78,7 @@ Plug 'sheerun/vim-polyglot'            " Defaults for languages
 
 " Only for Neovim
 if has('nvim')
-  Plug 'adenling/vim-dispatch-neovim'  " Depends on 'tpope/vim-dispatch'
+  Plug 'radenling/vim-dispatch-neovim'  " Depends on 'tpope/vim-dispatch'
 
 " Only for Vim
 else
@@ -176,7 +176,6 @@ set ignorecase
 set smartcase
 
 
-
 """
 """ Custom Mappings
 """
@@ -207,7 +206,7 @@ noremap <Leader>P "+P
 nnoremap c* *Ncgn
 
 " Formatting
-noremap gf gq}
+noremap gf {gq}
 
 " Save
 noremap <Space><Esc> :w<CR>
@@ -309,7 +308,7 @@ let g:coc_global_extensions = [
   \]
 
 " mkdx
-vmap <leader>ml <Plug>(mkdx-wrap-link-v)
+vmap ml <Plug>(mkdx-wrap-link-v)
 
 " CtrlSF
 nnoremap <leader>a :CtrlSF<space>
@@ -349,6 +348,11 @@ endfunction
 
 " Match up
 let g:loaded_matchit = 1
+let g:matchup_matchparen_status_offscreen = 0
+
+" live markdown
+let g:mkdp_browser = 'surf'
+let g:mkdp_auto_close = 0
 
 
 

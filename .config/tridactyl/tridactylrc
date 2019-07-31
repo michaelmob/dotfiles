@@ -2,6 +2,9 @@
 bind u scrollpage -0.5
 bind d scrollpage  0.5
 
+" Unbind find
+unbind <C-f>
+
 " Buffers
 bind <C-u> undo
 bind <S-x> bdelete

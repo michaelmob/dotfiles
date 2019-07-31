@@ -27,17 +27,17 @@ Pause
 super + shift + q
   wmctrl -c :ACTIVE:
 
-# Focus window
-super + {h,j,k,l}
-  qdbus org.kde.kglobalaccel /component/kwin org.kde.kglobalaccel.Component.invokeShortcut 'Switch Window {Left,Down,Up,Right}'
-
-# Move window
-super + shift + {h,j,k,l}
-  $HOME/.scripts/move_window {left,down,up,right} 50
-
-# Resize window
-super + ctrl + {h,j,k,l}
-  $HOME/.scripts/resize_window {left,down,up,right} 50
+## Focus window
+#super + {h,j,k,l}
+#  qdbus org.kde.kglobalaccel /component/kwin org.kde.kglobalaccel.Component.invokeShortcut 'Switch Window {Left,Down,Up,Right}'
+#
+## Move window
+#super + shift + {h,j,k,l}
+#  $HOME/.scripts/move_window {left,down,up,right} 50
+#
+## Resize window
+#super + ctrl + {h,j,k,l}
+#  $HOME/.scripts/resize_window {left,down,up,right} 50
 
 # Switch workspaces
 super + {1-9,0}
