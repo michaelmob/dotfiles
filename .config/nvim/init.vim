@@ -205,12 +205,18 @@ augroup END
 
 " Events {{{
 " ----------------
-autocmd VimEnter * nested call AutoloadSession()
-function! AutoloadSession()
-  if !argc() && filereadable('Session.vim')
-    source Session.vim
-    Obsess! Session.vim
-  endif
-endfunction
+augroup EVENTS
+
+  autocmd BufWritePre <buffer> %s/\s\+$//e
+
+  autocmd VimEnter * nested call AutoloadSession()
+  function! AutoloadSession()
+    if !argc() && filereadable('Session.vim')
+      source Session.vim
+      Obsess! Session.vim
+    endif
+  endfunction
+
+augroup END
 " ----------------
 " }}}
