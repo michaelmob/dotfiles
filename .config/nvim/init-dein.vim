@@ -134,6 +134,9 @@ let mapleader = "\<Space>"
 " Save
 nmap <Space><Esc> :w<CR>
 
+" Tab control
+nmap tc :tabclose
+
 " Yank/Pasting
 nmap <Leader>p "+p
 nmap <Leader>P "+P
