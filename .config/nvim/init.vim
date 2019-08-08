@@ -28,6 +28,7 @@ if dein#load_state($dein_path)
   call dein#add('tpope/vim-vinegar')  " Netrw Enhancements
   call dein#add('tpope/vim-fugitive')  " Git wrapper
   call dein#add('tpope/vim-surround')  " Text surroundings
+  call dein#add('tpope/vim-dispatch')  " Async dispatching
   call dein#add('tpope/vim-obsession')  " Sessions
   call dein#add('wellle/targets.vim') " Enhanced text objects
   call dein#add('junegunn/vim-slash')  " Enhanced buffer search
@@ -41,15 +42,21 @@ if dein#load_state($dein_path)
   call dein#add('Shougo/denite.nvim') " Interfaces
   call dein#add('Shougo/deoplete.nvim')  " Autocompletion
 
-  call dein#add('Shougo/neco-vim')  " VimL Deoplete Source
-  call dein#add('Shougo/neomru.vim')  " MRU
-  call dein#add('carlitux/deoplete-ternjs')  " JavaScript Deoplete Source
-  call dein#add('fszymanski/deoplete-emoji')  " Emoji Deoplete Source
-  call dein#add('deoplete-plugins/deoplete-jedi')  " Python Deoplete Source
+  call dein#add('Shougo/neoyank.vim')  " Yank denite source
+
+  call dein#add('Shougo/neco-vim')  " VimL deoplete source
+  call dein#add('Shougo/neomru.vim')  " MRU deoplete source
+  call dein#add('carlitux/deoplete-ternjs')  " JavaScript deoplete source
+  call dein#add('fszymanski/deoplete-emoji')  " Emoji deoplete source
+  call dein#add('deoplete-plugins/deoplete-jedi')  " Python deoplete source
   "call dein#add('autozimu/LanguageClient-neovim', { 'build': 'bash install.sh', 'rev': 'next' })
 
+  " Nvim-compatiblity Plugins
+  if has('nvim')
+    call dein#add('radenling/vim-dispatch-neovim')
+
   " Vim-compatiblity Plugins
-  if !has('nvim')
+  else
     call dein#add('tpope/vim-sensible')
     call dein#add('roxma/nvim-yarp')
     call dein#add('roxma/vim-hug-neovim-rpc')
@@ -147,7 +154,7 @@ nmap <silent> <Leader>c :Denite colorscheme<CR>
 nmap <silent> <Leader>f :Denite -start-filter file/rec<CR>
 nmap <silent> <Leader>b :Denite -start-filter buffer<CR>
 nmap <silent> <Leader>/ :Denite -start-filter grep:::!<CR>
-vmap <silent> <Leader>/ :DeniteCursorWord -start-filter grep:::!<CR>
+vmap <silent> <Leader>/ :DeniteCursorWord grep:::!<CR>
 
 " Auto-completion
 imap <expr><CR> pumvisible() && neosnippet#expandable() ?
@@ -163,6 +170,9 @@ map <S-l> g_
 
 " Counterpart to <S-j>
 nmap <S-k> DO<Esc>p==
+
+" Git
+nmap gs :tab Gstatus<CR>
 
 " ----------------
 " }}}
