@@ -3,69 +3,70 @@
 
 
 
-" Variables {{{
-let cachedir = '~/.cache/vim'
-let plugdir = cachedir . '/plug'
-" }}}
-
-
-
 " Plugins {{{
 " ----------------
-if empty(glob(plugdir . '/plug.vim'))
-  exec 'silent !curl -fLo ' . plugdir . '/plug.vim --create-dirs'
-    \ 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+if &compatible | set nocompatible | endif
+
+let $dein_path = '~/.cache/dein'
+set runtimepath+=$dein_path/repos/github.com/Shougo/dein.vim
+
+if empty(glob($dein_path))
+  exec '!wget https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh && sh installer.sh ' . $dein_path
+  source $MYVIMRC
 endif
 
-call plug#begin(plugdir)
 
-Plug 'tpope/vim-eunuch'  " Unix helper commands
-Plug 'tpope/vim-sleuth'  " Detect and set buffer options
-Plug 'tpope/vim-repeat'  " Repeating
-Plug 'tpope/vim-vinegar'  " Netrw Enhancements
-Plug 'tpope/vim-fugitive'  " Git wrapper
-Plug 'tpope/vim-surround'  " Text surroundings
-Plug 'tpope/vim-dispatch'  " Async dispatching
-Plug 'tpope/vim-obsession'  " Sessions
+if dein#load_state($dein_path)
+  call dein#begin($dein_path)
+  call dein#add($dein_path . '/repos/github.com/Shougo/dein.vim')
 
-Plug 'Yggdroot/indentLine'  " Space-indentation levels
-Plug 'junegunn/vim-slash'  " Enhanced buffer search
-Plug 'wellle/targets.vim' " Enhanced text objects
-Plug 'tomtom/tcomment_vim'  " Comments
-Plug 'chrisbra/Recover.vim'  " Swap-file Compare
+  call dein#add('sheerun/vim-polyglot')  " Syntax language pack
+  call dein#add('chriskempson/base16-vim')  " Base16 colorscheme
+  call dein#add('christoomey/vim-tmux-navigator')  " Window navigation
 
-Plug 'honza/vim-snippets'  " Snippets
-Plug 'sheerun/vim-polyglot'  " Syntax language pack
-Plug 'chriskempson/base16-vim'  " Base16 colorscheme
-Plug 'christoomey/vim-tmux-navigator'  " Window navigation
+  call dein#add('tpope/vim-eunuch')  " Unix helper commands
+  call dein#add('tpope/vim-sleuth')  " Detect and set buffer options
+  call dein#add('tpope/vim-vinegar')  " Netrw Enhancements
+  call dein#add('tpope/vim-fugitive')  " Git wrapper
+  call dein#add('tpope/vim-surround')  " Text surroundings
+  call dein#add('tpope/vim-dispatch')  " Async dispatching
+  call dein#add('tpope/vim-obsession')  " Sessions
+  call dein#add('wellle/targets.vim') " Enhanced text objects
+  call dein#add('junegunn/vim-slash')  " Enhanced buffer search
+  call dein#add('tomtom/tcomment_vim')  " Comments
+  call dein#add('Yggdroot/indentLine')  " Space-indentation levels
+  call dein#add('chrisbra/Recover.vim')  " Swap-file Compare
 
-Plug 'Shougo/neosnippet.vim'  " Snippet engine
-Plug 'Shougo/neosnippet-snippets'  " Snippet source
+  call dein#add('Shougo/neosnippet.vim')  " Snippet engine
+  call dein#add('Shougo/neosnippet-snippets')  " Snippet source
 
-Plug 'Shougo/denite.nvim' " Selection menu
-Plug 'Shougo/deoplete.nvim'  " Autocompletion
+  call dein#add('Shougo/denite.nvim') " Selection menu
+  call dein#add('Shougo/deoplete.nvim')  " Autocompletion
 
-Plug 'Shougo/neoyank.vim'  " Yank denite source
-Plug 'Shougo/neco-vim'  " VimL deoplete source
-Plug 'Shougo/neomru.vim'  " MRU deoplete source
-Plug 'carlitux/deoplete-ternjs'  " JavaScript deoplete source
-Plug 'fszymanski/deoplete-emoji'  " Emoji deoplete source
-Plug 'deoplete-plugins/deoplete-jedi'  " Python deoplete source
-"Plug 'autozimu/LanguageClient-neovim', { 'build': 'bash install.sh', 'rev': 'next' }
+  call dein#add('Shougo/neoyank.vim')  " Yank denite source
+  call dein#add('Shougo/neco-vim')  " VimL deoplete source
+  call dein#add('Shougo/neomru.vim')  " MRU deoplete source
+  call dein#add('carlitux/deoplete-ternjs')  " JavaScript deoplete source
+  call dein#add('fszymanski/deoplete-emoji')  " Emoji deoplete source
+  call dein#add('deoplete-plugins/deoplete-jedi')  " Python deoplete source
+  "call dein#add('autozimu/LanguageClient-neovim', { 'build': 'bash install.sh', 'rev': 'next' })
 
-" Nvim-compatiblity Plugins
-if has('nvim')
-  Plug 'radenling/vim-dispatch-neovim'
+  " Nvim-compatiblity Plugins
+  if has('nvim')
+    call dein#add('radenling/vim-dispatch-neovim')
 
-" Vim-compatiblity Plugins
-else
-  Plug 'tpope/vim-sensible'
-  Plug 'roxma/nvim-yarp'
-  Plug 'roxma/vim-hug-neovim-rpc'
+  " Vim-compatiblity Plugins
+  else
+    call dein#add('tpope/vim-sensible')
+    call dein#add('roxma/nvim-yarp')
+    call dein#add('roxma/vim-hug-neovim-rpc')
+  endif
+
+  call dein#end()
+  call dein#save_state()
 endif
 
-call plug#end()
+if dein#check_install() | call dein#install() | endif
 " ----------------
 " }}}
 
