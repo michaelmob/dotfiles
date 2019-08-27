@@ -4,55 +4,49 @@
 
 
 " Variables {{{
-let cachedir = '~/.cache/vim'
-let plugdir = cachedir . '/plug'
+let $cachedir = expand('$HOME/.cache/vim')
+let $plugdir = expand('$HOME/.local/share/nvim/site/autoload')
 " }}}
 
 
 
 " Plugins {{{
 " ----------------
-if empty(glob(plugdir . '/plug.vim'))
-  exec 'silent !curl -fLo ' . plugdir . '/plug.vim --create-dirs'
+if empty(glob($plugdir))
+  exec 'silent !curl -fLo ' . $plugdir . '/plug.vim --create-dirs'
     \ 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
-call plug#begin(plugdir)
+call plug#begin($plugdir)
 
+Plug 'tpope/vim-rsi'  " Readline
 Plug 'tpope/vim-eunuch'  " Unix helper commands
 Plug 'tpope/vim-sleuth'  " Detect and set buffer options
 Plug 'tpope/vim-repeat'  " Repeating
+Plug 'tpope/vim-apathy'  " Paths
 Plug 'tpope/vim-vinegar'  " Netrw Enhancements
 Plug 'tpope/vim-fugitive'  " Git wrapper
 Plug 'tpope/vim-surround'  " Text surroundings
 Plug 'tpope/vim-dispatch'  " Async dispatching
 Plug 'tpope/vim-obsession'  " Sessions
 
-Plug 'Yggdroot/indentLine'  " Space-indentation levels
+Plug 'honza/vim-snippets'  " Snippets source
+Plug 'wellle/targets.vim'  " Enhanced text objects
 Plug 'junegunn/vim-slash'  " Enhanced buffer search
-Plug 'wellle/targets.vim' " Enhanced text objects
+Plug 'Yggdroot/indentLine'  " Space-indentation levels
 Plug 'tomtom/tcomment_vim'  " Comments
+Plug 'jiangmiao/auto-pairs'  " Automatic bracket, paren, quotes pairing
 Plug 'chrisbra/Recover.vim'  " Swap-file Compare
-
-Plug 'honza/vim-snippets'  " Snippets
 Plug 'sheerun/vim-polyglot'  " Syntax language pack
-Plug 'chriskempson/base16-vim'  " Base16 colorscheme
+Plug 'chriskempson/base16-vim'  " Base16 colorschemes
 Plug 'christoomey/vim-tmux-navigator'  " Window navigation
 
-Plug 'Shougo/neosnippet.vim'  " Snippet engine
-Plug 'Shougo/neosnippet-snippets'  " Snippet source
+Plug 'junegunn/fzf', {'dir': '~/.fzf', 'do': './install --all'}
+Plug 'junegunn/fzf.vim'  " Fzf wrapper
 
-Plug 'Shougo/denite.nvim' " Selection menu
-Plug 'Shougo/deoplete.nvim'  " Autocompletion
+Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}  " Autocomplete
 
-Plug 'Shougo/neoyank.vim'  " Yank denite source
-Plug 'Shougo/neco-vim'  " VimL deoplete source
-Plug 'Shougo/neomru.vim'  " MRU deoplete source
-Plug 'carlitux/deoplete-ternjs'  " JavaScript deoplete source
-Plug 'fszymanski/deoplete-emoji'  " Emoji deoplete source
-Plug 'deoplete-plugins/deoplete-jedi'  " Python deoplete source
-"Plug 'autozimu/LanguageClient-neovim', { 'build': 'bash install.sh', 'rev': 'next' }
 
 " Nvim-compatiblity Plugins
 if has('nvim')
@@ -73,23 +67,22 @@ call plug#end()
 
 " Plugin Settings {{{
 " ----------------
-" Deoplete
-let g:deoplete#enable_at_startup = 1
-
-" Neosnippet
-let g:neosnippet#enable_completed_snippet = 1
-
-" Denite
-call denite#custom#var('file/rec', 'command', ['rg', '--files', '--glob', '!.git'])
-call denite#custom#var('grep', 'command', ['rg'])
-call denite#custom#var('grep', 'default_opts', ['--vimgrep', '--no-heading'])
-call denite#custom#var('grep', 'recursive_opts', [])
-call denite#custom#var('grep', 'pattern_opt', ['--regexp'])
-call denite#custom#var('grep', 'separator', ['--'])
-call denite#custom#var('grep', 'final_opts', [])
-
 " indentLine
 "let g:indentLine_char_list = ['|', '¦', '┆', '┊']
+
+" coc.nvim
+let g:coc_global_extensions = [
+  \   'coc-snippets',
+  \   'coc-json', 'coc-tsserver', 'coc-vetur',
+  \   'coc-word', 'coc-emoji'
+  \ ]
+
+let g:coc_user_config = {
+  \ }
+
+" vim-vue (vim-polyglot)
+let g:vue_pre_processors = []
+
 " ----------------
 " }}}
 
@@ -97,13 +90,7 @@ call denite#custom#var('grep', 'final_opts', [])
 
 " Vim Settings {{{
 " ----------------
-" Path
-set path+=**
-
 " Colors
-" set t_Co=256
-" set t_AB=^[[48;5;%dm
-" set t_AF=^[[38;5;%dm
 set termguicolors
 colorscheme base16-monokai
 syntax enable
@@ -121,14 +108,14 @@ set pumblend=5
 " Line Numbers
 set number
 set relativenumber
-set colorcolumn=80
+set colorcolumn=81
 
 " Scrolling
 set scrolloff=2
 
 " Persistent Undo
 set undofile
-set undodir=~/.cache/vim/undo
+set undodir=$cachedir/undo
 
 " ----------------
 " }}}
@@ -143,7 +130,7 @@ let mapleader = "\<Space>"
 nmap <Space><Esc> :w<CR>
 
 " Tab control
-nmap tc :tabclose
+nmap tc :tabclose<CR>
 
 " Yank/Pasting
 nmap <Leader>p "+p
@@ -151,16 +138,14 @@ nmap <Leader>P "+P
 map <Leader>y "+y
 
 " Fuzzy Finders
-nmap <silent> <Leader>c :Denite colorscheme<CR>
-nmap <silent> <Leader>f :Denite -start-filter file/rec<CR>
-nmap <silent> <Leader>b :Denite -start-filter buffer<CR>
-nmap <silent> <Leader>/ :Denite -start-filter grep:::!<CR>
-vmap <silent> <Leader>/ :DeniteCursorWord grep:::!<CR>
+nmap <silent> <Leader>c :Colors<CR>
+nmap <silent> <Leader>f :Files<CR>
+nmap <silent> <Leader>b :Buffers<CR>
+nmap <silent> <Leader>/ :Rg<CR>
 
 " Auto-completion
-imap <expr><CR> pumvisible() && neosnippet#expandable() ?
- \ '<Plug>(neosnippet_expand)' : neosnippet#jumpable() ?
- \ '<Plug>(neosnippet_jump)' : '<CR>'
+imap <expr><CR> pumvisible() && coc#expandable() ?
+ \ '<C-y>' : coc#jumpable() ? '<C-j>' : '<CR>'
 
 " Search
 nmap <plug>(slash-after) zz
@@ -185,30 +170,11 @@ nmap gs :tab Gstatus<CR>
 augroup FILETYPES
 
   autocmd!
+  autocmd FileType javascript let b:dispatch = 'npm test -- %'
   autocmd FileType vue syntax sync fromstart
   autocmd FileType md setlocal conceallevel=0
 
-  autocmd FileType help call HelpSetup()
-  function! HelpSetup()
-    nmap <silent><buffer> <Esc> :q<CR>
-  endfunction
-
-  autocmd FileType denite call DeniteSetup()
-  function! DeniteSetup() abort
-    nmap <silent><buffer><expr> <CR> denite#do_map('do_action')
-    nmap <silent><buffer><expr> <Esc> denite#do_map('quit')
-    nmap <silent><buffer><expr> p denite#do_map('do_action', 'preview')
-    nmap <silent><buffer><expr> i denite#do_map('open_filter_buffer')
-    nmap <nowait> <silent><buffer><expr> <Space> denite#do_map('toggle_select') . 'j'
-
-    nmap <nowait> <silent><buffer><expr> y denite#do_map('do_action', 'mkdir')
-  endfunction
-
-  autocmd FileType denite-filter call DeniteFilterSetup()
-  function! DeniteFilterSetup() abort
-    imap <silent><buffer><expr> <Esc> denite#do_map('quit')
-  endfunction
-
+  autocmd FileType help,qf,vim-plug nmap <silent><buffer> <Esc> :q<CR>
 augroup END
 " ----------------
 " }}}
