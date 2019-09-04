@@ -83,6 +83,8 @@ let g:coc_user_config = {
 " vim-vue (vim-polyglot)
 let g:vue_pre_processors = []
 
+" autopairs
+let g:AutoPairsMultilineClose = 0
 " ----------------
 " }}}
 
@@ -122,6 +124,15 @@ set undodir=$cachedir/undo
 
 
 
+" Commands {{{
+" ----------------
+" Fugitive
+command! Gdifftab tabedit %|Gvdiffsplit
+" ----------------
+" }}}
+
+
+
 " Keybindings {{{
 " ----------------
 let mapleader = "\<Space>"
@@ -151,14 +162,19 @@ imap <expr><CR> pumvisible() && coc#expandable() ?
 nmap <plug>(slash-after) zz
 
 " Line Navigation
-map <S-h> g0
+map <S-h> ^
 map <S-l> g_
 
 " Counterpart to <S-j>
 nmap <S-k> DO<Esc>p==
 
-" Git
-nmap gs :tab Gstatus<CR>
+" Fugitive
+nmap <leader>gs :tab Gstatus<CR>
+nmap <leader>gd :Gdifftab<CR>
+nmap <leader>gc :Gcommit -v<CR>
+
+" Surround
+vmap <CR> S<C-J>jVj=$
 
 " ----------------
 " }}}
@@ -168,7 +184,6 @@ nmap gs :tab Gstatus<CR>
 " Filetypes {{{
 " ----------------
 augroup FILETYPES
-
   autocmd!
   autocmd FileType javascript let b:dispatch = 'npm test -- %'
   autocmd FileType vue syntax sync fromstart
