@@ -2,6 +2,10 @@ stty -ixon
 shopt -s autocd
 shopt -s histappend
 
+# Completion
+BASH_COMPLETION=/usr/share/bash-completion/bash_completion
+[[ -f $BASH_COMPLETION ]] && source $BASH_COMPLETION && BASH_COMPLETION=0
+
 # FZF
 [[ -f ~/.fzf.bash ]] && source ~/.fzf.bash
 
@@ -27,7 +31,7 @@ alias gu='git add -u'
 
 # Environment variables
 export HISTCONTROL='ignoreboth:ignoredups:erasedups'
-export PATH="$PATH:$HOME/.scripts:$HOME/.bin:~/node_modules/.bin"
+export PATH="$PATH:$HOME/.scripts:$HOME/.bin:$HOME/node_modules/.bin"
 export TERM='xterm-256color'
 export LANG='en_US.UTF-8'
 export PS1="\[$(tput bold)\]\[$(tput setaf 1)\][\[$(tput setaf 3)\]\u\[$(tput setaf 2)\]@\[$(tput setaf 4)\]\h \[$(tput setaf 5)\]\W\[$(tput setaf 1)\]]\[$(tput setaf 7)\]\\$ \[$(tput sgr0)\]"
