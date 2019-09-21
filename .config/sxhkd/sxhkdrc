@@ -1,61 +1,38 @@
 #
-# Application Launchers
-#
-
-# Launch terminal
-super + Return
-  $TERMINAL
-
-# Launch screenshot utility
-ctrl + shift + 4
-  flameshot gui
-
-# Launch math scratchpad
-super + c
-  $HOME/.scripts/scratchpad math "alacritty -t math -e $HOME/.scripts/math"
-
-# Play/Pause Media
-Pause
-  qdbus org.kde.kglobalaccel /component/mediacontrol org.kde.kglobalaccel.Component.invokeShortcut 'playpausemedia'
-
-
-#
-# Window Management
-#
-
-# Close window
-super + shift + q
-  wmctrl -c :ACTIVE:
-
-## Focus window
-#super + {h,j,k,l}
-#  qdbus org.kde.kglobalaccel /component/kwin org.kde.kglobalaccel.Component.invokeShortcut 'Switch Window {Left,Down,Up,Right}'
-#
-## Move window
-#super + shift + {h,j,k,l}
-#  $HOME/.scripts/move_window {left,down,up,right} 50
-#
-## Resize window
-#super + ctrl + {h,j,k,l}
-#  $HOME/.scripts/resize_window {left,down,up,right} 50
-
-# Switch workspaces
-super + {1-9,0}
-  wmctrl -s $(({1-9,10}-1))
-
-# Switch window to workspace
-super + shift + {1-9,0}
-  wmctrl -r :ACTIVE: -t $(({1-9,10}-1))
-
-# Swap workspaces
-super + shift + {p,n}
-  $HOME/.scripts/move_workspace {left,right}
-
-
-#
 # Configuration
 #
 
 # Reload sxhkdrc
 super + shift + r
   pkill -USR1 -x sxhkd
+
+
+#
+# Application Launchers
+#
+
+# Launch math scratchpad
+super + c
+  $HOME/.scripts/scratchpad math "konsole -p tabtitle=math -e $HOME/.scripts/math"
+
+
+#
+# Window Management
+#
+
+# Move window
+super + ctrl + {h,j,k,l}
+  $HOME/.scripts/move_window {left,down,up,right} 50
+
+# Resize window
+super + alt + {h,j,k,l}
+  $HOME/.scripts/resize_window {left,down,up,right} 50
+
+
+#
+# Workspace Management
+#
+
+# Swap workspaces
+super + shift + {p,n}
+  $HOME/.scripts/move_workspace {left,right}
