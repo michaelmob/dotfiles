@@ -10,6 +10,7 @@ BASH_COMPLETION=/usr/share/bash-completion/bash_completion
 [[ -f ~/.fzf.bash ]] && source ~/.fzf.bash
 
 # Functions
+bg_tmux() { $HOME/.scripts/open_in_tmux $(jobs -p) ; }
 ifind() { find . -iname "*$@*" 2> /dev/null ; }
 cd() { builtin cd "$@" && pwd > ~/.previous-dir ; }
 ld() { builtin cd "$(<~/.previous-dir)" ; }
