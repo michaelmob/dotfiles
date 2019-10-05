@@ -74,9 +74,8 @@ call plug#end()
 
 " coc.nvim
 let g:coc_global_extensions = [
-  \   'coc-snippets',
-  \   'coc-json', 'coc-tsserver', 'coc-vetur',
-  \   'coc-word', 'coc-emoji'
+  \   'coc-snippets', 'coc-word', 'coc-emoji',
+  \   'coc-json', 'coc-tsserver', 'coc-vetur', 'coc-python'
   \ ]
 
 let g:coc_user_config = {
@@ -121,6 +120,8 @@ set scrolloff=2
 set undofile
 set undodir=$cachedir/undo
 
+" Netrw / :help netrw-P19
+let g:netrw_bufsettings = 'noma nomod nu nobl nowrap ro rnu'
 " ----------------
 " }}}
 
@@ -195,7 +196,8 @@ augroup FILETYPES
   autocmd FileType vue syntax sync fromstart
   autocmd FileType md setlocal conceallevel=0
 
-  autocmd FileType help,qf,vim-plug nmap <silent><buffer> <Esc> :q<CR>
+  "autocmd FileType netrw unmap <buffer> <C-L> | map <buffer> <C-R>
+  autocmd FileType NetrwMessage,help,qf,vim-plug nmap <silent><buffer> <Esc> :q<CR>
 augroup END
 " ----------------
 " }}}
