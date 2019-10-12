@@ -75,11 +75,14 @@ call plug#end()
 " coc.nvim
 let g:coc_global_extensions = [
   \   'coc-snippets', 'coc-word', 'coc-emoji',
-  \   'coc-json', 'coc-tsserver', 'coc-vetur', 'coc-python'
+  \   'coc-json', 'coc-tsserver', 'coc-vetur'
   \ ]
 
 let g:coc_user_config = {
   \ }
+
+" indentLine
+let g:indentLine_fileTypeExclude = ['text', 'sh', 'markdown']
 
 " vim-vue (vim-polyglot)
 let g:vue_pre_processors = []
@@ -194,7 +197,7 @@ augroup FILETYPES
   autocmd!
   autocmd FileType javascript let b:dispatch = 'npm test -- %'
   autocmd FileType vue syntax sync fromstart
-  autocmd FileType md setlocal conceallevel=0
+  autocmd FileType markdown setlocal textwidth=80
 
   "autocmd FileType netrw unmap <buffer> <C-L> | map <buffer> <C-R>
   autocmd FileType NetrwMessage,help,qf,vim-plug nmap <silent><buffer> <Esc> :q<CR>
