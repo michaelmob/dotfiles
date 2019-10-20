@@ -74,9 +74,10 @@ call plug#end()
 
 " coc.nvim
 let g:coc_global_extensions = [
-  \   'coc-snippets', 'coc-word', 'coc-emoji',
-  \   'coc-json', 'coc-tsserver', 'coc-vetur'
+  \   'coc-snippets', 'coc-word', 'coc-emoji', 'coc-json',
+  \   'coc-tsserver', 'coc-vetur', 'coc-tabnine'
   \ ]
+
 
 let g:coc_user_config = {
   \ }
@@ -189,8 +190,7 @@ nmap <silent> <Leader>/ :Rg<CR>
 nmap <silent> <Leader><Leader>/ :GGrep<CR>
 
 " Auto-completion
-imap <expr><CR> pumvisible() && coc#expandable() ?
- \ '<C-y>' : coc#jumpable() ? '<C-j>' : '<CR>'
+inoremap <expr> <silent> <cr> pumvisible() ? '<C-y>' : '<C-g>u<CR>'
 
 " Search
 nmap <plug>(slash-after) zz
@@ -203,20 +203,20 @@ map <S-l> g_
 nmap <S-k> DO<Esc>p==
 
 " Fugitive
-nmap <leader>gs :tab Gstatus<CR>
-nmap <leader>gd :Gdifftab<CR>
-nmap <leader>gc :Gcommit -v<CR>
+nmap <Leader>gs :tab Gstatus<CR>
+nmap <Leader>gd :Gdifftab<CR>
+nmap <Leader>gc :Gcommit -v<CR>
 
 " Surround
 vmap <CR> S<C-J>jVj=$
 
 " Easy align
 xmap ga <Plug>(EasyAlign)
-nmap <leader>at vipga*\|  " Align Table
+nmap <Leader>at vipga*\|  " Align Table
 
 " Netrw
 function! NetrwMappings()
-  nnoremap <buffer> <C-L> :TmuxNavigateRight<CR>
+  silent! unmap <buffer> <C-l>
 endfunction
 
 " ----------------
