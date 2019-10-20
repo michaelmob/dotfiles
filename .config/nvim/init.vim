@@ -89,6 +89,27 @@ let g:vue_pre_processors = []
 
 " autopairs
 let g:AutoPairsMultilineClose = 0
+
+" fzf
+let g:fzf_history_dir = '~/.local/share/fzf-history'
+let g:fzf_layout = { 'window': 'call FloatingFZF()' }
+
+function! FloatingFZF()
+  let height = &lines > 20 ? float2nr(&lines * 0.50) : &lines
+  let width = (&columns > 120 ? float2nr(120) : &columns) - 10
+  let left = float2nr((&columns - width) / 2)
+  let top = float2nr((&lines - height) / 2)
+
+  let opts = {
+    \   'style': 'minimal', 'relative': 'editor',
+    \   'row': top, 'col': left, 'width': width, 'height': height,
+    \ }
+
+  let buf = nvim_create_buf(v:false, v:true)
+  call setbufvar(buf, '&signcolumn', 'no')
+  call nvim_open_win(buf, v:true, opts)
+endfunction
+
 " ----------------
 " }}}
 
@@ -150,8 +171,8 @@ nmap <Space><Esc> :w<CR>
 nmap tc :tabclose<CR>
 
 " Yank/Pasting
-nmap <Leader>p "+p
-nmap <Leader>P "+P
+map <Leader>p "+p
+map <Leader>P "+P
 map <Leader>y "+y
 
 " Fuzzy Finders
@@ -186,6 +207,11 @@ vmap <CR> S<C-J>jVj=$
 xmap ga <Plug>(EasyAlign)
 nmap <leader>at vipga*\|  " Align Table
 
+" Netrw
+function! NetrwMappings()
+  nnoremap <buffer> <C-L> :TmuxNavigateRight<CR>
+endfunction
+
 " ----------------
 " }}}
 
@@ -201,6 +227,7 @@ augroup FILETYPES
 
   "autocmd FileType netrw unmap <buffer> <C-L> | map <buffer> <C-R>
   autocmd FileType NetrwMessage,help,qf,vim-plug nmap <silent><buffer> <Esc> :q<CR>
+  autocmd filetype netrw call NetrwMappings()
 augroup END
 " ----------------
 " }}}
