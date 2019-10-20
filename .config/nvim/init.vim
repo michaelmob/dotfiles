@@ -173,6 +173,10 @@ let mapleader = "\<Space>"
 " Save
 nmap <Space><Esc> :w<CR>
 
+" Undo/Redo
+inoremap <expr> <silent> <C-u> '<C-o>u'
+inoremap <expr> <silent> <C-r> '<C-o><C-r>'
+
 " Tab control
 nmap tc :tabclose<CR>
 
