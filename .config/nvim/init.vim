@@ -193,10 +193,14 @@ nmap <silent> <Leader>b :Buffers<CR>
 nmap <silent> <Leader>/ :Rg<CR>
 nmap <silent> <Leader><Leader>/ :GGrep<CR>
 
-" Auto-completion
+" Popup Menu (pum)
 inoremap <expr> <silent> <CR> pumvisible() ? '<C-y>' : '<C-g>u<CR>'
 inoremap <expr> <silent> <C-j> pumvisible() ? '<C-n>' : '<C-j>'
 inoremap <expr> <silent> <C-k> pumvisible() ? '<C-p>' : '<Esc>m":+1d<CR>`"a'
+
+" Command Mode Popup Menu (pum)
+cnoremap <expr> <silent> <C-j> pumvisible() ? '<C-n>' : ''
+cnoremap <expr> <silent> <C-k> pumvisible() ? '<C-p>' : ''
 
 " Search
 nmap <plug>(slash-after) zz
