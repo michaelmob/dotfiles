@@ -10,5 +10,9 @@ bind <C-u> undo
 bind <S-x> bdelete
 bind cs tabopen -c school
 bind cm tabopen -c school https://moodle.njit.edu
+bind cc tabopen -c school https://canvas.njit.edu
 bind cp tabopen -c personal
 bind ca tabopen -c shopping
+
+" Terminal
+set editorcmd $TERMINAL -e "$EDITOR %f"
