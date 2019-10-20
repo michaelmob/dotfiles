@@ -155,6 +155,11 @@ let g:netrw_bufsettings = 'noma nomod nu nobl nowrap ro rnu'
 " ----------------
 " Fugitive
 command! Gdifftab tabedit %|Gvdiffsplit
+
+" fzf
+command! -bang -nargs=* GGrep call fzf#vim#grep(
+  \ 'git grep --line-number '.shellescape(<q-args>), 0,
+  \ { 'dir': systemlist('git rev-parse --show-toplevel')[0] }, <bang>0)
 " ----------------
 " }}}
 
@@ -177,9 +182,11 @@ map <Leader>y "+y
 
 " Fuzzy Finders
 nmap <silent> <Leader>c :Colors<CR>
-nmap <silent> <Leader>f :Files<CR>
+nmap <silent> <Leader>f :GFiles<CR>
+nmap <silent> <Leader><Leader>f :Files<CR>
 nmap <silent> <Leader>b :Buffers<CR>
 nmap <silent> <Leader>/ :Rg<CR>
+nmap <silent> <Leader><Leader>/ :GGrep<CR>
 
 " Auto-completion
 imap <expr><CR> pumvisible() && coc#expandable() ?
