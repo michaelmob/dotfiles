@@ -194,7 +194,9 @@ nmap <silent> <Leader>/ :Rg<CR>
 nmap <silent> <Leader><Leader>/ :GGrep<CR>
 
 " Auto-completion
-inoremap <expr> <silent> <cr> pumvisible() ? '<C-y>' : '<C-g>u<CR>'
+inoremap <expr> <silent> <CR> pumvisible() ? '<C-y>' : '<C-g>u<CR>'
+inoremap <expr> <silent> <C-j> pumvisible() ? '<C-n>' : '<C-j>'
+inoremap <expr> <silent> <C-k> pumvisible() ? '<C-p>' : '<Esc>m":+1d<CR>`"a'
 
 " Search
 nmap <plug>(slash-after) zz
