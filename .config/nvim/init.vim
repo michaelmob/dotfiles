@@ -188,7 +188,8 @@ map <Leader>y "+y
 " Fuzzy Finders
 nmap <silent> <Leader>c :Colors<CR>
 nmap <silent> <Leader>f :Files<CR>
-nmap <silent> <Leader><Leader>f :GFiles<CR>
+nmap <silent> <Leader>f :GFiles --exclude-standard --others --cached<CR>
+nmap <silent> <Leader><Leader>f :Files<CR>
 nmap <silent> <Leader>b :Buffers<CR>
 nmap <silent> <Leader>/ :Rg<CR>
 nmap <silent> <Leader><Leader>/ :GGrep<CR>
