@@ -4,8 +4,8 @@
 
 
 " Variables {{{
-let $cachedir = expand('$HOME/.cache/vim')
-let $plugdir = expand('$HOME/.local/share/nvim/site/autoload')
+let $cachedir = expand('$HOME/.local/share/nvim')
+let $plugdir = expand('$HOME/.local/share/nvim/plug')
 " }}}
 
 
@@ -34,6 +34,7 @@ Plug 'tpope/vim-obsession'  " Sessions
 Plug 'honza/vim-snippets'  " Snippets source
 Plug 'wellle/targets.vim'  " Enhanced text objects
 Plug 'junegunn/vim-slash'  " Enhanced buffer search
+Plug 'airblade/vim-rooter'  " Set cwd to projects root dir
 Plug 'Yggdroot/indentLine'  " Space-indentation levels
 Plug 'tomtom/tcomment_vim'  " Comments
 Plug 'jiangmiao/auto-pairs'  " Automatic bracket, paren, quotes pairing
@@ -81,6 +82,9 @@ let g:coc_global_extensions = [
 
 let g:coc_user_config = {
   \ }
+
+" markdown-preview
+let g:mkdp_auto_close = 0
 
 " indentLine
 let g:indentLine_fileTypeExclude = ['text', 'sh', 'markdown']
