@@ -5,7 +5,7 @@
 
 " Variables {{{
 let $cachedir = expand('$HOME/.local/share/nvim')
-let $plugdir = expand('$HOME/.local/share/nvim/plug')
+let $plugdir = expand('$HOME/.local/share/nvim/site/autoload')
 " }}}
 
 
@@ -76,7 +76,7 @@ call plug#end()
 " coc.nvim
 let g:coc_global_extensions = [
   \   'coc-snippets', 'coc-word', 'coc-emoji', 'coc-json',
-  \   'coc-tsserver', 'coc-vetur', 'coc-tabnine'
+  \   'coc-tsserver', 'coc-vetur'
   \ ]
 
 
