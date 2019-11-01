@@ -1,3 +1,5 @@
+colorscheme dark
+
 " Pager-like binds
 bind u scrollpage -0.5
 bind d scrollpage  0.5
