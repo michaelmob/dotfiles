@@ -96,6 +96,7 @@ let g:vue_pre_processors = []
 let g:AutoPairsMultilineClose = 0
 
 " fzf
+command! -bang -nargs=* Rg call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case ".shellescape(<q-args>), 1, {'options': '--delimiter : --nth 4..'}, <bang>0)
 let g:fzf_history_dir = '~/.local/share/fzf-history'
 let g:fzf_layout = { 'window': 'call FloatingFZF()' }
 
