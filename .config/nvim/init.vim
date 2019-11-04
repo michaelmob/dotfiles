@@ -96,7 +96,8 @@ let g:vue_pre_processors = []
 let g:AutoPairsMultilineClose = 0
 
 " fzf
-command! -bang -nargs=* Rg call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case ".shellescape(<q-args>), 1, {'options': '--delimiter : --nth 4..'}, <bang>0)
+command! -bang -nargs=* Rg call fzf#vim#grep('rg --column --line-number --no-heading --color=always --smart-case ' . shellescape(<q-args>), 1, {'options': '--delimiter : --nth 4..'}, <bang>0)
+command! -bang -nargs=* Dirs call fzf#run(fzf#wrap({'source': 'find * -type d 2>/dev/null'}))
 let g:fzf_history_dir = '~/.local/share/fzf-history'
 let g:fzf_layout = { 'window': 'call FloatingFZF()' }
 
@@ -194,6 +195,7 @@ map <Leader>y "+y
 nmap <silent> <Leader>c :Colors<CR>
 nmap <silent> <Leader>f :Files<CR>
 nmap <silent> <Leader>f :GFiles --exclude-standard --others --cached<CR>
+nmap <silent> <Leader>d :Dirs<CR>
 nmap <silent> <Leader><Leader>f :Files<CR>
 nmap <silent> <Leader>b :Buffers<CR>
 nmap <silent> <Leader>/ :Rg<CR>
