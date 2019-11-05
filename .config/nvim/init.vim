@@ -184,7 +184,9 @@ inoremap <expr> <silent> <C-u> '<C-o>u'
 inoremap <expr> <silent> <C-r> '<C-o><C-r>'
 
 " Tab control
-nmap tc :tabclose<CR>
+nmap <silent> tc :tabclose<CR>
+nmap <silent> tn :tabnext<CR>
+nmap <silent> tp :tabprev<CR>
 
 " Yank/Pasting
 map <Leader>p "+p
@@ -203,12 +205,6 @@ nmap <silent> <Leader><Leader>/ :GGrep<CR>
 
 " Popup Menu (pum)
 inoremap <expr> <silent> <CR> pumvisible() ? '<C-y>' : '<C-g>u<CR>'
-inoremap <expr> <silent> <C-j> pumvisible() ? '<C-n>' : '<C-j>'
-inoremap <expr> <silent> <C-k> pumvisible() ? '<C-p>' : '<Esc>m":+1d<CR>`"a'
-
-" Command Mode Popup Menu (pum)
-cnoremap <expr> <silent> <C-j> pumvisible() ? '<C-n>' : ''
-cnoremap <expr> <silent> <C-k> pumvisible() ? '<C-p>' : ''
 
 " Search
 nmap <plug>(slash-after) zz
