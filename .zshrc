@@ -1,9 +1,17 @@
 #!/usr/bin/env zsh
 # vim: et sw=2
+#
+export PATH="$PATH:$HOME/.local/bin:$HOME/.scripts"
 
 bindkey -e  # emacs keybindings
 bindkey "\e[3~" delete-char  # delete key
 for x in 'ABCD'; do bindkey "\e[1;5$x" ''; done  # disable ctrl+arrow keys
+
+# Default Applications
+export TERMINAL='gnome-terminal'
+export EDITOR='nvim'
+export BROWSER='firefox'
+export FM='nautilus'
 
 # Options
 setopt autocd  # set cd without cd
