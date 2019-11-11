@@ -42,6 +42,7 @@ Plug 'chrisbra/Recover.vim'  " Swap-file Compare
 Plug 'sheerun/vim-polyglot'  " Syntax language pack
 Plug 'chriskempson/base16-vim'  " Base16 colorschemes
 Plug 'junegunn/vim-easy-align'  " Text alignment
+Plug 'AndrewRadev/splitjoin.vim'  " Single-line <--> Multi-line
 Plug 'christoomey/vim-tmux-navigator'  " Window navigation
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
 
