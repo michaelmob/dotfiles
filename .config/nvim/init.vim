@@ -234,7 +234,6 @@ nmap <Leader>at vipga*\|  " Align Table
 function! NetrwMappings()
   silent! unmap <buffer> <C-l>
 endfunction
-
 " ----------------
 " }}}
 

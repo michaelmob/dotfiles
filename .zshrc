@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
 # vim: et sw=2
 #
-export PATH="$PATH:$HOME/.local/bin:$HOME/.scripts"
+export PATH="$HOME/.local/bin:$HOME/.scripts:$PATH"
 
 bindkey -e  # emacs keybindings
 bindkey "\e[3~" delete-char  # delete key
@@ -35,7 +35,7 @@ PS1+="%F{green}@"
 PS1+="%F{blue}%m"
 PS1+="%F{magenta} %c"
 PS1+="%F{red}]"
-PS1+="%F{white}\$%b %f"
+PS1+="%F{white}λ%b %f"
 RPS1="%B%T%b"
 
 # History
@@ -48,7 +48,11 @@ alias \?='bindkey | head -n 23'
 alias :q='exit'
 alias ls='ls --color=auto --group-directories-first'
 alias xclip='xclip -selection c'
+
+# Config Aliases
 alias nvimrc="nvim $HOME/.config/nvim/init.vim"
+alias tmuxrc="nvim $HOME/.tmux.conf"
+alias zshrc="nvim $HOME/.zshrc"
 
 alias gs='git status -uno'
 alias gd='git diff HEAD'
