@@ -8,7 +8,7 @@ bindkey "\e[3~" delete-char  # delete key
 for x in 'ABCD'; do bindkey "\e[1;5$x" ''; done  # disable ctrl+arrow keys
 
 # Default Applications
-export TERMINAL='gnome-terminal'
+export TERMINAL='urxvt'
 export EDITOR='nvim'
 export BROWSER='firefox'
 export FM='nautilus'
@@ -53,6 +53,7 @@ alias xclip='xclip -selection c'
 alias nvimrc="nvim $HOME/.config/nvim/init.vim"
 alias tmuxrc="nvim $HOME/.tmux.conf"
 alias zshrc="nvim $HOME/.zshrc"
+alias i3rc="nvim $HOME/.config/i3/config"
 
 alias gs='git status -uno'
 alias gd='git diff HEAD'
