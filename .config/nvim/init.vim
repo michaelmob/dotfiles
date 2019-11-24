@@ -100,6 +100,7 @@ let g:AutoPairsMultilineClose = 0
 " fzf
 command! -bang -nargs=* Rg call fzf#vim#grep('rg --column --line-number --no-heading --color=always --smart-case ' . shellescape(<q-args>), 1, {'options': '--delimiter : --nth 4..'}, <bang>0)
 command! -bang -nargs=* Dirs call fzf#run(fzf#wrap({'source': 'find * -type d 2> /dev/null'}))
+let $FZF_DEFAULT_OPTS = '--bind ctrl-j:next-history,ctrl-k:previous-history,ctrl-n:down,ctrl-p:up'
 let g:fzf_history_dir = '~/.local/share/fzf-history'
 let g:fzf_layout = { 'window': 'call FloatingFZF()' }
 
