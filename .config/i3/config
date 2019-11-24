@@ -17,18 +17,16 @@ focus_follows_mouse no
 #
 # autostart
 #
-
-# keyboard settings
-exec_always --no-startup-id setxkbmap -layout us -option caps:escape
-exec_always --no-startup-id xset r rate 250 25
-
-# network manager applet
-exec --no-startup-id nm-applet
+exec --no-startup-id exec flatpak run com.discordapp.Discord
+exec --no-startup-id exec flatpak run com.slack.Slack
 
 
 #
 # application shortcuts
 #
+
+# play/pause music player
+bindsym Pause exec playerctl play-pause
 
 # launch flameshot screen shot utility
 bindsym ctrl+shift+4 exec flameshot gui
@@ -42,10 +40,11 @@ bindsym ctrl+shift+4 exec flameshot gui
 bindsym $mod+Return exec i3-sensible-terminal
 
 # kill focused window
-bindsym $mod+Shift+q kill
+bindsym $mod+Shift+q [con_id="__focused__" title="^(?!math).*$"] kill
 
 # start dmenu
-bindsym $mod+d exec dmenu_run
+bindsym $mod+Shift+d exec dmenu_run
+bindsym $mod+d exec i3-dmenu-desktop
 
 # change focus
 bindsym $mod+h focus left
@@ -125,10 +124,36 @@ bindsym $mod+Shift+8 move container to workspace number $ws8
 bindsym $mod+Shift+9 move container to workspace number $ws9
 bindsym $mod+Shift+0 move container to workspace number $ws10
 
+# assign workspaces to applications
+assign [class="Slack"] $ws10
+assign [class="discord"] $ws10
+
+#
+# scratchpads
+#
+
+# math scratchpad
+for_window [title="^math$"] move scratchpad
+bindsym $mod+c [title="^math$"] scratchpad show
+exec --no-startup-id xfce4-terminal --title=math -e math
+
 
 #
 # desktop environment
 #
+
+# mouse settings
+exec --no-startup-id imwheel
+
+# keyboard settings
+exec_always --no-startup-id setxkbmap -layout us -option caps:escape
+exec_always --no-startup-id xset r rate 250 25
+
+# compositor
+exec --no-startup-id compton
+
+# network manager applet
+exec --no-startup-id nm-applet
 
 # session
 bindsym $mod+Shift+c reload

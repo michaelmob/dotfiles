@@ -7,8 +7,10 @@ from math import *
 p = print
 pp = pprint
 _99 = 13034431
+exit = None
 
 def sh(cmd):
   return check_output(cmd, shell=True).decode("utf-8")
 
-code.interact(banner="", local=dict(globals(), **locals()))
+while True:
+  code.interact(banner="", local=dict(globals(), **locals()))
