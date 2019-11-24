@@ -135,6 +135,8 @@ syntax enable
 set nowrap
 
 " Indentation
+set expandtab
+set shiftwidth=4
 filetype plugin indent on
 
 " Wild Menu

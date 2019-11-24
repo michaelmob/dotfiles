@@ -1,3 +1,6 @@
+" vim: ft=vim et sw=2 fdm=marker fmr={{{,}}}
+" github.com/thetarkus/dotfiles
+
 colorscheme dark
 
 " Pager-like binds
@@ -10,11 +13,17 @@ unbind <C-f>
 " Buffers
 bind <C-u> undo
 bind <S-x> bdelete
-bind cs tabopen -c school
-bind cm tabopen -c school https://moodle.njit.edu
-bind cc tabopen -c school https://canvas.njit.edu
-bind cp tabopen -c personal
-bind ca tabopen -c shopping
+
+" Containres
+bind gs tabopen -c school
+bind gm tabopen -c school https://moodle.njit.edu
+bind gc tabopen -c school https://canvas.njit.edu
+bind gp tabopen -c personal
+bind gw tabopen -c work
+
+bind ms composite hint -pipe a href | tabopen -c school
+bind mp composite hint -pipe a href | tabopen -c personal
+bind mw composite hint -pipe a href | tabopen -c work
 
 " Terminal
 set editorcmd $TERMINAL -e "$EDITOR %f"

@@ -1,1 +1,2 @@
-/home/mike/.profile
+#!/usr/bin/env bash
+[[ -f ~/.bashrc ]] && source ~/.bashrc
