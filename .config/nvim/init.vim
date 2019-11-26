@@ -129,7 +129,7 @@ endfunction
 " ----------------
 " Colors
 set termguicolors
-colorscheme base16-monokai
+colorscheme base16-tomorrow-night
 syntax enable
 
 " Text

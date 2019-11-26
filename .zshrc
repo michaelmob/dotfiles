@@ -4,6 +4,11 @@ bindkey -e  # emacs keybindings
 bindkey "\e[3~" delete-char  # delete key
 for x in 'ABCD'; do bindkey "\e[1;5$x" ''; done  # disable ctrl+arrow keys
 
+# tmux loses ssh agent
+SSH_AGENT_ENV="$XDG_RUNTIME_DIR/ssh-agent.env"
+pgrep -u "$USER" ssh-agent > /dev/null || ssh-agent > "$SSH_AGENT_ENV"
+[[ -z "$SSH_AUTH_SOCK" ]] && eval "$(<"$SSH_AGENT_ENV")"
+
 # Options
 setopt autocd  # set cd without cd
 setopt hist_verify  # expand history entry
