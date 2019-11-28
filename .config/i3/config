@@ -34,6 +34,7 @@ exec --no-startup-id imwheel
 exec --no-startup-id compton
 
 # user applications
+exec --no-startup-id $BROWSER
 exec --no-startup-id telegram-desktop
 exec --no-startup-id discord
 exec --no-startup-id slack
@@ -58,7 +59,7 @@ bindsym $mod+F1 exec xfce4-settings-manager
 #
 
 # start a terminal
-bindsym $mod+Return exec i3-sensible-terminal
+bindsym $mod+Return exec $TERMINAL
 
 # kill focused window
 bindsym $mod+Shift+q [con_id="__focused__" title="^(?!math).*$"] kill
@@ -160,7 +161,7 @@ assign [class="discord"] $ws10
 # math scratchpad
 for_window [title="^math$"] move scratchpad
 bindsym $mod+c [title="^math$"] scratchpad show
-exec --no-startup-id xfce4-terminal --title=math -e $HOME/.bin/math.py
+exec --no-startup-id $TERMINAL --title=math -e $HOME/.bin/math_scratchpad.py
 
 
 #
