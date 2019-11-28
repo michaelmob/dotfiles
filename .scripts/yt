@@ -1,5 +1,0 @@
-#!/usr/bin/env bash
-mpv \
-	--x11-name 'float' \
-	--geometry='50%x50%' \
-	--really-quiet "$@" & disown

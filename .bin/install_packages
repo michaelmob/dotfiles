@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+alias install='pacman -S --noconfirm --needed'
+
+install i3
+install xfce4
+install gnome-keyring

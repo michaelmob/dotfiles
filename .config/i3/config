@@ -1,5 +1,5 @@
-# i3 config file (v4)
-# Please see https://i3wm.org/docs/userguide.html for a complete reference!
+# i3 config file
+# github.com/thetarkus/dotfiles
 
 
 #
@@ -7,19 +7,36 @@
 #
 
 set $mod Mod4
-
 font pango:monospace 8
-
 floating_modifier $mod
-
 focus_follows_mouse no
+
 
 #
 # autostart
 #
-#exec --no-startup-id exec flatpak run com.discordapp.Discord
-exec --no-startup-id fix_discord
-exec --no-startup-id flatpak run com.slack.Slack
+
+# keyboard settings
+exec_always --no-startup-id sleep 2 && xset r rate 250 25
+exec_always --no-startup-id setxkbmap -layout us -option caps:escape
+
+# session and auth applications
+exec --no-startup-id xfsettingsd
+exec --no-startup-id xfce4-power-manager
+exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+exec --no-startup-id gnome-keyring-daemon -s --components=pkcs11,secrets,ssh,gpg
+
+# environment applications
+exec --no-startup-id light-locker
+exec --no-startup-id start-pulseaudio-x11
+exec --no-startup-id nm-applet
+exec --no-startup-id imwheel
+exec --no-startup-id compton
+
+# user applications
+exec --no-startup-id telegram-desktop
+exec --no-startup-id discord
+exec --no-startup-id slack
 
 
 #
@@ -31,6 +48,9 @@ bindsym Pause exec playerctl play-pause
 
 # launch flameshot screen shot utility
 bindsym ctrl+shift+4 exec flameshot gui
+
+# xfce4 settings
+bindsym $mod+F1 exec xfce4-settings-manager
 
 
 #
@@ -132,6 +152,7 @@ bindsym $mod+Shift+0 move container to workspace number $ws10
 assign [class="Slack"] $ws10
 assign [class="discord"] $ws10
 
+
 #
 # scratchpads
 #
@@ -139,40 +160,18 @@ assign [class="discord"] $ws10
 # math scratchpad
 for_window [title="^math$"] move scratchpad
 bindsym $mod+c [title="^math$"] scratchpad show
-exec --no-startup-id xfce4-terminal --title=math -e math
+exec --no-startup-id xfce4-terminal --title=math -e $HOME/.bin/math.py
 
 
 #
 # desktop environment
 #
 
-# mouse settings
-exec --no-startup-id imwheel
-
-# keyboard settings
-exec_always --no-startup-id setxkbmap -layout us -option caps:escape
-exec_always --no-startup-id xset r rate 250 25
-
-# compositor
-exec --no-startup-id compton
-
-# network manager applet
-exec --no-startup-id nm-applet
 
 # session
 bindsym $mod+Shift+c reload
 bindsym $mod+Shift+r restart
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
-
-# xfce4 settings
-bindsym $mod+F1 exec xfce4-settings-manager
-
-# volume controls
-set $refresh_i3status killall -SIGUSR1 i3status
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
-bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Exit?' -B Yes 'i3-msg exit'"
 
 
 #

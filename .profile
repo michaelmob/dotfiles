@@ -1,2 +1,2 @@
-#!/usr/bin/env bash
-export PATH="$HOME/.local/bin:$HOME/.scripts:$PATH"
+#!/usr/bin/env sh
+export PATH="$HOME/.bin:$HOME/.local/bin:$PATH"
