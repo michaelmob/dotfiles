@@ -20,19 +20,6 @@ focus_follows_mouse no
 exec_always --no-startup-id sleep 2 && xset r rate 250 25
 exec_always --no-startup-id setxkbmap -layout us -option caps:escape
 
-# session and auth applications
-exec --no-startup-id xfsettingsd
-exec --no-startup-id xfce4-power-manager
-exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
-exec --no-startup-id gnome-keyring-daemon -s --components=pkcs11,secrets,ssh,gpg
-
-# environment applications
-exec --no-startup-id light-locker
-exec --no-startup-id start-pulseaudio-x11
-exec --no-startup-id nm-applet
-exec --no-startup-id imwheel
-exec --no-startup-id compton
-
 # user applications
 exec --no-startup-id $BROWSER
 exec --no-startup-id telegram-desktop

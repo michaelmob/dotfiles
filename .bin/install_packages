@@ -1,6 +1,12 @@
 #!/usr/bin/env bash
 alias install='pacman -S --noconfirm --needed'
 
+# desktop environment
 install i3
 install xfce4
-install gnome-keyring
+install flameshot
+install playerctl
+
+# chat
+install telegram-desktop
+install discord
