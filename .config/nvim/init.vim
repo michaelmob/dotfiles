@@ -44,7 +44,7 @@ Plug 'chriskempson/base16-vim'  " Base16 colorschemes
 Plug 'junegunn/vim-easy-align'  " Text alignment
 Plug 'AndrewRadev/splitjoin.vim'  " Single-line <--> Multi-line
 Plug 'christoomey/vim-tmux-navigator'  " Window navigation
-Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
+Plug 'iamcco/markdown-preview.nvim', {'do': {-> mkdp#util#install()}}
 
 Plug 'junegunn/fzf', {'dir': '~/.fzf', 'do': './install --all'}
 Plug 'junegunn/fzf.vim'  " Fzf wrapper
@@ -98,17 +98,17 @@ let g:vue_pre_processors = []
 let g:AutoPairsMultilineClose = 0
 
 " fzf
-command! -bang -nargs=* Rg call fzf#vim#grep('rg --column --line-number --no-heading --color=always --smart-case ' . shellescape(<q-args>), 1, {'options': '--delimiter : --nth 4..'}, <bang>0)
-command! -bang -nargs=* Dirs call fzf#run(fzf#wrap({'source': 'find * -type d 2> /dev/null'}))
-let $FZF_DEFAULT_OPTS = '--bind ctrl-j:next-history,ctrl-k:previous-history,ctrl-n:down,ctrl-p:up'
+let $FZF_DEFAULT_OPTS =
+  \ '--bind ctrl-j:next-history,ctrl-k:previous-history,ctrl-n:down,ctrl-p:up'
 let g:fzf_history_dir = '~/.local/share/fzf-history'
-let g:fzf_layout = { 'window': 'call FloatingFZF()' }
+let g:fzf_layout = {'window': 'call FloatingFZF()'}
+
 
 function! FloatingFZF()
   let height = &lines > 20 ? float2nr(&lines * 0.50) : &lines
   let width = (&columns > 120 ? float2nr(120) : &columns) - 10
   let left = float2nr((&columns - width) / 2)
-  let top = float2nr((&lines - height) / 2)
+  let top = 0 " float2nr((&lines - height) / 2)
 
   let opts = {
     \   'style': 'minimal', 'relative': 'editor',
@@ -170,8 +170,18 @@ command! Gdifftab tabedit %|Gvdiffsplit
 
 " fzf
 command! -bang -nargs=* GGrep call fzf#vim#grep(
-  \ 'git grep --line-number '.shellescape(<q-args>), 0,
-  \ { 'dir': systemlist('git rev-parse --show-toplevel')[0] }, <bang>0)
+  \   'git grep --line-number ' . shellescape(<q-args>), 0,
+  \   {'dir': systemlist('git rev-parse --show-toplevel')[0]}, <bang>0
+  \ )
+
+command! -bang -nargs=* Rg call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always --smart-case '
+  \ . shellescape(<q-args>), 1, {'options': '--delimiter : --nth 4..'}, <bang>0
+  \ )
+
+command! -bang -nargs=* Dirs call fzf#run(fzf#wrap({
+  \   'source': 'find * -type d 2> /dev/null'
+  \ }))
 " ----------------
 " }}}
 
@@ -250,8 +260,7 @@ augroup FILETYPES
   autocmd FileType vue syntax sync fromstart
   autocmd FileType markdown setlocal textwidth=80
 
-  "autocmd FileType netrw unmap <buffer> <C-L> | map <buffer> <C-R>
-  autocmd FileType NetrwMessage,help,qf,vim-plug nmap <silent><buffer> <Esc> :q<CR>
+  autocmd FileType help,qf,vim-plug nmap <silent><buffer> <Esc> :q<CR>
   autocmd filetype netrw call NetrwMappings()
 augroup END
 " ----------------
