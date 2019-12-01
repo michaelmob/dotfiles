@@ -44,6 +44,9 @@ export EDITOR='/usr/bin/nvim'
 export BROWSER='firefox'
 export FM='thunar'
 
+# Functions
+f() { find $1 -iname "*$2*" 2> /dev/null; }
+
 # Aliases
 alias \?='bindkey | head -n 23'
 alias :q='exit'
