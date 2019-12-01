@@ -31,6 +31,7 @@ Plug 'tpope/vim-surround'  " Text surroundings
 Plug 'tpope/vim-dispatch'  " Async dispatching
 Plug 'tpope/vim-obsession'  " Sessions
 
+Plug 'mkitt/tabline.vim'  " Tabline enhancements
 Plug 'honza/vim-snippets'  " Snippets source
 Plug 'wellle/targets.vim'  " Enhanced text objects
 Plug 'junegunn/vim-slash'  " Enhanced buffer search
