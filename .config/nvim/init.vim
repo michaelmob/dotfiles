@@ -100,7 +100,8 @@ let g:AutoPairsMultilineClose = 0
 
 " fzf
 let $FZF_DEFAULT_OPTS =
-  \ '--bind ctrl-j:next-history,ctrl-k:previous-history,ctrl-n:down,ctrl-p:up'
+  \ ' --bind ctrl-j:next-history,ctrl-k:previous-history,ctrl-n:down,ctrl-p:up'
+" \.' --reverse'
 let g:fzf_history_dir = '~/.local/share/fzf-history'
 let g:fzf_layout = {'window': 'call FloatingFZF()'}
 
@@ -130,7 +131,7 @@ endfunction
 " ----------------
 " Colors
 set termguicolors
-colorscheme base16-tomorrow-night
+colorscheme base16-default-dark
 syntax enable
 
 " Text
@@ -210,7 +211,6 @@ map <Leader>P "+P
 map <Leader>y "+y
 
 " Fuzzy Finders
-nmap <silent> <Leader>c :Colors<CR>
 nmap <silent> <Leader>f :Files<CR>
 nmap <silent> <Leader>f :GFiles --exclude-standard --others --cached<CR>
 nmap <silent> <Leader>d :Dirs<CR>
@@ -243,6 +243,11 @@ vmap <CR> S<C-J>jVj=$
 " Easy align
 xmap ga <Plug>(EasyAlign)
 nmap <Leader>at vipga*\|  " Align Table
+
+" Files
+nmap <expr> <Leader>e ':edit ' . expand('%:p:h') . '/'
+nmap <expr> <Leader>r ':read ' . expand('%:p:h') . '/'
+nmap <expr> <Leader>S ':saveas ' . expand('%:p:h') . '/'
 
 " Netrw
 function! NetrwMappings()
