@@ -146,8 +146,8 @@ assign [class="discord"] $ws10
 #
 
 # math scratchpad
-for_window [class="^math$"] move scratchpad
-bindsym $mod+c [class="^math$"] scratchpad show
+for_window [instance="^math$"] move scratchpad
+bindsym $mod+c [instance="^math$"] scratchpad show
 exec --no-startup-id $TERMINAL --class=math -e $HOME/.bin/math_scratchpad.py
 
 
