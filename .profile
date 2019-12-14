@@ -4,4 +4,4 @@
 export PATH="$HOME/.bin:$HOME/.local/bin:$PATH"
 
 export BROWSER='firefox'
-export TERMINAL='xfce4-terminal'
+export TERMINAL='alacritty'

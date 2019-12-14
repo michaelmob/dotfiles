@@ -38,12 +38,14 @@ Plug 'junegunn/vim-slash'  " Enhanced buffer search
 Plug 'airblade/vim-rooter'  " Set cwd to projects root dir
 Plug 'Yggdroot/indentLine'  " Space-indentation levels
 Plug 'tomtom/tcomment_vim'  " Comments
-Plug 'jiangmiao/auto-pairs'  " Automatic bracket, paren, quotes pairing
-Plug 'chrisbra/Recover.vim'  " Swap-file Compare
+Plug 'justinmk/vim-dirvish'  " File browser
+Plug 'jiangmiao/auto-pairs'  " Automatic bracket, parenthesis, quote pairing
+Plug 'chrisbra/Recover.vim'  " Swap-file compare
 Plug 'sheerun/vim-polyglot'  " Syntax language pack
 Plug 'chriskempson/base16-vim'  " Base16 colorschemes
 Plug 'junegunn/vim-easy-align'  " Text alignment
 Plug 'AndrewRadev/splitjoin.vim'  " Single-line <--> Multi-line
+Plug 'easymotion/vim-easymotion'  " Motions on speed
 Plug 'christoomey/vim-tmux-navigator'  " Window navigation
 Plug 'iamcco/markdown-preview.nvim', {'do': {-> mkdp#util#install()}}
 
@@ -158,8 +160,15 @@ set scrolloff=2
 set undofile
 set undodir=$cachedir/undo
 
+" Prevent losing file contents on system crash
+set fsync
+
 " Netrw / :help netrw-P19
 let g:netrw_bufsettings = 'noma nomod nu nobl nowrap ro rnu'
+
+" Dirvish
+let g:dirvish_mode = ':sort ,^.*[\/],'
+
 " ----------------
 " }}}
 
@@ -171,14 +180,19 @@ let g:netrw_bufsettings = 'noma nomod nu nobl nowrap ro rnu'
 command! Gdifftab tabedit %|Gvdiffsplit
 
 " fzf
+command! -bang -nargs=* GFiles2 call fzf#run(fzf#wrap({
+  \   'source': 'git ls-files --exclude-standard --cached --others 2> /dev/null'
+  \ }))
+
 command! -bang -nargs=* GGrep call fzf#vim#grep(
-  \   'git grep --line-number ' . shellescape(<q-args>), 0,
+  \   'git grep --line-number ' . shellescape(<q-args>) . ' 2> /dev/null', 0,
   \   {'dir': systemlist('git rev-parse --show-toplevel')[0]}, <bang>0
   \ )
 
 command! -bang -nargs=* Rg call fzf#vim#grep(
   \   'rg --column --line-number --no-heading --color=always --smart-case '
-  \ . shellescape(<q-args>), 1, {'options': '--delimiter : --nth 4..'}, <bang>0
+  \ . shellescape(<q-args>) . ' 2> /dev/null',
+  \   1, {'options': '--delimiter : --nth 4..'}, <bang>0
   \ )
 
 command! -bang -nargs=* Dirs call fzf#run(fzf#wrap({
@@ -212,15 +226,16 @@ map <Leader>y "+y
 
 " Fuzzy Finders
 nmap <silent> <Leader>f :Files<CR>
-nmap <silent> <Leader>f :GFiles --exclude-standard --others --cached<CR>
+nmap <silent> <Leader>f :GFiles2<CR>
 nmap <silent> <Leader>d :Dirs<CR>
 nmap <silent> <Leader><Leader>f :Files<CR>
 nmap <silent> <Leader>b :Buffers<CR>
 nmap <silent> <Leader>/ :Rg<CR>
+nmap <silent> <Leader>' :Rg<CR>
 nmap <silent> <Leader><Leader>/ :GGrep<CR>
 
-" Popup Menu (pum)
-inoremap <expr> <silent> <CR> pumvisible() ? '<C-y>' : '<C-g>u<CR>'
+" Easy Motion
+nmap s <Plug>(easymotion-s2)
 
 " Search
 nmap <plug>(slash-after) zz
@@ -228,6 +243,7 @@ nmap <plug>(slash-after) zz
 " Line Navigation
 map <S-h> ^
 map <S-l> g_
+vmap $ g_
 
 " Counterpart to <S-j>
 nmap <S-k> DO<Esc>p==
@@ -239,6 +255,7 @@ nmap <Leader>gc :Gcommit -v<CR>
 
 " Surround
 vmap <CR> S<C-J>jVj=$
+nmap S viwS
 
 " Easy align
 xmap ga <Plug>(EasyAlign)
@@ -264,10 +281,8 @@ augroup FILETYPES
   autocmd!
   autocmd FileType javascript let b:dispatch = 'npm test -- %'
   autocmd FileType vue syntax sync fromstart
-  autocmd FileType markdown setlocal textwidth=80
-
-  autocmd FileType help,qf,vim-plug nmap <silent><buffer> <Esc> :q<CR>
-  autocmd filetype netrw call NetrwMappings()
+  autocmd FileType help,qf,vim-plug,vim nmap <silent><buffer> <Esc> :q<CR>
+  autocmd FileType netrw call NetrwMappings()
 augroup END
 " ----------------
 " }}}
@@ -277,8 +292,8 @@ augroup END
 " Events {{{
 " ----------------
 augroup EVENTS
-
   autocmd BufWritePre <buffer> %s/\s\+$//e
+  autocmd BufEnter *.txt,*.md setlocal nofen tw=80 "fo=aw2tq
 
   autocmd VimEnter * nested call AutoloadSession()
   function! AutoloadSession()
@@ -287,7 +302,6 @@ augroup EVENTS
       Obsess! Session.vim
     endif
   endfunction
-
 augroup END
 " ----------------
 " }}}
