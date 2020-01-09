@@ -31,14 +31,18 @@ Plug 'tpope/vim-surround'  " Text surroundings
 Plug 'tpope/vim-dispatch'  " Async dispatching
 Plug 'tpope/vim-obsession'  " Sessions
 
+Plug 'justinmk/vim-dirvish'  " File browser
+"Plug 'kristijanhusak/vim-dirvish-git'  " Dirvish git integration
+
+
 Plug 'mkitt/tabline.vim'  " Tabline enhancements
+Plug 'mhinz/vim-startify'  " Start screen
 Plug 'honza/vim-snippets'  " Snippets source
 Plug 'wellle/targets.vim'  " Enhanced text objects
 Plug 'junegunn/vim-slash'  " Enhanced buffer search
-Plug 'airblade/vim-rooter'  " Set cwd to projects root dir
+"Plug 'airblade/vim-rooter'  " Set cwd to projects root dir
 Plug 'Yggdroot/indentLine'  " Space-indentation levels
 Plug 'tomtom/tcomment_vim'  " Comments
-Plug 'justinmk/vim-dirvish'  " File browser
 Plug 'jiangmiao/auto-pairs'  " Automatic bracket, parenthesis, quote pairing
 Plug 'chrisbra/Recover.vim'  " Swap-file compare
 Plug 'sheerun/vim-polyglot'  " Syntax language pack
@@ -74,8 +78,6 @@ call plug#end()
 
 " Plugin Settings {{{
 " ----------------
-" indentLine
-"let g:indentLine_char_list = ['|', '¦', '┆', '┊']
 
 " coc.nvim
 let g:coc_global_extensions = [
@@ -163,11 +165,40 @@ set undodir=$cachedir/undo
 " Prevent losing file contents on system crash
 set fsync
 
-" Netrw / :help netrw-P19
-let g:netrw_bufsettings = 'noma nomod nu nobl nowrap ro rnu'
 
 " Dirvish
 let g:dirvish_mode = ':sort ,^.*[\/],'
+
+"
+" Coc.nvim
+"
+
+" Use `[g` and `]g` to navigate diagnostics
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" Remap keys for gotos
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K to show documentation in preview window
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+" Remap for rename current word
+nmap <leader>n <Plug>(coc-rename)
+
+" Remap for format selected region
+xmap <leader>gf  <Plug>(coc-format-selected)
+nmap <leader>gf  <Plug>(coc-format-selected)
 
 " ----------------
 " }}}
@@ -206,6 +237,9 @@ command! -bang -nargs=* Dirs call fzf#run(fzf#wrap({
 " Keybindings {{{
 " ----------------
 let mapleader = "\<Space>"
+
+" Escape
+imap jk <Esc>
 
 " Save
 nmap <Space><Esc> :w<CR>
@@ -246,7 +280,7 @@ map <S-l> g_
 vmap $ g_
 
 " Counterpart to <S-j>
-nmap <S-k> DO<Esc>p==
+"nmap <S-k> DO<Esc>p==
 
 " Fugitive
 nmap <Leader>gs :tab Gstatus<CR>
@@ -265,11 +299,6 @@ nmap <Leader>at vipga*\|  " Align Table
 nmap <expr> <Leader>e ':edit ' . expand('%:p:h') . '/'
 nmap <expr> <Leader>r ':read ' . expand('%:p:h') . '/'
 nmap <expr> <Leader>S ':saveas ' . expand('%:p:h') . '/'
-
-" Netrw
-function! NetrwMappings()
-  silent! unmap <buffer> <C-l>
-endfunction
 " ----------------
 " }}}
 
@@ -282,7 +311,6 @@ augroup FILETYPES
   autocmd FileType javascript let b:dispatch = 'npm test -- %'
   autocmd FileType vue syntax sync fromstart
   autocmd FileType help,qf,vim-plug,vim nmap <silent><buffer> <Esc> :q<CR>
-  autocmd FileType netrw call NetrwMappings()
 augroup END
 " ----------------
 " }}}
@@ -294,14 +322,6 @@ augroup END
 augroup EVENTS
   autocmd BufWritePre <buffer> %s/\s\+$//e
   autocmd BufEnter *.txt,*.md setlocal nofen tw=80 "fo=aw2tq
-
-  autocmd VimEnter * nested call AutoloadSession()
-  function! AutoloadSession()
-    if !argc() && filereadable('Session.vim')
-      source Session.vim
-      Obsess! Session.vim
-    endif
-  endfunction
 augroup END
 " ----------------
 " }}}
