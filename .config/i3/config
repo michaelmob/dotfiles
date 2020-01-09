@@ -16,6 +16,16 @@ focus_follows_mouse no
 # autostart
 #
 
+# desktop environment
+exec --no-startup-id /usr/lib/gnome-settings-daemon/gsd-xsettings
+exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+exec --no-startup-id gnome-flashback
+exec --no-startup-id gnome-screensaver
+exec --no-startup-id picom
+
+# utilities
+exec --no-startup-id imwheel
+
 # keyboard settings
 exec_always --no-startup-id sleep 2 && xset r rate 250 25
 exec_always --no-startup-id setxkbmap -layout us -option caps:escape
@@ -67,6 +77,12 @@ bindsym $mod+Shift+j move down
 bindsym $mod+Shift+k move up
 bindsym $mod+Shift+l move right
 
+# resize focused window
+bindsym $mod+y resize shrink  width 10 px or 10 ppt
+bindsym $mod+u resize grow   height 10 px or 10 ppt
+bindsym $mod+i resize shrink height 10 px or 10 ppt
+bindsym $mod+o resize grow    width 10 px or 10 ppt
+
 # split in horizontal orientation
 bindsym $mod+bar split h
 bindsym $mod+v   split h
@@ -87,6 +103,9 @@ bindsym $mod+e layout toggle split
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle
 
+# toggle sticky
+bindsym $mod+Shift+s sticky toggle
+
 # change focus between tiling / floating windows
 bindsym $mod+space focus mode_toggle
 
@@ -95,6 +114,8 @@ bindsym $mod+a focus parent
 
 # focus the child container
 #bindsym $mod+d focus child
+
+#
 
 
 #
@@ -139,13 +160,13 @@ bindsym $mod+Shift+0 move container to workspace number $ws10
 #
 # window setings
 #
-#
 
 # assign applications to workspaces
 assign [class="Slack"] $ws10
 assign [class="discord"] $ws10
 
 # floating windows
+for_window [instance="gnome-control-center"] floating enable
 for_window [class="flameshot"] floating enable
 
 
@@ -169,24 +190,6 @@ exec --no-startup-id $TERMINAL --class=math -e $HOME/.bin/math_scratchpad.py
 bindsym $mod+Shift+c reload
 bindsym $mod+Shift+r restart
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Exit?' -B Yes 'i3-msg exit'"
-
-
-#
-# modes
-#
-
-# resize mode
-bindsym $mod+r mode "resize"
-mode "resize" {
-    bindsym h resize shrink width 10 px or 10 ppt
-    bindsym j resize grow height 10 px or 10 ppt
-    bindsym k resize shrink height 10 px or 10 ppt
-    bindsym l resize grow width 10 px or 10 ppt
-
-    bindsym Return mode "default"
-    bindsym Escape mode "default"
-    bindsym $mod+r mode "default"
-}
 
 
 #
