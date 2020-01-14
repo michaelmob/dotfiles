@@ -1,4 +1,5 @@
--- If LuaRocks is installed, make sure that packages installed through it are found (e.g. lgi). If LuaRocks is not installed, do nothing.
+-- If LuaRocks is installed, make sure that packages installed through it are
+-- found (e.g. lgi). If LuaRocks is not installed, do nothing.
 pcall(require, "luarocks.loader")
 
 -- Standard awesome library
@@ -158,9 +159,9 @@ awful.screen.connect_for_each_screen(function(s)
   -- We need one layoutbox per screen.
   s.mylayoutbox = awful.widget.layoutbox(s)
   s.mylayoutbox:buttons(gears.table.join(
-    awful.button({ }, 1, function () awful.layout.inc( 1) end),
+    awful.button({ }, 1, function () awful.layout.inc(1) end),
     awful.button({ }, 3, function () awful.layout.inc(-1) end),
-    awful.button({ }, 4, function () awful.layout.inc( 1) end),
+    awful.button({ }, 4, function () awful.layout.inc(1) end),
     awful.button({ }, 5, function () awful.layout.inc(-1) end)
   ))
 
@@ -244,23 +245,19 @@ globalkeys = gears.table.join(
 
   -- Layout manipulation
   awful.key(
-    { modkey, "Shift" }, "j",
-    function () awful.client.swap.byidx(1) end,
+    { modkey, "Shift" }, "j", function () awful.client.swap.byidx(1) end,
     { description = "swap with next client by index", group = "client" }
   ),
   awful.key(
-    { modkey, "Shift" }, "k",
-    function () awful.client.swap.byidx(-1) end,
+    { modkey, "Shift" }, "k", function () awful.client.swap.byidx(-1) end,
     { description = "swap with previous client by index", group = "client" }
   ),
   awful.key(
-    { modkey, "Control" }, "j",
-    function () awful.screen.focus_relative( 1) end,
+    { modkey, "Control" }, "j", function () awful.screen.focus_relative(1) end,
     { description = "focus the next screen", group = "screen" }
   ),
   awful.key(
-    { modkey, "Control" }, "k",
-    function () awful.screen.focus_relative(-1) end,
+    { modkey, "Control" }, "k", function () awful.screen.focus_relative(-1) end,
     { description = "focus the previous screen", group = "screen" }
   ),
   awful.key(
@@ -301,7 +298,7 @@ globalkeys = gears.table.join(
     { description = "decrease master width factor", group = "layout" }
   ),
   awful.key(
-    { modkey, "Shift" }, "h", function () awful.tag.incnmaster( 1, nil, true) end,
+    { modkey, "Shift" }, "h", function () awful.tag.incnmaster(1, nil, true) end,
     { description = "increase the number of master clients", group = "layout" }
   ),
   awful.key(
@@ -309,7 +306,7 @@ globalkeys = gears.table.join(
     { description = "decrease the number of master clients", group = "layout" }
   ),
   awful.key(
-    { modkey, "Control" }, "h", function () awful.tag.incncol( 1, nil, true) end,
+    { modkey, "Control" }, "h", function () awful.tag.incncol(1, nil, true) end,
     { description = "increase the number of columns", group = "layout" }
   ),
   awful.key(
