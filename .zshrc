@@ -58,6 +58,7 @@ alias nvimrc="$EDITOR $HOME/.config/nvim/init.vim"
 alias tmuxrc="$EDITOR $HOME/.tmux.conf"
 alias zshrc="$EDITOR $HOME/.zshrc"
 alias i3rc="$EDITOR $HOME/.config/i3/config"
+alias awesomerc="$EDITOR $HOME/.config/awesome/rc.lua"
 alias tridactylrc="$EDITOR $HOME/.config/tridactyl/tridactylrc"
 
 alias gs='git status -uno'

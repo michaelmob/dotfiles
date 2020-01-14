@@ -1,22 +1,13 @@
+" vim: et sw=2 fdm=marker fmr={{{,}}}
 set autoindent
 
-" Commands
-nmap ; :
-
-" New lines
-nnoremap <Enter> o<Esc>
-nnoremap <S-Enter> O<Esc>
-
-" Indent and append
-nnoremap cc ddO
+"
+nnoremap <C-j> :<C-u>call VSCodeNotify('workbench.action.focusBelowGroup')<CR>
 
 " Yanking and pasting
-vnoremap <space>y "*y
-nnoremap <space>p "*p
-nnoremap <space>P "*P
-
-" Saving
-nnoremap <space><esc> :w<CR>
+vnoremap <Space>y "+y
+nnoremap <Space>p "+p
+nnoremap <Space>P "+P
 
 " Split navigation
 map <Space> <Nop>

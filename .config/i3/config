@@ -28,7 +28,7 @@ exec --no-startup-id imwheel
 
 # keyboard settings
 exec_always --no-startup-id sleep 2 && xset r rate 250 25
-exec_always --no-startup-id setxkbmap -layout us -option caps:escape
+exec_always --no-startup-id setxkbmap -layout us -option caps:super
 
 # user applications
 exec --no-startup-id $BROWSER
