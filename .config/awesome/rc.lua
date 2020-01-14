@@ -51,7 +51,7 @@ end
 beautiful.init(gears.filesystem.get_themes_dir() .. "default/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
-terminal = "xterm"
+terminal = "alacritty"
 editor = os.getenv("EDITOR") or "nano"
 editor_cmd = terminal .. " -e " .. editor
 
@@ -64,22 +64,22 @@ modkey = "Mod4"
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
 awful.layout.layouts = {
-  awful.layout.suit.floating,
   awful.layout.suit.tile,
   awful.layout.suit.tile.left,
-  awful.layout.suit.tile.bottom,
-  awful.layout.suit.tile.top,
+  -- awful.layout.suit.tile.bottom,
+  -- awful.layout.suit.tile.top,
   awful.layout.suit.fair,
   awful.layout.suit.fair.horizontal,
-  awful.layout.suit.spiral,
-  awful.layout.suit.spiral.dwindle,
-  awful.layout.suit.max,
-  awful.layout.suit.max.fullscreen,
-  awful.layout.suit.magnifier,
-  awful.layout.suit.corner.nw,
+  -- awful.layout.suit.spiral,
+  -- awful.layout.suit.spiral.dwindle,
+  -- awful.layout.suit.max,
+  -- awful.layout.suit.max.fullscreen,
+  -- awful.layout.suit.magnifier,
+  -- awful.layout.suit.corner.nw,
   -- awful.layout.suit.corner.ne,
   -- awful.layout.suit.corner.sw,
   -- awful.layout.suit.corner.se,
+  awful.layout.suit.floating,
 }
 -- }}}
 
@@ -110,53 +110,21 @@ mylauncher = awful.widget.launcher({
 -- Menubar configuration
 menubar.utils.terminal = terminal -- Set the terminal for applications that require it
 -- }}}
-
--- Keyboard map indicator and switcher
-mykeyboardlayout = awful.widget.keyboardlayout()
-
--- {{{ Wibar
--- Create a textclock widget
-mytextclock = wibox.widget.textclock()
+-- Keyboard map indicator and switcher mykeyboardlayout = awful.widget.keyboardlayout()-- {{{ Wibar Create a textclock widget
+mytextclock = wibox.widget.textclock("%a %b %d, %l:%M%P")
 
 -- Create a wibox for each screen and add it
 local taglist_buttons = gears.table.join(
   awful.button({ }, 1, function(t) t:view_only() end),
   awful.button({ modkey }, 1, function(t)
-    if client.focus then
-      client.focus:move_to_tag(t)
-    end
+    if client.focus then client.focus:move_to_tag(t) end
   end),
   awful.button({ }, 3, awful.tag.viewtoggle),
   awful.button({ modkey }, 3, function(t)
-    if client.focus then
-      client.focus:toggle_tag(t)
-    end
+    if client.focus then client.focus:toggle_tag(t) end
   end),
   awful.button({ }, 4, function(t) awful.tag.viewnext(t.screen) end),
   awful.button({ }, 5, function(t) awful.tag.viewprev(t.screen) end)
-)
-
-local tasklist_buttons = gears.table.join(
-  awful.button({ }, 1, function (c)
-    if c == client.focus then
-      c.minimized = true
-    else
-      c:emit_signal(
-        "request::activate",
-        "tasklist",
-        { raise = true }
-        )
-    end
-  end),
-  awful.button({ }, 3, function()
-      awful.menu.client_list({ theme = { width = 250 } })
-  end),
-  awful.button( { }, 4, function ()
-    awful.client.focus.byidx(1)
-  end),
-  awful.button({ }, 5, function ()
-    awful.client.focus.byidx(-1)
-  end)
 )
 
 local function set_wallpaper(s)
@@ -211,7 +179,7 @@ awful.screen.connect_for_each_screen(function(s)
   }
 
   -- Create the wibox
-  s.mywibox = awful.wibar({ position = "top", screen = s })
+  s.mywibox = awful.wibar({ position = "bottom", screen = s })
 
   -- Add widgets to the wibox
   s.mywibox:setup {
@@ -262,7 +230,7 @@ globalkeys = gears.table.join(
   ),
 
   awful.key(
-    { modkey }, "j", function () awful.client.focus.byidx( 1) end,
+    { modkey }, "j", function () awful.client.focus.byidx(1) end,
     { description = "focus next by index", group = "client" }
   ),
   awful.key(
@@ -317,10 +285,10 @@ globalkeys = gears.table.join(
   ),
   awful.key(
     { modkey, "Control" }, "r", awesome.restart,
-    { description = "reload awesome", group = "awesome" }
+    { description = "restart awesome", group = "awesome" }
   ),
   awful.key(
-    { modkey, "Shift" }, "q", awesome.quit,
+    { modkey, "Shift" }, "backspace", awesome.quit,
     { description = "quit awesome", group = "awesome" }
   ),
 
@@ -406,18 +374,15 @@ clientkeys = gears.table.join(
     { description = "toggle fullscreen", group = "client" }
   ),
   awful.key(
-    { modkey, "Shift" }, "c", function (c) c:kill() end,
-    { description = "close", group = "client" }
+    { modkey, "Shift" }, "q", function (c) c:kill() end,
+    { description = "close client", group = "client" }
   ),
   awful.key(
     { modkey, "Control" }, "space", awful.client.floating.toggle,
     { description = "toggle floating", group = "client" }
   ),
   awful.key(
-    { modkey, "Control" }, "Return",
-    function (c)
-      c:swap(awful.client.getmaster())
-    end,
+    { modkey, "Control" }, "Return", function (c) c:swap(awful.client.getmaster()) end,
     { description = "move to master", group = "client" }
   ),
   awful.key(
@@ -545,8 +510,8 @@ awful.rules.rules = {
   -- All clients will match this rule.
   {
     rule = { },
-    properties = { border_width = beautiful.border_width,
-      border_color = beautiful.border_normal,
+    properties = {
+      border_width = beautiful.border_width,
       focus = awful.client.focus.filter,
       raise = true,
       keys = clientkeys,
@@ -560,21 +525,10 @@ awful.rules.rules = {
   {
     rule_any = {
       instance = {
-        "DTA",  -- Firefox addon DownThemAll.
-        "copyq",  -- Includes session name in class.
-        "pinentry",
+        "gnome-control-center",
       },
       class = {
-        "Arandr",
-        "Blueman-manager",
         "Gpick",
-        "Kruler",
-        "MessageWin",  -- kalarm.
-        "Sxiv",
-        "Tor Browser", -- Needs a fixed window size to avoid fingerprinting by screen size.
-        "Wpa_gui",
-        "veromix",
-        "xtightvncviewer"
       },
 
       -- Note that the name property shown in xprop might be set slightly after creation of the client
@@ -608,7 +562,7 @@ awful.rules.rules = {
 client.connect_signal("manage", function (c)
   -- Set the windows at the slave,
   -- i.e. put it at the end of others instead of setting it master.
-  -- if not awesome.startup then awful.client.setslave(c) end
+  if not awesome.startup then awful.client.setslave(c) end
 
   if awesome.startup
     and not c.size_hints.user_position
