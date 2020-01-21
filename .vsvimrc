@@ -1,17 +1,11 @@
 " vim: et sw=2 fdm=marker fmr={{{,}}}
 set autoindent
 
-"
-nnoremap <C-j> :<C-u>call VSCodeNotify('workbench.action.focusBelowGroup')<CR>
+" Line navigation
+nmap H _
+nmap L g_
 
 " Yanking and pasting
 vnoremap <Space>y "+y
 nnoremap <Space>p "+p
 nnoremap <Space>P "+P
-
-" Split navigation
-map <Space> <Nop>
-nnoremap <C-h> <C-W><C-H>
-nnoremap <C-j> <C-W><C-J>
-nnoremap <C-k> <C-W><C-K>
-nnoremap <C-l> <C-W><C-L>

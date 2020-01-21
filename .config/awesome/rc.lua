@@ -14,6 +14,8 @@ local beautiful = require("beautiful")
 local naughty = require("naughty")
 local menubar = require("menubar")
 local hotkeys_popup = require("awful.hotkeys_popup")
+-- Scratchpad library
+local scratch = require("scratchpad")
 -- Enable hotkeys help widget for VIM and other apps
 -- when client with a matching name is opened:
 require("awful.hotkeys_popup.keys")
@@ -149,7 +151,7 @@ awful.screen.connect_for_each_screen(function(s)
 
   -- Each screen has its own tag table.
   awful.tag(
-    { "1", "2", "3", "4", "5", "6", "7", "8", "9" },
+    { "1", "2", "3", "4", "5", "6", "7", "8", "9", "0" },
     s, awful.layout.layouts[1]
   )
 
@@ -352,12 +354,24 @@ globalkeys = gears.table.join(
         history_path = awful.util.get_cache_dir() .. "/history_eval"
       }
     end,
-    { description = "lua execute prompt", group = "awesome" }),
+    { description = "lua execute prompt", group = "awesome" }
+  ),
 
   -- Menubar
   awful.key(
     { modkey }, "p", function() menubar.show() end,
     { description = "show the menubar", group = "launcher" }
+  ),
+
+  -- Scratchpad
+  awful.key(
+    { modkey }, "c",
+    function()
+      --menubar.show()
+      --
+      awful.spawn('alacritty --class=math -e ~/.bin/math_scratchpad.py')
+    end,
+    { description = "show the math scratchpad", group = "scratchpad" }
   )
 )
 
@@ -428,7 +442,7 @@ clientkeys = gears.table.join(
 -- Bind all key numbers to tags.
 -- Be careful: we use keycodes to make it work on any keyboard layout.
 -- This should map on the top row of your keyboard, usually 1 to 9.
-for i = 1, 9 do
+for i = 1, 10 do
   globalkeys = gears.table.join(globalkeys,
     -- View tag only.
     awful.key(
@@ -611,4 +625,7 @@ end)
 
 client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
+
+awful.spawn.with_shell("start-gnome-services")
+awful.spawn.with_shell("~/.config/awesome/autorun.sh")
 -- }}}

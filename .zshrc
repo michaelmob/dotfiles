@@ -24,14 +24,13 @@ zstyle ':completion:*' menu select
 __git_files () { _wanted files expl 'local files' _files; }
 
 # Prompt
-PS1="%B%F{red}["
+PS1="%F{white}(%B%T%b)%f%B%F{red}["
 PS1+="%F{yellow}%n"
 PS1+="%F{green}@"
 PS1+="%F{blue}%m"
 PS1+="%F{magenta} %c"
 PS1+="%F{red}]"
 PS1+="%F{white}λ%b %f"
-RPS1="%B%T%b"
 
 # History
 HISTFILE=$HOME/.zsh_history
@@ -39,10 +38,9 @@ HISTSIZE=100000000
 SAVEHIST=100000000
 
 # Default Applications
-export TERMINAL='xfce4-terminal'
+export TERMINAL='alacritty'
 export EDITOR='/usr/bin/nvim'
 export BROWSER='firefox'
-export FM='thunar'
 
 # Functions
 f() { find $1 -iname "*$2*" 2> /dev/null; }
@@ -61,9 +59,9 @@ alias i3rc="$EDITOR $HOME/.config/i3/config"
 alias awesomerc="$EDITOR $HOME/.config/awesome/rc.lua"
 alias tridactylrc="$EDITOR $HOME/.config/tridactyl/tridactylrc"
 
-alias gs='git status -uno'
+alias gs='git status -vuno'
 alias gd='git diff HEAD'
-alias gc='git commit'
+alias gc='git commit -vuno'
 alias gu='git add -u'
 
 # Includes
