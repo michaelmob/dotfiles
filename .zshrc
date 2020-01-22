@@ -53,6 +53,7 @@ alias xclip='xclip -selection c'
 
 # Config Aliases
 alias nvimrc="$EDITOR $HOME/.config/nvim/init.vim"
+alias kakrc="$EDITOR $HOME/.config/kak/kakrc"
 alias tmuxrc="$EDITOR $HOME/.tmux.conf"
 alias zshrc="$EDITOR $HOME/.zshrc"
 alias i3rc="$EDITOR $HOME/.config/i3/config"

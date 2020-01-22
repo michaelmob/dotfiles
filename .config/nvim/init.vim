@@ -35,6 +35,7 @@ Plug 'justinmk/vim-dirvish'  " File browser
 "Plug 'kristijanhusak/vim-dirvish-git'  " Dirvish git integration
 
 
+Plug 'brooth/far.vim'  " Find and replace :Far
 Plug 'mkitt/tabline.vim'  " Tabline enhancements
 Plug 'mhinz/vim-startify'  " Start screen
 Plug 'honza/vim-snippets'  " Snippets source

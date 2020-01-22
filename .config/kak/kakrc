@@ -1,0 +1,45 @@
+#
+# User settings
+#
+
+# Colorscheme
+colorscheme gruvbox
+
+# Highlighters
+add-highlighter global/ number-lines -relative -separator ' '
+
+# Leader
+map global normal <space> ,
+
+# Clipboard
+map global user p '!xclip -o<ret>'
+map global user y '<a-|>xclip -selection c<ret>'
+
+
+#
+# Plugins
+#
+source "%val{config}/plugins/plug.kak/rc/plug.kak"
+
+# Kakoune Language Server Protocol
+plug "ul/kak-lsp" do %{
+    cargo build --release --locked
+    cargo install --force --path .
+} config %{
+    lsp-auto-hover-enable
+    #lsp-auto-hover-insert-mode-disable
+    map global normal <c-g> ':enter-user-mode lsp<ret>'
+
+    # Enable LSP
+    hook global WinSetOption filetype=(rust|python|php|go|javascript|typescript|c|cpp|sh) %{
+        lsp-enable-window
+    }
+}
+
+# FZF
+plug "andreyorst/fzf.kak" config %{
+    map global normal <c-p> ':fzf-mode<ret>'
+}
+
+# Smart Tab Alignment
+plug "andreyorst/smarttab.kak"
