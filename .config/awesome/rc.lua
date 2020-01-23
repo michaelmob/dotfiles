@@ -439,17 +439,26 @@ clientkeys = gears.table.join(
   )
 )
 
+
 -- Bind all key numbers to tags.
 -- Be careful: we use keycodes to make it work on any keyboard layout.
--- This should map on the top row of your keyboard, usually 1 to 9.
-for i = 1, 10 do
+local tag_keycodes = {
+  -- Number row
+  10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
+
+  -- Number pad
+  87, 88, 89, 83, 84, 85, 79, 80, 81, 90
+}
+for i = 1, #tag_keycodes do
+  local tag_number = i <= 10 and i or i - 10
+
   globalkeys = gears.table.join(globalkeys,
     -- View tag only.
     awful.key(
-      { modkey }, "#" .. i + 9,
+      { modkey }, "#" .. tag_keycodes[i],
       function ()
         local screen = awful.screen.focused()
-        local tag = screen.tags[i]
+        local tag = screen.tags[tag_number]
         if tag then
           tag:view_only()
         end
@@ -458,10 +467,10 @@ for i = 1, 10 do
     ),
     -- Toggle tag display.
     awful.key(
-      { modkey, "Control" }, "#" .. i + 9,
+      { modkey, "Control" }, "#" .. tag_keycodes[i],
       function ()
         local screen = awful.screen.focused()
-        local tag = screen.tags[i]
+        local tag = screen.tags[tag_number]
         if tag then
           awful.tag.viewtoggle(tag)
         end
@@ -470,10 +479,10 @@ for i = 1, 10 do
     ),
     -- Move client to tag.
     awful.key(
-      { modkey, "Shift" }, "#" .. i + 9,
+      { modkey, "Shift" }, "#" .. tag_keycodes[i],
       function ()
         if client.focus then
-          local tag = client.focus.screen.tags[i]
+          local tag = client.focus.screen.tags[tag_number]
           if tag then
             client.focus:move_to_tag(tag)
           end
@@ -483,10 +492,10 @@ for i = 1, 10 do
     ),
     -- Toggle tag on focused client.
     awful.key(
-      { modkey, "Control", "Shift" }, "#" .. i + 9,
+      { modkey, "Control", "Shift" }, "#" .. tag_keycodes[i],
       function ()
         if client.focus then
-          local tag = client.focus.screen.tags[i]
+          local tag = client.focus.screen.tags[tag_number]
           if tag then
             client.focus:toggle_tag(tag)
           end
@@ -497,6 +506,8 @@ for i = 1, 10 do
   )
 end
 
+
+-- Mouse window focusing
 clientbuttons = gears.table.join(
   awful.button({ }, 1, function (c)
     c:emit_signal("request::activate", "mouse_click", { raise = true })

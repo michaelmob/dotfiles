@@ -37,6 +37,9 @@ HISTFILE=$HOME/.zsh_history
 HISTSIZE=100000000
 SAVEHIST=100000000
 
+# Environment
+[[ -z "$XDG_CONFIG_HOME" ]] && export XDG_CONFIG_HOME="$HOME/.config"
+
 # Default Applications
 export TERMINAL='alacritty'
 export EDITOR='/usr/bin/nvim'
@@ -52,18 +55,20 @@ alias ls='ls --color=auto --group-directories-first'
 alias xclip='xclip -selection c'
 
 # Config Aliases
-alias nvimrc="$EDITOR $HOME/.config/nvim/init.vim"
-alias kakrc="$EDITOR $HOME/.config/kak/kakrc"
+alias nvimrc="$EDITOR $XDG_CONFIG_HOME/nvim/init.vim"
+alias kakrc="$EDITOR $XDG_CONFIG_HOME/kak/kakrc"
 alias tmuxrc="$EDITOR $HOME/.tmux.conf"
 alias zshrc="$EDITOR $HOME/.zshrc"
-alias i3rc="$EDITOR $HOME/.config/i3/config"
-alias awesomerc="$EDITOR $HOME/.config/awesome/rc.lua"
-alias tridactylrc="$EDITOR $HOME/.config/tridactyl/tridactylrc"
+alias i3rc="$EDITOR $XDG_CONFIG_HOME/i3/config"
+alias awesomerc="$EDITOR $XDG_CONFIG_HOME/awesome/rc.lua"
+alias tridactylrc="$EDITOR $XDG_CONFIG_HOME/tridactyl/tridactylrc"
 
+# Git Aliases
 alias gs='git status -vuno'
 alias gd='git diff HEAD'
 alias gc='git commit -vuno'
 alias gu='git add -u'
+alias gb='git branch'
 
 # Includes
-[[ -f ~/.fzf.zsh ]] && source ~/.fzf.zsh
+[[ -f "$HOME/.fzf.zsh" ]] && source "$HOME/.fzf.zsh"
