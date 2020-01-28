@@ -46,9 +46,10 @@ export EDITOR='/usr/bin/nvim'
 export BROWSER='firefox'
 
 # Functions
-f() { find $1 -iname "*$2*" 2> /dev/null; }
+f() { find ${@:2} -iname "*$1*" 2> /dev/null; }  # Case-insensitive find
+c() { awk "NR>1 {print \$$1}"; }  # Print column number without first line
 
-# Aliases
+# Helper Aliases
 alias \?='bindkey | head -n 23'
 alias :q='exit'
 alias ls='ls --color=auto --group-directories-first'
