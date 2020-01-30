@@ -83,7 +83,7 @@ call plug#end()
 " coc.nvim
 let g:coc_global_extensions = [
   \   'coc-snippets', 'coc-word', 'coc-emoji', 'coc-json',
-  \   'coc-tsserver', 'coc-vetur', 'coc-phpls'
+  \   'coc-tsserver', 'coc-vetur', 'coc-phpls', 'coc-lua'
   \ ]
 
 
