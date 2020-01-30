@@ -43,7 +43,7 @@ SAVEHIST=100000000
 # Default Applications
 export TERMINAL='alacritty'
 export EDITOR='/usr/bin/nvim'
-export BROWSER='firefox'
+export BROWSER='brave'
 
 # Functions
 f() { find ${@:2} -iname "*$1*" 2> /dev/null; }  # Case-insensitive find

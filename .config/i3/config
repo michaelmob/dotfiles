@@ -20,7 +20,7 @@ focus_follows_mouse no
 exec --no-startup-id $BROWSER
 exec --no-startup-id telegram-desktop
 exec --no-startup-id discord
-exec --no-startup-id slack
+#exec --no-startup-id slack
 
 
 #
@@ -41,11 +41,11 @@ bindsym $mod+F1 exec xfce4-settings-manager
 # window management
 #
 
-# start a terminal
+# start terminal
 bindsym $mod+Return exec $TERMINAL
 
 # kill focused window
-bindsym $mod+Shift+q [con_id="__focused__" title="^(?!math).*$"] kill
+bindsym $mod+Shift+c [con_id="__focused__" title="^(?!math).*$"] kill
 
 # start dmenu
 bindsym $mod+Shift+d exec dmenu_run
@@ -64,27 +64,22 @@ bindsym $mod+Shift+k move up
 bindsym $mod+Shift+l move right
 
 # resize focused window
-bindsym $mod+Shift+y resize shrink  width 10 px or 10 ppt
+bindsym $mod+Shift+y resize shrink width  10 px or 10 ppt
 bindsym $mod+Shift+u resize grow   height 10 px or 10 ppt
 bindsym $mod+Shift+i resize shrink height 10 px or 10 ppt
-bindsym $mod+Shift+o resize grow    width 10 px or 10 ppt
+bindsym $mod+Shift+o resize grow   width  10 px or 10 ppt
 
-# split in horizontal orientation
-bindsym $mod+bar split h
-bindsym $mod+v   split h
-
-# split in vertical orientation
-bindsym $mod+minus     split v
-bindsym $mod+backslash split v
-bindsym $mod+g         split v
+# split orientation
+bindsym $mod+s split h
+bindsym $mod+v split v
 
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
-bindsym $mod+s layout stacking
-bindsym $mod+w layout tabbed
-bindsym $mod+e layout toggle split
+bindsym $mod+Ctrl+s layout stacking
+bindsym $mod+Ctrl+e layout tabbed
+bindsym $mod+t layout toggle split
 
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle
@@ -144,9 +139,13 @@ bindsym $mod+Shift+8 move container to workspace number $ws8
 bindsym $mod+Shift+9 move container to workspace number $ws9
 bindsym $mod+Shift+0 move container to workspace number $ws10
 
+
 #
-# window setings
+# window settings
 #
+
+# toggle orientation automatically
+for_window [class=".*"] split toggle
 
 # assign applications to workspaces
 assign [class="Slack"] $ws10
@@ -155,7 +154,6 @@ assign [class="discord"] $ws10
 # floating windows
 for_window [instance="gnome-control-center"] floating enable
 for_window [class="flameshot"] floating enable
-
 
 
 #
@@ -172,10 +170,9 @@ exec --no-startup-id $TERMINAL --class=math -e $HOME/.bin/math_scratchpad.py
 # desktop environment
 #
 
-
 # session
-bindsym $mod+Shift+c reload
-bindsym $mod+Shift+r restart
+bindsym $mod+Ctrl+r reload
+bindsym $mod+Ctrl+Shift+r restart
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Exit?' -B Yes 'i3-msg exit'"
 
 
@@ -185,5 +182,5 @@ bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Exit?' -B Yes 'i3-msg exit'"
 
 # i3bar
 bar {
-    status_command i3status
+  status_command i3status
 }
