@@ -70,8 +70,8 @@ bindsym $mod+Shift+i resize shrink height 10 px or 10 ppt
 bindsym $mod+Shift+o resize grow   width  10 px or 10 ppt
 
 # split orientation
-bindsym $mod+s split h
-bindsym $mod+v split v
+bindsym $mod+v split h
+bindsym $mod+s split v
 
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
