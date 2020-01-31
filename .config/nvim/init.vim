@@ -59,6 +59,8 @@ Plug 'junegunn/fzf.vim'  " Fzf wrapper
 
 Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}  " Autocomplete
 
+Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
+
 
 " Nvim-compatiblity Plugins
 if has('nvim')
@@ -163,26 +165,34 @@ set scrolloff=2
 set undofile
 set undodir=$cachedir/undo
 
+" Key timeout
+set timeoutlen=500
+
 " Prevent losing file contents on system crash
 set fsync
 
-
 " Dirvish
 let g:dirvish_mode = ':sort ,^.*[\/],'
-
 "
 " Coc.nvim
 "
 
 " Use `[g` and `]g` to navigate diagnostics
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
+nmap <silent> g[ <Plug>(coc-diagnostic-prev)
+nmap <silent> g] <Plug>(coc-diagnostic-next)
 
 " Remap keys for gotos
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
+
+" Remap for format selected region
+xmap <leader>gf  <Plug>(coc-format-selected)
+nmap <leader>gf  <Plug>(coc-format-selected)
+
+" Remap for rename current word
+nmap <leader>n <Plug>(coc-rename)
 
 " Use K to show documentation in preview window
 nnoremap <silent> K :call <SID>show_documentation()<CR>
@@ -193,13 +203,6 @@ function! s:show_documentation()
     call CocAction('doHover')
   endif
 endfunction
-
-" Remap for rename current word
-nmap <leader>n <Plug>(coc-rename)
-
-" Remap for format selected region
-xmap <leader>gf  <Plug>(coc-format-selected)
-nmap <leader>gf  <Plug>(coc-format-selected)
 
 " ----------------
 " }}}
@@ -212,7 +215,7 @@ nmap <leader>gf  <Plug>(coc-format-selected)
 command! Gdifftab tabedit %|Gvdiffsplit
 
 " fzf
-command! -bang -nargs=* GFiles2 call fzf#run(fzf#wrap({
+command! -bang -nargs=* GFiles call fzf#run(fzf#wrap({
   \   'source': 'git ls-files --exclude-standard --cached --others 2> /dev/null'
   \ }))
 
@@ -243,7 +246,7 @@ let mapleader = "\<Space>"
 imap jk <Esc>
 
 " Save
-nmap <Space><Esc> :w<CR>
+nmap <Leader><Leader> :w<CR>
 
 " Undo/Redo
 inoremap <expr> <silent> <C-u> '<C-o>u'
@@ -261,13 +264,11 @@ map <Leader>y "+y
 
 " Fuzzy Finders
 nmap <silent> <Leader>f :Files<CR>
-nmap <silent> <Leader>f :GFiles2<CR>
+nmap <silent> <Leader>F :GFiles<CR>
 nmap <silent> <Leader>d :Dirs<CR>
-nmap <silent> <Leader><Leader>f :Files<CR>
 nmap <silent> <Leader>b :Buffers<CR>
 nmap <silent> <Leader>/ :Rg<CR>
-nmap <silent> <Leader>' :Rg<CR>
-nmap <silent> <Leader><Leader>/ :GGrep<CR>
+nmap <silent> <Leader>G :GGrep<CR>
 
 " Easy Motion
 nmap s <Plug>(easymotion-s2)
@@ -296,10 +297,8 @@ nmap S viwS
 xmap ga <Plug>(EasyAlign)
 nmap <Leader>at vipga*\|  " Align Table
 
-" Files
-nmap <expr> <Leader>e ':edit ' . expand('%:p:h') . '/'
-nmap <expr> <Leader>r ':read ' . expand('%:p:h') . '/'
-nmap <expr> <Leader>S ':saveas ' . expand('%:p:h') . '/'
+" Vim-Which-key
+nnoremap <silent> <leader> :<c-u>WhichKey '<Space>'<CR>
 " ----------------
 " }}}
 
@@ -311,7 +310,8 @@ augroup FILETYPES
   autocmd!
   autocmd FileType javascript let b:dispatch = 'npm test -- %'
   autocmd FileType vue syntax sync fromstart
-  autocmd FileType help,qf,vim-plug,vim nmap <silent><buffer> <Esc> :q<CR>
+  autocmd FileType help,qf,vim-plug nmap <silent><buffer> <Esc> :q<CR>
+  autocmd FileType vim setlocal noautoindent
 augroup END
 " ----------------
 " }}}
@@ -324,5 +324,14 @@ augroup EVENTS
   autocmd BufWritePre <buffer> %s/\s\+$//e
   autocmd BufEnter *.txt,*.md setlocal nofen tw=80 "fo=aw2tq
 augroup END
+" ----------------
+" }}}
+
+
+
+" Which-Key {{{
+" ----------------
+let g:which_key_map = {
+  \ }
 " ----------------
 " }}}
