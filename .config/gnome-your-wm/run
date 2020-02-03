@@ -1,0 +1,15 @@
+#!/usr/bin/env sh
+
+# autostart
+picom &
+redshift &
+imwheel &
+
+# status bar
+while true; do
+  xsetroot -name "$(date)"
+  sleep 2
+done &
+
+# wm
+dwm
