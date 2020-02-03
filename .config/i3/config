@@ -74,7 +74,7 @@ bindsym $mod+v split h
 bindsym $mod+s split v
 
 # enter fullscreen mode for the focused container
-bindsym $mod+f fullscreen toggle
+bindsym $mod+f split v; focus parent; fullscreen toggle; focus child
 
 # change container layout (stacked, tabbed, toggle split)
 bindsym $mod+Ctrl+s layout stacking
@@ -143,6 +143,9 @@ bindsym $mod+Shift+0 move container to workspace number $ws10
 #
 # window settings
 #
+#
+
+default_orientation vertical
 
 # toggle orientation automatically
 for_window [class=".*"] split toggle

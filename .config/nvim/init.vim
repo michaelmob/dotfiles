@@ -14,53 +14,46 @@ let $plugdir = expand('$HOME/.local/share/nvim/site/autoload')
 " ----------------
 if empty(glob($plugdir))
   exec 'silent !curl -fLo ' . $plugdir . '/plug.vim --create-dirs'
-    \ 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+  \ 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
 call plug#begin($plugdir)
 
-Plug 'tpope/vim-rsi'  " Readline
-Plug 'tpope/vim-eunuch'  " Unix helper commands
-Plug 'tpope/vim-sleuth'  " Detect and set buffer options
-Plug 'tpope/vim-repeat'  " Repeating
-Plug 'tpope/vim-apathy'  " Paths
-Plug 'tpope/vim-vinegar'  " Netrw Enhancements
-Plug 'tpope/vim-fugitive'  " Git wrapper
-Plug 'tpope/vim-surround'  " Text surroundings
-Plug 'tpope/vim-dispatch'  " Async dispatching
+Plug 'tpope/vim-rsi'        " Readline
+Plug 'tpope/vim-eunuch'     " Unix helper commands
+Plug 'tpope/vim-sleuth'     " Detect and set buffer options
+Plug 'tpope/vim-repeat'     " Repeating
+Plug 'tpope/vim-apathy'     " Paths
+Plug 'tpope/vim-fugitive'   " Git wrapper
+Plug 'tpope/vim-dispatch'   " Async dispatching
 Plug 'tpope/vim-obsession'  " Sessions
+Plug 'justinmk/vim-dirvish' " File browser
 
-Plug 'justinmk/vim-dirvish'  " File browser
-"Plug 'kristijanhusak/vim-dirvish-git'  " Dirvish git integration
-
-
-Plug 'brooth/far.vim'  " Find and replace :Far
-Plug 'mkitt/tabline.vim'  " Tabline enhancements
-Plug 'mhinz/vim-startify'  " Start screen
-Plug 'honza/vim-snippets'  " Snippets source
-Plug 'wellle/targets.vim'  " Enhanced text objects
-Plug 'junegunn/vim-slash'  " Enhanced buffer search
-"Plug 'airblade/vim-rooter'  " Set cwd to projects root dir
-Plug 'Yggdroot/indentLine'  " Space-indentation levels
-Plug 'tomtom/tcomment_vim'  " Comments
-Plug 'jiangmiao/auto-pairs'  " Automatic bracket, parenthesis, quote pairing
-Plug 'chrisbra/Recover.vim'  " Swap-file compare
-Plug 'sheerun/vim-polyglot'  " Syntax language pack
-Plug 'chriskempson/base16-vim'  " Base16 colorschemes
-Plug 'junegunn/vim-easy-align'  " Text alignment
-Plug 'AndrewRadev/splitjoin.vim'  " Single-line <--> Multi-line
-Plug 'easymotion/vim-easymotion'  " Motions on speed
-Plug 'christoomey/vim-tmux-navigator'  " Window navigation
-Plug 'iamcco/markdown-preview.nvim', {'do': {-> mkdp#util#install()}}
+Plug 'brooth/far.vim'                 " Find and replace :Far
+Plug 'kkoomen/vim-doge'               " Documentation generator
+Plug 'mkitt/tabline.vim'              " Tabline enhancements
+Plug 'honza/vim-snippets'             " Snippets source
+Plug 'wellle/targets.vim'             " Enhanced text objects
+Plug 'junegunn/vim-slash'             " Enhanced buffer search
+Plug 'Yggdroot/indentLine'            " Space-indentation levels
+Plug 'tomtom/tcomment_vim'            " Comments
+Plug 'jiangmiao/auto-pairs'           " Automatic bracket, parenthesis, quote pairing
+Plug 'chrisbra/Recover.vim'           " Swap-file compare
+Plug 'sheerun/vim-polyglot'           " Syntax language pack
+Plug 'machakann/vim-sandwich'         " Surroundings
+Plug 'chriskempson/base16-vim'        " Base16 colorschemes
+Plug 'junegunn/vim-easy-align'        " Text alignment
+Plug 'AndrewRadev/splitjoin.vim'      " Single-line <--> Multi-line
+Plug 'easymotion/vim-easymotion'      " Motions on speed
+Plug 'christoomey/vim-tmux-navigator' " Window navigation
 
 Plug 'junegunn/fzf', {'dir': '~/.fzf', 'do': './install --all'}
-Plug 'junegunn/fzf.vim'  " Fzf wrapper
+Plug 'junegunn/fzf.vim'
 
-Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}  " Autocomplete
-
-Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
-
+Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
+Plug 'liuchengxu/vim-which-key', {'on': ['WhichKey', 'WhichKey!']}
+Plug 'iamcco/markdown-preview.nvim', {'do': {-> mkdp#util#install()}}
 
 " Nvim-compatiblity Plugins
 if has('nvim')
@@ -88,10 +81,17 @@ let g:coc_global_extensions = [
   \   'coc-tsserver', 'coc-vetur', 'coc-phpls'
   \ ]
 
-
 let g:coc_user_config = {
   \   'diagnostic.level': 'warning'
   \ }
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
 
 " markdown-preview
 let g:mkdp_auto_close = 0
@@ -146,7 +146,7 @@ set nowrap
 
 " Indentation
 set expandtab
-set shiftwidth=4
+set shiftwidth=2
 filetype plugin indent on
 
 " Wild Menu
@@ -173,36 +173,12 @@ set fsync
 
 " Dirvish
 let g:dirvish_mode = ':sort ,^.*[\/],'
-"
-" Coc.nvim
-"
 
-" Use `[g` and `]g` to navigate diagnostics
-nmap <silent> g[ <Plug>(coc-diagnostic-prev)
-nmap <silent> g] <Plug>(coc-diagnostic-next)
+" vim-doge
+let g:doge_mapping = 'gcd'
+let g:doge_mapping_comment_jump_forward = '<C-j>'
+let g:doge_mapping_comment_jump_backward = '<C-k>'
 
-" Remap keys for gotos
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-
-" Remap for format selected region
-xmap <leader>gf  <Plug>(coc-format-selected)
-nmap <leader>gf  <Plug>(coc-format-selected)
-
-" Remap for rename current word
-nmap <leader>n <Plug>(coc-rename)
-
-" Use K to show documentation in preview window
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
-endfunction
 
 " ----------------
 " }}}
@@ -246,29 +222,36 @@ let mapleader = "\<Space>"
 imap jk <Esc>
 
 " Save
-nmap <Leader><Leader> :w<CR>
+nmap <leader><leader> :w<CR>
 
 " Undo/Redo
 inoremap <expr> <silent> <C-u> '<C-o>u'
 inoremap <expr> <silent> <C-r> '<C-o><C-r>'
 
-" Tab control
-nmap <silent> tc :tabclose<CR>
-nmap <silent> tn :tabnext<CR>
-nmap <silent> tp :tabprev<CR>
-
 " Yank/Pasting
-map <Leader>p "+p
-map <Leader>P "+P
-map <Leader>y "+y
+map <leader>p "+p
+map <leader>P "+P
+map <leader>y "+y
 
 " Fuzzy Finders
-nmap <silent> <Leader>f :Files<CR>
-nmap <silent> <Leader>F :GFiles<CR>
-nmap <silent> <Leader>d :Dirs<CR>
-nmap <silent> <Leader>b :Buffers<CR>
-nmap <silent> <Leader>/ :Rg<CR>
-nmap <silent> <Leader>G :GGrep<CR>
+nmap <leader>f :Files<CR>
+nmap <leader>F :GFiles<CR>
+nmap <leader>d :Dirs<CR>
+nmap <leader>b :Buffers<CR>
+nmap <leader>/ :Rg<CR>
+nmap <leader>G :GGrep<CR>
+nmap <leader>s :CocList symbols<CR>
+
+" Coc.nvim
+nmap <silent> g[ <Plug>(coc-diagnostic-prev)
+nmap <silent> g] <Plug>(coc-diagnostic-next)
+nmap <silent> gh <Plug>(coc-diagnostic-info)
+xmap <leader>gf <Plug>(coc-format-selected)
+nmap <leader>n <Plug>(coc-rename)
+nmap gd <Plug>(coc-definition)
+nmap gy <Plug>(coc-type-definition)
+nmap gi <Plug>(coc-implementation)
+nmap gr <Plug>(coc-references)
 
 " Easy Motion
 nmap s <Plug>(easymotion-s2)
@@ -279,25 +262,16 @@ nmap <plug>(slash-after) zz
 " Line Navigation
 map <S-h> ^
 map <S-l> g_
-vmap $ g_
-
-" Counterpart to <S-j>
-"nmap <S-k> DO<Esc>p==
 
 " Fugitive
-nmap <Leader>gs :tab Gstatus<CR>
-nmap <Leader>gd :Gdifftab<CR>
-nmap <Leader>gc :Gcommit -v<CR>
-
-" Surround
-vmap <CR> S<C-J>jVj=$
-nmap S viwS
+nmap <leader>gs :tab Gstatus<CR>
+nmap <leader>gd :Gdifftab<CR>
 
 " Easy align
 xmap ga <Plug>(EasyAlign)
-nmap <Leader>at vipga*\|  " Align Table
+nmap <leader>at vipga*\|  " Align Table
 
-" Vim-Which-key
+" vim-which-key
 nnoremap <silent> <leader> :<c-u>WhichKey '<Space>'<CR>
 " ----------------
 " }}}

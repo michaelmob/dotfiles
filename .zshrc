@@ -39,10 +39,11 @@ SAVEHIST=100000000
 
 # Environment
 [[ -z "$XDG_CONFIG_HOME" ]] && export XDG_CONFIG_HOME="$HOME/.config"
+#[[ ! -z "$TMUX" ]] && export TMOUT=900
 
 # Default Applications
 export TERMINAL='alacritty'
-export EDITOR='/usr/bin/nvim'
+export EDITOR='nvim'
 export BROWSER='brave'
 
 # Functions
@@ -72,4 +73,7 @@ alias gu='git add -u'
 alias gb='git branch'
 
 # Includes
-[[ -f "$HOME/.fzf.zsh" ]] && source "$HOME/.fzf.zsh"
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# Launch tmux
+[[ $- == *i* ]] && [[ -z "$TMUX" ]] && exec tmux
