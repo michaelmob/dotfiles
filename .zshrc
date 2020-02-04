@@ -39,7 +39,6 @@ SAVEHIST=100000000
 
 # Environment
 [[ -z "$XDG_CONFIG_HOME" ]] && export XDG_CONFIG_HOME="$HOME/.config"
-#[[ ! -z "$TMUX" ]] && export TMOUT=900
 
 # Default Applications
 export TERMINAL='alacritty'
@@ -80,4 +79,8 @@ alias gb='git branch'
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # Launch tmux
-[[ $- == *i* ]] && [[ -z "$TMUX" ]] && exec tmux
+[[ -z "$TMUX" ]] && [[ $- == *i* ]] && exec tmux
+
+# Set timeout if automatic session
+TMUX_SESSION_NAME="$(tmux display-message -p '#S')"
+[[ ! -z "${TMUX_SESSION_NAME##*[!0-9]*}" ]] && TMOUT=300
