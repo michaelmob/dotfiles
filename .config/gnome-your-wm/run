@@ -4,6 +4,9 @@
 picom &
 redshift &
 imwheel &
+telegram-desktop &
+slack &
+discord &
 
 # status bar
 while true; do

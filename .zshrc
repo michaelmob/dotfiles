@@ -64,6 +64,10 @@ alias zshrc="$EDITOR $HOME/.zshrc"
 alias i3rc="$EDITOR $XDG_CONFIG_HOME/i3/config"
 alias awesomerc="$EDITOR $XDG_CONFIG_HOME/awesome/rc.lua"
 alias tridactylrc="$EDITOR $XDG_CONFIG_HOME/tridactyl/tridactylrc"
+alias dwmrc="cd $HOME/Workspace/dwm && $EDITOR config.h"
+
+# make install
+alias mi='make && sudo make install'
 
 # Git Aliases
 alias gs='git status -vuno'
