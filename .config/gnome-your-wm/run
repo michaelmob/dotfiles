@@ -8,11 +8,5 @@ telegram-desktop &
 slack &
 discord &
 
-# status bar
-while true; do
-  xsetroot -name "$(date)"
-  sleep 2
-done &
-
 # wm
-dwm
+i3

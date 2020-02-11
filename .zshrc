@@ -78,9 +78,8 @@ alias gb='git branch'
 # Includes
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-# Launch tmux
-[[ -z "$TMUX" ]] && [[ $- == *i* ]] && exec tmux
-
-# Set timeout if automatic session
-TMUX_SESSION_NAME="$(tmux display-message -p '#S')"
-[[ ! -z "${TMUX_SESSION_NAME##*[!0-9]*}" ]] && TMOUT=300
+# Attach to unattached number session or create a new session
+if [[ -z "$TMUX" ]] && [[ $- == *i* ]]; then
+  unattached_id="${$(tmux ls | grep -m 1 -Pve '(^\D+|(attached))')%%:*}"
+  [[ -z "$unattached_id" ]] && exec tmux || exec tmux attach -t $unattached_id
+fi

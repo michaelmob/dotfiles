@@ -13,43 +13,32 @@ focus_follows_mouse no
 
 
 #
-# autostart
-#
-
-# user applications
-exec --no-startup-id $BROWSER
-exec --no-startup-id telegram-desktop
-exec --no-startup-id discord
-#exec --no-startup-id slack
-
-
-#
 # application shortcuts
 #
 
 # play/pause music player
 bindsym Pause exec playerctl play-pause
 
-# launch flameshot screen shot utility
+# launch screenshot utility
 bindsym ctrl+shift+4 exec flameshot gui
 
-# xfce4 settings
-bindsym $mod+F1 exec xfce4-settings-manager
+# launch layer manager
+bindsym $mod+g exec i3-layout-manager
+
+# start launcher
+bindsym $mod+Shift+d exec rofi -show run
+bindsym $mod+d exec rofi -show drun
+
+# start terminal
+bindsym $mod+Return exec $TERMINAL
 
 
 #
 # window management
 #
 
-# start terminal
-bindsym $mod+Return exec $TERMINAL
-
 # kill focused window
 bindsym $mod+Shift+c [con_id="__focused__" title="^(?!math).*$"] kill
-
-# start dmenu
-bindsym $mod+Shift+d exec dmenu_run
-bindsym $mod+d exec i3-dmenu-desktop
 
 # change focus
 bindsym $mod+h focus left
@@ -57,29 +46,35 @@ bindsym $mod+j focus down
 bindsym $mod+k focus up
 bindsym $mod+l focus right
 
-# move focused window
-bindsym $mod+Shift+h move left
-bindsym $mod+Shift+j move down
-bindsym $mod+Shift+k move up
-bindsym $mod+Shift+l move right
+# swap focused window (non-destructive)
+bindsym $mod+Shift+h mark swap; focus left;  swap container with mark swap; unmark swap; focus left
+bindsym $mod+Shift+j mark swap; focus down;  swap container with mark swap; unmark swap; focus down
+bindsym $mod+Shift+k mark swap; focus up;    swap container with mark swap; unmark swap; focus up
+bindsym $mod+Shift+l mark swap; focus right; swap container with mark swap; unmark swap; focus right
+
+# move focused window (destructive)
+bindsym $mod+Ctrl+h move left
+bindsym $mod+Ctrl+j move down
+bindsym $mod+Ctrl+k move up
+bindsym $mod+Ctrl+l move right
 
 # resize focused window
-bindsym $mod+Shift+y resize shrink width  10 px or 10 ppt
-bindsym $mod+Shift+u resize grow   height 10 px or 10 ppt
-bindsym $mod+Shift+i resize shrink height 10 px or 10 ppt
-bindsym $mod+Shift+o resize grow   width  10 px or 10 ppt
+bindsym $mod+Ctrl+Shift+h resize shrink width  5 px or 5 ppt
+bindsym $mod+Ctrl+Shift+j resize grow   height 5 px or 5 ppt
+bindsym $mod+Ctrl+Shift+k resize shrink height 5 px or 5 ppt
+bindsym $mod+Ctrl+Shift+l resize grow   width  5 px or 5 ppt
 
 # split orientation
-bindsym $mod+v split h
-bindsym $mod+s split v
+bindsym $mod+v split h; mark _move
+bindsym $mod+s split v; mark _move
 
 # enter fullscreen mode for the focused container
 bindsym $mod+f split v; focus parent; fullscreen toggle; focus child
 
 # change container layout (stacked, tabbed, toggle split)
-bindsym $mod+Ctrl+s layout stacking
-bindsym $mod+Ctrl+e layout tabbed
-bindsym $mod+t layout toggle split
+bindsym $mod+e layout stacking
+bindsym $mod+t layout tabbed
+bindsym $mod+r layout toggle split
 
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle
@@ -94,10 +89,16 @@ bindsym $mod+space focus mode_toggle
 bindsym $mod+a focus parent
 
 # focus the child container
-#bindsym $mod+d focus child
+bindsym $mod+Shift+a focus child
 
 # focus urgent window
 bindsym $mod+u [urgent="latest"] focus
+
+# move window to newest split
+bindsym $mod+y move container to mark _move
+
+# move window to newest split then rotate container
+bindsym $mod+Shift+y move container to mark _move;
 
 
 #
@@ -145,12 +146,8 @@ bindsym $mod+Shift+0 move container to workspace number $ws10
 #
 #
 
-default_orientation vertical
-
-# toggle orientation automatically
-for_window [class=".*"] split toggle
-
 # assign applications to workspaces
+assign [class="Spotify"] $ws9
 assign [class="Slack"] $ws10
 assign [class="discord"] $ws10
 
@@ -164,9 +161,9 @@ for_window [class="flameshot"] floating enable
 #
 
 # math scratchpad
-for_window [instance="^math$"] move scratchpad
-bindsym $mod+c [instance="^math$"] scratchpad show
-exec --no-startup-id $TERMINAL --class=math -e $HOME/.bin/math_scratchpad.py
+for_window [title="^math$"] move scratchpad
+bindsym $mod+grave [title="^math$"] scratchpad show
+exec --no-startup-id $TERMINAL --title=math -e $HOME/.bin/math_scratchpad.py
 
 
 #
@@ -174,8 +171,8 @@ exec --no-startup-id $TERMINAL --class=math -e $HOME/.bin/math_scratchpad.py
 #
 
 # session
-bindsym $mod+Ctrl+r reload
-bindsym $mod+Ctrl+Shift+r restart
+bindsym $mod+Ctrl+r  restart
+bindsym $mod+Shift+r reload
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Exit?' -B Yes 'i3-msg exit'"
 
 
