@@ -144,16 +144,16 @@ bindsym $mod+Shift+0 move container to workspace number $ws10
 #
 # window settings
 #
-#
 
 # assign applications to workspaces
-assign [class="Spotify"] $ws9
 assign [class="Slack"] $ws10
 assign [class="discord"] $ws10
+for_window [class="Spotify"] move to workspace $ws9  # assign will not work
 
 # floating windows
-for_window [instance="gnome-control-center"] floating enable
 for_window [class="flameshot"] floating enable
+for_window [instance="gnome-control-center"] floating enable
+for_window [instance="gnome-tweaks"] floating enable
 
 
 #
@@ -175,12 +175,36 @@ bindsym $mod+Ctrl+r  restart
 bindsym $mod+Shift+r reload
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Exit?' -B Yes 'i3-msg exit'"
 
+#
+# colors
+#
+
+# class                 border  bground text    indicator child_border
+client.focused          #15539E #15539E #FFFFFF #2E9EF4   #15539E
+client.focused_inactive #333333 #353535 #FFFFFF #484E50   #5F676A
+client.unfocused        #333333 #252525 #888888 #292D2E   #222222
+client.urgent           #2F343A #900000 #FFFFFF #900000   #900000
+client.placeholder      #000000 #0C0C0C #FFFFFF #000000   #0C0C0C
+client.background       #FFFFFF
+
 
 #
 # bar
 #
 
-# i3bar
+# bar
 bar {
   status_command i3status
+
+  colors {
+    background #000000
+    statusline #FFFFFF
+    separator  #666666
+
+    focused_workspace  #15539E #15539E #FFFFFF
+    active_workspace   #333333 #222222 #FFFFFF
+    inactive_workspace #333333 #222222 #888888
+    urgent_workspace   #2F343A #900000 #FFFFFF
+    binding_mode       #2F343A #900000 #FFFFFF
+  }
 }
