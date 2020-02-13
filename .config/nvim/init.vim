@@ -52,7 +52,6 @@ Plug 'junegunn/fzf', {'dir': '~/.fzf', 'do': './install --all'}
 Plug 'junegunn/fzf.vim'
 
 Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
-Plug 'liuchengxu/vim-which-key', {'on': ['WhichKey', 'WhichKey!']}
 Plug 'iamcco/markdown-preview.nvim', {'do': {-> mkdp#util#install()}}
 
 " Nvim-compatiblity Plugins
@@ -106,18 +105,11 @@ let g:vue_pre_processors = []
 let g:AutoPairsMultilineClose = 0
 
 " fzf
-let $FZF_DEFAULT_OPTS =
-  \ ' --bind ctrl-j:next-history,ctrl-k:previous-history,ctrl-n:down,ctrl-p:up'
-" \.' --reverse'
-let g:fzf_history_dir = '~/.local/share/fzf-history'
-let g:fzf_layout = {'window': 'call FloatingFZF()'}
-
-
 function! FloatingFZF()
   let height = &lines > 20 ? float2nr(&lines * 0.50) : &lines
   let width = (&columns > 120 ? float2nr(120) : &columns) - 10
   let left = float2nr((&columns - width) / 2)
-  let top = 0 " float2nr((&lines - height) / 2)
+  let top = float2nr((&lines - height) / 2)
 
   let opts = {
     \   'style': 'minimal', 'relative': 'editor',
@@ -129,6 +121,12 @@ function! FloatingFZF()
   call nvim_open_win(buf, v:true, opts)
 endfunction
 
+let $FZF_DEFAULT_OPTS =
+  \ ' --bind ctrl-j:next-history,ctrl-k:previous-history,ctrl-n:down,ctrl-p:up'
+" \.' --reverse'
+let g:fzf_history_dir = '~/.local/share/fzf-history'
+let g:fzf_layout = {'window': 'call FloatingFZF()'}
+
 " ----------------
 " }}}
 
@@ -136,6 +134,9 @@ endfunction
 
 " Vim Settings {{{
 " ----------------
+" Mouse
+set mouse=a
+
 " Colors
 set termguicolors
 colorscheme base16-default-dark
@@ -187,9 +188,6 @@ let g:doge_mapping_comment_jump_backward = '<C-k>'
 
 " Commands {{{
 " ----------------
-" Fugitive
-command! Gdifftab tabedit %|Gvdiffsplit
-
 " fzf
 command! -bang -nargs=* GFiles call fzf#run(fzf#wrap({
   \   'source': 'git ls-files --exclude-standard --cached --others 2> /dev/null'
@@ -264,15 +262,12 @@ map <S-h> ^
 map <S-l> g_
 
 " Fugitive
-nmap <leader>gs :tab Gstatus<CR>
+nmap gs :tab Gstatus<CR>
 nmap <leader>gd :Gdifftab<CR>
 
 " Easy align
 xmap ga <Plug>(EasyAlign)
 nmap <leader>at vipga*\|  " Align Table
-
-" vim-which-key
-nnoremap <silent> <leader> :<c-u>WhichKey '<Space>'<CR>
 " ----------------
 " }}}
 
@@ -298,14 +293,5 @@ augroup EVENTS
   autocmd BufWritePre <buffer> %s/\s\+$//e
   autocmd BufEnter *.txt,*.md setlocal nofen tw=80 "fo=aw2tq
 augroup END
-" ----------------
-" }}}
-
-
-
-" Which-Key {{{
-" ----------------
-let g:which_key_map = {
-  \ }
 " ----------------
 " }}}
