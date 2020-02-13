@@ -77,7 +77,7 @@ bindsym $mod+t layout tabbed
 bindsym $mod+r layout toggle split
 
 # toggle tiling / floating
-bindsym $mod+Shift+space floating toggle
+bindsym $mod+Shift+f floating toggle
 
 # toggle sticky
 bindsym $mod+Shift+s sticky toggle
@@ -171,7 +171,7 @@ exec --no-startup-id $TERMINAL --title=math -e $HOME/.bin/math_scratchpad.py
 #
 
 # session
-bindsym $mod+Ctrl+r  restart
+bindsym $mod+Shift+Ctrl+r  restart
 bindsym $mod+Shift+r reload
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Exit?' -B Yes 'i3-msg exit'"
 
