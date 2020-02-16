@@ -1,11 +1,11 @@
 " vim: et sw=2 fdm=marker fmr={{{,}}}
-" github.com/thetarkus/dotfiles
+" https://github.com/tarkusdev/dotfiles
 
 
 
 " Variables {{{
-let $cachedir = expand('$HOME/.local/share/nvim')
-let $plugdir = expand('$HOME/.local/share/nvim/site/autoload')
+let $sharedir = expand('$HOME/.local/share/nvim')
+let $plugdir = expand($sharedir . '/site/autoload')
 " }}}
 
 
@@ -19,7 +19,6 @@ if empty(glob($plugdir))
 endif
 
 call plug#begin($plugdir)
-
 Plug 'tpope/vim-rsi'        " Readline
 Plug 'tpope/vim-eunuch'     " Unix helper commands
 Plug 'tpope/vim-sleuth'     " Detect and set buffer options
@@ -28,43 +27,32 @@ Plug 'tpope/vim-apathy'     " Paths
 Plug 'tpope/vim-fugitive'   " Git wrapper
 Plug 'tpope/vim-dispatch'   " Async dispatching
 Plug 'tpope/vim-obsession'  " Sessions
-Plug 'justinmk/vim-dirvish' " File browser
 
-Plug 'brooth/far.vim'                 " Find and replace :Far
-Plug 'kkoomen/vim-doge'               " Documentation generator
-Plug 'mkitt/tabline.vim'              " Tabline enhancements
-Plug 'honza/vim-snippets'             " Snippets source
-Plug 'wellle/targets.vim'             " Enhanced text objects
-Plug 'junegunn/vim-slash'             " Enhanced buffer search
-Plug 'Yggdroot/indentLine'            " Space-indentation levels
-Plug 'tomtom/tcomment_vim'            " Comments
-Plug 'jiangmiao/auto-pairs'           " Automatic bracket, parenthesis, quote pairing
-Plug 'chrisbra/Recover.vim'           " Swap-file compare
-Plug 'sheerun/vim-polyglot'           " Syntax language pack
+Plug 'justinmk/vim-dirvish' " File browser
+Plug 'brooth/far.vim'       " Find and replace :Far
+Plug 'kkoomen/vim-doge'     " Documentation generator
+Plug 'mkitt/tabline.vim'    " Tabline enhancements
+Plug 'honza/vim-snippets'   " Snippets source
+Plug 'wellle/targets.vim'   " Enhanced text objects
+Plug 'junegunn/vim-slash'   " Enhanced buffer search
+Plug 'Yggdroot/indentLine'  " Space-indentation levels
+Plug 'tomtom/tcomment_vim'  " Comments
+Plug 'chrisbra/Recover.vim' " Swap-file compare
+Plug 'sheerun/vim-polyglot' " Syntax language pack
+
 Plug 'machakann/vim-sandwich'         " Surroundings
 Plug 'chriskempson/base16-vim'        " Base16 colorschemes
 Plug 'junegunn/vim-easy-align'        " Text alignment
 Plug 'AndrewRadev/splitjoin.vim'      " Single-line <--> Multi-line
 Plug 'easymotion/vim-easymotion'      " Motions on speed
+Plug 'radenling/vim-dispatch-neovim'  " Neovim compatibility for vim-dispatch
 Plug 'christoomey/vim-tmux-navigator' " Window navigation
+
+Plug 'iamcco/markdown-preview.nvim', {'do': {-> mkdp#util#install()}}
+Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
 
 Plug 'junegunn/fzf', {'dir': '~/.fzf', 'do': './install --all'}
 Plug 'junegunn/fzf.vim'
-
-Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
-Plug 'iamcco/markdown-preview.nvim', {'do': {-> mkdp#util#install()}}
-
-" Nvim-compatiblity Plugins
-if has('nvim')
-  Plug 'radenling/vim-dispatch-neovim'
-
-" Vim-compatiblity Plugins
-else
-  Plug 'tpope/vim-sensible'
-  Plug 'roxma/nvim-yarp'
-  Plug 'roxma/vim-hug-neovim-rpc'
-endif
-
 call plug#end()
 " ----------------
 " }}}
@@ -73,11 +61,10 @@ call plug#end()
 
 " Plugin Settings {{{
 " ----------------
-
 " coc.nvim
 let g:coc_global_extensions = [
-  \   'coc-snippets', 'coc-word', 'coc-emoji', 'coc-json',
-  \   'coc-tsserver', 'coc-vetur', 'coc-phpls', 'coc-vetur'
+  \   'coc-snippets', 'coc-pairs', 'coc-word', 'coc-emoji', 'coc-json',
+  \   'coc-tsserver', 'coc-vetur', 'coc-phpls', 'coc-vetur', 'coc-python'
   \ ]
 
 let g:coc_user_config = {
@@ -126,7 +113,6 @@ let $FZF_DEFAULT_OPTS =
 " \.' --reverse'
 let g:fzf_history_dir = '~/.local/share/fzf-history'
 let g:fzf_layout = {'window': 'call FloatingFZF()'}
-
 " ----------------
 " }}}
 
@@ -136,6 +122,9 @@ let g:fzf_layout = {'window': 'call FloatingFZF()'}
 " ----------------
 " Mouse
 set mouse=a
+
+" Incremental substitute
+set inccommand=nosplit
 
 " Colors
 set termguicolors
@@ -164,7 +153,7 @@ set scrolloff=2
 
 " Persistent Undo
 set undofile
-set undodir=$cachedir/undo
+set undodir=$sharedir/undo
 
 " Key timeout
 set timeoutlen=500
@@ -177,10 +166,8 @@ let g:dirvish_mode = ':sort ,^.*[\/],'
 
 " vim-doge
 let g:doge_mapping = 'gcd'
-let g:doge_mapping_comment_jump_forward = '<C-j>'
-let g:doge_mapping_comment_jump_backward = '<C-k>'
-
-
+let g:doge_mapping_comment_jump_forward = '<c-j>'
+let g:doge_mapping_comment_jump_backward = '<c-k>'
 " ----------------
 " }}}
 
@@ -214,17 +201,11 @@ command! -bang -nargs=* Dirs call fzf#run(fzf#wrap({
 
 " Keybindings {{{
 " ----------------
-let mapleader = "\<Space>"
+let mapleader = "\<space>"
 
-" Escape
-imap jk <Esc>
-
-" Save
-nmap <leader><leader> :w<CR>
-
-" Undo/Redo
-inoremap <expr> <silent> <C-u> '<C-o>u'
-inoremap <expr> <silent> <C-r> '<C-o><C-r>'
+" Line Navigation
+map <s-h> ^
+map <s-l> g_
 
 " Yank/Pasting
 map <leader>p "+p
@@ -232,42 +213,27 @@ map <leader>P "+P
 map <leader>y "+y
 
 " Fuzzy Finders
-nmap <leader>f :Files<CR>
-nmap <leader>F :GFiles<CR>
-nmap <leader>d :Dirs<CR>
-nmap <leader>b :Buffers<CR>
-nmap <leader>/ :Rg<CR>
-nmap <leader>G :GGrep<CR>
-nmap <leader>s :CocList symbols<CR>
+nmap <leader>f :Files<cr>
+nmap <leader>F :GFiles<cr>
+nmap <leader>d :Dirs<cr>
+nmap <leader>b :Buffers<cr>
+nmap <leader>/ :Rg<cr>
+nmap <leader>G :GGrep<cr>
 
-" Coc.nvim
-nmap <silent> g[ <Plug>(coc-diagnostic-prev)
-nmap <silent> g] <Plug>(coc-diagnostic-next)
-nmap <silent> gh <Plug>(coc-diagnostic-info)
-xmap <leader>gf <Plug>(coc-format-selected)
-nmap <leader>n <Plug>(coc-rename)
-nmap gd <Plug>(coc-definition)
-nmap gy <Plug>(coc-type-definition)
-nmap gi <Plug>(coc-implementation)
-nmap gr <Plug>(coc-references)
+" Diagnostics
+nmap <leader>s :CocList symbols<cr>
+nmap <silent> g[ <plug>(coc-diagnostic-prev)
+nmap <silent> g] <plug>(coc-diagnostic-next)
+nmap <silent> gh <plug>(coc-diagnostic-info)
+xmap <silent> <leader>gf <plug>(coc-format-selected)
+nmap <silent> <leader>n <plug>(coc-rename)
+nmap gd <plug>(coc-definition)
+nmap gy <plug>(coc-type-definition)
+nmap gi <plug>(coc-implementation)
+nmap gr <plug>(coc-references)
 
-" Easy Motion
-nmap s <Plug>(easymotion-s2)
-
-" Search
-nmap <plug>(slash-after) zz
-
-" Line Navigation
-map <S-h> ^
-map <S-l> g_
-
-" Fugitive
-nmap gs :tab Gstatus<CR>
-nmap <leader>gd :Gdifftab<CR>
-
-" Easy align
-xmap ga <Plug>(EasyAlign)
-nmap <leader>at vipga*\|  " Align Table
+" Git
+nmap gs :tab Gstatus<cr>
 " ----------------
 " }}}
 
@@ -279,7 +245,7 @@ augroup FILETYPES
   autocmd!
   autocmd FileType javascript let b:dispatch = 'npm test -- %'
   autocmd FileType vue syntax sync fromstart
-  autocmd FileType help,qf,vim-plug nmap <silent><buffer> <Esc> :q<CR>
+  autocmd FileType help,qf,vim-plug nmap <silent><buffer> <esc> :q<cr>
   autocmd FileType vim setlocal noautoindent
 augroup END
 " ----------------

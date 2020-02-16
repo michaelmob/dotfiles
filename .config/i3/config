@@ -16,21 +16,13 @@ focus_follows_mouse no
 # application shortcuts
 #
 
-# play/pause music player
-bindsym Pause exec playerctl play-pause
-
-# launch screenshot utility
-bindsym ctrl+shift+4 exec flameshot gui
-
-# launch layer manager
-bindsym $mod+g exec i3-layout-manager
-
-# start launcher
+bindsym $mod+Return  exec $TERMINAL
+bindsym $mod+d       exec rofi -show drun
 bindsym $mod+Shift+d exec rofi -show run
-bindsym $mod+d exec rofi -show drun
+bindsym $mod+g       exec i3-layout-manager
 
-# start terminal
-bindsym $mod+Return exec $TERMINAL
+bindsym Ctrl+Shift+4 exec flameshot gui
+bindsym Pause        exec playerctl play-pause
 
 
 #
@@ -57,6 +49,7 @@ bindsym $mod+Ctrl+h move left
 bindsym $mod+Ctrl+j move down
 bindsym $mod+Ctrl+k move up
 bindsym $mod+Ctrl+l move right
+bindsym $mod+y      move container to mark _move
 
 # resize focused window
 bindsym $mod+Ctrl+Shift+h resize shrink width  5 px or 5 ppt
@@ -68,53 +61,47 @@ bindsym $mod+Ctrl+Shift+l resize grow   width  5 px or 5 ppt
 bindsym $mod+v split h; mark _move
 bindsym $mod+s split v; mark _move
 
-# enter fullscreen mode for the focused container
-bindsym $mod+f split v; focus parent; fullscreen toggle; focus child
-
 # change container layout (stacked, tabbed, toggle split)
 bindsym $mod+e layout stacking
 bindsym $mod+t layout tabbed
 bindsym $mod+r layout toggle split
 
-# toggle tiling / floating
+# enter fullscreen mode for the focused container
+bindsym $mod+f split v; focus parent; fullscreen toggle; focus child
+
+# change window toggles
 bindsym $mod+Shift+f floating toggle
+bindsym $mod+Shift+s sticky   toggle
 
-# toggle sticky
-bindsym $mod+Shift+s sticky toggle
-
-# change focus between tiling / floating windows
-bindsym $mod+space focus mode_toggle
-
-# focus the parent container
-bindsym $mod+a focus parent
-
-# focus the child container
+# change focus between tiling/floating, parent/child, and urgent windows
+bindsym $mod+Space   focus mode_toggle
+bindsym $mod+a       focus parent
 bindsym $mod+Shift+a focus child
+bindsym $mod+u       [urgent="latest"] focus
 
-# focus urgent window
-bindsym $mod+u [urgent="latest"] focus
+# marks
+bindsym $mod+Shift+m unmark
+bindsym $mod+m       exec i3-input -F "mark %s" -P "Mark: "
 
-# move window to newest split
-bindsym $mod+y move container to mark _move
-
-# move window to newest split then rotate container
-bindsym $mod+Shift+y move container to mark _move;
+# sticky marks
+bindsym $mod+Ctrl+Shift+m exec i3-input -F "exec i3-sticky-placeholder %s" -P "New Sticky Placeholder: "
+bindsym $mod+Ctrl+m       exec i3-input -F "mark sticky_%s" -P "Set Sticky Mark: "
 
 
 #
 # workspaces
 #
 
-set $ws1 "1"
-set $ws2 "2"
-set $ws3 "3"
-set $ws4 "4"
-set $ws5 "5"
-set $ws6 "6"
-set $ws7 "7"
-set $ws8 "8"
-set $ws9 "9"
-set $ws10 "10"
+set $ws1  1
+set $ws2  2
+set $ws3  3
+set $ws4  4
+set $ws5  5
+set $ws6  6
+set $ws7  7
+set $ws8  8
+set $ws9  9
+set $ws10 10
 
 # switch to workspace
 bindsym $mod+1 workspace number $ws1
@@ -146,14 +133,15 @@ bindsym $mod+Shift+0 move container to workspace number $ws10
 #
 
 # assign applications to workspaces
-assign [class="Slack"] $ws10
-assign [class="discord"] $ws10
+assign     [class="Slack"]   $ws10
+assign     [class="discord"] $ws10
+assign     [class="Spotify"] $ws9
 for_window [class="Spotify"] move to workspace $ws9  # assign will not work
 
 # floating windows
-for_window [class="flameshot"] floating enable
+for_window [class="flameshot"]               floating enable
 for_window [instance="gnome-control-center"] floating enable
-for_window [instance="gnome-tweaks"] floating enable
+for_window [instance="gnome-tweaks"]         floating enable
 
 
 #
@@ -161,8 +149,8 @@ for_window [instance="gnome-tweaks"] floating enable
 #
 
 # math scratchpad
-for_window [title="^math$"] move scratchpad
-bindsym $mod+grave [title="^math$"] scratchpad show
+for_window           [title="^math$"] move scratchpad
+bindsym $mod+grave   [title="^math$"] scratchpad show
 exec --no-startup-id $TERMINAL --title=math -e $HOME/.bin/math_scratchpad.py
 
 
@@ -172,8 +160,8 @@ exec --no-startup-id $TERMINAL --title=math -e $HOME/.bin/math_scratchpad.py
 
 # session
 bindsym $mod+Shift+Ctrl+r  restart
-bindsym $mod+Shift+r reload
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Exit?' -B Yes 'i3-msg exit'"
+bindsym $mod+Shift+r       reload
+bindsym $mod+Shift+e       exec "i3-nagbar -t warning -m 'Exit?' -B Yes 'i3-msg exit'"
 
 #
 # colors

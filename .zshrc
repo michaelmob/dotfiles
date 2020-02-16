@@ -39,7 +39,7 @@ SAVEHIST=100000000
 
 # Environment
 export GEM_HOME="$HOME/.gem"
-export PATH="$HOME/.gem/ruby/2.7.0/bin:$PATH"
+export PATH="$HOME/.bin:$HOME/.gem/ruby/2.7.0/bin:$PATH"
 [[ -z "$XDG_CONFIG_HOME" ]] && export XDG_CONFIG_HOME="$HOME/.config"
 
 # Default Applications
