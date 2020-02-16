@@ -1,0 +1,20 @@
+#!/usr/bin/env python3
+# Original: https://github.com/Airblader/i3-sticky/blob/master/i3-sticky-open
+
+import sys
+import tkinter as tk
+
+name = 'sticky_%s' % sys.argv[1] if len(sys.argv) > 1 else '1'
+root = tk.Tk(className=name)
+
+tk.Label(
+    root,
+    text='[con_mark="%s"]' % name,
+    bg='black', fg='white',
+    anchor='nw'
+).pack(
+    expand=True,
+    fill='both'
+)
+
+root.mainloop()
