@@ -1,5 +1,13 @@
 unmap('x');
 unmap('zr');
+unmap('H');
+
+map('H', 'S');
+map('L', 'D');
+map('J', 'E');
+map('K', 'R');
+map('gT', 'E');
+map('gt', 'R');
 
 
 /**
@@ -20,7 +28,6 @@ const appendOrRemove = (selector, value) => () => {
   else
     $text.value += value;
 };
-
 
 /**
  * Google
