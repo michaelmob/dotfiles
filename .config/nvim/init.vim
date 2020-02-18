@@ -63,7 +63,7 @@ call plug#end()
 " ----------------
 " coc.nvim
 let g:coc_global_extensions = [
-  \   'coc-snippets', 'coc-pairs', 'coc-word', 'coc-emoji', 'coc-json',
+  \   'coc-snippets', 'coc-word', 'coc-emoji', 'coc-json',
   \   'coc-tsserver', 'coc-vetur', 'coc-phpls', 'coc-vetur', 'coc-python'
   \ ]
 
@@ -87,9 +87,6 @@ let g:indentLine_fileTypeExclude = ['text', 'sh', 'markdown']
 
 " vim-vue (vim-polyglot)
 let g:vue_pre_processors = []
-
-" autopairs
-let g:AutoPairsMultilineClose = 0
 
 " fzf
 function! FloatingFZF()
@@ -125,6 +122,10 @@ set mouse=a
 
 " Incremental substitute
 set inccommand=nosplit
+
+" Splits
+set splitbelow
+set splitright
 
 " Colors
 set termguicolors
@@ -168,6 +169,9 @@ let g:dirvish_mode = ':sort ,^.*[\/],'
 let g:doge_mapping = 'gcd'
 let g:doge_mapping_comment_jump_forward = '<c-j>'
 let g:doge_mapping_comment_jump_backward = '<c-k>'
+let g:doge_filetype_aliases = {
+  \   'javascript': ['vue']
+  \ }
 " ----------------
 " }}}
 
@@ -258,6 +262,14 @@ augroup END
 augroup EVENTS
   autocmd BufWritePre <buffer> %s/\s\+$//e
   autocmd BufEnter *.txt,*.md setlocal nofen tw=80 "fo=aw2tq
+
+  autocmd VimEnter * nested call AutoloadSession()
+  function! AutoloadSession()
+    if !argc() && filereadable('Session.vim')
+      source Session.vim
+      Obsess! Session.vim
+    endif
+  endfunction
 augroup END
 " ----------------
 " }}}

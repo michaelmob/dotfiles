@@ -8,6 +8,7 @@ install dmenu
 install compton
 install flameshot
 install playerctl
+install keynav
 
 # utilities
 install zsh

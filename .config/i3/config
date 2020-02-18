@@ -17,9 +17,11 @@ focus_follows_mouse no
 #
 
 bindsym $mod+Return  exec $TERMINAL
+bindsym $mod+w       exec rofi -show window
 bindsym $mod+d       exec rofi -show drun
 bindsym $mod+Shift+d exec rofi -show run
 bindsym $mod+g       exec i3-layout-manager
+bindsym $mod+i       exec edit_text.sh
 
 bindsym Ctrl+Shift+4 exec flameshot gui
 bindsym Pause        exec playerctl play-pause
@@ -39,10 +41,10 @@ bindsym $mod+k focus up
 bindsym $mod+l focus right
 
 # swap focused window (non-destructive)
-bindsym $mod+Shift+h mark swap; focus left;  swap container with mark swap; unmark swap; focus left
-bindsym $mod+Shift+j mark swap; focus down;  swap container with mark swap; unmark swap; focus down
-bindsym $mod+Shift+k mark swap; focus up;    swap container with mark swap; unmark swap; focus up
-bindsym $mod+Shift+l mark swap; focus right; swap container with mark swap; unmark swap; focus right
+bindsym $mod+Shift+h mark --add swap; focus left;  swap container with mark swap; unmark swap; focus left
+bindsym $mod+Shift+j mark --add swap; focus down;  swap container with mark swap; unmark swap; focus down
+bindsym $mod+Shift+k mark --add swap; focus up;    swap container with mark swap; unmark swap; focus up
+bindsym $mod+Shift+l mark --add swap; focus right; swap container with mark swap; unmark swap; focus right
 
 # move focused window (destructive)
 bindsym $mod+Ctrl+h move left
@@ -136,12 +138,13 @@ bindsym $mod+Shift+0 move container to workspace number $ws10
 assign     [class="Slack"]   $ws10
 assign     [class="discord"] $ws10
 assign     [class="Spotify"] $ws9
-for_window [class="Spotify"] move to workspace $ws9  # assign will not work
+for_window [class="Spotify"] move to workspace $ws9
 
 # floating windows
 for_window [class="flameshot"]               floating enable
 for_window [instance="gnome-control-center"] floating enable
 for_window [instance="gnome-tweaks"]         floating enable
+for_window [title="float"]                   floating enable
 
 
 #
