@@ -1,11 +1,10 @@
 #!/usr/bin/env python3
 import code
+from math import *
 from pprint import pprint
 from subprocess import check_output
-from math import *
 
-p = print
-pp = pprint
+p = pprint
 _99 = 13034431
 exit = None
 

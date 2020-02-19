@@ -135,16 +135,16 @@ bindsym $mod+Shift+0 move container to workspace number $ws10
 #
 
 # assign applications to workspaces
-assign     [class="Slack"]   $ws10
-assign     [class="discord"] $ws10
-assign     [class="Spotify"] $ws9
+for_window [class="Slack"]   move to workspace $ws10
+for_window [class="discord"] move to workspace $ws10
 for_window [class="Spotify"] move to workspace $ws9
 
 # floating windows
-for_window [class="flameshot"]               floating enable
-for_window [instance="gnome-control-center"] floating enable
-for_window [instance="gnome-tweaks"]         floating enable
 for_window [title="float"]                   floating enable
+for_window [class="flameshot"]               floating enable
+for_window [instance="gnome-tweaks"]         floating enable
+for_window [instance="gnome-control-center"] floating enable
+for_window [instance="VirtualBox Manager"]   floating enable
 
 
 #
@@ -154,8 +154,7 @@ for_window [title="float"]                   floating enable
 # math scratchpad
 for_window           [title="^math$"] move scratchpad
 bindsym $mod+grave   [title="^math$"] scratchpad show
-exec --no-startup-id $TERMINAL --title=math -e $HOME/.bin/math_scratchpad.py
-
+exec --no-startup-id $TERMINAL --title=math -e $HOME/.bin/calc.py
 
 #
 # desktop environment
