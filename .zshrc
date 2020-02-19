@@ -1,8 +1,5 @@
 #!/usr/bin/env zsh
 # vim: et sw=2
-bindkey -e  # emacs keybindings
-bindkey "\e[3~" delete-char  # delete key
-for x in 'ABCD'; do bindkey "\e[1;5$x" ''; done  # disable ctrl+arrow keys
 
 # Options
 setopt autocd  # set cd without cd
@@ -16,6 +13,15 @@ export WORDCHARS=''
 # Autoload
 autoload -U colors && colors  # use colors
 autoload -U compinit && compinit  # tab completion
+autoload -U edit-command-line
+
+zle -N edit-command-line
+
+bindkey -e  # emacs keybindings
+bindkey '^xe' edit-command-line
+bindkey '^x^e' edit-command-line
+bindkey "\e[3~" delete-char  # delete key
+for x in 'ABCD'; do bindkey "\e[1;5$x" ''; done  # disable ctrl+arrow keys
 
 # Zstyle
 zstyle ':completion:*' menu select
