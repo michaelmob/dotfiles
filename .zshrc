@@ -62,6 +62,7 @@ alias \?='bindkey | head -n 23'
 alias :q='exit'
 alias ls='ls --color=auto --group-directories-first'
 alias xclip='xclip -selection c'
+alias serve='python -m http.server'
 
 # Config Aliases
 alias nvimrc="$EDITOR $XDG_CONFIG_HOME/nvim/init.vim"
