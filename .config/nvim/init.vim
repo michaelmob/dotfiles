@@ -199,6 +199,8 @@ command! -bang -nargs=* Dirs call fzf#run(fzf#wrap({
   \   'source': 'find * -type d 2> /dev/null'
   \ }))
 " ----------------
+
+command! -nargs=1 Swap :normal! mA<c-w><args>mB'A<c-w>p'B<c-w>p
 " }}}
 
 
@@ -206,6 +208,12 @@ command! -bang -nargs=* Dirs call fzf#run(fzf#wrap({
 " Keybindings {{{
 " ----------------
 let mapleader = "\<space>"
+
+" Swap window buffers
+nmap <c-w><c-h> :Swap h<CR>
+nmap <c-w><c-j> :Swap j<CR>
+nmap <c-w><c-k> :Swap k<CR>
+nmap <c-w><c-l> :Swap l<CR>
 
 " Line Navigation
 map <s-h> ^
