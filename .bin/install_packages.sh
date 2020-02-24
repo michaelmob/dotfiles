@@ -4,7 +4,6 @@ install() { yay -S --noconfirm --needed $@; }
 # desktop environment
 install i3
 install xfce4
-install dmenu
 install compton
 install flameshot
 install playerctl
@@ -15,6 +14,8 @@ install zsh
 install tmux
 install neovim-git
 install ripgrep
+install rofi
+install rofi-file-browser-extended-git
 
 # development
 install nodejs
