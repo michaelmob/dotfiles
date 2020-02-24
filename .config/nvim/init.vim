@@ -2,7 +2,6 @@
 " https://github.com/tarkusdev/dotfiles
 
 
-
 " Variables {{{
 let $sharedir = expand('$HOME/.local/share/nvim')
 let $plugdir = expand($sharedir . '/site/autoload')
@@ -28,31 +27,25 @@ Plug 'tpope/vim-fugitive'   " Git wrapper
 Plug 'tpope/vim-dispatch'   " Async dispatching
 Plug 'tpope/vim-obsession'  " Sessions
 
-Plug 'justinmk/vim-dirvish' " File browser
 Plug 'brooth/far.vim'       " Find and replace :Far
 Plug 'kkoomen/vim-doge'     " Documentation generator
 Plug 'mkitt/tabline.vim'    " Tabline enhancements
 Plug 'honza/vim-snippets'   " Snippets source
 Plug 'wellle/targets.vim'   " Enhanced text objects
-Plug 'junegunn/vim-slash'   " Enhanced buffer search
 Plug 'Yggdroot/indentLine'  " Space-indentation levels
 Plug 'tomtom/tcomment_vim'  " Comments
-Plug 'chrisbra/Recover.vim' " Swap-file compare
 Plug 'sheerun/vim-polyglot' " Syntax language pack
+Plug 'justinmk/vim-dirvish' " File browser
 
 Plug 'machakann/vim-sandwich'         " Surroundings
-Plug 'chriskempson/base16-vim'        " Base16 colorschemes
 Plug 'junegunn/vim-easy-align'        " Text alignment
 Plug 'AndrewRadev/splitjoin.vim'      " Single-line <--> Multi-line
-Plug 'easymotion/vim-easymotion'      " Motions on speed
 Plug 'radenling/vim-dispatch-neovim'  " Neovim compatibility for vim-dispatch
 Plug 'christoomey/vim-tmux-navigator' " Window navigation
+Plug 'chriskempson/base16-vim'        " Base16 colorschemes
 
 Plug 'iamcco/markdown-preview.nvim', {'do': {-> mkdp#util#install()}}
 Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
-
-Plug 'junegunn/fzf', {'dir': '~/.fzf', 'do': './install --all'}
-Plug 'junegunn/fzf.vim'
 call plug#end()
 " ----------------
 " }}}
@@ -63,21 +56,13 @@ call plug#end()
 " ----------------
 " coc.nvim
 let g:coc_global_extensions = [
-  \   'coc-snippets', 'coc-word', 'coc-emoji', 'coc-json',
-  \   'coc-tsserver', 'coc-vetur', 'coc-phpls', 'coc-vetur', 'coc-python'
+  \ 'coc-snippets', 'coc-word', 'coc-emoji', 'coc-json', 'coc-css', 'coc-yank',
+  \ 'coc-tsserver', 'coc-vetur', 'coc-phpls', 'coc-vetur', 'coc-python'
   \ ]
 
 let g:coc_user_config = {
   \   'diagnostic.level': 'warning'
   \ }
-
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
-endfunction
 
 " markdown-preview
 let g:mkdp_auto_close = 0
@@ -87,29 +72,6 @@ let g:indentLine_fileTypeExclude = ['text', 'sh', 'markdown']
 
 " vim-vue (vim-polyglot)
 let g:vue_pre_processors = []
-
-" fzf
-function! FloatingFZF()
-  let height = &lines > 20 ? float2nr(&lines * 0.50) : &lines
-  let width = (&columns > 120 ? float2nr(120) : &columns) - 10
-  let left = float2nr((&columns - width) / 2)
-  let top = float2nr((&lines - height) / 2)
-
-  let opts = {
-    \   'style': 'minimal', 'relative': 'editor',
-    \   'row': top, 'col': left, 'width': width, 'height': height,
-    \ }
-
-  let buf = nvim_create_buf(v:false, v:true)
-  call setbufvar(buf, '&signcolumn', 'no')
-  call nvim_open_win(buf, v:true, opts)
-endfunction
-
-let $FZF_DEFAULT_OPTS =
-  \ ' --bind ctrl-j:next-history,ctrl-k:previous-history,ctrl-n:down,ctrl-p:up'
-" \.' --reverse'
-let g:fzf_history_dir = '~/.local/share/fzf-history'
-let g:fzf_layout = {'window': 'call FloatingFZF()'}
 " ----------------
 " }}}
 
@@ -129,7 +91,7 @@ set splitright
 
 " Colors
 set termguicolors
-colorscheme base16-default-dark
+colorscheme base16-onedark
 syntax enable
 
 " Text
@@ -179,27 +141,6 @@ let g:doge_filetype_aliases = {
 
 " Commands {{{
 " ----------------
-" fzf
-command! -bang -nargs=* GFiles call fzf#run(fzf#wrap({
-  \   'source': 'git ls-files --exclude-standard --cached --others 2> /dev/null'
-  \ }))
-
-command! -bang -nargs=* GGrep call fzf#vim#grep(
-  \   'git grep --line-number ' . shellescape(<q-args>) . ' 2> /dev/null', 0,
-  \   {'dir': systemlist('git rev-parse --show-toplevel')[0]}, <bang>0
-  \ )
-
-command! -bang -nargs=* Rg call fzf#vim#grep(
-  \   'rg --column --line-number --no-heading --color=always --smart-case '
-  \ . shellescape(<q-args>) . ' 2> /dev/null',
-  \   1, {'options': '--delimiter : --nth 4..'}, <bang>0
-  \ )
-
-command! -bang -nargs=* Dirs call fzf#run(fzf#wrap({
-  \   'source': 'find * -type d 2> /dev/null'
-  \ }))
-" ----------------
-
 command! -nargs=1 Swap :normal! mA<c-w><args>mB'A<c-w>p'B<c-w>p
 " }}}
 
@@ -210,14 +151,16 @@ command! -nargs=1 Swap :normal! mA<c-w><args>mB'A<c-w>p'B<c-w>p
 let mapleader = "\<space>"
 
 " Swap window buffers
-nmap <c-w><c-h> :Swap h<CR>
-nmap <c-w><c-j> :Swap j<CR>
-nmap <c-w><c-k> :Swap k<CR>
-nmap <c-w><c-l> :Swap l<CR>
+nmap <c-w><c-h> :Swap h<cr>
+nmap <c-w><c-j> :Swap j<cr>
+nmap <c-w><c-k> :Swap k<cr>
+nmap <c-w><c-l> :Swap l<cr>
 
 " Line Navigation
 map <s-h> ^
 map <s-l> g_
+
+map <silent> <leader> :nohl<cr>
 
 " Yank/Pasting
 map <leader>p "+p
@@ -225,17 +168,16 @@ map <leader>P "+P
 map <leader>y "+y
 
 " Fuzzy Finders
-nmap <leader>f :Files<cr>
-nmap <leader>F :GFiles<cr>
-nmap <leader>d :Dirs<cr>
-nmap <leader>b :Buffers<cr>
-nmap <leader>/ :Rg<cr>
-nmap <leader>G :GGrep<cr>
+nmap <leader>f :CocList files<cr>
+nmap <leader>b :CocList buffers<cr>
+nmap <leader>l :CocList lines<cr>
+nmap <leader>/ :CocList grep<cr>
+nnoremap <silent> <space>Y  :<C-u>CocList -A --normal yank<cr>
 
 " Diagnostics
 nmap <leader>s :CocList symbols<cr>
-nmap <silent> g[ <plug>(coc-diagnostic-prev)
-nmap <silent> g] <plug>(coc-diagnostic-next)
+nmap <silent> [g <plug>(coc-diagnostic-prev)
+nmap <silent> ]g <plug>(coc-diagnostic-next)
 nmap <silent> gh <plug>(coc-diagnostic-info)
 xmap <silent> <leader>gf <plug>(coc-format-selected)
 nmap <silent> <leader>n <plug>(coc-rename)
@@ -246,6 +188,10 @@ nmap gr <plug>(coc-references)
 
 " Git
 nmap gs :tab Gstatus<cr>
+
+" Formating
+nmap ga <plug>(EasyAlign)
+xmap ga <plug>(EasyAlign)
 " ----------------
 " }}}
 
@@ -268,10 +214,11 @@ augroup END
 " Events {{{
 " ----------------
 augroup EVENTS
-  autocmd BufWritePre <buffer> %s/\s\+$//e
-  autocmd BufEnter *.txt,*.md setlocal nofen tw=80 "fo=aw2tq
+  autocmd! BufWritePre <buffer> %s/\s\+$//e
+  autocmd! BufWritePost $MYVIMRC source $MYVIMRC
+  autocmd! BufEnter *.txt,*.md setlocal nofen tw=80 "fo=aw2tq
 
-  autocmd VimEnter * nested call AutoloadSession()
+  autocmd! VimEnter * nested call AutoloadSession()
   function! AutoloadSession()
     if !argc() && filereadable('Session.vim')
       source Session.vim
