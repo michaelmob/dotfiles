@@ -1,0 +1,11 @@
+#!/usr/bin/env sh
+WIN_IDS=$(xdotool search --onlyvisible --name 'Notification')
+
+for line in $WIN_IDS; do
+  has_wm_hints=""
+
+  if [[ "$(xprop -id "$line" | grep 'WM_HINTS' -m 1)" ]]; then
+    xdotool windowclose "$line"
+    break
+  fi
+done
