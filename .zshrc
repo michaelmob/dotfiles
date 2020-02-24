@@ -60,19 +60,22 @@ c() { awk "NR>1 {print \$$1}"; }  # Print column number without first line
 # Helper Aliases
 alias \?='bindkey | head -n 23'
 alias :q='exit'
+alias :e="$EDITOR"
 alias ls='ls --color=auto --group-directories-first'
 alias xclip='xclip -selection c'
 alias serve='python -m http.server'
 
 # Config Aliases
-alias nvimrc="$EDITOR $XDG_CONFIG_HOME/nvim/init.vim"
-alias kakrc="$EDITOR $XDG_CONFIG_HOME/kak/kakrc"
-alias tmuxrc="$EDITOR $HOME/.tmux.conf"
-alias zshrc="$EDITOR $HOME/.zshrc"
-alias i3rc="$EDITOR $XDG_CONFIG_HOME/i3/config"
-alias awesomerc="$EDITOR $XDG_CONFIG_HOME/awesome/rc.lua"
-alias tridactylrc="$EDITOR $XDG_CONFIG_HOME/tridactyl/tridactylrc"
-alias dwmrc="cd $HOME/Workspace/dwm && $EDITOR config.h"
+alias i3rc=":e $XDG_CONFIG_HOME/i3/config"
+alias kakrc=":e $XDG_CONFIG_HOME/kak/kakrc"
+alias zshrc=":e $HOME/.zshrc"
+alias dwmrc="cd $HOME/Workspace/dwm && :e config.h"
+alias vimrc='vim .vimrc'
+alias nvimrc=":e $XDG_CONFIG_HOME/nvim/init.vim"
+alias tmuxrc=":e $HOME/.tmux.conf"
+alias awesomerc=":e $XDG_CONFIG_HOME/awesome/rc.lua"
+alias alacrittyrc=":e $XDG_CONFIG_HOME/alacritty/alacritty.yml"
+alias tridactylrc=":e $XDG_CONFIG_HOME/tridactyl/tridactylrc"
 
 # make install
 alias mi='make && sudo make install'
