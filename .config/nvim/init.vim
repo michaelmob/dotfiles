@@ -61,7 +61,7 @@ let g:coc_global_extensions = [
   \ ]
 
 let g:coc_user_config = {
-  \   'diagnostic.level': 'warning'
+  \   'diagnostic.level': 'warning',
   \ }
 
 " markdown-preview
@@ -79,50 +79,31 @@ let g:vue_pre_processors = []
 
 " Vim Settings {{{
 " ----------------
-" Mouse
-set mouse=a
-
-" Incremental substitute
-set inccommand=nosplit
-
-" Splits
-set splitbelow
-set splitright
-
-" Colors
-set termguicolors
-colorscheme base16-onedark
 syntax enable
-
-" Text
-set nowrap
-
-" Indentation
-set expandtab
-set shiftwidth=2
+colorscheme base16-onedark
 filetype plugin indent on
 
-" Wild Menu
+set nowrap
+set inccommand=nosplit  " Incremental updates for substitute
+set updatetime=300
+set splitbelow
+set splitright
+set termguicolors
+set expandtab
+set shiftwidth=2
 set wildoptions=pum
+set wildignore+=*/vendor/*
+set wildignore+=*/node_modules/*
+set pumheight=15
 set pumblend=5
-
-" Line Numbers
 set number
 set relativenumber
 set colorcolumn=81
-
-" Scrolling
 set scrolloff=2
-
-" Persistent Undo
 set undofile
 set undodir=$sharedir/undo
-
-" Key timeout
 set timeoutlen=500
-
-" Prevent losing file contents on system crash
-set fsync
+set fsync  " Prevent losing file contents on system crash
 
 " Dirvish
 let g:dirvish_mode = ':sort ,^.*[\/],'
@@ -156,6 +137,8 @@ nmap <c-w><c-j> :Swap j<cr>
 nmap <c-w><c-k> :Swap k<cr>
 nmap <c-w><c-l> :Swap l<cr>
 
+nmap <leader>rc :sp $MYVIMRC<cr>
+
 " Line Navigation
 map <s-h> ^
 map <s-l> g_
@@ -172,19 +155,35 @@ nmap <leader>f :CocList files<cr>
 nmap <leader>b :CocList buffers<cr>
 nmap <leader>l :CocList lines<cr>
 nmap <leader>/ :CocList grep<cr>
-nnoremap <silent> <space>Y  :<C-u>CocList -A --normal yank<cr>
+nmap <leader>m :CocList mru<cr>
+nmap <leader>M :CocList marks<cr>
+nmap <leader>s :CocList symbols<cr>
+nmap <silent> <leader>Y  :CocList -A --normal yank<cr>
 
 " Diagnostics
-nmap <leader>s :CocList symbols<cr>
+xmap <leader>a   <plug>(coc-codeaction-selected)
+nmap <leader>a   <plug>(coc-codeaction-selected)
+nmap <leader>ac  <plug>(coc-codeaction)
+nmap <leader>qf  <plug>(coc-fix-current)
+nmap <silent> gn <plug>(coc-rename)
 nmap <silent> [g <plug>(coc-diagnostic-prev)
 nmap <silent> ]g <plug>(coc-diagnostic-next)
 nmap <silent> gh <plug>(coc-diagnostic-info)
-xmap <silent> <leader>gf <plug>(coc-format-selected)
-nmap <silent> <leader>n <plug>(coc-rename)
+xmap <silent> gf <plug>(coc-format-selected)
 nmap gd <plug>(coc-definition)
 nmap gy <plug>(coc-type-definition)
 nmap gi <plug>(coc-implementation)
 nmap gr <plug>(coc-references)
+
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
 
 " Git
 nmap gs :tab Gstatus<cr>
@@ -217,9 +216,10 @@ augroup EVENTS
   autocmd! BufWritePre <buffer> %s/\s\+$//e
   autocmd! BufWritePost $MYVIMRC source $MYVIMRC
   autocmd! BufEnter *.txt,*.md setlocal nofen tw=80 "fo=aw2tq
-
+  autocmd! CursorHold * silent call CocActionAsync('highlight')
   autocmd! VimEnter * nested call AutoloadSession()
   function! AutoloadSession()
+
     if !argc() && filereadable('Session.vim')
       source Session.vim
       Obsess! Session.vim

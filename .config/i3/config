@@ -151,11 +151,12 @@ for_window [class="Spotify"] move to workspace $ws9
 # floating windows
 for_window [title="^float$"]                   floating enable
 for_window [class="^flameshot$"]               floating enable
-for_window [instance="^gthumb$"]                  floating enable
-for_window [instance="^org.gnome.Nautilus$"]   floating enable
+for_window [instance="engrampa"]               floating enable
+for_window [instance="^gthumb$"]               floating enable
 for_window [instance="^gnome-tweaks$"]         floating enable
+for_window [instance="^org.gnome.Nautilus$"]   floating enable
 for_window [instance="^gnome-control-center$"] floating enable
-for_window [instance="VirtualBox"]   floating enable
+for_window [instance="VirtualBox Manager$"]    floating enable
 
 
 #
@@ -175,6 +176,7 @@ exec --no-startup-id $TERMINAL --title=math -e $HOME/.bin/calc.py
 bindsym $mod+Shift+Ctrl+r restart
 bindsym $mod+Shift+r      reload
 bindsym $mod+Shift+e      exec "i3-nagbar -t warning -m 'Exit?' -B Yes 'i3-msg exit'"
+bindsym $mod+Escape  exec close-notification
 
 #
 # colors
