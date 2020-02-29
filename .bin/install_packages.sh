@@ -3,8 +3,7 @@ install() { yay -S --noconfirm --needed $@; }
 
 # desktop environment
 install i3
-install xfce4
-install compton
+install picom
 install flameshot
 install playerctl
 install keynav

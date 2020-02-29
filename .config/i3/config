@@ -54,7 +54,7 @@ bindsym $mod+Ctrl+j move down
 bindsym $mod+Ctrl+k move up
 bindsym $mod+Ctrl+l move right
 
-bindsym $mod+y       move container to mark _move
+bindsym $mod+y       move container to   mark _move
 bindsym $mod+shift+y swap container with mark _move
 
 # resize focused window

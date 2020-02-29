@@ -1,6 +1,16 @@
 #!/usr/bin/env zsh
 # vim: et sw=2
 
+# Environment
+export GEM_HOME="$HOME/.gem"
+export PATH="$HOME/.bin:$HOME/.gem/ruby/2.7.0/bin:$PATH"
+[[ -z "$XDG_CONFIG_HOME" ]] && export XDG_CONFIG_HOME="$HOME/.config"
+
+# Default Applications
+export TERMINAL='alacritty'
+export EDITOR='nvim'
+export BROWSER='brave'
+
 # Options
 setopt autocd  # set cd without cd
 setopt hist_verify  # expand history entry
@@ -43,16 +53,6 @@ HISTFILE=$HOME/.zsh_history
 HISTSIZE=100000000
 SAVEHIST=100000000
 
-# Environment
-export GEM_HOME="$HOME/.gem"
-export PATH="$HOME/.bin:$HOME/.gem/ruby/2.7.0/bin:$PATH"
-[[ -z "$XDG_CONFIG_HOME" ]] && export XDG_CONFIG_HOME="$HOME/.config"
-
-# Default Applications
-export TERMINAL='alacritty'
-export EDITOR='nvim'
-export BROWSER='brave'
-
 # Functions
 f() { find ${@:2} -iname "*$1*" 2> /dev/null; }  # Case-insensitive find
 c() { awk "NR>1 {print \$$1}"; }  # Print column number without first line
@@ -89,6 +89,14 @@ alias gb='git branch'
 
 # Includes
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# SSH Agent
+export SSH_AUTH_SOCK="$HOME/.ssh/ssh_auth_sock"
+if [[ ! -S "$HOME/.ssh/ssh_auth_sock" ]]; then
+  eval "$(ssh-agent)"
+  ln -sf "$SSH_AUTH_SOCK" "$HOME/.ssh/ssh_auth_sock"
+fi
+ssh-add -l > /dev/null || ssh-add "$HOME/.ssh/"*_rsa
 
 # Attach to unattached number session or create a new session
 if [[ -z "$TMUX" ]] && [[ $- == *i* ]]; then
