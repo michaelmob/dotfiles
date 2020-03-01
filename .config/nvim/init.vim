@@ -44,6 +44,7 @@ Plug 'AndrewRadev/splitjoin.vim'      " Single-line <--> Multi-line
 Plug 'radenling/vim-dispatch-neovim'  " Neovim compatibility for vim-dispatch
 Plug 'christoomey/vim-tmux-navigator' " Window navigation
 Plug 'chriskempson/base16-vim'        " Base16 colorschemes
+Plug 'dracula/vim'
 
 Plug 'iamcco/markdown-preview.nvim', {'do': {-> mkdp#util#install()}}
 Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
@@ -57,8 +58,9 @@ call plug#end()
 " ----------------
 " coc.nvim
 let g:coc_global_extensions = [
-  \ 'coc-snippets', 'coc-word', 'coc-emoji', 'coc-json', 'coc-css', 'coc-yank',
-  \ 'coc-tsserver', 'coc-vetur', 'coc-phpls', 'coc-vetur', 'coc-python'
+  \   'coc-lists', 'coc-snippets', 'coc-yank', 'coc-word', 'coc-emoji',
+  \   'coc-json', 'coc-css', 'coc-tsserver', 'coc-vetur', 'coc-phpls',
+  \   'coc-vetur', 'coc-python'
   \ ]
 
 let g:coc_user_config = {
