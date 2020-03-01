@@ -27,15 +27,16 @@ Plug 'tpope/vim-fugitive'   " Git wrapper
 Plug 'tpope/vim-dispatch'   " Async dispatching
 Plug 'tpope/vim-obsession'  " Sessions
 
-Plug 'brooth/far.vim'       " Find and replace :Far
-Plug 'kkoomen/vim-doge'     " Documentation generator
-Plug 'mkitt/tabline.vim'    " Tabline enhancements
-Plug 'honza/vim-snippets'   " Snippets source
-Plug 'wellle/targets.vim'   " Enhanced text objects
-Plug 'Yggdroot/indentLine'  " Space-indentation levels
-Plug 'tomtom/tcomment_vim'  " Comments
-Plug 'sheerun/vim-polyglot' " Syntax language pack
-Plug 'justinmk/vim-dirvish' " File browser
+Plug 'brooth/far.vim'        " Find and replace :Far
+Plug 'kkoomen/vim-doge'      " Documentation generator
+Plug 'mkitt/tabline.vim'     " Tabline enhancements
+Plug 'honza/vim-snippets'    " Snippets source
+Plug 'wellle/targets.vim'    " Enhanced text objects
+Plug 'Yggdroot/indentLine'   " Space-indentation levels
+Plug 'tomtom/tcomment_vim'   " Comments
+Plug 'sheerun/vim-polyglot'  " Syntax language pack
+Plug 'justinmk/vim-dirvish'  " File browser
+Plug 'wakatime/vim-wakatime' " Time management
 
 Plug 'machakann/vim-sandwich'         " Surroundings
 Plug 'junegunn/vim-easy-align'        " Text alignment

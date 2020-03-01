@@ -34,7 +34,7 @@ bindsym Pause        exec playerctl play-pause
 #
 
 # kill focused window
-bindsym $mod+Shift+c [con_id="__focused__" title="^(?!math).*$"] kill
+bindsym $mod+Shift+c [con_id="__focused__" title="^(?!calc).*$"] kill
 
 # change focus
 bindsym $mod+h focus left
@@ -160,13 +160,14 @@ for_window [instance="VirtualBox Manager$"]    floating enable
 
 
 #
-# scratchpads
+# scratchpad
 #
+exec --no-startup-id $TERMINAL --title=calc -e $HOME/.bin/calc.py
+for_window [title="^calc$"] move scratchpad; border pixel 5; resize set 30 ppt 20 ppt
 
-# math scratchpad
-for_window           [title="^math$"] move scratchpad
-bindsym $mod+grave   [title="^math$"] scratchpad show
-exec --no-startup-id $TERMINAL --title=math -e $HOME/.bin/calc.py
+bindsym $mod+Shift+grave move scratchpad
+bindsym $mod+grave [title="^(?!calc).*$"] scratchpad show
+bindsym $mod+c     [title="^calc$"]       scratchpad show
 
 #
 # desktop environment
