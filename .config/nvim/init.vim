@@ -18,6 +18,7 @@ if empty(glob($plugdir))
 endif
 
 call plug#begin($plugdir)
+
 Plug 'tpope/vim-rsi'        " Readline
 Plug 'tpope/vim-eunuch'     " Unix helper commands
 Plug 'tpope/vim-sleuth'     " Detect and set buffer options
@@ -28,6 +29,7 @@ Plug 'tpope/vim-dispatch'   " Async dispatching
 Plug 'tpope/vim-obsession'  " Sessions
 
 Plug 'brooth/far.vim'        " Find and replace :Far
+Plug 'romainl/vim-cool'      " Search highlighting
 Plug 'kkoomen/vim-doge'      " Documentation generator
 Plug 'mkitt/tabline.vim'     " Tabline enhancements
 Plug 'honza/vim-snippets'    " Snippets source
@@ -43,11 +45,17 @@ Plug 'junegunn/vim-easy-align'        " Text alignment
 Plug 'AndrewRadev/splitjoin.vim'      " Single-line <--> Multi-line
 Plug 'radenling/vim-dispatch-neovim'  " Neovim compatibility for vim-dispatch
 Plug 'christoomey/vim-tmux-navigator' " Window navigation
-Plug 'chriskempson/base16-vim'        " Base16 colorschemes
 Plug 'dracula/vim'
 
+" Node Dependents
 Plug 'iamcco/markdown-preview.nvim', {'do': {-> mkdp#util#install()}}
 Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
+
+" Fzf Dependents
+Plug 'junegunn/fzf', { 'do': './install --bin' }
+Plug 'junegunn/fzf.vim'
+Plug 'antoinemadec/coc-fzf'
+
 call plug#end()
 " ----------------
 " }}}
@@ -58,9 +66,8 @@ call plug#end()
 " ----------------
 " coc.nvim
 let g:coc_global_extensions = [
-  \   'coc-lists', 'coc-snippets', 'coc-yank', 'coc-word', 'coc-emoji',
-  \   'coc-json', 'coc-css', 'coc-tsserver', 'coc-vetur', 'coc-phpls',
-  \   'coc-vetur', 'coc-python'
+  \   'coc-snippets', 'coc-yank', 'coc-word', 'coc-emoji', 'coc-json',
+  \   'coc-css', 'coc-vetur', 'coc-tsserver', 'coc-phpls', 'coc-python'
   \ ]
 
 let g:coc_user_config = {
@@ -75,6 +82,29 @@ let g:indentLine_fileTypeExclude = ['text', 'sh', 'markdown']
 
 " vim-vue (vim-polyglot)
 let g:vue_pre_processors = []
+
+" fzf.vim
+let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
+
+command! -bang -nargs=* GFiles call fzf#run(fzf#wrap({
+  \   'source': 'git ls-files --exclude-standard --cached --others 2> /dev/null'
+  \ }))
+
+command! -bang -nargs=* GGrep call fzf#vim#grep(
+  \   'git grep --line-number ' . shellescape(<q-args>) . ' 2> /dev/null', 0,
+  \   {'dir': systemlist('git rev-parse --show-toplevel')[0]}, <bang>0
+  \ )
+
+command! -bang -nargs=* Rg call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always --smart-case '
+  \ . shellescape(<q-args>) . ' 2> /dev/null',
+  \   1, {'options': '--delimiter : --nth 4..'}, <bang>0
+  \ )
+
+command! -bang -nargs=* Dirs call fzf#run(fzf#wrap({
+  \   'source': 'find * -type d 2> /dev/null'
+  \ }))
+
 " ----------------
 " }}}
 
@@ -83,7 +113,7 @@ let g:vue_pre_processors = []
 " Vim Settings {{{
 " ----------------
 syntax enable
-colorscheme base16-onedark
+colorscheme dracula
 filetype plugin indent on
 
 set nowrap
@@ -154,14 +184,22 @@ map <leader>P "+P
 map <leader>y "+y
 
 " Fuzzy Finders
-nmap <leader>f :CocList files<cr>
-nmap <leader>b :CocList buffers<cr>
-nmap <leader>l :CocList lines<cr>
-nmap <leader>/ :CocList grep<cr>
-nmap <leader>m :CocList mru<cr>
-nmap <leader>M :CocList marks<cr>
-nmap <leader>s :CocList symbols<cr>
-nmap <silent> <leader>Y  :CocList -A --normal yank<cr>
+nmap <leader>f :Files<cr>
+nmap <leader>d :Dirs<cr>
+nmap <leader>b :Buffers<cr>
+nmap <leader>h :History<cr>
+nmap <leader>l :Lines<cr>
+nmap <leader>/ :Rg<cr>
+nmap <leader>? :GGrep<cr>
+
+nmap <silent> <leader>r :CocFzfListResume<cr>
+nmap <silent> <leader>t :CocFzfListDiagnostics<cr>
+nmap <silent> <leader>c :CocFzfListCommands<cr>
+nmap <silent> <leader>e :CocFzfListExtensions<cr>
+nmap <silent> <leader>L :CocFzfListLocation<cr>
+nmap <silent> <leader>o :CocFzfListOutline<cr>
+nmap <silent> <leader>s :CocFzfListSymbols<cr>
+nmap <silent> <leader>S :CocFzfListServices<cr>
 
 " Diagnostics
 xmap <leader>a   <plug>(coc-codeaction-selected)
@@ -169,10 +207,10 @@ nmap <leader>a   <plug>(coc-codeaction-selected)
 nmap <leader>ac  <plug>(coc-codeaction)
 nmap <leader>qf  <plug>(coc-fix-current)
 nmap <silent> gn <plug>(coc-rename)
+nmap <silent> gh <plug>(coc-diagnostic-info)
 nmap <silent> [g <plug>(coc-diagnostic-prev)
 nmap <silent> ]g <plug>(coc-diagnostic-next)
-nmap <silent> gh <plug>(coc-diagnostic-info)
-xmap <silent> gf <plug>(coc-format-selected)
+
 nmap gd <plug>(coc-definition)
 nmap gy <plug>(coc-type-definition)
 nmap gi <plug>(coc-implementation)
@@ -186,7 +224,6 @@ function! s:show_documentation()
     call CocAction('doHover')
   endif
 endfunction
-
 
 " Git
 nmap gs :tab Gstatus<cr>

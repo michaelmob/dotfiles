@@ -5,10 +5,8 @@ picom &
 redshift &
 imwheel &
 telegram-desktop &
-slack &
-discord &
+ripcord &
 keynav &
 
 # wm
-i3-sticky
 i3

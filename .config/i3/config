@@ -6,27 +6,24 @@
 # settings
 #
 
-set  $mod Mod4
+set $mod Mod4
+floating_modifier $mod
 font pango:monospace 8
-
-focus_follows_mouse no
-floating_modifier   $mod
-
 
 #
 # application shortcuts
 #
 
-bindsym $mod+Return  exec $TERMINAL
-bindsym $mod+w       exec rofi -show window
-bindsym $mod+d       exec rofi -show drun
-bindsym $mod+Shift+d exec rofi -show run
-bindsym $mod+g       exec i3-layout-manager
-bindsym $mod+i       exec edit-text
-bindsym $mod+f       exec rofi-files
-
-bindsym Ctrl+Shift+4 exec flameshot gui
-bindsym Pause        exec playerctl play-pause
+bindsym $mod+Return        exec $TERMINAL
+bindsym $mod+Shift+Return  exec $TERMINAL --title=floating
+bindsym $mod+w             exec rofi -show window
+bindsym $mod+d             exec rofi -show drun
+bindsym $mod+Shift+d       exec rofi -show run
+bindsym $mod+g             exec i3-layout-manager
+bindsym $mod+f             exec rofi-files
+bindsym $mod+i             exec edit-text
+bindsym Ctrl+Shift+4       exec flameshot gui
+bindsym Pause              exec playerctl play-pause
 
 
 #
@@ -54,6 +51,7 @@ bindsym $mod+Ctrl+j move down
 bindsym $mod+Ctrl+k move up
 bindsym $mod+Ctrl+l move right
 
+# move focused container to split
 bindsym $mod+y       move container to   mark _move
 bindsym $mod+shift+y swap container with mark _move
 
@@ -68,9 +66,8 @@ bindsym $mod+v split h; mark _move
 bindsym $mod+s split v; mark _move
 
 # change container layout (stacked, tabbed, toggle split)
-bindsym $mod+e layout stacking
-bindsym $mod+t layout tabbed
 bindsym $mod+r layout toggle split
+bindsym $mod+e layout toggle tabbed stacking
 
 # enter fullscreen mode for the focused container
 bindsym $mod+Ctrl+f split v; focus parent; fullscreen toggle; focus child
@@ -83,15 +80,13 @@ bindsym $mod+Shift+s     sticky   toggle
 bindsym $mod+space   focus mode_toggle
 bindsym $mod+a       focus parent
 bindsym $mod+Shift+a focus child
-bindsym $mod+u       [urgent="latest"] focus
+
+# focus urgent
+bindsym $mod+u [urgent="latest"] focus
 
 # marks
-bindsym $mod+Shift+m unmark
 bindsym $mod+m       exec i3-input -F "mark %s" -P "Mark: "
-
-# sticky marks
-bindsym $mod+Ctrl+Shift+m exec i3-input -F "exec i3-sticky-placeholder %s" -P "New Sticky Placeholder: "
-bindsym $mod+Ctrl+m       exec i3-input -F "mark sticky_%s" -P "Set Sticky Mark: "
+bindsym $mod+Shift+m unmark
 
 
 #
@@ -140,16 +135,16 @@ bindsym $mod+Shift+0 move container to workspace number $ws10
 # window settings
 #
 
+# focusing
+focus_wrapping             no
+focus_follows_mouse        no
+focus_on_window_activation urgent
+
 # borders
 for_window [class=".*"] border normal
 
-# assign applications to workspaces
-for_window [class="Slack"]   move to workspace $ws10
-for_window [class="discord"] move to workspace $ws10
-for_window [class="Spotify"] move to workspace $ws9
-
 # floating windows
-for_window [title="^float$"]                   floating enable
+for_window [title="^floating$"]                floating enable
 for_window [class="^flameshot$"]               floating enable
 for_window [instance="engrampa"]               floating enable
 for_window [instance="^gthumb$"]               floating enable
@@ -162,12 +157,19 @@ for_window [instance="VirtualBox Manager$"]    floating enable
 #
 # scratchpad
 #
-exec --no-startup-id $TERMINAL --title=calc -e $HOME/.bin/calc.py
-for_window [title="^calc$"] move scratchpad; border pixel 5; resize set 30 ppt 20 ppt
 
-bindsym $mod+Shift+grave move scratchpad
-bindsym $mod+grave [title="^(?!calc).*$"] scratchpad show
-bindsym $mod+c     [title="^calc$"]       scratchpad show
+exec --no-startup-id $TERMINAL --title=calc -e $HOME/.bin/calc.py
+
+for_window         [instance="^(discord|slack|ripcord|telegram-desktop-bin|signal)$"] move scratchpad
+bindsym $mod+grave [instance="^(discord|slack|ripcord|telegram-desktop-bin|signal)$"] scratchpad show
+bindsym $mod+Shift+grave [instance="^(discord|slack|ripcord|telegram-desktop-bin|signal)$"] move scratchpad
+
+for_window     [instance="^spotify$"] move scratchpad, scratchpad show
+bindsym $mod+q [instance="^spotify$"] scratchpad show
+
+for_window     [title="VirtualBox Manager$"] move scratchpad, scratchpad show
+bindsym $mod+b [title="VirtualBox Manager$"] scratchpad show
+
 
 #
 # desktop environment
@@ -177,7 +179,7 @@ bindsym $mod+c     [title="^calc$"]       scratchpad show
 bindsym $mod+Shift+Ctrl+r restart
 bindsym $mod+Shift+r      reload
 bindsym $mod+Shift+e      exec "i3-nagbar -t warning -m 'Exit?' -B Yes 'i3-msg exit'"
-bindsym $mod+Escape  exec close-notification
+bindsym $mod+Escape       exec close-notification
 
 #
 # colors
