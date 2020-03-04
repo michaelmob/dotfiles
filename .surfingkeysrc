@@ -1,4 +1,3 @@
-" vim: ft=javascript
 unmap('x');
 unmap('zr');
 unmap('H');

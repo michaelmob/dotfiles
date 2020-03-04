@@ -160,7 +160,6 @@ for_window [instance="VirtualBox Manager$"]    floating enable
 
 exec --no-startup-id $TERMINAL --title=calc -e $HOME/.bin/calc.py
 
-for_window         [instance="^(discord|slack|ripcord|telegram-desktop-bin|signal)$"] move scratchpad
 bindsym $mod+grave [instance="^(discord|slack|ripcord|telegram-desktop-bin|signal)$"] scratchpad show
 bindsym $mod+Shift+grave [instance="^(discord|slack|ripcord|telegram-desktop-bin|signal)$"] move scratchpad
 
