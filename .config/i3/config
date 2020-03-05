@@ -165,8 +165,7 @@ bindsym $mod+c [title="^calc$"] scratchpad show
 for_window     [title="VirtualBox Manager$"] move scratchpad, scratchpad show
 bindsym $mod+b [title="VirtualBox Manager$"] scratchpad show
 
-for_window [instance="^(discord|slack|ripcord|telegram-desktop-bin|signal|spotify)$"] \
-  move scratchpad, scratchpad show
+set $scratchpads [instance="^(discord|slack|ripcord|telegram-desktop-bin|signal|spotify)$" window_type="normal"]
 
 bindsym $mod+F1 [instance="^spotify$"]  scratchpad show
 bindsym $mod+F2 [instance="^telegram-"] scratchpad show, mark grave
@@ -174,7 +173,7 @@ bindsym $mod+F3 [instance="^ripcord$"]  scratchpad show, mark grave
 bindsym $mod+F4 [instance="^slack$"]    scratchpad show, mark grave
 
 bindsym $mod+grave [con_mark="grave"] scratchpad show
-
+bindsym $mod+Shift+grave $scratchpads move scratchpad
 
 #
 # desktop environment
