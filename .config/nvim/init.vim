@@ -193,13 +193,13 @@ nmap <leader>/ :Rg<cr>
 nmap <leader>? :GGrep<cr>
 
 nmap <silent> <leader>r :CocFzfListResume<cr>
-nmap <silent> <leader>t :CocFzfListDiagnostics<cr>
-nmap <silent> <leader>c :CocFzfListCommands<cr>
-nmap <silent> <leader>e :CocFzfListExtensions<cr>
-nmap <silent> <leader>L :CocFzfListLocation<cr>
-nmap <silent> <leader>o :CocFzfListOutline<cr>
-nmap <silent> <leader>s :CocFzfListSymbols<cr>
-nmap <silent> <leader>S :CocFzfListServices<cr>
+nmap <silent> <leader>t :CocFzfList diagnostics<cr>
+nmap <silent> <leader>c :CocFzfList commands<cr>
+nmap <silent> <leader>e :CocFzfList extensions<cr>
+nmap <silent> <leader>L :CocFzfList location<cr>
+nmap <silent> <leader>o :CocFzfList outline<cr>
+nmap <silent> <leader>s :CocFzfList symbols<cr>
+nmap <silent> <leader>S :CocFzfList services<cr>
 
 " Diagnostics
 xmap <leader>a   <plug>(coc-codeaction-selected)

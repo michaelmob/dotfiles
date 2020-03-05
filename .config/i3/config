@@ -10,6 +10,19 @@ set $mod Mod4
 floating_modifier $mod
 font pango:monospace 8
 
+
+#
+# autostart
+#
+
+exec --no-startup-id picom
+exec --no-startup-id redshift
+exec --no-startup-id imwheel
+exec --no-startup-id telegram-desktop
+exec --no-startup-id ripcord
+exec --no-startup-id keynav
+
+
 #
 # application shortcuts
 #
@@ -73,8 +86,8 @@ bindsym $mod+e layout toggle tabbed stacking
 bindsym $mod+Ctrl+f split v; focus parent; fullscreen toggle; focus child
 
 # change window toggles
-bindsym $mod+Shift+space floating toggle
-bindsym $mod+Shift+s     sticky   toggle
+bindsym $mod+Shift+f floating toggle
+bindsym $mod+Shift+s sticky   toggle, mark --add --toggle sticky
 
 # change focus between tiling/floating, parent/child, and urgent windows
 bindsym $mod+space   focus mode_toggle
@@ -82,7 +95,7 @@ bindsym $mod+a       focus parent
 bindsym $mod+Shift+a focus child
 
 # focus urgent
-bindsym $mod+u [urgent="latest"] focus
+bindsym $mod+u [urgent="latest"] focus, scratchpad show
 
 # marks
 bindsym $mod+m       exec i3-input -F "mark %s" -P "Mark: "
@@ -165,12 +178,13 @@ bindsym $mod+c [title="^calc$"] scratchpad show
 for_window     [title="VirtualBox Manager$"] move scratchpad, scratchpad show
 bindsym $mod+b [title="VirtualBox Manager$"] scratchpad show
 
-set $scratchpads [instance="^(discord|slack|ripcord|telegram-desktop-bin|signal|spotify)$" window_type="normal"]
+set $scratchpads [instance="^(discord|slack|ripcord|telegram-desktop-bin|signal|spotify)$"]
 
 bindsym $mod+F1 [instance="^spotify$"]  scratchpad show
 bindsym $mod+F2 [instance="^telegram-"] scratchpad show, mark grave
 bindsym $mod+F3 [instance="^ripcord$"]  scratchpad show, mark grave
-bindsym $mod+F4 [instance="^slack$"]    scratchpad show, mark grave
+bindsym $mod+F4 [instance="^signal$"]   scratchpad show, mark grave
+bindsym $mod+F5 [instance="^slack$"]    scratchpad show, mark grave
 
 bindsym $mod+grave [con_mark="grave"] scratchpad show
 bindsym $mod+Shift+grave $scratchpads move scratchpad
