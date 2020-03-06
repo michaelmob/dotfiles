@@ -171,6 +171,7 @@ nmap <c-w><c-k> :Swap k<cr>
 nmap <c-w><c-l> :Swap l<cr>
 
 nmap <leader>rc :sp $MYVIMRC<cr>
+inoremap <C-c> <Esc><Esc>
 
 " Line Navigation
 map <s-h> ^
@@ -215,6 +216,7 @@ nmap gd <plug>(coc-definition)
 nmap gy <plug>(coc-type-definition)
 nmap gi <plug>(coc-implementation)
 nmap gr <plug>(coc-references)
+
 
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 function! s:show_documentation()
