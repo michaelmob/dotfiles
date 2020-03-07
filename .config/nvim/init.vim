@@ -47,6 +47,9 @@ Plug 'radenling/vim-dispatch-neovim'  " Neovim compatibility for vim-dispatch
 Plug 'christoomey/vim-tmux-navigator' " Window navigation
 Plug 'dracula/vim'
 
+" Languages
+Plug 'afternoon/vim-phpunit'
+
 " Node Dependents
 Plug 'iamcco/markdown-preview.nvim', {'do': {-> mkdp#util#install()}}
 Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
@@ -217,6 +220,9 @@ nmap gy <plug>(coc-type-definition)
 nmap gi <plug>(coc-implementation)
 nmap gr <plug>(coc-references)
 
+" Quickfix
+nmap <silent> <leader>] :cnext<cr>
+nmap <silent> <leader>[ :cprevious<cr>
 
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 function! s:show_documentation()
@@ -233,6 +239,7 @@ nmap gs :tab Gstatus<cr>
 " Formating
 nmap ga <plug>(EasyAlign)
 xmap ga <plug>(EasyAlign)
+
 " ----------------
 " }}}
 
@@ -245,7 +252,6 @@ augroup FILETYPES
   autocmd FileType javascript let b:dispatch = 'npm test -- %'
   autocmd FileType vue syntax sync fromstart
   autocmd FileType help,qf,vim-plug nmap <silent><buffer> <esc> :q<cr>
-  autocmd FileType vim setlocal noautoindent
 augroup END
 " ----------------
 " }}}
@@ -269,4 +275,13 @@ augroup EVENTS
   endfunction
 augroup END
 " ----------------
+" }}}
+
+
+
+" Projects {{{
+augroup PROJECTS
+  autocmd BufRead,BufNewFile **/gidget4/backend/*.php
+    \ let b:dispatch = './scripts/run_tests --filter %:t:r'
+augroup END
 " }}}
