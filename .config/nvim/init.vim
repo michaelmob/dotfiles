@@ -25,7 +25,6 @@ Plug 'tpope/vim-sleuth'     " Detect and set buffer options
 Plug 'tpope/vim-repeat'     " Repeating
 Plug 'tpope/vim-apathy'     " Paths
 Plug 'tpope/vim-fugitive'   " Git wrapper
-Plug 'tpope/vim-dispatch'   " Async dispatching
 Plug 'tpope/vim-obsession'  " Sessions
 
 Plug 'brooth/far.vim'        " Find and replace :Far
@@ -42,8 +41,8 @@ Plug 'wakatime/vim-wakatime' " Time management
 
 Plug 'machakann/vim-sandwich'         " Surroundings
 Plug 'junegunn/vim-easy-align'        " Text alignment
+Plug 'skywind3000/asyncrun.vim'       " Dispatching
 Plug 'AndrewRadev/splitjoin.vim'      " Single-line <--> Multi-line
-Plug 'radenling/vim-dispatch-neovim'  " Neovim compatibility for vim-dispatch
 Plug 'christoomey/vim-tmux-navigator' " Window navigation
 Plug 'dracula/vim'
 
@@ -239,6 +238,12 @@ nmap gs :tab Gstatus<cr>
 " Formating
 nmap ga <plug>(EasyAlign)
 xmap ga <plug>(EasyAlign)
+
+" Make
+nmap <leader>m q:?^AsyncRun<cr>
+
+" Terminal
+tmap <c-u> <c-\><c-n><c-u>
 
 " ----------------
 " }}}

@@ -1,15 +1,21 @@
-#!/usr/bin/env bash
-install() { yay -S --noconfirm --needed $@; }
+
 
 # desktop environment
 install i3
 install picom
 install flameshot
 install playerctl
+install gdm
+install gnome
+install gnome-extras
+install gnome-flashback
+install gnome-screensaver
+install xorg
 install keynav
 
 # utilities
 install zsh
+install xclip
 install tmux
 install neovim-git
 install ripgrep
@@ -26,9 +32,22 @@ install virtualbox
 
 # chat
 install telegram-desktop
+install signal-desktop
+install slack-desktop
 install discord
+install ripcord
 
 # multimedia
 install mpv
 install youtube-dl
 install spotify
+
+# browsers
+install firefox
+install brave
+install google-chrome
+
+# fonts
+install ttf-ms-fonts
+install noto-fonts
+install noto-fonts-emoji
