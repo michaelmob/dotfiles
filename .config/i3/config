@@ -171,14 +171,14 @@ for_window [instance="VirtualBox Manager$"]    floating enable
 # scratchpad
 #
 
-exec --no-startup-id $TERMINAL --title=calc -e $HOME/.bin/calc.py
+exec --no-startup-id $TERMINAL --title=calc -e $HOME/.local/bin/calc.py
 for_window     [title="^calc$"] move scratchpad
 bindsym $mod+c [title="^calc$"] scratchpad show
 
 for_window     [title="VirtualBox Manager$"] move scratchpad, scratchpad show
 bindsym $mod+b [title="VirtualBox Manager$"] scratchpad show
 
-set $scratchpads [instance="^(discord|slack|ripcord|telegram-desktop-bin|signal|spotify)$"]
+set $scratchpads [instance="^(discord|slack|ripcord|telegram-desktop|signal|spotify)$"]
 
 bindsym $mod+F1 [instance="^spotify$"]  scratchpad show
 bindsym $mod+F2 [instance="^telegram-"] scratchpad show, mark grave

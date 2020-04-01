@@ -56,6 +56,7 @@ SAVEHIST=100000000
 # Functions
 f() { find ${@:2} -iname "*$1*" 2> /dev/null; }  # Case-insensitive find
 c() { awk "NR>1 {print \$$1}"; }  # Print column number without first line
+cd() { builtin cd "$@" && ls -F; }
 
 # Helper Aliases
 alias \?='bindkey | head -n 23'
@@ -69,7 +70,6 @@ alias serve='python -m http.server'
 alias i3rc=":e $XDG_CONFIG_HOME/i3/config"
 alias kakrc=":e $XDG_CONFIG_HOME/kak/kakrc"
 alias zshrc=":e $HOME/.zshrc"
-alias dwmrc="cd $HOME/Workspace/dwm && :e config.h"
 alias vimrc='vim .vimrc'
 alias nvimrc=":e $XDG_CONFIG_HOME/nvim/init.vim"
 alias tmuxrc=":e $HOME/.tmux.conf"

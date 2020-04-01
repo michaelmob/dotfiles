@@ -69,7 +69,7 @@ call plug#end()
 " coc.nvim
 let g:coc_global_extensions = [
   \   'coc-snippets', 'coc-yank', 'coc-word', 'coc-emoji', 'coc-json',
-  \   'coc-css', 'coc-vetur', 'coc-tsserver', 'coc-phpls', 'coc-python'
+  \   'coc-css', 'coc-tsserver', 'coc-phpls', 'coc-python'
   \ ]
 
 let g:coc_user_config = {
@@ -106,6 +106,9 @@ command! -bang -nargs=* Rg call fzf#vim#grep(
 command! -bang -nargs=* Dirs call fzf#run(fzf#wrap({
   \   'source': 'find * -type d 2> /dev/null'
   \ }))
+
+" asyncrun
+let g:asyncrun_open = 8
 
 " ----------------
 " }}}
