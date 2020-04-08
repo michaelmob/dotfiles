@@ -3,12 +3,20 @@
       user-mail-address "mike@tarkus.dev")
 
 ;; doom
-(setq doom-font (font-spec :family "monospace" :size 14))
-(setq doom-theme 'doom-dracula)
+(setq doom-font (font-spec :family "monospace" :size 14)
+      doom-theme 'doom-dracula)
 
 ;; editor
 (setq display-line-numbers-type 'relative
       which-key-idle-delay 0.5)
+
+(setq-default evil-escape-key-sequence "jk")
+
+(global-display-fill-column-indicator-mode ())
+
+;; splits
+(setq evil-split-window-below t
+      evil-vsplit-window-right t)
 
 ;; org-mode
 (setq org-directory "~/org/")
@@ -22,6 +30,9 @@
 (setq highlight-indent-guides-character ?\|)
 
 ;; search shortcuts
+(map! :leader "/" #'+default/search-project)
+
+;; window shortcuts
 (map! :leader "/" #'+default/search-project)
 
 ;; dired shortcuts
