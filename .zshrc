@@ -61,7 +61,7 @@ cd() { builtin cd "$@" && ls -F; }
 # Helper Aliases
 alias \?='bindkey | head -n 23'
 alias :q='exit'
-alias :e="$EDITOR"
+alias :e="nvim"
 alias ls='ls --color=auto --group-directories-first'
 alias xclip='xclip -selection c'
 alias serve='python -m http.server'
@@ -99,7 +99,16 @@ fi
 ssh-add -l > /dev/null || ssh-add "$HOME/.ssh/"*_rsa
 
 # Attach to unattached number session or create a new session
-if [[ -z "$TMUX" ]] && [[ $- == *i* ]]; then
-  unattached_id="${$(tmux ls | grep -m 1 -Pve '(^\D+|(attached))')%%:*}"
-  [[ -z "$unattached_id" ]] && exec tmux || exec tmux attach -t $unattached_id
+if [[ $- == *i* ]] && [[ -z "$TMUX" ]]; then
+  SESSIONS=($(tmux ls -F '#S,#{?session_attached,1,0}' | grep -E '^[0-9]+,' | sort -n))
+
+  # Attach to a detached session
+  for session in ${SESSIONS[@]}; do
+    [[ "${session#*,}" = 0 ]] && exec tmux attach -t ${session%,*}
+  done
+
+  # Create new session with lowest available number
+  for (( i=1; i<20; i++ )); do
+    id=$((i-1)); [[ "${SESSIONS[$i]%,*}" != $id ]] && exec tmux new -s $id
+  done
 fi
