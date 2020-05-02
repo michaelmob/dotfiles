@@ -7,7 +7,6 @@ export PATH="$HOME/.local/bin:$HOME/.gem/ruby/2.7.0/bin:$PATH"
 [[ -z "$XDG_CONFIG_HOME" ]] && export XDG_CONFIG_HOME="$HOME/.config"
 
 # Default Applications
-export TERMINAL='alacritty'
 export EDITOR='nvim'
 export BROWSER='brave'
 
@@ -89,26 +88,3 @@ alias gb='git branch'
 
 # Includes
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-# SSH Agent
-export SSH_AUTH_SOCK="$HOME/.ssh/ssh_auth_sock"
-if [[ ! -S "$HOME/.ssh/ssh_auth_sock" ]]; then
-  eval "$(ssh-agent)"
-  ln -sf "$SSH_AUTH_SOCK" "$HOME/.ssh/ssh_auth_sock"
-fi
-ssh-add -l > /dev/null || ssh-add "$HOME/.ssh/"*_rsa
-
-# Attach to unattached number session or create a new session
-if [[ $- == *i* ]] && [[ -z "$TMUX" ]]; then
-  SESSIONS=($(tmux ls -F '#S,#{?session_attached,1,0}' | grep -E '^[0-9]+,' | sort -n))
-
-  # Attach to a detached session
-  for session in ${SESSIONS[@]}; do
-    [[ "${session#*,}" = 0 ]] && exec tmux attach -t ${session%,*}
-  done
-
-  # Create new session with lowest available number
-  for (( i=1; i<20; i++ )); do
-    id=$((i-1)); [[ "${SESSIONS[$i]%,*}" != $id ]] && exec tmux new -s $id
-  done
-fi
