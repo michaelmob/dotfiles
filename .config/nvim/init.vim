@@ -28,14 +28,18 @@ Plug 'christoomey/vim-tmux-navigator' " Window navigation
 Plug 'chriskempson/base16-vim'        " Base16 colorscheme pack
 Plug 'easymotion/vim-easymotion'      " Faster motions
 Plug 'honza/vim-snippets'             " Snippets source
+Plug 'justinmk/vim-dirvish'           " File browser
 Plug 'junegunn/vim-easy-align'        " Text alignment
 Plug 'junegunn/vim-peekaboo'          " Register/macro viewer
-Plug 'justinmk/vim-dirvish'           " File browser
+Plug 'junegunn/goyo.vim'              " Distraction-free writing
+Plug 'junegunn/limelight.vim'         " Focused writing
 Plug 'ludovicchabant/vim-gutentags'   " Automatic ctags
 Plug 'kkoomen/vim-doge'               " Documentation generator
 Plug 'machakann/vim-sandwich'         " Surroundings
 Plug 'mbbill/undotree'                " Undo tree
 Plug 'mkitt/tabline.vim'              " Tabline enhancements
+Plug 'reedes/vim-litecorrect'         " Autocorrection
+Plug 'reedes/vim-pencil'              " Writing mode
 Plug 'romainl/vim-cool'               " Search highlighting
 Plug 'sheerun/vim-polyglot'           " Syntax language pack
 Plug 'skywind3000/asyncrun.vim'       " Dispatching
@@ -113,7 +117,6 @@ let g:gutentags_file_list_command = 'rg -g "!node_modules" -g "!*.json" --files'
 " fzf.vim
 let g:fzf_tags_command = g:gutentags_file_list_command . ' | ctags -R --links=no -L -'
 let g:fzf_history_dir = expand('$HOME/.local/share/fzf-history')
-
 " ----------------
 " }}}
 
@@ -182,15 +185,16 @@ let mapleader = "\<space>"
 nmap <leader>w  <c-w>
 nmap <leader>ws <c-w>s-
 nmap <leader>wv <c-w>v-
+nmap <silent><leader>wc :enew\|bd#<cr>
 
 " Swap window buffers
-nmap <c-w><c-h> :Swap h<cr>
-nmap <c-w><c-j> :Swap j<cr>
-nmap <c-w><c-k> :Swap k<cr>
-nmap <c-w><c-l> :Swap l<cr>
+nmap <silent><c-w>H :Swap h<cr>
+nmap <silent><c-w>J :Swap j<cr>
+nmap <silent><c-w>K :Swap k<cr>
+nmap <silent><c-w>L :Swap l<cr>
 
 " Files
-nmap <leader>fs :w<CR>
+nmap <leader>j :w<CR>
 
 " Text
 nnoremap vw viw
@@ -216,33 +220,28 @@ map <leader>p "+p
 map <leader>P "+P
 map <leader>y "+y
 
-" Fuzzy Finders
-nmap <leader><leader> :Files<cr>
-nmap <leader>s :Tags<cr>
+" Finders
+nmap <leader><leader> :Tags<cr>
+nmap <leader>f :Files<cr>
 nmap <leader>d :Dirs<cr>
+nmap <leader>s :Rg<cr>
 nmap <leader>b :Buffers<cr>
 nmap <leader>h :History<cr>
 nmap <leader>l :Lines<cr>
-nmap <leader>/ :Rg<cr>
-nmap <leader>? :GGrep<cr>
+nmap <leader>g :Commits<cr>
 
-" Language Servers
-nmap <silent> <leader>R :CocFzfListResume<cr>
-nmap <silent> <leader>D :CocFzfList diagnostics<cr>
-nmap <silent> <leader>C :CocFzfList commands<cr>
-nmap <silent> <leader>E :CocFzfList extensions<cr>
-nmap <silent> <leader>L :CocFzfList location<cr>
-nmap <silent> <leader>O :CocFzfList outline<cr>
-nmap <silent> <leader>S :CocFzfList symbols<cr>
-nmap <silent> <leader>T :CocFzfList services<cr>
+" LSP Finders
+nmap <silent> <leader>kr :CocFzfListResume<cr>
+nmap <silent> <leader>kd :CocFzfList diagnostics<cr>
+nmap <silent> <leader>kc :CocFzfList commands<cr>
+nmap <silent> <leader>ke :CocFzfList extensions<cr>
+nmap <silent> <leader>kl :CocFzfList location<cr>
+nmap <silent> <leader>ko :CocFzfList outline<cr>
+nmap <silent> <leader>ks :CocFzfList symbols<cr>
+nmap <silent> <leader>kS :CocFzfList services<cr>
 
-" Diagnostics
-xmap <silent> <leader>a  <plug>(coc-codeaction-selected)
-nmap <silent> <leader>a  <plug>(coc-codeaction-selected)
-nmap <silent> <leader>ac <plug>(coc-codeaction)
-nmap <silent> <leader>qf <plug>(coc-fix-current)
-
-nmap <silent> gn <plug>(coc-rename)
+" LSP Actions
+nmap <silent> gk <plug>(coc-rename)
 nmap <silent> gh <plug>(coc-diagnostic-info)
 nmap <silent> [g <plug>(coc-diagnostic-prev)
 nmap <silent> ]g <plug>(coc-diagnostic-next)
@@ -251,9 +250,11 @@ nmap <silent> gy <plug>(coc-type-definition)
 nmap <silent> gi <plug>(coc-implementation)
 nmap <silent> gr <plug>(coc-references)
 
-" Quickfix
-nmap <silent> <leader>] :cnext<cr>
-nmap <silent> <leader>[ :cprevious<cr>
+" LSP Diagnostics
+xmap <silent> <leader>a  <plug>(coc-codeaction-selected)
+nmap <silent> <leader>a  <plug>(coc-codeaction-selected)
+nmap <silent> <leader>ac <plug>(coc-codeaction)
+nmap <silent> <leader>qf <plug>(coc-fix-current)
 
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 function! s:show_documentation()
@@ -263,6 +264,10 @@ function! s:show_documentation()
     call CocAction('doHover')
   endif
 endfunction
+
+" Quickfix
+nmap <silent> <leader>] :cnext<cr>
+nmap <silent> <leader>[ :cprevious<cr>
 
 " Git
 nmap <leader>gg :tab Gstatus<cr>
@@ -275,6 +280,7 @@ xmap ga <plug>(EasyAlign)
 tmap <c-u> <c-\><c-n><c-u>
 
 " EasyMotion
+map <leader>e <plug>(easymotion-prefix)
 map s <plug>(easymotion-overwin-f2)
 
 " ----------------
