@@ -1,5 +1,6 @@
 #!/usr/bin/env sh
-exec rofi -show file-browser  \
+exec rofi -show file-browser \
+  -show-icons \
   -file-browser-depth 5 \
   -file-browser-exclude 'node_modules' \
   -file-browser-exclude 'Backups' \

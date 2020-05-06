@@ -6,7 +6,7 @@
 " Variables {{{
 " ----------------
 let $sharedir = expand('$HOME/.local/share/nvim')
-let $plugdir = expand($sharedir . '/site/autoload')
+let $plugdir  = expand($sharedir . '/site/autoload')
 " ----------------
 " }}}
 
@@ -81,6 +81,9 @@ let g:coc_global_extensions = [
 let g:coc_user_config = {
 \  'diagnostic.level': 'warning',
 \}
+
+"
+let g:easy_align_delimiters = { '\': { 'pattern': '\\' } }
 
 " markdown-preview
 let g:mkdp_auto_close = 0

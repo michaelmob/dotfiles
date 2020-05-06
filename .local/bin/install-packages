@@ -1,53 +1,62 @@
-
+#!/usr/bin/env bash
 
 # desktop environment
-install i3
-install picom
-install flameshot
-install playerctl
-install gdm
-install gnome
-install gnome-extras
-install gnome-flashback
-install gnome-screensaver
-install xorg
-install keynav
+yay --noconfirm --needed -Sy \
+  i3 \
+  picom \
+  flameshot \
+  playerctl \
+  gdm \
+  gnome \
+  gnome-extras \
+  gnome-flashback \
+  gnome-screensaver \
+  xorg \
+  keynav
 
 # utilities
-install zsh
-install xclip
-install tmux
-install neovim-git
-install ripgrep
-install rofi
-install rofi-file-browser-extended-git
+yay --noconfirm --needed -Sy \
+  zsh \
+  xclip \
+  tmux \
+  neovim-git \
+  ripgrep \
+  rofi \
+
+yay --noconfirm --needed -Sy \
+  i3-layout-manager-git \
+  rofi-file-browser-extended-git
 
 # development
-install nodejs
-install npm
-install docker
-install docker-compose
-install vagrant
-install virtualbox
+yay --noconfirm --needed -Sy \
+  nodejs \
+  npm \
+  docker \
+  docker-compose \
+  vagrant \
+  virtualbox
 
 # chat
-install telegram-desktop
-install signal-desktop
-install slack-desktop
-install discord
-install ripcord
+yay --noconfirm --needed -Sy \
+  telegram-desktop \
+  signal-desktop   \
+  slack-desktop    \
+  discord
 
 # multimedia
-install mpv
-install youtube-dl
-install spotify
+yay --noconfirm --needed -Sy \
+  mpv        \
+  youtube-dl \
+  spotify
 
 # browsers
-install firefox
-install brave
-install google-chrome
+yay --noconfirm --needed -Sy \
+  firefox       \
+  brave         \
+  google-chrome
 
 # fonts
-install ttf-ms-fonts
-install noto-fonts
-install noto-fonts-emoji
+yay --noconfirm --needed -Sy \
+  ttf-ms-fonts     \
+  noto-fonts       \
+  noto-fonts-emoji
