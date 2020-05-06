@@ -148,7 +148,7 @@ focus_follows_mouse no
 focus_on_window_activation urgent
 
 # borders
-for_window [class=".*"] border normal, split toggle
+for_window [class=".*" tiling] border normal, split toggle
 
 # floating windows
 for_window [class="^flameshot$"] floating enable
