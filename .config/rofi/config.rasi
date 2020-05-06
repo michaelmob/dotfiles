@@ -1,0 +1,40 @@
+configuration {
+  modi: "window,drun,ssh,combi";
+  font: "Cantarell Regular 11";
+  combi-modi: "window,drun,ssh,files";
+}
+
+* {
+  text-color: #FFFFFF;
+  background-color: #2A2A2A;
+}
+
+entry {
+  padding: 0.5em 0.5em;
+}
+
+prompt {
+  text-color: #FFFFFF;
+  background-color: #2D2D2D;
+  padding: 0.5em 0.75em;
+}
+
+listview {
+  scrollbar: true;
+  lines: 10;
+}
+
+element {
+  padding: 0.5em 0.5em;
+  background-color: #2D2D2D;
+}
+
+element selected {
+  background-color: #15539E;
+  color: #fdf6e3;
+}
+
+scrollbar {
+  handle-width: 0.5em;
+  handle-color: #353535;
+}
