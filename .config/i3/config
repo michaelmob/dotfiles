@@ -33,9 +33,11 @@ bindsym $mod+w exec rofi -show window -show-icons
 bindsym $mod+f exec rofi-files
 bindsym $mod+g exec i3-layout-manager
 
-bindsym Pause        exec playerctl play-pause
-bindsym $mod+Return  exec $TERMINAL --title Terminal
+bindsym Pause exec playerctl play-pause
 bindsym Ctrl+Shift+4 exec flameshot gui
+
+bindsym $mod+Return       exec $TERMINAL --title Terminal
+bindsym $mod+Shift+Return exec $TERMINAL --title Terminal --class floating
 
 
 #
@@ -155,6 +157,7 @@ for_window [instance="^eog$"]    floating enable, border none
 for_window [instance="^gthumb$"] floating enable, border none
 for_window [instance="^gnome-"]  floating enable, border none
 for_window [instance="^org.gnome"] floating enable, border none
+for_window [instance="^floating$"] floating enable
 for_window [title="^Media viewer$"] floating enable, border none
 for_window [instance="VirtualBox Manager$"] floating enable
 
@@ -193,7 +196,7 @@ bindsym $mod+F1 $spotify scratchpad show
 
 bindsym $mod+grave [con_mark="scratchpad"] scratchpad show
 
-# minimizing 
+# minimizing
 bindsym $mod+x \
   [con_mark="minimized" floating] scratchpad show; \
   [con_id="__focused__" floating] mark --toggle minimized; \
