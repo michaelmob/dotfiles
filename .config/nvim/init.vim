@@ -82,14 +82,17 @@ let g:coc_user_config = {
 \  'diagnostic.level': 'warning',
 \}
 
-"
+" vim-easy-align
 let g:easy_align_delimiters = { '\': { 'pattern': '\\' } }
 
-" markdown-preview
+" markdown-preview.nvim
 let g:mkdp_auto_close = 0
 
 " indentLine
 let g:indentLine_fileTypeExclude = ['text', 'sh', 'markdown', 'fzf']
+let g:indentLine_char = '▏'
+let g:indentLine_first_char = g:indentLine_char
+let g:indentLine_showFirstIndentLevel = 1
 
 " vim-dirvish
 let g:dirvish_mode = ':sort ,^.*[\/],'
@@ -101,17 +104,13 @@ runtime macros/sandwich/keymap/surround.vim
 let g:doge_mapping = 'gcd'
 let g:doge_mapping_comment_jump_forward = '<c-j>'
 let g:doge_mapping_comment_jump_backward = '<c-k>'
-let g:doge_filetype_aliases = {
-\  'javascript': ['vue']
-\}
+let g:doge_filetype_aliases = { 'javascript': ['vue'] }
 
 " vim-vue (vim-polyglot)
 let g:vue_pre_processors = []
 
 " vim-rooter
-let g:rooter_patterns = [
-\  'Session.vim', 'Makefile', 'Dockerfile', '.git', '.git/'
-\]
+let g:rooter_patterns = ['Session.vim', 'Makefile', 'Dockerfile', '.git', '.git/']
 
 " vim-gutentags
 let g:gutentags_project_root = g:rooter_patterns
@@ -162,20 +161,14 @@ set fsync
 " ----------------
 command! -nargs=1 Swap :normal! mA<c-w><args>mB'A<c-w>p'B<c-w>p
 
-command! -bang -nargs=* GFiles call fzf#run(fzf#wrap({
-\ 'source': 'git ls-files --exclude-standard --cached --others 2> /dev/null' }))
-
-command! -bang -nargs=* GGrep call fzf#vim#grep(
-\ 'git grep --line-number ' . shellescape(<q-args>) . ' 2> /dev/null', 0,
-\ {'dir': systemlist('git rev-parse --show-toplevel')[0]}, <bang>0)
-
 command! -bang -nargs=* Rg call fzf#vim#grep(
 \ 'rg --column --line-number --no-heading --color=always --smart-case '
-\.shellescape(<q-args>) . ' 2> /dev/null',
-\ 1, {'options': '--delimiter : --nth 4..'}, <bang>0)
+\ . shellescape(<q-args>) . ' 2> /dev/null', 1,
+\ {'options': '--delimiter : --nth 4..'}, <bang>0)
 
 command! -bang -nargs=* Dirs call fzf#run(fzf#wrap({
 \ 'source': 'find * -type d 2> /dev/null' }))
+" ----------------
 " }}}
 
 
@@ -232,6 +225,7 @@ nmap <leader>b :Buffers<cr>
 nmap <leader>h :History<cr>
 nmap <leader>l :Lines<cr>
 nmap <leader>g :Commits<cr>
+nmap <leader>c :Color<cr>
 
 " LSP Finders
 nmap <silent> <leader>kr :CocFzfListResume<cr>
@@ -285,7 +279,6 @@ tmap <c-u> <c-\><c-n><c-u>
 " EasyMotion
 map <leader>e <plug>(easymotion-prefix)
 map s <plug>(easymotion-overwin-f2)
-
 " ----------------
 " }}}
 

@@ -9,8 +9,14 @@ configuration {
   background-color: #2A2A2A;
 }
 
+window {
+  border: 1px;
+  border-color: #1B1B1B;
+}
+
 entry {
   padding: 0.5em 0.5em;
+  background-color: #282828;
 }
 
 prompt {
@@ -22,6 +28,11 @@ prompt {
 listview {
   scrollbar: true;
   lines: 10;
+}
+
+scrollbar {
+  handle-width: 0.25em;
+  handle-color: #AAAAA8;
 }
 
 element {
@@ -36,9 +47,4 @@ element selected {
   border: 1px;
   border-color: #185FB5;
   color: #FDF6E3;
-}
-
-scrollbar {
-  handle-width: 0.5em;
-  handle-color: #353535;
 }
