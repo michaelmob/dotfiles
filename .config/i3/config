@@ -82,7 +82,7 @@ bindsym $mod+s split v; mark _move
 
 # change container layout (stacked, tabbed, toggle split)
 bindsym $mod+r layout toggle split
-bindsym $mod+e layout toggle tabbed stacking
+bindsym $mod+e layout toggle stacking tabbed
 
 # enter fullscreen mode for the focused container
 bindsym $mod+m fullscreen toggle
@@ -149,7 +149,7 @@ focus_follows_mouse no
 focus_on_window_activation urgent
 
 # borders
-for_window [class=".*" tiling] border normal, split toggle
+for_window [class=".*" tiling] border normal
 
 # floating windows
 for_window [instance="^gpick$"] floating enable
