@@ -28,6 +28,7 @@ Plug 'christoomey/vim-tmux-navigator' " Window navigation
 Plug 'chriskempson/base16-vim'        " Base16 colorscheme pack
 Plug 'easymotion/vim-easymotion'      " Faster motions
 Plug 'honza/vim-snippets'             " Snippets source
+Plug 'jiangmiao/auto-pairs'           " Automatic bracket/paren/quote pairs
 Plug 'justinmk/vim-dirvish'           " File browser
 Plug 'junegunn/vim-easy-align'        " Text alignment
 Plug 'junegunn/vim-peekaboo'          " Register/macro viewer
@@ -256,11 +257,14 @@ nmap <silent> <leader>qf <plug>(coc-fix-current)
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
+    execute 'h ' . expand('<cword>')
   else
     call CocAction('doHover')
   endif
 endfunction
+
+" Completion
+inoremap <expr> <cr> pumvisible() && !(empty(v:completed_item)) ? '<c-y>' : '<cr>'
 
 " Quickfix
 nmap <silent> <leader>] :cnext<cr>
