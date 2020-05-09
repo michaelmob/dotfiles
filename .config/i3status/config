@@ -17,7 +17,7 @@ order += "ethernet _first_"
 order += "battery all"
 order += "disk /"
 order += "memory"
-order += "cpu_usage"
+order += "load"
 order += "cpu_temperature 0"
 order += "tztime local"
 
@@ -41,6 +41,7 @@ battery all {
   integer_battery_capacity = true
   status_chr = "+"
   status_bat = ""
+  status_full = ""
   format = "B: %status%percentage (%remaining) [%consumption]"
 }
 
@@ -54,8 +55,8 @@ memory {
   format_degraded = "M: %available"
 }
 
-cpu_usage {
-  format = "C: %usage"
+load {
+  format = "C: %5min"
 }
 
 cpu_temperature 0 {

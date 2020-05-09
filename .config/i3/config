@@ -9,7 +9,7 @@
 set $mod Mod4
 floating_modifier $mod
 font pango:monospace 8
-default_orientation vertical
+default_orientation horizontal
 
 
 #
@@ -37,8 +37,8 @@ bindsym $mod+g exec i3-layout-manager
 bindsym Pause exec playerctl play-pause
 bindsym Ctrl+Shift+4 exec flameshot gui
 
-bindsym $mod+Return       exec $TERMINAL --title Terminal
-bindsym $mod+Shift+Return exec $TERMINAL --title Terminal --class floating
+bindsym $mod+Return       exec $TERMINAL
+bindsym $mod+Shift+Return exec $TERMINAL --class floating
 
 
 #
@@ -171,7 +171,7 @@ for_window $part_gnome floating enable, border none
 #
 
 set $calculator [title="^Calculator$"]
-for_window      $calculator move scratchpad, resize set 500px 250px, border pixel 5
+for_window      $calculator move scratchpad, resize set 500 250, border pixel 5
 bindsym $mod+c  $calculator scratchpad show
 
 set $vbman      [title="VirtualBox Manager$"]
@@ -201,10 +201,10 @@ bindsym $mod+F1 $spotify scratchpad show
 bindsym $mod+grave [con_mark="scratchpad"] scratchpad show
 
 # minimizing
-bindsym $mod+x \
-  [con_mark="x_minimized" floating] scratchpad show; \
-  [con_id="__focused__"   floating] mark --toggle x_minimized; \
-  [con_mark="x_minimized" floating] move scratchpad
+# bindsym $mod+x \
+#   [con_mark="x_minimized" floating] scratchpad show; \
+#   [con_id="__focused__"   floating] mark --toggle x_minimized; \
+#   [con_mark="x_minimized" floating] move scratchpad
 
 bindsym $mod+z \
   [con_mark="z_minimized" floating] scratchpad show; \

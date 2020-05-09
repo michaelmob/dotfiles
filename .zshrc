@@ -2,35 +2,38 @@
 # vim: et sw=2
 
 # Environment
+: ${XDG_CONFIG_HOME:=$HOME/.config}
 export GEM_HOME="$HOME/.gem"
 export PATH="$HOME/.local/bin:$HOME/.gem/ruby/2.7.0/bin:$PATH"
-[[ -z "$XDG_CONFIG_HOME" ]] && export XDG_CONFIG_HOME="$HOME/.config"
+export WORDCHARS=''
 
 # Default Applications
 export EDITOR='nvim'
 export BROWSER='brave'
 
 # Options
-setopt autocd  # set cd without cd
-setopt hist_verify  # expand history entry
-setopt extended_history  # add timestamp in history
-setopt hist_ignore_dups  # ignore duplicate commands in history
-setopt hist_ignore_space  # ignore commands that start with space
-setopt inc_append_history  # add history on run
-export WORDCHARS=''
+setopt AUTOCD  # set cd without cd
+setopt HIST_VERIFY  # expand history entry
+setopt EXTENDED_HISTORY  # add timestamp in history
+setopt HIST_IGNORE_DUPS  # ignore duplicate commands in history
+setopt HIST_IGNORE_SPACE  # ignore commands that start with space
+setopt INC_APPEND_HISTORY  # add history on run
+
+# Line Editor
+zle -N edit-command-line
 
 # Autoload
 autoload -U colors && colors  # use colors
 autoload -U compinit && compinit  # tab completion
 autoload -U edit-command-line
 
-zle -N edit-command-line
-
 bindkey -e  # emacs keybindings
-bindkey '^xe' edit-command-line
-bindkey '^x^e' edit-command-line
-bindkey "\e[3~" delete-char  # delete key
-for x in 'ABCD'; do bindkey "\e[1;5$x" ''; done  # disable ctrl+arrow keys
+bindkey '^x^e' edit-command-line  # ctrl-x ctrl-e to edit long commands
+bindkey '\e[3~' delete-char  # delete key
+bindkey '\e[1;5A' nop  # disable ctrl-up
+bindkey '\e[1;5B' x  # disable ctrl-down
+bindkey '\e[1;5C' x  # disable ctrl-right
+bindkey '\e[1;5D' x  # disable ctrl-right
 
 # Zstyle
 zstyle ':completion:*' menu select
@@ -39,13 +42,13 @@ zstyle ':completion:*' menu select
 __git_files () { _wanted files expl 'local files' _files; }
 
 # Prompt
-PS1="%F{white}(%B%T%b)%f%B%F{red}["
-PS1+="%F{yellow}%n"
-PS1+="%F{green}@"
-PS1+="%F{blue}%m"
-PS1+="%F{magenta} %c"
-PS1+="%F{red}]"
-PS1+="%F{white}λ%b %f"
+PS1='%F{white}(%B%T%b)%f%B%F{red}['
+PS1+='%F{yellow}%n'
+PS1+='%F{green}@'
+PS1+='%F{blue}%m'
+PS1+='%F{magenta} %c'
+PS1+='%F{red}]'
+PS1+='%F{white}λ%b %f'
 
 # History
 HISTFILE=$HOME/.zsh_history
@@ -55,29 +58,25 @@ SAVEHIST=100000000
 # Functions
 f() { find ${@:2} -iname "*$1*" 2> /dev/null; }  # Case-insensitive find
 c() { awk "NR>1 {print \$$1}"; }  # Print column number without first line
-cd() { builtin cd "$@" && ls -F; }
 
 # Helper Aliases
 alias \?='bindkey | head -n 23'
 alias :q='exit'
-alias :e="nvim"
+alias :e="$EDITOR"
 alias ls='ls --color=auto --group-directories-first'
 alias xclip='xclip -selection c'
 alias serve='python -m http.server'
 
 # Config Aliases
 alias i3rc=":e $XDG_CONFIG_HOME/i3/config"
-alias kakrc=":e $XDG_CONFIG_HOME/kak/kakrc"
+alias i3statusrc=":e $XDG_CONFIG_HOME/i3status/config"
+alias rofirc=":e $XDG_CONFIG_HOME/rofi/config.rasi"
 alias zshrc=":e $HOME/.zshrc"
 alias vimrc='vim .vimrc'
 alias nvimrc=":e $XDG_CONFIG_HOME/nvim/init.vim"
-alias tmuxrc=":e $HOME/.tmux.conf"
-alias awesomerc=":e $XDG_CONFIG_HOME/awesome/rc.lua"
+alias tmuxrc=":e $XDG_CONFIG_HOME/tmux/tmux.conf"
 alias alacrittyrc=":e $XDG_CONFIG_HOME/alacritty/alacritty.yml"
 alias tridactylrc=":e $XDG_CONFIG_HOME/tridactyl/tridactylrc"
-
-# make install
-alias mi='make && sudo make install'
 
 # Git Aliases
 alias gs='git status -vuno'

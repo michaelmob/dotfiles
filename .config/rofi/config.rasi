@@ -37,14 +37,14 @@ scrollbar {
 
 element {
   padding: 0.5em 0.5em;
+  background-color: #2D2D2D;
   border: 1px;
   border-color: #2D2D2D;
-  background-color: #2D2D2D;
 }
 
 element selected {
+  color: #FDF6E3;
   background-color: #15539E;
   border: 1px;
-  border-color: #185FB5;
-  color: #FDF6E3;
+  border-color: #15539E;
 }

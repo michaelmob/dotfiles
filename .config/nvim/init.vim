@@ -23,6 +23,7 @@ endif
 call plug#begin($plugdir)
 
 Plug 'airblade/vim-rooter'            " Change directory to project root
+Plug 'alvan/vim-closetag'             " Automatic HTML tag closing
 Plug 'brooth/far.vim'                 " Find and replace :Far
 Plug 'christoomey/vim-tmux-navigator' " Window navigation
 Plug 'chriskempson/base16-vim'        " Base16 colorscheme pack
@@ -106,6 +107,9 @@ let g:doge_mapping = 'gcd'
 let g:doge_mapping_comment_jump_forward = '<c-j>'
 let g:doge_mapping_comment_jump_backward = '<c-k>'
 let g:doge_filetype_aliases = { 'javascript': ['vue'] }
+
+" vim-closetag
+let g:closetag_filetypes = 'html,xhtml,phtml,vue'
 
 " vim-vue (vim-polyglot)
 let g:vue_pre_processors = []
