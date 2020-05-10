@@ -35,6 +35,7 @@ Plug 'junegunn/vim-easy-align'        " Text alignment
 Plug 'junegunn/vim-peekaboo'          " Register/macro viewer
 Plug 'junegunn/goyo.vim'              " Distraction-free writing
 Plug 'junegunn/limelight.vim'         " Focused writing
+Plug 'lifepillar/vim-cheat40'         " Keybindings popup
 Plug 'ludovicchabant/vim-gutentags'   " Automatic ctags
 Plug 'kkoomen/vim-doge'               " Documentation generator
 Plug 'machakann/vim-sandwich'         " Surroundings
@@ -45,6 +46,7 @@ Plug 'reedes/vim-pencil'              " Writing mode
 Plug 'romainl/vim-cool'               " Search highlighting
 Plug 'sheerun/vim-polyglot'           " Syntax language pack
 Plug 'skywind3000/asyncrun.vim'       " Dispatching
+Plug 'svermeulen/vim-yoink'           " Yank-history cycling
 Plug 'tomtom/tcomment_vim'            " Comments
 Plug 'tpope/vim-apathy'               " Paths
 Plug 'tpope/vim-eunuch'               " Unix helper commands
@@ -87,11 +89,14 @@ let g:coc_user_config = {
 " vim-easy-align
 let g:easy_align_delimiters = { '\': { 'pattern': '\\' } }
 
+" vim-peekaboo
+let g:peekaboo_window = 'vert bo 40new'
+
 " markdown-preview.nvim
 let g:mkdp_auto_close = 0
 
 " indentLine
-let g:indentLine_fileTypeExclude = ['text', 'sh', 'markdown', 'fzf']
+let g:indentLine_bufTypeExclude = ['help', 'terminal']
 let g:indentLine_char = '▏'
 let g:indentLine_first_char = g:indentLine_char
 let g:indentLine_showFirstIndentLevel = 1
@@ -124,6 +129,13 @@ let g:gutentags_file_list_command = 'rg -g "!node_modules" -g "!*.json" --files'
 " fzf.vim
 let g:fzf_tags_command = g:gutentags_file_list_command . ' | ctags -R --links=no -L -'
 let g:fzf_history_dir = expand('$HOME/.local/share/fzf-history')
+
+" vim-easymotion
+let g:EasyMotion_do_mapping = 0
+
+" vim-cheat40
+let g:cheat40_foldlevel = 0
+let g:cheat40_foldlevel = 0
 " ----------------
 " }}}
 
@@ -215,8 +227,12 @@ map Sj SfJSON.stringify<cr>
 noremap H ^
 noremap L g_
 
-" Yank/Pasting
-nnoremap p p=`]
+
+" Clipboard
+nmap <c-n> <plug>(YoinkPostPasteSwapBack)
+nmap <c-p> <plug>(YoinkPostPasteSwapForward)
+nmap p <plug>(YoinkPaste_p)
+nmap P <plug>(YoinkPaste_P)
 map <leader>p "+p
 map <leader>P "+P
 map <leader>y "+y
@@ -226,37 +242,35 @@ nmap <leader><leader> :Tags<cr>
 nmap <leader>f :Files<cr>
 nmap <leader>d :Dirs<cr>
 nmap <leader>s :Rg<cr>
+nmap <leader>/ :Rg<cr>
 nmap <leader>b :Buffers<cr>
 nmap <leader>h :History<cr>
-nmap <leader>l :Lines<cr>
-nmap <leader>g :Commits<cr>
-nmap <leader>c :Color<cr>
+nmap <leader>tc :Colors<cr>
 
 " LSP Finders
-nmap <silent> <leader>kr :CocFzfListResume<cr>
-nmap <silent> <leader>kd :CocFzfList diagnostics<cr>
-nmap <silent> <leader>kc :CocFzfList commands<cr>
-nmap <silent> <leader>ke :CocFzfList extensions<cr>
-nmap <silent> <leader>kl :CocFzfList location<cr>
-nmap <silent> <leader>ko :CocFzfList outline<cr>
-nmap <silent> <leader>ks :CocFzfList symbols<cr>
-nmap <silent> <leader>kS :CocFzfList services<cr>
+nmap <silent> <leader>R :CocFzfListResume<cr>
+nmap <silent> <leader>D :CocFzfList diagnostics<cr>
+nmap <silent> <leader>C :CocFzfList commands<cr>
+nmap <silent> <leader>E :CocFzfList extensions<cr>
+nmap <silent> <leader>L :CocFzfList location<cr>
+nmap <silent> <leader>O :CocFzfList outline<cr>
+nmap <silent> <leader>S :CocFzfList symbols<cr>
+nmap <silent> <leader>T :CocFzfList services<cr>
+
+" LSP Diagnostics
+xmap <silent> <leader>a <plug>(coc-codeaction-selected)
+nmap <silent> <leader>a <plug>(coc-codeaction)
+nmap <silent> <leader>F <plug>(coc-fix-current)
+nmap <silent> <leader>r <plug>(coc-rename)
 
 " LSP Actions
-nmap <silent> gk <plug>(coc-rename)
-nmap <silent> gh <plug>(coc-diagnostic-info)
 nmap <silent> [g <plug>(coc-diagnostic-prev)
 nmap <silent> ]g <plug>(coc-diagnostic-next)
+nmap <silent> gh <plug>(coc-diagnostic-info)
 nmap <silent> gd <plug>(coc-definition)
 nmap <silent> gy <plug>(coc-type-definition)
 nmap <silent> gi <plug>(coc-implementation)
 nmap <silent> gr <plug>(coc-references)
-
-" LSP Diagnostics
-xmap <silent> <leader>a  <plug>(coc-codeaction-selected)
-nmap <silent> <leader>a  <plug>(coc-codeaction-selected)
-nmap <silent> <leader>ac <plug>(coc-codeaction)
-nmap <silent> <leader>qf <plug>(coc-fix-current)
 
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 function! s:show_documentation()
@@ -275,6 +289,7 @@ nmap <silent> <leader>] :cnext<cr>
 nmap <silent> <leader>[ :cprevious<cr>
 
 " Git
+nmap <leader>gc :Commits<cr>
 nmap <leader>gg :tab Gstatus<cr>
 
 " Formating
@@ -285,8 +300,11 @@ xmap ga <plug>(EasyAlign)
 tmap <c-u> <c-\><c-n><c-u>
 
 " EasyMotion
-map <leader>e <plug>(easymotion-prefix)
 map s <plug>(easymotion-overwin-f2)
+
+" splitjoin
+nmap <leader>J :SplitjoinJoin<cr>
+nmap <leader>K :SplitjoinSplit<cr>
 " ----------------
 " }}}
 
@@ -298,7 +316,10 @@ augroup FILETYPES
   autocmd!
   autocmd FileType javascript let b:dispatch = 'npm test -- %'
   autocmd FileType vue syntax sync fromstart
-  autocmd FileType help,qf,vim-plug nmap <buffer> <esc> :q<cr>
+  autocmd FileType help,qf,vim-plug call TemporaryFileTypes()
+  function! TemporaryFileTypes()
+    nmap <buffer> <esc> :q<cr>
+  endfunction
 augroup END
 " ----------------
 " }}}
