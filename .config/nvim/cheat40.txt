@@ -392,6 +392,7 @@ Edit bottom window       «C-w»«C-b»    N
 All windows same size    «C-w»=        N
 Maximize height          «C-w»_        N
 Maximize width           «C-w»|        N
+Maximize window          «C-w»m        N
 Decrease height          «C-w»-        N
 Increase height          «C-w»+        N
 Decrease width           «C-w»<        N

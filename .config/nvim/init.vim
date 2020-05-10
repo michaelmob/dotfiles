@@ -26,7 +26,6 @@ Plug 'airblade/vim-rooter'            " Change directory to project root
 Plug 'alvan/vim-closetag'             " Automatic HTML tag closing
 Plug 'brooth/far.vim'                 " Find and replace :Far
 Plug 'christoomey/vim-tmux-navigator' " Window navigation
-Plug 'chriskempson/base16-vim'        " Base16 colorscheme pack
 Plug 'easymotion/vim-easymotion'      " Faster motions
 Plug 'honza/vim-snippets'             " Snippets source
 Plug 'jiangmiao/auto-pairs'           " Automatic bracket/paren/quote pairs
@@ -39,8 +38,10 @@ Plug 'lifepillar/vim-cheat40'         " Keybindings popup
 Plug 'ludovicchabant/vim-gutentags'   " Automatic ctags
 Plug 'kkoomen/vim-doge'               " Documentation generator
 Plug 'machakann/vim-sandwich'         " Surroundings
+Plug 'markstory/vim-zoomwin'          " Window-zoom
 Plug 'mbbill/undotree'                " Undo tree
 Plug 'mkitt/tabline.vim'              " Tabline enhancements
+Plug 'patstockwell/vim-monokai-tasty' " Monokai colorscheme
 Plug 'reedes/vim-litecorrect'         " Autocorrection
 Plug 'reedes/vim-pencil'              " Writing mode
 Plug 'romainl/vim-cool'               " Search highlighting
@@ -134,8 +135,11 @@ let g:fzf_history_dir = expand('$HOME/.local/share/fzf-history')
 let g:EasyMotion_do_mapping = 0
 
 " vim-cheat40
+let g:cheat40_use_default = 0
 let g:cheat40_foldlevel = 0
-let g:cheat40_foldlevel = 0
+
+" vim-yoink
+let g:yoinkSavePersistently = 1
 " ----------------
 " }}}
 
@@ -144,7 +148,7 @@ let g:cheat40_foldlevel = 0
 " Vim Settings {{{
 " ----------------
 syntax enable
-colorscheme base16-default-dark
+colorscheme vim-monokai-tasty
 filetype plugin indent on
 
 set nowrap
@@ -227,7 +231,6 @@ map Sj SfJSON.stringify<cr>
 noremap H ^
 noremap L g_
 
-
 " Clipboard
 nmap <c-n> <plug>(YoinkPostPasteSwapBack)
 nmap <c-p> <plug>(YoinkPostPasteSwapForward)
@@ -305,6 +308,9 @@ map s <plug>(easymotion-overwin-f2)
 " splitjoin
 nmap <leader>J :SplitjoinJoin<cr>
 nmap <leader>K :SplitjoinSplit<cr>
+
+" vim-zoomwin
+nmap <silent> <C-w>m :ZoomToggle<cr>
 " ----------------
 " }}}
 
@@ -350,7 +356,7 @@ augroup END
 " ----------------
 augroup PROJECTS
   autocmd BufRead,BufNewFile **/gidget4/backend/*.php
-    \ let b:dispatch = './scripts/run_tests --filter %:t:r'
+  \  let b:dispatch = './scripts/run_tests --filter %:t:r'
 augroup END
 " ----------------
 " }}}

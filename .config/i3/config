@@ -201,10 +201,10 @@ bindsym $mod+F1 $spotify scratchpad show
 bindsym $mod+grave [con_mark="scratchpad"] scratchpad show
 
 # minimizing
-# bindsym $mod+x \
-#   [con_mark="x_minimized" floating] scratchpad show; \
-#   [con_id="__focused__"   floating] mark --toggle x_minimized; \
-#   [con_mark="x_minimized" floating] move scratchpad
+bindsym $mod+x \
+  [con_mark="x_minimized" floating] scratchpad show; \
+  [con_id="__focused__"   floating] mark --toggle x_minimized; \
+  [con_mark="x_minimized" floating] move scratchpad
 
 bindsym $mod+z \
   [con_mark="z_minimized" floating] scratchpad show; \
