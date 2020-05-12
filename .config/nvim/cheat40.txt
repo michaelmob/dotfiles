@@ -427,7 +427,7 @@ Current directory        :pwd          N
 Change directory         :cd …         N
 Show the value of ‹Var›  :echo ‹Var›   N
 Show value of option     :set ‹Var›?   N
-Fzf.vim {{{1
+fzf.vim {{{1
 Search tags              <leader><leader>N
 Search files             <leader>f     N
 Search directories       <leader>d     N
@@ -441,7 +441,7 @@ splitjoin.vim {{{1
 Join with next line      <leader>J     N
 Split with next line     <leader>K     N
 }}}
-Coc.nvim {{{1
+coc.nvim {{{1
 Show commands            <leader>C     N
 Show diagnostics         <leader>D     N
 Show extensions          <leader>E     N
@@ -460,4 +460,65 @@ Jump to definition       gd            N
 Jump to type definition  gy            N
 Jump to implementation   gi            N
 Jump to references       gr            N
+}}}
+vim-fugitive {{{1
+Stage file or hunk       s
+Unstage file or hunk     u
+Stage/unstage            -
+Unstage everything       U
+Discard the change       X
+Toggle an inline diff    =
+Insert an inline diff    >
+Remove the inline diff   <
+Open .git/info/exclude   gi or gI
+Invoke :Git --patch      I or P
+Invoke :Git diff         dp
+Open diff split          dd
+Open hdiff split         ds
+Open vdiff split         dv
+Show diff help           d?
+Open file under cursor   <CR>
+Open file in split       o
+Open file in vert split  g0
+Open file in new tab     O
+Open file in preview     p
+Open commit of file      C
+Create commit            cc
+Create commit (-v)       cvc
+Amend last commit        ca or ce
+Reword last commit       cw
+Amend last commit (-v)   cva
+fixup! commit            cf
+fixup! commit + rebase   cF
+squash! commit           cs
+squash! commit + rebase  cS
+squash! commit + amend   cA
+Command ':Git commit '   c<Space>
+Revert commit            crc
+Revert commit in index   crn
+Command ':Git revert '   cr<Space>
+Command ':Git merge '    cm<Space>
+Checkout commit          coo
+Command ':Git branch '   cb<Space>
+Command ':Git checkout ' co<Space>
+Push stash               czz
+Push stash of worktree   czw
+Apply topmost stash      czA
+Apply and reserve index  cza
+Pop topmost stash        czP
+Pop and reserve index    czp
+Command ':Git stash '    cz<Space>
+Interactive rebase       ri
+Autosquash rebase        rf
+Rebase onto @{upstream}  ru
+Rebase onto @{push}      rp
+Continue rebase          rr
+Skip commit and rebase   rs
+Abort rebase             ra
+Edit rebase todo list    re
+Rebase set to reword     rw
+Rebase set to edit       rm
+Rebase set to drop       rd
+Command ':Git rebase '   r<Space>
+Command ':| <file>'      .
 }}}

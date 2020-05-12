@@ -143,6 +143,7 @@ let g:cheat40_foldlevel = 0
 
 " vim-yoink
 let g:yoinkSavePersistently = 1
+let g:EasyClipAutoFormat = 1
 " ----------------
 " }}}
 
