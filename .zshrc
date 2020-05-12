@@ -1,15 +1,6 @@
 #!/usr/bin/env zsh
 # vim: et sw=2
-
-# Environment
-: ${XDG_CONFIG_HOME:=$HOME/.config}
-export GEM_HOME="$HOME/.gem"
-export PATH="$HOME/.local/bin:$HOME/.gem/ruby/2.7.0/bin:$PATH"
-export WORDCHARS=''
-
-# Default Applications
-export EDITOR='nvim'
-export BROWSER='brave'
+source $HOME/.profile
 
 # Options
 setopt AUTOCD  # set cd without cd
