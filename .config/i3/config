@@ -39,6 +39,7 @@ bindsym Ctrl+Shift+4      exec screenshot
 bindsym $mod+Ctrl+Shift+4 exec reverse-image-search-gui
 
 bindsym $mod+b            exec $BROWSER
+bindsym $mod+Shift+b      exec $BROWSER --incognito -private
 bindsym $mod+Return       exec $TERMINAL
 bindsym $mod+Shift+Return exec $TERMINAL --class float
 
