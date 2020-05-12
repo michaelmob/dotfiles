@@ -35,7 +35,8 @@ bindsym $mod+f exec rofi-files
 bindsym $mod+g exec i3-layout-manager
 
 bindsym Pause exec playerctl play-pause
-bindsym Ctrl+Shift+4 exec flameshot gui
+
+bindsym Ctrl+Shift+4      exec screenshot
 bindsym $mod+Ctrl+Shift+4 exec reverse-image-search-gui
 
 bindsym $mod+Return       exec $TERMINAL

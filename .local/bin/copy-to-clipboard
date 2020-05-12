@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+[[ -f "$1" ]] || exec xclip -sel c <<< "$@"
+
+case "${1##*.}" in
+  'png') args='-t image/png' ;;
+  'jpg') args='-t image/jpeg' ;;
+  'gif') args='-t image/gif' ;;
+  *) args='' ;;
+esac
+
+exec xclip -sel c $args < "$1"

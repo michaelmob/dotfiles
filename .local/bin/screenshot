@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+f="$HOME/Pictures/$(date '+%Y-%m-%d_%H-%M-%S').png"
+flameshot gui --raw > "$f"
+[[ "$(file -b "$f")" = PNG* ]] && copy-to-clipboard "$f" || rm "$f"
