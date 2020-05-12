@@ -20,6 +20,7 @@ if empty(glob($plugdir))
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
+
 call plug#begin($plugdir)
 
 Plug 'airblade/vim-rooter'            " Change directory to project root
@@ -27,7 +28,9 @@ Plug 'alvan/vim-closetag'             " Automatic HTML tag closing
 Plug 'brooth/far.vim'                 " Find and replace :Far
 Plug 'christoomey/vim-tmux-navigator' " Window navigation
 Plug 'easymotion/vim-easymotion'      " Faster motions
+Plug 'haishanh/night-owl.vim'         " Night owl colorscheme
 Plug 'honza/vim-snippets'             " Snippets source
+Plug 'janko/vim-test'                 " Test runners
 Plug 'jiangmiao/auto-pairs'           " Automatic bracket/paren/quote pairs
 Plug 'justinmk/vim-dirvish'           " File browser
 Plug 'junegunn/vim-easy-align'        " Text alignment
@@ -41,7 +44,6 @@ Plug 'machakann/vim-sandwich'         " Surroundings
 Plug 'markstory/vim-zoomwin'          " Window-zoom
 Plug 'mbbill/undotree'                " Undo tree
 Plug 'mkitt/tabline.vim'              " Tabline enhancements
-Plug 'patstockwell/vim-monokai-tasty' " Monokai colorscheme
 Plug 'reedes/vim-litecorrect'         " Autocorrection
 Plug 'reedes/vim-pencil'              " Writing mode
 Plug 'romainl/vim-cool'               " Search highlighting
@@ -99,6 +101,7 @@ let g:mkdp_auto_close = 0
 " indentLine
 let g:indentLine_bufTypeExclude = ['help', 'terminal']
 let g:indentLine_char = '▏'
+let g:indentLine_color_gui = '#212121'
 let g:indentLine_first_char = g:indentLine_char
 let g:indentLine_showFirstIndentLevel = 1
 
@@ -148,7 +151,7 @@ let g:yoinkSavePersistently = 1
 " Vim Settings {{{
 " ----------------
 syntax enable
-colorscheme vim-monokai-tasty
+colorscheme night-owl
 filetype plugin indent on
 
 set nowrap
@@ -221,15 +224,22 @@ nnoremap cw ciw
 xnoremap > >gv
 xnoremap < <gv
 
+" Line Navigation
+noremap H ^
+noremap L g_
+
+" Tests
+nmap <silent> <leader>tn :TestNearest<cr>
+nmap <silent> <leader>tf :TestFile<cr>
+nmap <silent> <leader>ts :TestSuite<cr>
+nmap <silent> <leader>tl :TestLast<cr>
+nmap <silent> <leader>tv :TestVisit<cr>
+
 " Surround
 nmap S viwS
 map Sc Sfconsole.log<cr>
 map Sd Sfconsole.debug<cr>
 map Sj SfJSON.stringify<cr>
-
-" Line Navigation
-noremap H ^
-noremap L g_
 
 " Clipboard
 nmap <c-n> <plug>(YoinkPostPasteSwapBack)
@@ -320,12 +330,8 @@ nmap <silent> <C-w>m :ZoomToggle<cr>
 " ----------------
 augroup FILETYPES
   autocmd!
-  autocmd FileType javascript let b:dispatch = 'npm test -- %'
-  autocmd FileType vue syntax sync fromstart
-  autocmd FileType help,qf,vim-plug call TemporaryFileTypes()
-  function! TemporaryFileTypes()
-    nmap <buffer> <esc> :q<cr>
-  endfunction
+  autocmd FileType vue              syntax sync fromstart
+  autocmd FileType help,qf,vim-plug nmap <buffer> <esc> :q<cr>
 augroup END
 " ----------------
 " }}}

@@ -38,7 +38,7 @@ bindsym Pause exec playerctl play-pause
 bindsym Ctrl+Shift+4 exec flameshot gui
 
 bindsym $mod+Return       exec $TERMINAL
-bindsym $mod+Shift+Return exec $TERMINAL --class floating
+bindsym $mod+Shift+Return exec $TERMINAL --class float
 
 
 #
@@ -148,22 +148,29 @@ focus_wrapping no
 focus_follows_mouse no
 focus_on_window_activation urgent
 
+# variables
+set $floating_no_border floating enable, border none
+set $floating_border    floating enable, border pixel 1
+
 # borders
 for_window [class=".*" tiling] border normal
 
-# floating windows
-for_window [instance="^gpick$"] floating enable
-for_window [class="^flameshot$"] floating enable
-for_window [instance="^floating$"] floating enable
-for_window [title="^Media viewer$"] floating enable, border none
-for_window [instance="^file-roller$"] floating enable, border none
-for_window [instance="VirtualBox Manager$"] floating enable
+# floating windows without borders
+for_window [instance="^gnome-"]  $floating_no_border
+for_window [instance="^org.gno"] $floating_no_border
+for_window [instance="^gthumb$"] $floating_no_border
+for_window [instance="^totem$"]  $floating_no_border
+for_window [instance="^eog$"]    $floating_no_border
+for_window [class="^File-rolle"] $floating_no_border
+for_window [title="^Media view"] $floating_no_border
 
-set $full_gnome [instance="^(totem|eog|gthumb|file-roller)$"]
-for_window $full_gnome floating enable, border none
+# floating windows with small borders
+for_window [instance="^gpick$"]  $floating_border
+for_window [class="^flameshot$"] $floating_border
 
-set $part_gnome [instance="^(gnome\-|org\.gnome)"]
-for_window $part_gnome floating enable, border none
+# floating windows with default borders
+for_window [instance="^float$"]  floating enable
+for_window [class="VirtualBox"]  floating enable
 
 
 #
@@ -225,12 +232,12 @@ bindsym $mod+Escape  exec close-notification
 # colors
 #
 
-# class                 border  bground text    indicator child_border
-client.focused          #185FB5 #15539E #FFFFFF #2E9EF4   #15539E
-client.focused_inactive #333333 #353535 #FFFFFF #484E50   #5F676A
-client.unfocused        #333333 #252525 #888888 #292D2E   #222222
-client.urgent           #2F343A #900000 #FFFFFF #900000   #900000
-client.placeholder      #000000 #0C0C0C #FFFFFF #000000   #0C0C0C
+# class                 border  bground text    indic8r cborder
+client.focused          #185FB5 #15539E #FFFFFF #1E77E1 #15539E
+client.focused_inactive #333333 #353535 #FFFFFF #484E50 #5F676A
+client.unfocused        #333333 #252525 #888888 #292D2E #222222
+client.urgent           #2F343A #900000 #FFFFFF #900000 #900000
+client.placeholder      #000000 #0C0C0C #FFFFFF #000000 #0C0C0C
 client.background       #FFFFFF
 
 
