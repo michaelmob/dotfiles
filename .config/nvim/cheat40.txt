@@ -8,7 +8,7 @@ About {{{2
 
   Notation for key sequences:
 
-  <leader> Leader (see `<leader>`)
+  ‹leader› Leader (see `‹leader›`)
   ‹r›      A register (", *, 0, 1, …)
            See `registers`
   ‹Move›   A motion or a text object
@@ -381,7 +381,7 @@ Swap with bottom window  «C-w»J        N
 Swap with right window   «C-w»L        N
 Swap with left window    «C-w»H        N
 One window per file      :ball         N
-Cycle through windows    <leader>w     N
+Cycle through windows    ‹leader›w     N
 Back to previous window  «C-w»«C-p»    N
 Edit window to the left  «C-w»«C-h»    N
 Edit window below        «C-w»«C-j»    N
@@ -428,31 +428,31 @@ Change directory         :cd …         N
 Show the value of ‹Var›  :echo ‹Var›   N
 Show value of option     :set ‹Var›?   N
 fzf.vim {{{1
-Search tags              <leader><leader>N
-Search files             <leader>f     N
-Search directories       <leader>d     N
-Search text              <leader>/     N
-Alternative search text  <leader>s     N
-Search buffer list       <leader>b     N
-Search file history      <leader>h     N
-Search colorscheme list  <leader>tc    N
+Search tags              ‹leader›‹leader›N
+Search files             ‹leader›f     N
+Search directories       ‹leader›d     N
+Search text              ‹leader›/     N
+Alternative search text  ‹leader›s     N
+Search buffer list       ‹leader›b     N
+Search file history      ‹leader›h     N
+Search colorscheme list  ‹leader›tc    N
 }}}
 splitjoin.vim {{{1
-Join with next line      <leader>J     N
-Split with next line     <leader>K     N
+Join with next line      ‹leader›J     N
+Split with next line     ‹leader›K     N
 }}}
 coc.nvim {{{1
-Show commands            <leader>C     N
-Show diagnostics         <leader>D     N
-Show extensions          <leader>E     N
-Show locations           <leader>L     N
-Show outline             <leader>O     N
-Show services            <leader>T     N
-Show symbols             <leader>S     N
-Run code action          <leader>a     V
-Run code action          <leader>a     N
-Run quickfix for line    <leader>F     N
-Rename symbol            <leader>r     N
+Show commands            ‹leader›C     N
+Show diagnostics         ‹leader›D     N
+Show extensions          ‹leader›E     N
+Show locations           ‹leader›L     N
+Show outline             ‹leader›O     N
+Show services            ‹leader›T     N
+Show symbols             ‹leader›S     N
+Run code action          ‹leader›a     V
+Run code action          ‹leader›a     N
+Run quickfix for line    ‹leader›F     N
+Rename symbol            ‹leader›r     N
 Show diagnostic message  gh            N
 Jump to previous error   g]            N
 Jump to next error       [g            N
@@ -493,21 +493,21 @@ fixup! commit + rebase   cF
 squash! commit           cs
 squash! commit + rebase  cS
 squash! commit + amend   cA
-Command ':Git commit '   c<Space>
+Command ':Git commit '   c‹space›
 Revert commit            crc
 Revert commit in index   crn
-Command ':Git revert '   cr<Space>
-Command ':Git merge '    cm<Space>
+Command ':Git revert '   cr‹space›
+Command ':Git merge '    cm‹space›
 Checkout commit          coo
-Command ':Git branch '   cb<Space>
-Command ':Git checkout ' co<Space>
+Command ':Git branch '   cb‹space›
+Command ':Git checkout ' co‹space›
 Push stash               czz
 Push stash of worktree   czw
 Apply topmost stash      czA
 Apply and reserve index  cza
 Pop topmost stash        czP
 Pop and reserve index    czp
-Command ':Git stash '    cz<Space>
+Command ':Git stash '    cz‹space›
 Interactive rebase       ri
 Autosquash rebase        rf
 Rebase onto @{upstream}  ru
@@ -519,6 +519,6 @@ Edit rebase todo list    re
 Rebase set to reword     rw
 Rebase set to edit       rm
 Rebase set to drop       rd
-Command ':Git rebase '   r<Space>
+Command ':Git rebase '   r‹space›
 Command ':| <file>'      .
 }}}
