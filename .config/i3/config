@@ -36,6 +36,7 @@ bindsym $mod+g exec i3-layout-manager
 
 bindsym Pause exec playerctl play-pause
 bindsym Ctrl+Shift+4 exec flameshot gui
+bindsym $mod+Ctrl+Shift+4 exec reverse-image-search-gui
 
 bindsym $mod+Return       exec $TERMINAL
 bindsym $mod+Shift+Return exec $TERMINAL --class float
