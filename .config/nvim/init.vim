@@ -27,7 +27,7 @@ Plug 'airblade/vim-rooter'            " Change directory to project root
 Plug 'alvan/vim-closetag'             " Automatic HTML tag closing
 Plug 'brooth/far.vim'                 " Find and replace :Far
 Plug 'christoomey/vim-tmux-navigator' " Window navigation
-Plug 'easymotion/vim-easymotion'      " Faster motions
+Plug 'unblevable/quick-scope'         " Visual f/t
 Plug 'haishanh/night-owl.vim'         " Night owl colorscheme
 Plug 'honza/vim-snippets'             " Snippets source
 Plug 'janko/vim-test'                 " Test runners
@@ -90,7 +90,15 @@ let g:coc_user_config = {
 \}
 
 " vim-easy-align
-let g:easy_align_delimiters = { '\': { 'pattern': '\\' } }
+let g:easy_align_delimiters = {
+\  '/': { 'pattern': '/' }, '\': { 'pattern': '\\' },
+\  ';': { 'pattern': ';' }, "'": { 'pattern': "'" },
+\  '?': { 'pattern': '?' }, '+': { 'pattern': '+' },
+\  '~': { 'pattern': '~' }, '`': { 'pattern': '`' },
+\  '<': { 'pattern': '<' }, '>': { 'pattern': '>' },
+\  '[': { 'pattern': '[' }, ']': { 'pattern': ']' },
+\  '(': { 'pattern': '(' }, ')': { 'pattern': ')' }
+\}
 
 " vim-peekaboo
 let g:peekaboo_window = 'vert bo 40new'
@@ -101,7 +109,7 @@ let g:mkdp_auto_close = 0
 " indentLine
 let g:indentLine_bufTypeExclude = ['help', 'terminal']
 let g:indentLine_char = '▏'
-let g:indentLine_color_gui = '#212121'
+"let g:indentLine_color_gui = '#212121'
 let g:indentLine_first_char = g:indentLine_char
 let g:indentLine_showFirstIndentLevel = 1
 
@@ -134,12 +142,12 @@ let g:gutentags_file_list_command = 'rg -g "!node_modules" -g "!*.json" --files'
 let g:fzf_tags_command = g:gutentags_file_list_command . ' | ctags -R --links=no -L -'
 let g:fzf_history_dir = expand('$HOME/.local/share/fzf-history')
 
-" vim-easymotion
-let g:EasyMotion_do_mapping = 0
-
 " vim-cheat40
 let g:cheat40_use_default = 0
 let g:cheat40_foldlevel = 0
+
+" vim-quickscope
+let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 
 " vim-yoink
 let g:yoinkSavePersistently = 1
@@ -206,13 +214,13 @@ let mapleader = "\<space>"
 nmap <leader>w  <c-w>
 nmap <leader>ws <c-w>s-
 nmap <leader>wv <c-w>v-
-nmap <silent><leader>wc :enew\|bd#<cr>
+nmap <silent> <leader>wc :enew\|bd#<cr>
 
 " Swap window buffers
-nmap <silent><c-w>H :Swap h<cr>
-nmap <silent><c-w>J :Swap j<cr>
-nmap <silent><c-w>K :Swap k<cr>
-nmap <silent><c-w>L :Swap l<cr>
+nmap <silent> <c-w>H :Swap h<cr>
+nmap <silent> <c-w>J :Swap j<cr>
+nmap <silent> <c-w>K :Swap k<cr>
+nmap <silent> <c-w>L :Swap l<cr>
 
 " Files
 nmap <leader>j :w<CR>
@@ -224,6 +232,9 @@ nnoremap cw ciw
 " Indentation
 xnoremap > >gv
 xnoremap < <gv
+
+" Wrap visual
+xmap v LS
 
 " Line Navigation
 noremap H ^
@@ -304,7 +315,7 @@ nmap <silent> <leader>[ :cprevious<cr>
 
 " Git
 nmap <leader>gc :Commits<cr>
-nmap <leader>gg :tab Gstatus<cr>
+nmap <leader>gg :Gstatus<cr>
 
 " Formating
 nmap ga <plug>(EasyAlign)
@@ -312,9 +323,6 @@ xmap ga <plug>(EasyAlign)
 
 " Terminal
 tmap <c-u> <c-\><c-n><c-u>
-
-" EasyMotion
-map s <plug>(easymotion-overwin-f2)
 
 " splitjoin
 nmap <leader>J :SplitjoinJoin<cr>
@@ -336,7 +344,6 @@ augroup FILETYPES
 augroup END
 " ----------------
 " }}}
-
 
 
 " Events {{{
