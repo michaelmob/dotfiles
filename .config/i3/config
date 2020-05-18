@@ -40,8 +40,8 @@ bindsym $mod+Ctrl+Shift+4 exec reverse-image-search-gui
 
 bindsym $mod+b            exec $BROWSER
 bindsym $mod+Shift+b      exec $BROWSER --incognito -private
-bindsym $mod+Return       exec $TERMINAL
-bindsym $mod+Shift+Return exec $TERMINAL --class float
+bindsym $mod+Return       exec $TERMINAL --title=Terminal
+bindsym $mod+Shift+Return exec $TERMINAL --title=Terminal --class float
 
 
 #
@@ -142,7 +142,6 @@ for_window [class="^flameshot$"] $floating_border
 
 # floating windows with default borders
 for_window [instance="^float$"]  floating enable
-for_window [class="VirtualBox"]  floating enable
 for_window $desktop              floating disable, border none
 
 
