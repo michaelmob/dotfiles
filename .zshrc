@@ -71,7 +71,7 @@ alias alacrittyrc=":e $XDG_CONFIG_HOME/alacritty/alacritty.yml"
 alias tridactylrc=":e $XDG_CONFIG_HOME/tridactyl/tridactylrc"
 
 # Git Aliases
-alias gs='git status -vuno'
+alias gg='git status -vuno'
 alias gd='git diff HEAD'
 alias gc='git commit -vuno'
 alias gu='git add -u'

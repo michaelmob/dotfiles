@@ -28,6 +28,7 @@ Plug 'alvan/vim-closetag'             " Automatic HTML tag closing
 Plug 'brooth/far.vim'                 " Find and replace :Far
 Plug 'christoomey/vim-tmux-navigator' " Window navigation
 Plug 'unblevable/quick-scope'         " Visual f/t
+Plug 'easymotion/vim-easymotion'      " Faster motions
 Plug 'haishanh/night-owl.vim'         " Night owl colorscheme
 Plug 'honza/vim-snippets'             " Snippets source
 Plug 'janko/vim-test'                 " Test runners
@@ -44,6 +45,8 @@ Plug 'machakann/vim-sandwich'         " Surroundings
 Plug 'markstory/vim-zoomwin'          " Window-zoom
 Plug 'mbbill/undotree'                " Undo tree
 Plug 'mkitt/tabline.vim'              " Tabline enhancements
+Plug 'lukelbd/vim-tabline'
+"Plug 'itchyny/lightline.vim'
 Plug 'reedes/vim-litecorrect'         " Autocorrection
 Plug 'reedes/vim-pencil'              " Writing mode
 Plug 'romainl/vim-cool'               " Search highlighting
@@ -145,6 +148,9 @@ let g:fzf_history_dir = expand('$HOME/.local/share/fzf-history')
 " vim-cheat40
 let g:cheat40_use_default = 0
 let g:cheat40_foldlevel = 0
+
+" vim-easymotion
+let g:EasyMotion_do_mapping = 0
 
 " vim-quickscope
 let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
@@ -327,6 +333,9 @@ tmap <c-u> <c-\><c-n><c-u>
 " splitjoin
 nmap <leader>J :SplitjoinJoin<cr>
 nmap <leader>K :SplitjoinSplit<cr>
+
+" EasyMotion
+map s <plug>(easymotion-overwin-f2)
 
 " vim-zoomwin
 nmap <silent> <C-w>m :ZoomToggle<cr>

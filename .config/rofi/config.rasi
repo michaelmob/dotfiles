@@ -9,11 +9,6 @@ configuration {
   background-color: #2A2A2A;
 }
 
-window {
-  border: 1px;
-  border-color: #1B1B1B;
-}
-
 entry {
   padding: 0.5em 0.5em;
   background-color: #282828;
