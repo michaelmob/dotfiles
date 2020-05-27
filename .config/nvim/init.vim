@@ -2,14 +2,12 @@
 " https://github.com/tarkusdev/dotfiles
 
 
-
 " Variables {{{
 " ----------------
 let $sharedir = expand('$HOME/.local/share/nvim')
 let $plugdir  = expand($sharedir . '/site/autoload')
 " ----------------
 " }}}
-
 
 
 " Plugins {{{
@@ -20,16 +18,16 @@ if empty(glob($plugdir))
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
-
 call plug#begin($plugdir)
-
 Plug 'airblade/vim-rooter'            " Change directory to project root
 Plug 'alvan/vim-closetag'             " Automatic HTML tag closing
 Plug 'brooth/far.vim'                 " Find and replace :Far
 Plug 'christoomey/vim-tmux-navigator' " Window navigation
 Plug 'unblevable/quick-scope'         " Visual f/t
 Plug 'easymotion/vim-easymotion'      " Faster motions
+Plug 'editorconfig/editorconfig-vim'  " Consistent code styles
 Plug 'haishanh/night-owl.vim'         " Night owl colorscheme
+Plug 'SirVer/ultisnips'               " Snippets engine
 Plug 'honza/vim-snippets'             " Snippets source
 Plug 'janko/vim-test'                 " Test runners
 Plug 'jiangmiao/auto-pairs'           " Automatic bracket/paren/quote pairs
@@ -44,9 +42,7 @@ Plug 'kkoomen/vim-doge'               " Documentation generator
 Plug 'machakann/vim-sandwich'         " Surroundings
 Plug 'markstory/vim-zoomwin'          " Window-zoom
 Plug 'mbbill/undotree'                " Undo tree
-Plug 'mkitt/tabline.vim'              " Tabline enhancements
-Plug 'lukelbd/vim-tabline'
-"Plug 'itchyny/lightline.vim'
+Plug 'lukelbd/vim-tabline'            " Tabline enhancements
 Plug 'reedes/vim-litecorrect'         " Autocorrection
 Plug 'reedes/vim-pencil'              " Writing mode
 Plug 'romainl/vim-cool'               " Search highlighting
@@ -66,31 +62,45 @@ Plug 'wellle/targets.vim'             " Enhanced text objects
 Plug 'AndrewRadev/splitjoin.vim'      " Single-line <--> Multi-line
 Plug 'Yggdroot/indentLine'            " Space-indentation levels
 
+" Completions
+Plug 'neovim/nvim-lsp'
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'Shougo/deoplete-lsp'
+
+" Fuzzy Finders
 Plug 'junegunn/fzf', { 'do': './install --bin' }
 Plug 'junegunn/fzf.vim'
 
-Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
-Plug 'antoinemadec/coc-fzf'
-
+" Text Editing
 Plug 'iamcco/markdown-preview.nvim', {'do': {-> mkdp#util#install()}}
-
 call plug#end()
 " ----------------
 " }}}
 
 
-
 " Plugin Settings {{{
 " ----------------
-" coc.nvim
-let g:coc_global_extensions = [
-\  'coc-snippets', 'coc-yank', 'coc-emoji', 'coc-json', 'coc-css',
-\  'coc-tsserver', 'coc-phpls', 'coc-python', 'coc-vetur'
-\]
+" nvim.lsp
+:lua << END
+  lsp = require'nvim_lsp'
+  if not lsp then error('no lsp') end
 
-let g:coc_user_config = {
-\  'diagnostic.level': 'warning',
-\}
+  lsp.vimls.setup{}
+  lsp.bashls.setup{}
+  lsp.vuels.setup{}
+  lsp.tsserver.setup{}
+END
+
+" vim-sandwich
+runtime macros/sandwich/keymap/surround.vim
+
+" deoplete.nvim
+let g:deoplete#enable_at_startup = 1
+
+" ultisnips
+let g:UltiSnipsExpandTrigger="<c-e>"
+let g:UltiSnipsJumpForwardTrigger="<c-n>"
+let g:UltiSnipsJumpBackwardTrigger="<c-p>"
 
 " vim-easy-align
 let g:easy_align_delimiters = {
@@ -112,15 +122,11 @@ let g:mkdp_auto_close = 0
 " indentLine
 let g:indentLine_bufTypeExclude = ['help', 'terminal']
 let g:indentLine_char = '▏'
-"let g:indentLine_color_gui = '#212121'
 let g:indentLine_first_char = g:indentLine_char
 let g:indentLine_showFirstIndentLevel = 1
 
 " vim-dirvish
 let g:dirvish_mode = ':sort ,^.*[\/],'
-
-" vim-sandwich
-runtime macros/sandwich/keymap/surround.vim
 
 " vim-doge
 let g:doge_mapping = 'gcd'
@@ -162,7 +168,6 @@ let g:EasyClipAutoFormat = 1
 " }}}
 
 
-
 " Vim Settings {{{
 " ----------------
 syntax enable
@@ -178,12 +183,11 @@ set termguicolors
 set expandtab
 set shiftwidth=2
 set wildoptions=pum
-set wildignore+=*/vendor/*
-set wildignore+=*/node_modules/*
+set wildignore+=*/vendor/*,*/node_modules/*
 set pumheight=15
 set pumblend=5
-set number
-set relativenumber
+"set number
+"set relativenumber
 set colorcolumn=81
 set scrolloff=999
 set sidescrolloff=2
@@ -195,21 +199,31 @@ set fsync
 " }}}
 
 
+" Functions {{{
+" ----------------
+function! AutoloadSession()
+  if !argc() && filereadable('Session.vim')
+    source Session.vim
+    Obsess! Session.vim
+  endif
+endfunction
+" ----------------
+" }}}
+
 
 " Commands {{{
 " ----------------
 command! -nargs=1 Swap :normal! mA<c-w><args>mB'A<c-w>p'B<c-w>p
 
 command! -bang -nargs=* Rg call fzf#vim#grep(
-\ 'rg --column --line-number --no-heading --color=always --smart-case '
-\ . shellescape(<q-args>) . ' 2> /dev/null', 1,
-\ {'options': '--delimiter : --nth 4..'}, <bang>0)
+  \ 'rg --column --line-number --no-heading --color=always --smart-case '
+  \ . shellescape(<q-args>) . ' 2> /dev/null', 1,
+  \ {'options': '--delimiter : --nth 4..'}, <bang>0)
 
 command! -bang -nargs=* Dirs call fzf#run(fzf#wrap({
-\ 'source': 'find * -type d 2> /dev/null' }))
+  \ 'source': 'find * -type d 2> /dev/null' }))
 " ----------------
 " }}}
-
 
 
 " Keybindings {{{
@@ -278,39 +292,16 @@ nmap <leader>b :Buffers<cr>
 nmap <leader>h :History<cr>
 nmap <leader>tc :Colors<cr>
 
-" LSP Finders
-nmap <silent> <leader>R :CocFzfListResume<cr>
-nmap <silent> <leader>D :CocFzfList diagnostics<cr>
-nmap <silent> <leader>C :CocFzfList commands<cr>
-nmap <silent> <leader>E :CocFzfList extensions<cr>
-nmap <silent> <leader>L :CocFzfList location<cr>
-nmap <silent> <leader>O :CocFzfList outline<cr>
-nmap <silent> <leader>S :CocFzfList symbols<cr>
-nmap <silent> <leader>T :CocFzfList services<cr>
-
-" LSP Diagnostics
-xmap <silent> <leader>a <plug>(coc-codeaction-selected)
-nmap <silent> <leader>a <plug>(coc-codeaction)
-nmap <silent> <leader>F <plug>(coc-fix-current)
-nmap <silent> <leader>r <plug>(coc-rename)
-
-" LSP Actions
-nmap <silent> [g <plug>(coc-diagnostic-prev)
-nmap <silent> ]g <plug>(coc-diagnostic-next)
-nmap <silent> gh <plug>(coc-diagnostic-info)
-nmap <silent> gd <plug>(coc-definition)
-nmap <silent> gy <plug>(coc-type-definition)
-nmap <silent> gi <plug>(coc-implementation)
-nmap <silent> gr <plug>(coc-references)
-
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h ' . expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
-endfunction
+" LSP
+nnoremap <c-]> <cmd>lua vim.lsp.buf.definition()<CR>
+nnoremap gd    <cmd>lua vim.lsp.buf.declaration()<CR>
+nnoremap gh    <cmd>lua vim.lsp.buf.hover()<CR>
+nnoremap gI    <cmd>lua vim.lsp.buf.implementation()<CR>
+nnoremap gk    <cmd>lua vim.lsp.buf.signature_help()<CR>
+nnoremap gD    <cmd>lua vim.lsp.buf.type_definition()<CR>
+nnoremap gr    <cmd>lua vim.lsp.buf.references()<CR>
+nnoremap g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
+nnoremap gW    <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
 
 " Completion
 inoremap <expr> <cr> pumvisible() && !(empty(v:completed_item)) ? '<c-y>' : '<cr>'
@@ -328,6 +319,7 @@ nmap ga <plug>(EasyAlign)
 xmap ga <plug>(EasyAlign)
 
 " Terminal
+tmap <c-o> <c-\><c-n>
 tmap <c-u> <c-\><c-n><c-u>
 
 " splitjoin
@@ -343,13 +335,12 @@ nmap <silent> <C-w>m :ZoomToggle<cr>
 " }}}
 
 
-
 " Filetypes {{{
 " ----------------
 augroup FILETYPES
-  autocmd!
-  autocmd FileType vue              syntax sync fromstart
-  autocmd FileType help,qf,vim-plug nmap <buffer> <esc> :q<cr>
+  autocmd! Filetype    *    setlocal omnifunc=v:lua.vim.lsp.omnifunc
+  autocmd! FileType   vue   syntax sync fromstart
+  autocmd! FileType help,qf nmap <buffer> <esc> :q<cr>
 augroup END
 " ----------------
 " }}}
@@ -358,28 +349,12 @@ augroup END
 " Events {{{
 " ----------------
 augroup EVENTS
-  autocmd! BufWritePre <buffer> %s/\s\+$//e
+  autocmd! VimEnter        *     nested call AutoloadSession()
+  autocmd! BufWritePre  <buffer> %s/\s\+$//e
   autocmd! BufWritePost $MYVIMRC source $MYVIMRC
-  autocmd! BufEnter *.txt,*.md setlocal nofen tw=80 "fo=aw2tq
-  autocmd! CursorHold * silent call CocActionAsync('highlight')
-  autocmd! VimEnter * nested call AutoloadSession()
-  function! AutoloadSession()
-    if !argc() && filereadable('Session.vim')
-      source Session.vim
-      Obsess! Session.vim
-    endif
-  endfunction
-augroup END
-" ----------------
-" }}}
-
-
-
-" Projects {{{
-" ----------------
-augroup PROJECTS
-  autocmd BufRead,BufNewFile **/gidget4/backend/*.php
-  \  let b:dispatch = './scripts/run_tests --filter %:t:r'
+  autocmd! BufEnter   *.txt,*.md setlocal nofen tw=80 "fo=aw2tq
+  autocmd! User GoyoEnter Limelight
+  autocmd! User GoyoLeave Limelight!
 augroup END
 " ----------------
 " }}}

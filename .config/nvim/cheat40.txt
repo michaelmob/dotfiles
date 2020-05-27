@@ -441,6 +441,17 @@ splitjoin.vim {{{1
 Join with next line      ‹leader›J     N
 Split with next line     ‹leader›K     N
 }}}
+nvim-lsp {{{1
+Jump to declaration      gd            N
+Jump to definition       «C-]»         N
+Trigger hover            gh            N
+Go to implementation     gI            N
+Show signature help      gk            N
+Show type definition     gD            N
+List references          gr            N
+Go to document symbol    g0            N
+List workspace symbols   gW            N
+}}}
 coc.nvim {{{1
 Show commands            ‹leader›C     N
 Show diagnostics         ‹leader›D     N
@@ -462,63 +473,70 @@ Jump to implementation   gi            N
 Jump to references       gr            N
 }}}
 vim-fugitive {{{1
-Stage file or hunk       s
-Unstage file or hunk     u
-Stage/unstage            -
-Unstage everything       U
-Discard the change       X
-Toggle an inline diff    =
-Insert an inline diff    >
-Remove the inline diff   <
-Open .git/info/exclude   gi or gI
-Invoke :Git --patch      I or P
-Invoke :Git diff         dp
-Open diff split          dd
-Open hdiff split         ds
-Open vdiff split         dv
-Show diff help           d?
-Open file under cursor   <CR>
-Open file in split       o
-Open file in vert split  g0
-Open file in new tab     O
-Open file in preview     p
-Open commit of file      C
-Create commit            cc
-Create commit (-v)       cvc
-Amend last commit        ca or ce
-Reword last commit       cw
-Amend last commit (-v)   cva
-fixup! commit            cf
-fixup! commit + rebase   cF
-squash! commit           cs
-squash! commit + rebase  cS
-squash! commit + amend   cA
-Command ':Git commit '   c‹space›
-Revert commit            crc
-Revert commit in index   crn
-Command ':Git revert '   cr‹space›
-Command ':Git merge '    cm‹space›
-Checkout commit          coo
-Command ':Git branch '   cb‹space›
-Command ':Git checkout ' co‹space›
-Push stash               czz
-Push stash of worktree   czw
-Apply topmost stash      czA
-Apply and reserve index  cza
-Pop topmost stash        czP
-Pop and reserve index    czp
-Command ':Git stash '    cz‹space›
-Interactive rebase       ri
-Autosquash rebase        rf
-Rebase onto @{upstream}  ru
-Rebase onto @{push}      rp
-Continue rebase          rr
-Skip commit and rebase   rs
-Abort rebase             ra
-Edit rebase todo list    re
-Rebase set to reword     rw
-Rebase set to edit       rm
-Rebase set to drop       rd
-Command ':Git rebase '   r‹space›
-Command ':| <file>'      .
+Stage file or hunk       s             N
+Unstage file or hunk     u             N
+Stage/unstage            -             N
+Unstage everything       U             N
+Discard the change       X             N
+Toggle an inline diff    =             N
+Insert an inline diff    >             N
+Remove the inline diff   <             N
+Open .git/info/exclude   gi or gI      N
+Invoke :Git --patch      I or P        N
+Invoke :Git diff         dp            N
+Open diff split          dd            N
+Open hdiff split         ds            N
+Open vdiff split         dv            N
+Show diff help           d?            N
+Open file under cursor   <CR>          N
+Open file in split       o             N
+Open file in vert split  g0            N
+Open file in new tab     O             N
+Open file in preview     p             N
+Open commit of file      C             N
+Create commit            cc            N
+Create commit (-v)       cvc           N
+Amend last commit        ca or ce      N
+Reword last commit       cw            N
+Amend last commit (-v)   cva           N
+fixup! commit            cf            N
+fixup! commit + rebase   cF            N
+squash! commit           cs            N
+squash! commit + rebase  cS            N
+squash! commit + amend   cA            N
+Command ':Git commit '   c‹space›      N
+Revert commit            crc           N
+Revert commit in index   crn           N
+Command ':Git revert '   cr‹space›     N
+Command ':Git merge '    cm‹space›     N
+Checkout commit          coo           N
+Command ':Git branch '   cb‹space›     N
+Command ':Git checkout ' co‹space›     N
+Push stash               czz           N
+Push stash of worktree   czw           N
+Apply topmost stash      czA           N
+Apply and reserve index  cza           N
+Pop topmost stash        czP           N
+Pop and reserve index    czp           N
+Command ':Git stash '    cz‹space›     N
+Interactive rebase       ri            N
+Autosquash rebase        rf            N
+Rebase onto @{upstream}  ru            N
+Rebase onto @{push}      rp            N
+Continue rebase          rr            N
+Skip commit and rebase   rs            N
+Abort rebase             ra            N
+Edit rebase todo list    re            N
+Rebase set to reword     rw            N
+Rebase set to edit       rm            N
+Rebase set to drop       rd            N
+Command ':Git rebase '   r‹space›      N
+Command ':| <file>'      .             N
+}}}
+vim-test {{{1
+Run test on nearest      ‹leader›tn    N
+Run tests on file        ‹leader›tf    N
+Run entire test suite    ‹leader›ts    N 
+Runs the last test       ‹leader›tl    N
+Jump to last test file   ‹leader›tl    N
 }}}
