@@ -117,10 +117,15 @@ let g:easy_align_delimiters = {
 let g:peekaboo_window = 'vert bo 40new'
 
 " markdown-preview.nvim
-let g:mkdp_auto_close = 0
+let g:mkdp_auto_close = 1
+let g:mkdp_echo_preview_url = 1
+let g:mkdp_open_to_the_world = 1
+let g:mkdp_port = 50000
 
 " indentLine
-let g:indentLine_bufTypeExclude = ['help', 'terminal']
+let g:indentLine_fileTypeExclude = [
+\  'help', 'terminal', 'markdown', 'vim', 'vim-plug'
+\]
 let g:indentLine_char = '▏'
 let g:indentLine_first_char = g:indentLine_char
 let g:indentLine_showFirstIndentLevel = 1
