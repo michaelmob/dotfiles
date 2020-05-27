@@ -164,6 +164,9 @@ let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 " vim-yoink
 let g:yoinkSavePersistently = 1
 let g:EasyClipAutoFormat = 1
+
+" vim-autopairs
+let g:AutoPairsMultilineClose = 0
 " ----------------
 " }}}
 
