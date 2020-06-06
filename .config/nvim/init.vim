@@ -223,6 +223,9 @@ endfunction
 " ----------------
 command! -nargs=1 Swap :normal! mA<c-w><args>mB'A<c-w>p'B<c-w>p
 
+command! -nargs=1 Tabs :set ts=<args> sts=<args> sw=<args> noexpandtab
+command! -nargs=1 Spaces :set ts=<args> sts=<args> sw=<args> expandtab
+
 command! -bang -nargs=* Rg call fzf#vim#grep(
   \ 'rg --column --line-number --no-heading --color=always --smart-case '
   \ . shellescape(<q-args>) . ' 2> /dev/null', 1,
