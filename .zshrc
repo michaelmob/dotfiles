@@ -33,13 +33,20 @@ zstyle ':completion:*' menu select
 __git_files () { _wanted files expl 'local files' _files; }
 
 # Prompt
-PS1='%F{white}%B%T%b %f%B%F{red}['
-PS1+='%F{yellow}%n'
-PS1+='%F{green}@'
-PS1+='%F{blue}%m'
-PS1+='%F{magenta} %c'
-PS1+='%F{red}]'
-PS1+='%F{white}λ%b %f'
+if [[ "$HOST" = 'dev' ]]; then
+  PS1='%F{white}%B%T%b %f%B%F{red}['
+  PS1+='%F{magenta}%c'
+  PS1+='%F{red}]'
+  PS1+='%F{white}λ%b %f'
+else
+  PS1='%F{white}%B%T%b %f%B%F{red}['
+  PS1+='%F{yellow}%n'
+  PS1+='%F{green}@'
+  PS1+='%F{blue}%m'
+  PS1+='%F{magenta} %c'
+  PS1+='%F{red}]'
+  PS1+='%F{white}λ %f%b'
+fi
 
 # History
 HISTFILE=$HOME/.zsh_history
