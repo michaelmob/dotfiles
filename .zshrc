@@ -67,7 +67,7 @@ alias :q='exit'
 alias :e="$EDITOR"
 alias ls='ls --color=auto --group-directories-first'
 alias l='ls'
-alias xclip='xclip -sel xclip'
+alias xclip='xclip -sel clip'
 alias serve='python -m http.server'
 alias tardir="git ls-files | tar cvf 'out.tar' -T -"
 
