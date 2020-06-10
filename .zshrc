@@ -56,6 +56,10 @@ SAVEHIST=100000000
 # Functions
 f() { find ${@:2} -iname "*$1*" 2> /dev/null; }  # Case-insensitive find
 c() { awk "NR>1 {print \$$1}"; }  # Print column number without first line
+refresh() {
+  export $(tmux show-environment SSH_AUTH_SOCK)
+  export $(tmux show-environment DISPLAY)
+}
 
 # Helper Aliases
 alias \?='bindkey | head -n 23'
@@ -63,7 +67,7 @@ alias :q='exit'
 alias :e="$EDITOR"
 alias ls='ls --color=auto --group-directories-first'
 alias l='ls'
-alias xclip='xclip -selection c'
+alias xclip='xclip -sel xclip'
 alias serve='python -m http.server'
 alias tardir="git ls-files | tar cvf 'out.tar' -T -"
 
@@ -71,10 +75,10 @@ alias tardir="git ls-files | tar cvf 'out.tar' -T -"
 alias i3rc=":e $XDG_CONFIG_HOME/i3/config"
 alias i3statusrc=":e $XDG_CONFIG_HOME/i3status/config"
 alias rofirc=":e $XDG_CONFIG_HOME/rofi/config.rasi"
+alias tmuxrc=":e $HOME/.tmux.conf"
 alias zshrc=":e $HOME/.zshrc"
-alias vimrc='vim .vimrc'
+alias vimrc="vim $HOME/.vimrc"
 alias nvimrc=":e $XDG_CONFIG_HOME/nvim/init.vim"
-alias tmuxrc=":e $XDG_CONFIG_HOME/tmux/tmux.conf"
 alias alacrittyrc=":e $XDG_CONFIG_HOME/alacritty/alacritty.yml"
 alias tridactylrc=":e $XDG_CONFIG_HOME/tridactyl/tridactylrc"
 
