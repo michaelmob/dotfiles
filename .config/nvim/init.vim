@@ -189,6 +189,7 @@ set splitbelow
 set splitright
 set termguicolors
 set expandtab
+set tabstop=4
 set shiftwidth=2
 set wildoptions=pum
 set wildignore+=*/vendor/*,*/node_modules/*

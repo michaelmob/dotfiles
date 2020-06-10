@@ -33,7 +33,7 @@ zstyle ':completion:*' menu select
 __git_files () { _wanted files expl 'local files' _files; }
 
 # Prompt
-PS1='%F{white}(%B%T%b)%f%B%F{red}['
+PS1='%F{white}%B%T%b %f%B%F{red}['
 PS1+='%F{yellow}%n'
 PS1+='%F{green}@'
 PS1+='%F{blue}%m'
@@ -55,6 +55,7 @@ alias \?='bindkey | head -n 23'
 alias :q='exit'
 alias :e="$EDITOR"
 alias ls='ls --color=auto --group-directories-first'
+alias l='ls'
 alias xclip='xclip -selection c'
 alias serve='python -m http.server'
 alias tardir="git ls-files | tar cvf 'out.tar' -T -"
