@@ -12,7 +12,8 @@ yay --noconfirm --needed -Sy \
   gnome-flashback \
   gnome-screensaver \
   xorg \
-  keynav
+  xcape \
+  keynav \
 
 # utilities
 yay --noconfirm --needed -Sy \

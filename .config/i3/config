@@ -23,6 +23,7 @@ exec --no-startup-id imwheel
 exec --no-startup-id telegram-desktop
 exec --no-startup-id discord
 exec --no-startup-id $TERMINAL --title=Calculator -e calc.py
+exec --no-startup-id xcape -e 'Control_L=F9'
 
 
 #
