@@ -1,5 +1,5 @@
 " vim: et sw=2 fdm=marker fmr={{{,}}}
-" https://github.com/tarkusdev/dotfiles
+" https://github.com/michaelmob/dotfiles
 
 
 " Variables {{{
@@ -220,8 +220,6 @@ command! -bang -nargs=* Dirs call fzf#run(fzf#wrap({
 " ----------------
 let mapleader = "\<space>"
 imap jk <esc>
-imap djk <esc>dd
-imap <leader>jk <esc>:w<cr>
 
 " Windows
 nmap <leader>w  <c-w>
@@ -286,15 +284,15 @@ nmap <leader>h :History<cr>
 nmap <leader>tc :Colors<cr>
 
 " LSP
-" nnoremap <c-]> <cmd>lua vim.lsp.buf.definition()<CR>
-" nnoremap gd    <cmd>lua vim.lsp.buf.declaration()<CR>
-" nnoremap gh    <cmd>lua vim.lsp.buf.hover()<CR>
-" nnoremap gI    <cmd>lua vim.lsp.buf.implementation()<CR>
-" nnoremap gk    <cmd>lua vim.lsp.buf.signature_help()<CR>
-" nnoremap gD    <cmd>lua vim.lsp.buf.type_definition()<CR>
-" nnoremap gr    <cmd>lua vim.lsp.buf.references()<CR>
-" nnoremap g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
-" nnoremap gW    <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
+nmap <c-]> <Plug>(coc-definition)
+nmap gd <Plug>(coc-declaration)
+nmap gh <Plug>(coc-diagnostic-info)
+nmap gI <Plug>(coc-implementation)
+nmap gD <Plug>(coc-type-definition)
+nmap gr <Plug>(coc-references)
+nmap gR <Plug>(coc-rename)
+nmap gl <Plug>(coc-openlink)
+nmap gF <Plug>(coc-format)
 
 " Completion
 inoremap <expr> <cr> pumvisible() && !(empty(v:completed_item)) ? '<c-y>' : '<cr>'
