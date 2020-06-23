@@ -27,7 +27,6 @@ Plug 'unblevable/quick-scope'         " Visual f/t
 Plug 'easymotion/vim-easymotion'      " Faster motions
 Plug 'editorconfig/editorconfig-vim'  " Consistent code styles
 Plug 'haishanh/night-owl.vim'         " Night owl colorscheme
-Plug 'SirVer/ultisnips'               " Snippets engine
 Plug 'honza/vim-snippets'             " Snippets source
 Plug 'janko/vim-test'                 " Test runners
 Plug 'jiangmiao/auto-pairs'           " Automatic bracket/paren/quote pairs
@@ -63,9 +62,7 @@ Plug 'AndrewRadev/splitjoin.vim'      " Single-line <--> Multi-line
 Plug 'Yggdroot/indentLine'            " Space-indentation levels
 
 " Completions
-Plug 'neovim/nvim-lsp'
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'Shougo/deoplete-lsp'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " Fuzzy Finders
 Plug 'junegunn/fzf', { 'do': './install --bin' }
@@ -80,27 +77,8 @@ call plug#end()
 
 " Plugin Settings {{{
 " ----------------
-" nvim.lsp
-:lua << END
-  lsp = require'nvim_lsp'
-  if not lsp then error('no lsp') end
-
-  lsp.vimls.setup{}
-  lsp.bashls.setup{}
-  lsp.vuels.setup{}
-  lsp.tsserver.setup{}
-END
-
 " vim-sandwich
 runtime macros/sandwich/keymap/surround.vim
-
-" deoplete.nvim
-let g:deoplete#enable_at_startup = 1
-
-" ultisnips
-let g:UltiSnipsExpandTrigger="<c-e>"
-let g:UltiSnipsJumpForwardTrigger="<c-n>"
-let g:UltiSnipsJumpBackwardTrigger="<c-p>"
 
 " vim-easy-align
 let g:easy_align_delimiters = {
@@ -240,7 +218,8 @@ command! -bang -nargs=* Dirs call fzf#run(fzf#wrap({
 
 " Keybindings {{{
 " ----------------
-let mapleader = "\<space>"
+let mapleheader = "\<space>"
+imap jk <Esc>
 
 " Windows
 nmap <leader>w  <c-w>
@@ -305,18 +284,18 @@ nmap <leader>h :History<cr>
 nmap <leader>tc :Colors<cr>
 
 " LSP
-nnoremap <c-]> <cmd>lua vim.lsp.buf.definition()<CR>
-nnoremap gd    <cmd>lua vim.lsp.buf.declaration()<CR>
-nnoremap gh    <cmd>lua vim.lsp.buf.hover()<CR>
-nnoremap gI    <cmd>lua vim.lsp.buf.implementation()<CR>
-nnoremap gk    <cmd>lua vim.lsp.buf.signature_help()<CR>
-nnoremap gD    <cmd>lua vim.lsp.buf.type_definition()<CR>
-nnoremap gr    <cmd>lua vim.lsp.buf.references()<CR>
-nnoremap g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
-nnoremap gW    <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
+" nnoremap <c-]> <cmd>lua vim.lsp.buf.definition()<CR>
+" nnoremap gd    <cmd>lua vim.lsp.buf.declaration()<CR>
+" nnoremap gh    <cmd>lua vim.lsp.buf.hover()<CR>
+" nnoremap gI    <cmd>lua vim.lsp.buf.implementation()<CR>
+" nnoremap gk    <cmd>lua vim.lsp.buf.signature_help()<CR>
+" nnoremap gD    <cmd>lua vim.lsp.buf.type_definition()<CR>
+" nnoremap gr    <cmd>lua vim.lsp.buf.references()<CR>
+" nnoremap g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
+" nnoremap gW    <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
 
 " Completion
-inoremap <expr> <cr> pumvisible() && !(empty(v:completed_item)) ? '<c-y>' : '<cr>'
+"inoremap <expr> <cr> pumvisible() && !(empty(v:completed_item)) ? '<c-y>' : '<cr>'
 
 " Quickfix
 nmap <silent> <leader>] :cnext<cr>
@@ -350,7 +329,7 @@ nmap <silent> <C-w>m :ZoomToggle<cr>
 " Filetypes {{{
 " ----------------
 augroup FILETYPES
-  autocmd! Filetype    *    setlocal omnifunc=v:lua.vim.lsp.omnifunc
+  " autocmd! Filetype    *    setlocal omnifunc=v:lua.vim.lsp.omnifunc
   autocmd! FileType   vue   syntax sync fromstart
   autocmd! FileType help,qf nmap <buffer> <esc> :q<cr>
 augroup END
