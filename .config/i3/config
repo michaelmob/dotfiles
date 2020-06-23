@@ -1,12 +1,13 @@
 # i3 config file
-# github.com/thetarkus/dotfiles
+# github.com/michaelmob/dotfiles
 
 
 #
 # settings
 #
 
-set  $mod Mod4
+set $alt Mod1
+set $mod Mod4
 font pango:monospace 8
 
 floating_modifier   $mod
@@ -20,6 +21,7 @@ default_orientation horizontal
 exec --no-startup-id picom
 exec --no-startup-id redshift
 exec --no-startup-id imwheel
+exec --no-startup-id JolpinDesktop.AppImage
 exec --no-startup-id telegram-desktop
 exec --no-startup-id discord
 exec --no-startup-id $TERMINAL --title=Calculator -e calc.py
@@ -68,10 +70,10 @@ bindsym $mod+Shift+j $set_swap down,  $run_swap
 bindsym $mod+Shift+l $set_swap right, $run_swap
 
 # move focused window (destructive)
-bindsym $mod+Ctrl+k move up
-bindsym $mod+Ctrl+h move left
-bindsym $mod+Ctrl+j move down
-bindsym $mod+Ctrl+l move right
+bindsym $mod+$alt+k move up
+bindsym $mod+$alt+h move left
+bindsym $mod+$alt+j move down
+bindsym $mod+$alt+l move right
 
 # move focused container to split
 bindsym $mod+y       move container to   mark _move
@@ -79,10 +81,10 @@ bindsym $mod+Shift+y swap container with mark _move
 
 # resize focused window
 set $resize 10 px or 10 ppt
-bindsym $mod+Ctrl+Shift+k resize shrink height $resize
-bindsym $mod+Ctrl+Shift+h resize shrink width  $resize
-bindsym $mod+Ctrl+Shift+j resize grow   height $resize
-bindsym $mod+Ctrl+Shift+l resize grow   width  $resize
+bindsym $mod+Ctrl+k resize shrink height $resize
+bindsym $mod+Ctrl+h resize shrink width $resize
+bindsym $mod+Ctrl+j resize grow height $resize
+bindsym $mod+Ctrl+l resize grow width $resize
 
 # split orientation
 bindsym $mod+v split h; mark _move
@@ -100,17 +102,18 @@ bindsym $mod+Shift+f floating toggle
 bindsym $mod+Shift+s sticky toggle
 
 # change focus between tiling/floating, parent/child, and urgent windows
-bindsym $mod+t       focus mode_toggle
 bindsym $mod+a       focus parent
 bindsym $mod+Shift+a focus child
+bindsym $mod+colon   focus mode_toggle
 
 # focus urgent
 bindsym $mod+u [urgent="latest"] focus, scratchpad show
 
 # window gaps
-bindsym $mod+equal       gaps outer all set 0; gaps inner all set 0
-bindsym $mod+Shift+equal gaps inner current plus 20; gaps outer current plus 5
+bindsym $mod+equal       gaps outer all set 0;        gaps inner all set 0
+bindsym $mod+Shift+equal gaps inner current plus 20;  gaps outer current plus 5
 bindsym $mod+Shift+minus gaps inner current minus 20; gaps outer current minus 5
+
 
 #
 # window settings
@@ -122,12 +125,8 @@ focus_follows_mouse        no
 focus_on_window_activation urgent
 
 # variables
-set $desktop            [instance="^gnome-flashback$" title="^Desktop$"]
 set $floating_no_border floating enable, border none
 set $floating_border    floating enable, border pixel 1
-
-# desktop
-assign $desktop -
 
 # borders
 for_window [class=".*" tiling] border normal
@@ -147,7 +146,6 @@ for_window [class="^flameshot$"] $floating_border
 
 # floating windows with default borders
 for_window [instance="^float$"]  floating enable
-for_window $desktop              floating disable, border none
 
 
 #
@@ -157,6 +155,14 @@ for_window $desktop              floating disable, border none
 set $calculator [title="^Calculator$"]
 for_window      $calculator move scratchpad, resize set 500 250, border pixel 5
 bindsym $mod+c  $calculator scratchpad show
+
+set $joplin     [instance="^joplin$"]
+for_window      $joplin move scratchpad
+bindsym $mod+x  $joplin scratchpad show
+
+set $spotify    [instance="^spotify$"]
+for_window      $spotify move scratchpad
+bindsym $mod+F1 $spotify scratchpad show
 
 set $telegram   [title="^Telegram" instance="^telegram-desktop$"]
 for_window      $telegram move scratchpad
@@ -174,25 +180,18 @@ set $slack      [instance="^slack$"]
 for_window      $slack move scratchpad
 bindsym $mod+F5 $slack scratchpad show, mark scratchpad
 
-set $spotify    [instance="^spotify$"]
-for_window      $spotify move scratchpad
-bindsym $mod+F1 $spotify scratchpad show
+set $vboxman    [title="VirtualBox Manager$"]
+for_window      $vboxman move scratchpad, scratchpad show
+bindsym $mod+F8 $vboxman scratchpad show
 
-set $vboxmanager [title="VirtualBox Manager$"]
-for_window       $vboxmanager move scratchpad, scratchpad show
-bindsym $mod+F11 $vboxmanager scratchpad show
-
-bindsym $mod+grave [con_mark="scratchpad"] scratchpad show
+set $desktop       [instance="^gnome-flashback$" title="^Desktop$"]
+for_window         $desktop move scratchpad, resize set 1000 1000
+bindsym $mod+minus $desktop scratchpad show
 
 # minimizing
-bindsym $mod+x \
-  [con_mark="x_minimized" floating] scratchpad show; \
-  [  con_id="__focused__" floating] mark --toggle x_minimized; \
-  [con_mark="x_minimized" floating] move scratchpad
-
 bindsym $mod+z \
   [con_mark="z_minimized" floating] scratchpad show; \
-  [  con_id="__focused__" floating] mark --toggle z_minimized; \
+  [con_id="__focused__"   floating] mark --toggle z_minimized; \
   [con_mark="z_minimized" floating] move scratchpad
 
 
@@ -212,7 +211,6 @@ set $ws7 7
 set $ws8 8
 set $ws9 9
 set $ws0 10
-set $wsd -
 
 # switch to workspace
 bindsym $mod+1 workspace $ws1
@@ -226,9 +224,6 @@ bindsym $mod+8 workspace $ws8
 bindsym $mod+9 workspace $ws9
 bindsym $mod+0 workspace $ws0
 
-# switch to desktop workspace
-bindsym $mod+minus $desktop move to workspace $wsd, workspace $wsd
-
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace $ws1
 bindsym $mod+Shift+2 move container to workspace $ws2
@@ -241,10 +236,6 @@ bindsym $mod+Shift+8 move container to workspace $ws8
 bindsym $mod+Shift+9 move container to workspace $ws9
 bindsym $mod+Shift+0 move container to workspace $ws0
 
-# workspace gaps
-workspace $wsd gaps outer 0
-workspace $wsd gaps inner 0
-
 
 #
 # desktop environment
@@ -255,6 +246,7 @@ bindsym $mod+Shift+r restart
 bindsym $mod+Shift+w reload
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Exit?' -B Yes 'i3-msg exit'"
 bindsym $mod+Escape  exec close-notification
+
 
 #
 # colors
