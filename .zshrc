@@ -19,6 +19,7 @@ autoload -U compinit && compinit  # tab completion
 autoload -U edit-command-line
 
 bindkey -e  # emacs keybindings
+bindkey -s '^z' 'fg\n'  # restore background application to foreground
 bindkey '^x^e' edit-command-line  # ctrl-x ctrl-e to edit long commands
 bindkey '\e[3~' delete-char  # delete key
 bindkey '\e[1;5A' nop  # disable ctrl-up
