@@ -218,7 +218,7 @@ command! -bang -nargs=* Dirs call fzf#run(fzf#wrap({
 
 " Keybindings {{{
 " ----------------
-let mapleheader = "\<space>"
+let mapleader = "\<space>"
 imap jk <Esc>
 
 " Windows
