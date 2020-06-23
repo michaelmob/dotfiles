@@ -188,6 +188,8 @@ set $desktop       [instance="^gnome-flashback$" title="^Desktop$"]
 for_window         $desktop move scratchpad, resize set 1000 1000
 bindsym $mod+minus $desktop scratchpad show
 
+bindsym $mod+grave [con_mark="scratchpad"] scratchpad show
+
 # minimizing
 bindsym $mod+z \
   [con_mark="z_minimized" floating] scratchpad show; \
