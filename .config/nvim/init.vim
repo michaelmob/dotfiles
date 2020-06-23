@@ -176,7 +176,7 @@ set pumblend=5
 "set number
 "set relativenumber
 set colorcolumn=81
-set scrolloff=999
+set scrolloff=2
 set sidescrolloff=2
 set undofile
 set undodir=$sharedir/undo
