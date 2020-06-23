@@ -1,2 +1,2 @@
-# [Mike Mob](https://tarkus.dev)'s Dotfiles
+# [Michael Mob](https://michaelmob.com)'s Dotfiles
 🇮 ❤️ 🐧

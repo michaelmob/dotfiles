@@ -219,7 +219,9 @@ command! -bang -nargs=* Dirs call fzf#run(fzf#wrap({
 " Keybindings {{{
 " ----------------
 let mapleader = "\<space>"
-imap jk <Esc>
+imap jk <esc>
+imap djk <esc>dd
+imap <leader>jk <esc>:w<cr>
 
 " Windows
 nmap <leader>w  <c-w>
@@ -234,7 +236,7 @@ nmap <silent> <c-w>K :Swap k<cr>
 nmap <silent> <c-w>L :Swap l<cr>
 
 " Files
-nmap <leader>j :w<CR>
+nmap <leader>j :w<cr>
 
 " Text
 nnoremap vw viw
@@ -295,7 +297,7 @@ nmap <leader>tc :Colors<cr>
 " nnoremap gW    <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
 
 " Completion
-"inoremap <expr> <cr> pumvisible() && !(empty(v:completed_item)) ? '<c-y>' : '<cr>'
+inoremap <expr> <cr> pumvisible() && !(empty(v:completed_item)) ? '<c-y>' : '<cr>'
 
 " Quickfix
 nmap <silent> <leader>] :cnext<cr>
@@ -329,7 +331,6 @@ nmap <silent> <C-w>m :ZoomToggle<cr>
 " Filetypes {{{
 " ----------------
 augroup FILETYPES
-  " autocmd! Filetype    *    setlocal omnifunc=v:lua.vim.lsp.omnifunc
   autocmd! FileType   vue   syntax sync fromstart
   autocmd! FileType help,qf nmap <buffer> <esc> :q<cr>
 augroup END
