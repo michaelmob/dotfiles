@@ -60,6 +60,7 @@ Plug 'wakatime/vim-wakatime'          " Time management
 Plug 'wellle/targets.vim'             " Enhanced text objects
 Plug 'AndrewRadev/splitjoin.vim'      " Single-line <--> Multi-line
 Plug 'Yggdroot/indentLine'            " Space-indentation levels
+Plug 'takac/vim-hardtime'             " Habit breaking
 
 " Completions
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
