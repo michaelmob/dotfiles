@@ -1,6 +1,0 @@
-#!/usr/bin/env bash
-# Upload image to Google's reverse image search
-# Usage: ./reverse-image-search <filename>
-file "$1" | grep -qP ': \K.*?(image|bitmap)' || exit 1
-r=$(curl -sF encoded_image="@$1" https://www.google.com/searchbyimage/upload)
-exec grep -oP 'HREF="\K.*(?=")' <<< "$r"
