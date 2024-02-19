@@ -1,0 +1,13 @@
+title: Terminal
+
+env:
+  TERM: screen-256color
+
+font:
+  size: 13.0
+
+key_bindings:
+  - { key: K, mods: Control|Shift, action: ScrollPageUp   }
+  - { key: J, mods: Control|Shift, action: ScrollPageDown }
+  - { key: H, mods: Control|Shift, action: ScrollToTop    }
+  - { key: L, mods: Control|Shift, action: ScrollToBottom }

@@ -1,0 +1,29 @@
+---
+- name: Utilities
+  hosts: localhost
+  tasks:
+    - name: git install
+      package: name=git state=latest
+    - name: ripgrep install
+      package: name=ripgrep state=latest
+    - name: fzf install
+      package: name=fzf state=latest
+    - name: tmux install
+      package: name=tmux state=latest
+- name: Neovim
+  hosts: localhost
+  tasks:
+    - name: neovim install
+      package: name=neovim state=latest
+    - name: vim-surround plugin
+      git:
+        repo: https://github.com/tpope/vim-surround
+        dest: ~/.config/nvim/pack/plugins/start/vim-surround
+    - name: vim-commentary plugin
+      git:
+        repo: https://github.com/tpope/vim-commentary
+        dest: ~/.config/nvim/pack/plugins/start/vim-commentary
+    - name: vim-tmux-navigator plugin
+      git:
+        repo: https://github.com/christoomey/vim-tmux-navigator
+        dest: ~/.config/nvim/pack/plugins/start/vim-tmux-navigator

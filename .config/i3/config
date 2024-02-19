@@ -1,0 +1,285 @@
+# i3 config file
+# github.com/michaelmob/dotfiles
+
+
+#
+# settings
+#
+
+set $alt Mod1
+set $mod Mod4
+font pango:monospace 8
+
+floating_modifier   $mod
+default_orientation horizontal
+
+
+#
+# autostart
+#
+
+exec --no-startup-id picom
+exec --no-startup-id redshift
+exec --no-startup-id imwheel
+exec --no-startup-id JolpinDesktop.AppImage
+exec --no-startup-id telegram-desktop
+exec --no-startup-id discord
+exec --no-startup-id $TERMINAL --title=Calculator -e calc.py
+
+
+#
+# application shortcuts
+#
+
+bindsym $mod+d exec rofi -show drun -show-icons
+bindsym $mod+w exec rofi -show window -show-icons
+bindsym $mod+f exec rofi-files
+bindsym $mod+g exec i3-layout-manager
+
+bindsym Pause             exec playerctl play-pause
+bindsym Ctrl+Shift+4      exec screenshot
+bindsym $mod+Ctrl+Shift+4 exec reverse-image-search-gui
+
+bindsym $mod+b            exec $BROWSER
+bindsym $mod+Shift+b      exec $BROWSER --incognito -private
+bindsym $mod+Return       exec $TERMINAL --title=Terminal
+bindsym $mod+Shift+Return exec $TERMINAL --title=Terminal --class float
+
+
+#
+# window management
+#
+
+# kill focused window
+bindsym $mod+Shift+q [con_id="__focused__" instance="^(?!gnome-flashback).*$" \
+  title="^(?!Calculator).*$"] kill
+
+# change focus
+bindsym $mod+k focus up
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+l focus right
+
+# swap focused window (non-destructive)
+set $set_swap mark --add _swap, focus
+set $run_swap swap with mark _swap, [con_mark="^_swap$"] focus
+bindsym $mod+Shift+k $set_swap up,    $run_swap
+bindsym $mod+Shift+h $set_swap left,  $run_swap
+bindsym $mod+Shift+j $set_swap down,  $run_swap
+bindsym $mod+Shift+l $set_swap right, $run_swap
+
+# move focused window (destructive)
+bindsym $mod+$alt+k move up
+bindsym $mod+$alt+h move left
+bindsym $mod+$alt+j move down
+bindsym $mod+$alt+l move right
+
+# move focused container to split
+bindsym $mod+y       move container to   mark _move
+bindsym $mod+Shift+y swap container with mark _move
+
+# resize focused window
+set $resize 10 px or 10 ppt
+bindsym $mod+Ctrl+k resize shrink height $resize
+bindsym $mod+Ctrl+h resize shrink width $resize
+bindsym $mod+Ctrl+j resize grow height $resize
+bindsym $mod+Ctrl+l resize grow width $resize
+
+# split orientation
+bindsym $mod+v split h; mark _move
+bindsym $mod+s split v; mark _move
+
+# change container layout (stacked, tabbed, toggle split)
+bindsym $mod+r layout toggle split
+bindsym $mod+e layout toggle stacking tabbed
+
+# enter fullscreen mode for the focused container
+bindsym $mod+m fullscreen toggle
+
+# change window toggles
+bindsym $mod+Shift+f floating toggle
+bindsym $mod+Shift+s sticky toggle
+
+# change focus between tiling/floating, parent/child, and urgent windows
+bindsym $mod+a       focus parent
+bindsym $mod+Shift+a focus child
+bindsym $mod+colon   focus mode_toggle
+
+# focus urgent
+bindsym $mod+u [urgent="latest"] focus, scratchpad show
+
+# window gaps
+bindsym $mod+equal       gaps outer all set 0;        gaps inner all set 0
+bindsym $mod+Shift+equal gaps inner current plus 20;  gaps outer current plus 5
+bindsym $mod+Shift+minus gaps inner current minus 20; gaps outer current minus 5
+
+
+#
+# window settings
+#
+
+# focusing
+focus_wrapping             no
+focus_follows_mouse        no
+focus_on_window_activation urgent
+
+# variables
+set $floating_no_border floating enable, border none
+set $floating_border    floating enable, border pixel 1
+
+# borders
+for_window [class=".*" tiling] border normal
+
+# floating windows without borders
+for_window [instance="^gnome-"]  $floating_no_border
+for_window [instance="^org.gno"] $floating_no_border
+for_window [instance="^gthumb$"] $floating_no_border
+for_window [instance="^totem$"]  $floating_no_border
+for_window [instance="^eog$"]    $floating_no_border
+for_window [class="^File-rolle"] $floating_no_border
+for_window [title="^Media view"] $floating_no_border
+
+# floating windows with small borders
+for_window [instance="^gpick$"]  $floating_border
+for_window [class="^flameshot$"] $floating_border
+
+# floating windows with default borders
+for_window [instance="^float$"]  floating enable
+
+
+#
+# scratchpad
+#
+
+set $calculator [title="^Calculator$"]
+for_window      $calculator move scratchpad, resize set 500 250, border pixel 5
+bindsym $mod+c  $calculator scratchpad show
+
+set $joplin     [instance="^joplin$"]
+for_window      $joplin move scratchpad
+bindsym $mod+x  $joplin scratchpad show
+
+set $spotify    [instance="^spotify$"]
+for_window      $spotify move scratchpad
+bindsym $mod+F1 $spotify scratchpad show
+
+set $telegram   [title="^Telegram" instance="^telegram-desktop$"]
+for_window      $telegram move scratchpad
+bindsym $mod+F2 $telegram scratchpad show, mark scratchpad
+
+set $discord    [instance="^discord$"]
+for_window      $discord move scratchpad
+bindsym $mod+F3 $discord scratchpad show, mark scratchpad
+
+set $signal     [instance="^signal$"]
+for_window      $signal move scratchpad
+bindsym $mod+F4 $signal scratchpad show, mark scratchpad
+
+set $slack      [instance="^slack$"]
+for_window      $slack move scratchpad
+bindsym $mod+F5 $slack scratchpad show, mark scratchpad
+
+set $vboxman    [title="VirtualBox Manager$"]
+for_window      $vboxman move scratchpad, scratchpad show
+bindsym $mod+F8 $vboxman scratchpad show
+
+set $desktop       [instance="^gnome-flashback$" title="^Desktop$"]
+for_window         $desktop move scratchpad, resize set 1000 1000
+bindsym $mod+minus $desktop scratchpad show
+
+bindsym $mod+grave [con_mark="scratchpad"] scratchpad show
+
+# minimizing
+bindsym $mod+z \
+  [con_mark="z_minimized" floating] scratchpad show; \
+  [con_id="__focused__"   floating] mark --toggle z_minimized; \
+  [con_mark="z_minimized" floating] move scratchpad
+
+
+#
+# workspaces
+#
+
+workspace_auto_back_and_forth yes
+
+set $ws1 1
+set $ws2 2
+set $ws3 3
+set $ws4 4
+set $ws5 5
+set $ws6 6
+set $ws7 7
+set $ws8 8
+set $ws9 9
+set $ws0 10
+
+# switch to workspace
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5
+bindsym $mod+6 workspace $ws6
+bindsym $mod+7 workspace $ws7
+bindsym $mod+8 workspace $ws8
+bindsym $mod+9 workspace $ws9
+bindsym $mod+0 workspace $ws0
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace $ws1
+bindsym $mod+Shift+2 move container to workspace $ws2
+bindsym $mod+Shift+3 move container to workspace $ws3
+bindsym $mod+Shift+4 move container to workspace $ws4
+bindsym $mod+Shift+5 move container to workspace $ws5
+bindsym $mod+Shift+6 move container to workspace $ws6
+bindsym $mod+Shift+7 move container to workspace $ws7
+bindsym $mod+Shift+8 move container to workspace $ws8
+bindsym $mod+Shift+9 move container to workspace $ws9
+bindsym $mod+Shift+0 move container to workspace $ws0
+
+
+#
+# desktop environment
+#
+
+# session
+bindsym $mod+Shift+r restart
+bindsym $mod+Shift+w reload
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Exit?' -B Yes 'i3-msg exit'"
+bindsym $mod+Escape  exec close-notification
+
+
+#
+# colors
+#
+
+# class                 border  bground text    indic8r cborder
+client.focused          #185FB5 #15539E #FFFFFF #1E77E1 #15539E
+client.focused_inactive #333333 #353535 #FFFFFF #484E50 #5F676A
+client.unfocused        #333333 #252525 #888888 #292D2E #222222
+client.urgent           #2F343A #900000 #FFFFFF #900000 #900000
+client.placeholder      #000000 #0C0C0C #FFFFFF #000000 #0C0C0C
+client.background       #FFFFFF
+
+
+#
+# bar
+#
+
+# bar
+bar {
+  status_command i3status
+  position bottom
+
+  colors {
+    background #000000
+    statusline #FFFFFF
+    separator  #666666
+
+    focused_workspace  #000000 #000000 #FFFFFF
+    active_workspace   #000000 #000000 #FFFFFF
+    inactive_workspace #000000 #000000 #999999
+    urgent_workspace   #000000 #900000 #FFFFFF
+    binding_mode       #000000 #900000 #FFFFFF
+  }
+}
