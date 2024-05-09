@@ -1,6 +1,6 @@
 ---
-- name: Utilities
-  hosts: localhost
+- name: Install general utilities
+  hosts: all
   tasks:
     - name: git install
       package: name=git state=latest
@@ -8,10 +8,9 @@
       package: name=ripgrep state=latest
     - name: fzf install
       package: name=fzf state=latest
-    - name: tmux install
-      package: name=tmux state=latest
-- name: Neovim
-  hosts: localhost
+
+- name: Install and configure neovim
+  hosts: all
   tasks:
     - name: neovim install
       package: name=neovim state=latest
@@ -27,3 +26,29 @@
       git:
         repo: https://github.com/christoomey/vim-tmux-navigator
         dest: ~/.config/nvim/pack/plugins/start/vim-tmux-navigator
+
+- name: Install and configure tmux
+  hosts: all
+  tasks:
+    - name: tmux install
+      package: name=tmux state=latest
+    - name: Ensure ~/.config/tmux directory exists
+      file:
+        path: ~/.config/tmux
+        state: directory
+    - name: Copy .tmux.conf file
+      copy:
+        src: ~/.config/tmux/tmux.conf
+        dest: ~/.config/tmux/tmux.conf
+
+- name: Add bash configurations
+  hosts: all
+  tasks:
+    - name: Copy .bashrc file
+      copy:
+        src: ~/.bashrc
+        dest: ~/.bashrc
+    - name: Copy .bash_aliases file
+      copy:
+        src: ~/.bash_aliases
+        dest: ~/.bash_aliases
