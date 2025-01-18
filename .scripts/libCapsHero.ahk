@@ -1,5 +1,37 @@
 #Requires AutoHotkey v2.0
 
+;;;;;;;;;;;;;;
+;;; libCapsHero
+;;; Sample Use
+;; key-hold functionality
+;#Include "libCapsHero.ahk"
+;onActivePress() {
+;  ToolTip()
+;  SetTrayIcon(isActive := true)
+;}
+;onKeyHold() {
+;  ToolTip("CapsLock Held")
+;}
+;~CapsLock:: onHeroPress(onActivePress, onKeyHold)
+
+;; repeated key-press functionality
+;onRepeatedPress(repeats) {
+;  switch (repeats) {
+;    case 2: ToolTip("Double-Kill!")
+;    case 3: ToolTip("Triple-Kill!")
+;    case 4: ToolTip("Overkill!")
+;    case 5: ToolTip("Killtacular!")
+;    case 6: ToolTip("Killtrocity!")
+;    case 7: ToolTip("Killionaire!")
+;    case 8: ToolTip("Killtastrophe!")
+;    case 9: ToolTip("Killpocalypse!")
+;    case 10: ToolTip("Killionaire!")
+;    default: Send("{Escape}")
+;  }
+;  SetTimer(ToolTip, 2000)  ; clear tooltip after 2 seconds
+;}
+;CapsLock up:: onHeroRepeatedPresses(onRepeatedPress)
+
 HERO_KEY := "CapsLock"
 HERO_RESET_TIMEOUT_MS := 400
 HERO_REPEAT_TIMEOUT_MS := 200
@@ -45,33 +77,3 @@ onHeroRepeatedPresses(repeatedPressCallback) {
 
   HERO_PRIOR_PRESS_TICK := A_TickCount
 }
-
-
-; ; key-hold functionality (~ means to not block the key from being sent)
-; #Include "libCapsHero.ahk"
-; onActivePress() {
-;   ToolTip()
-;   SetTrayIcon(isActive := true)
-; }
-; onKeyHold() {
-;   ToolTip("CapsLock Held")
-; }
-; ~CapsLock:: onHeroPress(onActivePress, onKeyHold)
-
-; ; repeated key-press functionality
-; onRepeatedPress(repeats) {
-;   switch (repeats) {
-;     case 2: ToolTip("Double-Kill!")
-;     case 3: ToolTip("Triple-Kill!")
-;     case 4: ToolTip("Overkill!")
-;     case 5: ToolTip("Killtacular!")
-;     case 6: ToolTip("Killtrocity!")
-;     case 7: ToolTip("Killionaire!")
-;     case 8: ToolTip("Killtastrophe!")
-;     case 9: ToolTip("Killpocalypse!")
-;     case 10: ToolTip("Killionaire!")
-;     default: Send("{Escape}")
-;   }
-;   SetTimer(ToolTip, 2000)  ; clear tooltip after 2 seconds
-; }
-; CapsLock up:: onHeroRepeatedPresses(onRepeatedPress)
