@@ -1,7 +1,7 @@
 ﻿#Requires AutoHotkey v2.0
 CoordMode("Mouse", "Screen")
 
-SetKeyDelay(50)
+SetKeyDelay(10)
 SetCapsLockState("AlwaysOff")
 
 SetTrayIcon := (isActive) => TraySetIcon("shell32.dll", isActive ? 256 : 255)
@@ -10,6 +10,7 @@ SetTrayIcon(isActive := false)
 ;;;;;;;;;;;;;;;;;;
 ; # Caps-Lock Hero
 ;;;;;;;;;;;;;;;;;;
+
 ; ## key-hold functionality
 #Include "libCapsHero.ahk"
 onActivePress() {
@@ -17,11 +18,15 @@ onActivePress() {
   SetTrayIcon(isActive := true)
 }
 onKeyHold() {
-  ToolTip("CapsLock Held")
+  SetCapsLockState("AlwaysOff")
+  ToolTip("Caps-Lock Long-press")
 }
 ~CapsLock:: onHeroPress(onActivePress, onKeyHold)
+
 ; ## repeated key-press functionality
 onRepeatedPress(repeats) {
+  SetTrayIcon(isActive := false)
+
   switch (repeats) {
     case 2:  ; double-tap
       ;ToolTip("Double-Kill!")
@@ -30,7 +35,6 @@ onRepeatedPress(repeats) {
       Send("{BackSpace}")
     case 3:  ; triple-tap
       ;ToolTip("Triple-Kill!")
-      Send("c: ")
     case 4: ToolTip("Overkill!")
     case 5: ToolTip("Killtacular!")
     case 6: ToolTip("Killtrocity!")
@@ -38,7 +42,8 @@ onRepeatedPress(repeats) {
     case 8: ToolTip("Killtastrophe!")
     case 9: ToolTip("Killpocalypse!")
     case 10: ToolTip("Killionaire!")
-    default: Send("{Escape}")
+    default:
+      return Send("{Escape}")
   }
   SetTimer(ToolTip, 2000)
 }
@@ -47,6 +52,7 @@ CapsLock up:: onHeroRepeatedPresses(onRepeatedPress)
 ;;;;;;;;;;;;;;;;;;;;;
 ; Key-press shortcuts
 ;;;;;;;;;;;;;;;;;;;;;
+
 ; show or hide LibreChat window
 CapsLock & space:: {
   lc := "LibreChat"
@@ -61,29 +67,35 @@ CapsLock & space:: {
   MouseMove(pX, pY)
 }
 CapsLock & t:: Run("wt.exe")  ; Open Terminal
+
 ; ## Shortcuts
 ^CapsLock:: Send("{Enter}") ; Ctrl + CapsLock to Press Enter
 CapsLock & F5:: Reload()  ; Reload script
 CapsLock & Enter:: MouseClick("Right")
+
 ; ### hjkl
 CapsLock & h:: Send("{Left}")
 CapsLock & j:: Send("{Down}")
 CapsLock & k:: Send("{Up}")
 CapsLock & l:: Send("{Right}")
+
 ; ### asdf
 CapsLock & a:: Send("{Home}")
 CapsLock & s:: Send("{BackSpace}")
 CapsLock & d:: Send("{Delete}")
 CapsLock & f:: Send("{End}")
+
 ; ### np
 CapsLock & n:: Send("{Tab}")
 CapsLock & p:: Send("+{Tab}")
 CapsLock & i:: Send("{Escape}")
 CapsLock & g:: Send("{AppsKey}")  ; Menu key
+
 ; ## Input Keyboard Shortcuts
 ; ### wb
 CapsLock & w:: Send("{Ctrl Down}{Right}{Ctrl Up}")  ; word-forward
 CapsLock & b:: Send("{Ctrl Down}{Left}{Ctrl Up}")   ; word-backward
+
 ; # Mouse Shortcuts
 ; ## movement
 MouseMode := false
@@ -98,10 +110,12 @@ u::Wheelup
 d::WheelDown
 Enter:: ToolTip(), MouseClick("Right")
 .:: ToolTip(), MouseClick("Left")
+m:: global MouseMode := false
 #HotIf
 ; ## scrolling
 CapsLock & PgUp::Wheelup
 CapsLock & PgDn::WheelDown
+
 ; # G604 Logitech Mouse
 ; ## DPI Buttons
 F19:: Send "{Media_Play_Pause}"
@@ -118,6 +132,7 @@ F18:: Send "#6"
 F13:: Send "#1"
 F14:: Send "#2"
 F15:: Send "#3"
+
 ; # Auto-corrections
 ; ## Aliases
 ::d-c::docker-compose
