@@ -20,23 +20,24 @@ onKeyHold() {
   ToolTip("CapsLock Held")
 }
 ~CapsLock:: onHeroPress(onActivePress, onKeyHold)
-
 ; ## repeated key-press functionality
 onRepeatedPress(repeats) {
   switch (repeats) {
     case 2:  ; double-tap
-      ToolTip("Double-Kill!")
+      ;ToolTip("Double-Kill!")
       Send("{Alt down}{Space}{Alt up}")
+      Sleep(25)
+      Send("{BackSpace}")
     case 3:  ; triple-tap
-      ToolTip("Triple-Kill!")
+      ;ToolTip("Triple-Kill!")
       Send("c: ")
-    case 4: ToolTip "Overkill!"
-    case 5: ToolTip "Killtacular!"
-    case 6: ToolTip "Killtrocity!"
-    case 7: ToolTip "Killionaire!"
-    case 8: ToolTip "Killtastrophe!"
-    case 9: ToolTip "Killpocalypse!"
-    case 10: ToolTip "Killionaire!"
+    case 4: ToolTip("Overkill!")
+    case 5: ToolTip("Killtacular!")
+    case 6: ToolTip("Killtrocity!")
+    case 7: ToolTip("Killionaire!")
+    case 8: ToolTip("Killtastrophe!")
+    case 9: ToolTip("Killpocalypse!")
+    case 10: ToolTip("Killionaire!")
     default: Send("{Escape}")
   }
   SetTimer(ToolTip, 2000)
@@ -44,7 +45,7 @@ onRepeatedPress(repeats) {
 CapsLock up:: onHeroRepeatedPresses(onRepeatedPress)
 
 ;;;;;;;;;;;;;;;;;;;;;
-; key-press shortcuts
+; Key-press shortcuts
 ;;;;;;;;;;;;;;;;;;;;;
 ; show or hide LibreChat window
 CapsLock & space:: {
@@ -70,19 +71,19 @@ CapsLock & j:: Send("{Down}")
 CapsLock & k:: Send("{Up}")
 CapsLock & l:: Send("{Right}")
 ; ### asdf
-CapsLock & a:: Send "{Home}"
-CapsLock & s:: Send "{BackSpace}"
-CapsLock & d:: Send "{Delete}"
-CapsLock & f:: Send "{End}"
+CapsLock & a:: Send("{Home}")
+CapsLock & s:: Send("{BackSpace}")
+CapsLock & d:: Send("{Delete}")
+CapsLock & f:: Send("{End}")
 ; ### np
-CapsLock & n:: Send "{Tab}"
-CapsLock & p:: Send "+{Tab}"
-CapsLock & i:: Send "{Escape}"
-CapsLock & g:: Send "{AppsKey}"  ; Menu key
+CapsLock & n:: Send("{Tab}")
+CapsLock & p:: Send("+{Tab}")
+CapsLock & i:: Send("{Escape}")
+CapsLock & g:: Send("{AppsKey}")  ; Menu key
 ; ## Input Keyboard Shortcuts
 ; ### wb
-CapsLock & w:: Send "{Ctrl Down}{Right}{Ctrl Up}"  ; word-forward
-CapsLock & b:: Send "{Ctrl Down}{Left}{Ctrl Up}"   ; word-backward
+CapsLock & w:: Send("{Ctrl Down}{Right}{Ctrl Up}")  ; word-forward
+CapsLock & b:: Send("{Ctrl Down}{Left}{Ctrl Up}")   ; word-backward
 ; # Mouse Shortcuts
 ; ## movement
 MouseMode := false
