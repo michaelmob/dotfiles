@@ -1,0 +1,72 @@
+[
+  // Navigate between PANES with <c-h/j/k/l>
+  {
+    "key": "ctrl+h",
+    "command": "workbench.action.focusLeftGroup",
+    "when": "activeEditorGroupEmpty || editorTextFocus && activeEditorIsFirstInGroup"
+  },
+  {
+    "key": "ctrl+l",
+    "command": "workbench.action.focusRightGroup",
+    "when": "activeEditorGroupEmpty || editorTextFocus && activeEditorIsLastInGroup"
+  },
+  {
+    "key": "ctrl+j",
+    "command": "workbench.action.focusBelowGroup",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "ctrl+k",
+    "command": "workbench.action.focusAboveGroup",
+    "when": "editorTextFocus"
+  },
+  // Navigate between TABS with <c-h/l>
+  {
+    "key": "ctrl+h",
+    "command": "workbench.action.previousEditor",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "ctrl+l",
+    "command": "workbench.action.nextEditor",
+    "when": "editorTextFocus"
+  },
+  // Swap tabs left and right with <c-alt-h/l>
+  {
+    "key": "ctrl+alt+h",
+    "command": "workbench.action.moveEditorLeftInGroup",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "ctrl+alt+l",
+    "command": "workbench.action.moveEditorRightInGroup",
+    "when": "editorTextFocus"
+  },
+  //
+  //
+  { // Delete lines in insert mode with <C-d>
+    "key": "ctrl+d",
+    "command": "editor.action.deleteLines",
+    "when": "editorTextFocus && vim.mode === 'Insert'"
+  },
+  {  // Disable <c-r> to prevent accidents
+    "key": "ctrl+r",
+    "command": "",
+    "when": "editorTextFocus && vim.mode === 'Normal'"
+  },
+  {  // Copy with <c-c> for normal and visual mode (not insert)
+    "key": "ctrl+c",
+    "command": "editor.action.clipboardCopyAction",
+    "when": "editorTextFocus && vim.mode !== 'Insert'"
+  },
+  {  // Paste with <c-v> in Normal mode
+    "key": "ctrl+v",
+    "command": "editor.action.clipboardPasteAction",
+    "when": "editorTextFocus && vim.mode === 'Normal'"
+  },
+  {  // Cut with <c-c> in Normal mode
+    "key": "ctrl+x",
+    "command": "editor.action.clipboardCutAction",
+    "when": "editorTextFocus && vim.mode === 'Normal'"
+  }
+]
