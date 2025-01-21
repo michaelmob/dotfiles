@@ -7,24 +7,17 @@ SetCapsLockState("AlwaysOff")
 SetTrayIcon := (isActive) => TraySetIcon("shell32.dll", isActive ? 256 : 255)
 SetTrayIcon(isActive := false)
 
+;#REGION Caps-Lock Hero
 ;;;;;;;;;;;;;;;;;;
 ; # Caps-Lock Hero
+; Long-press and repeated press functionality
 ;;;;;;;;;;;;;;;;;;
-
-; ## key-hold functionality
 #Include "libCapsHero.ahk"
-onActivePress() {
+onKeyDown() {
   ToolTip()
   SetTrayIcon(isActive := true)
 }
-onKeyHold() {
-  SetCapsLockState("AlwaysOff")
-  ToolTip("Caps-Lock Long-press")
-}
-~CapsLock:: onHeroPress(onActivePress, onKeyHold)
-
-; ## repeated key-press functionality
-onRepeatedPress(repeats) {
+onKeyUp(repeats) {
   SetTrayIcon(isActive := false)
 
   switch (repeats) {
@@ -47,11 +40,13 @@ onRepeatedPress(repeats) {
   }
   SetTimer(ToolTip, 2000)
 }
-CapsLock up:: onHeroRepeatedPresses(onRepeatedPress)
-
-;;;;;;;;;;;;;;;;;;;;;
-; Key-press shortcuts
-;;;;;;;;;;;;;;;;;;;;;
+onKeyHold() {
+  SetCapsLockState("AlwaysOff")
+  ToolTip("Caps-Lock Long-press")
+}
+~CapsLock:: onHeroPress(onKeyDown, onKeyHold)
+CapsLock up:: onHeroRepeatedPresses(onKeyUp)
+;#ENDREGION
 
 ; show or hide LibreChat window
 CapsLock & space:: {
@@ -66,7 +61,7 @@ CapsLock & space:: {
   Click(X + Width // 2, Y + Height - 50)
   MouseMove(pX, pY)
 }
-CapsLock & t:: Run("wt.exe")  ; Open Terminal
+#t:: Run("wt.exe")  ; Open Terminal
 
 ; ## Shortcuts
 ^CapsLock:: Send("{Enter}") ; Ctrl + CapsLock to Press Enter
