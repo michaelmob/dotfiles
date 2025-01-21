@@ -1,5 +1,7 @@
 [
+  //////////////////////////////////////////////////////////////////////////////
   // Navigate between PANES with <c-{h,j,k,l}>
+  // <c-{h-l}> will focus next/prev tab if in the first or last editor group
   {
     "key": "ctrl+h",
     "command": "workbench.action.focusLeftGroup",
@@ -20,6 +22,7 @@
     "command": "workbench.action.focusRightGroup",
     "when": "activeEditorGroupEmpty || editorTextFocus && activeEditorIsLastInGroup"
   },
+  //////////////////////////////////////////////////////////////////////////////
   // Navigate between TABS with <c-{h,l}>
   {
     "key": "ctrl+h",
@@ -31,6 +34,7 @@
     "command": "workbench.action.nextEditor",
     "when": "editorTextFocus"
   },
+  //////////////////////////////////////////////////////////////////////////////
   // Swap tabs left and right with <c-alt-{h,l}>
   {
     "key": "ctrl+alt+h",
@@ -42,8 +46,30 @@
     "command": "workbench.action.moveEditorRightInGroup",
     "when": "editorTextFocus"
   },
+  {
+    "key": "ctrl+alt+h",
+    "command": "workbench.action.moveEditorToPreviousGroup",
+    "when": "editorTextFocus && activeEditorIsFirstInGroup"
+  },
+  {
+    "key": "ctrl+alt+l",
+    "command": "workbench.action.moveEditorToNextGroup",
+    "when": "editorTextFocus && activeEditorIsLastInGroup"
+  },
+  // Move tabs up and down with <c-alt-{j,k}>
+  {
+    "key": "ctrl+alt+k",
+    "command": "workbench.action.moveEditorToAboveGroup",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "ctrl+alt+j",
+    "command": "workbench.action.moveEditorToBelowGroup",
+    "when": "editorTextFocus"
+  },
   //
-  //
+  //////////////////////////////////////////////////////////////////////////////
+  // Deletions and Danger Preventions
   { // Delete lines in insert mode with <C-d>
     "key": "ctrl+d",
     "command": "editor.action.deleteLines",
@@ -52,6 +78,22 @@
   { // Disable <c-r> to prevent accident redos
     "key": "ctrl+r",
     "command": "",
+    "when": "editorTextFocus && vim.mode === 'Normal'"
+  },
+  //////////////////////////////////////////////////////////////////////////////
+  { // <c-w> to close tab
+    "key": "ctrl+w",
+    "command": "workbench.action.closeActiveEditor"
+  },
+  { // <c-w> to close tab
+    "key": "ctrl+w",
+    "command": "workbench.action.closeGroup",
+    "when": "activeEditorGroupEmpty"
+  },
+  //////////////////////////////////////////////////////////////////////////////
+  { // Cut with <c-c> in Normal mode
+    "key": "ctrl+x",
+    "command": "editor.action.clipboardCutAction",
     "when": "editorTextFocus && vim.mode === 'Normal'"
   },
   { // Copy with <c-c> for normal and visual mode (not insert)
@@ -64,9 +106,45 @@
     "command": "editor.action.clipboardPasteAction",
     "when": "editorTextFocus && vim.mode === 'Normal'"
   },
-  { // Cut with <c-c> in Normal mode
-    "key": "ctrl+x",
-    "command": "editor.action.clipboardCutAction",
-    "when": "editorTextFocus && vim.mode === 'Normal'"
-  }
+  //////////////////////////////////////////////////////////////////////////////
+  // Suggestion Widget
+  { // Close trigger suggest with <esc>
+    "key": "escape",
+    "command": "hideSuggestWidget",
+    "when": "suggestWidgetVisible"
+  },
+  { // Trigger suggestions with <c-n>
+    "key": "ctrl+n",
+    "command": "editor.action.inlineSuggest.trigger",
+    "when": "!suggestWidgetVisible"
+  },
+  { // <c-n> to select NEXT suggestion
+    "key": "ctrl+n",
+    "command": "selectNextSuggestion",
+    "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible"
+  },
+  { // <c-p> to select PREV suggestion
+    "key": "ctrl+p",
+    "command": "selectPrevSuggestion",
+    "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible"
+  },
+  //////////////////////////////////////////////////////////////////////////////
+  { // Quick open with <c-p>
+    "key": "ctrl+p",
+    "command": "workbench.action.quickOpen",
+    "when": "!suggestWidgetVisible"
+  },
+  //////////////////////////////////////////////////////////////////////////////
+  //
+  { // <c-n> for next in quick open dialog
+    "key": "ctrl+n",
+    "command": "workbench.action.quickOpenSelectNext",
+    "when": "inQuickOpen"
+  },
+  { // <c-p> for previous in quick open dialog
+    "key": "ctrl+p",
+    "command": "workbench.action.quickOpenSelectPrevious",
+    "when": "inQuickOpen"
+  },
+  //////////////////////////////////////////////////////////////////////////////
 ]
