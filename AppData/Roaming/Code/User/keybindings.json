@@ -147,4 +147,9 @@
     "when": "inQuickOpen"
   },
   //////////////////////////////////////////////////////////////////////////////
+  {
+    "key": "ctrl+n",
+    "command": "notifications.focusToasts",
+    "when": "notificationToastsVisible"
+  }
 ]
