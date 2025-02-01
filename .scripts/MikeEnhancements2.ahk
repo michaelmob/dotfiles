@@ -1,17 +1,31 @@
 ﻿#Requires AutoHotkey v2.0
 CoordMode("Mouse", "Screen")
-
 SetKeyDelay(10)
 SetCapsLockState("AlwaysOff")
 
+
+;#REGION Tray Icon
+;;;;;;;;;;;;;;
+; # Tray Icon
+;;;;;;;;;;;;;;
 SetTrayIcon := (isActive) => TraySetIcon("shell32.dll", isActive ? 256 : 255)
 SetTrayIcon(isActive := false)
 
+A_TrayMenu.Delete()
+A_TrayMenu.Add("ShareX: Clipboard Viewer", (*) => Run("C:\Program Files\ShareX\ShareX.exe -ClipboardViewer"))
+A_TrayMenu.Add("ShareX: Color Picker", (*) => Run("C:\Program Files\ShareX\ShareX.exe -ScreenColorPicker"))
+
+A_TrayMenu.Add()
+A_TrayMenu.AddStandard() ;("Reload", (*) => Reload())
+;;;;;;;;;;;;;
+;#ENDREGION
+
+
 ;#REGION Caps-Lock Hero
-;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;
 ; # Caps-Lock Hero
 ; Long-press and repeated press functionality
-;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;
 #Include "libCapsHero.ahk"
 onKeyDown() {
   ToolTip()
@@ -20,14 +34,17 @@ onKeyDown() {
 onKeyUp(repeats) {
   SetTrayIcon(isActive := false)
 
+  (Mode != "NORMAL") ? ProcessClose(ProcessExist("ModeBox.exe")) : 0
+  global Mode := "NORMAL"
+
   switch (repeats) {
     case 2:  ; double-tap
-      ;ToolTip("Double-Kill!")
-      Send("{Alt down}{Space}{Alt up}")
-      Sleep(25)
-      Send("{BackSpace}")
+      ToolTip("Double-Kill!")
+      ; Send("{Alt down}{Space}{Alt up}")
+      ; Sleep(25)
+      ; Send("{BackSpace}")
     case 3:  ; triple-tap
-      ;ToolTip("Triple-Kill!")
+      ToolTip("Triple-Kill!")
     case 4: ToolTip("Overkill!")
     case 5: ToolTip("Killtacular!")
     case 6: ToolTip("Killtrocity!")
@@ -43,14 +60,20 @@ onKeyUp(repeats) {
 onKeyHold() {
   SetCapsLockState("AlwaysOff")
   ToolTip("Caps-Lock Long-press")
+  ProcessClose(ProcessExist("ModeBox.exe"))
 }
 ~CapsLock:: onHeroPress(onKeyDown, onKeyHold)
 CapsLock up:: onHeroRepeatedPresses(onKeyUp)
+;;;;;;;;;;;;;
 ;#ENDREGION
 
+
+;#REGION Caps-Lock Keybinds
 ; show or hide LibreChat window
 CapsLock & space:: {
   lc := "LibreChat"
+  if !WinExist(lc)
+    return
   if WinActive(lc) { ; if app is focused then minimize it
     Send("{Alt down}{Tab}{Alt up}")
     return WinMinimize(lc)
@@ -61,12 +84,10 @@ CapsLock & space:: {
   Click(X + Width // 2, Y + Height - 50)
   MouseMove(pX, pY)
 }
-#t:: Run("wt.exe")  ; Open Terminal
 
-; ## Shortcuts
+; ### Shortcuts
 ^CapsLock:: Send("{Enter}") ; Ctrl + CapsLock to Press Enter
 CapsLock & F5:: Reload()  ; Reload script
-CapsLock & Enter:: MouseClick("Right")
 
 ; ### hjkl
 CapsLock & h:: Send("{Left}")
@@ -90,27 +111,37 @@ CapsLock & g:: Send("{AppsKey}")  ; Menu key
 ; ### wb
 CapsLock & w:: Send("{Ctrl Down}{Right}{Ctrl Up}")  ; word-forward
 CapsLock & b:: Send("{Ctrl Down}{Left}{Ctrl Up}")   ; word-backward
+;#ENDREGION
 
-; # Mouse Shortcuts
-; ## movement
-MouseMode := false
-CapsLock & m:: global MouseMode := !MouseMode
-#HotIf MouseMode
-MouseToolTip := () => ToolTip("MOUSE MODE")
-l:: MouseToolTip(), (MouseMove(50, 0, 5, "R"))
-k:: MouseToolTip(), (MouseMove(0, -50, 5, "R"))
-j:: MouseToolTip(), (MouseMove(0, 50, 5, "R"))
-h:: MouseToolTip(), (MouseMove(-50, 0, 5, "R"))
+;#REGION Software Rebinds
+#t:: Run("wt.exe")  ; Open Terminal
+^+4:: Send("{Ctrl Down}{PrintScreen}{Ctrl Up}")  ; # Ctrl + Shift + 4 to capture a region with ShareX
+;#ENDREGION
+
+;#REGION Mouse Mode
+;## movement
+Mode := "NORMAL"
+CapsLock & m:: {
+  global Mode
+  if (Mode != "MOUSE") {
+    Mode := "MOUSE"
+    Run("ModeBox.exe -Text MOUSE MODE -BorderSize 2")
+  }
+}
+
+#HotIf Mode == "MOUSE"
+l:: MouseMove(50, 0, 5, "R")
+k:: MouseMove(0, -50, 5, "R")
+j:: MouseMove(0, 50, 5, "R")
+h:: MouseMove(-50, 0, 5, "R")
 u::Wheelup
 d::WheelDown
 Enter:: ToolTip(), MouseClick("Right")
 .:: ToolTip(), MouseClick("Left")
-m:: global MouseMode := false
 #HotIf
-; ## scrolling
-CapsLock & PgUp::Wheelup
-CapsLock & PgDn::WheelDown
+;#ENDREGION
 
+;#REGION G604 Logitech Mouse
 ; # G604 Logitech Mouse
 ; ## DPI Buttons
 F19:: Send "{Media_Play_Pause}"
@@ -127,12 +158,26 @@ F18:: Send "#6"
 F13:: Send "#1"
 F14:: Send "#2"
 F15:: Send "#3"
+;#ENDREGION
 
-; # Auto-corrections
-; ## Aliases
+
+;#REGION Aliases
 ::d-c::docker-compose
 ::w-i::winget install
 ::w-s::winget search
+
+::;r::site:reddit.com
+::;22::after:2022
+::;23::after:2023
+::;24::after:2024
+::;sr::after:2022 site:reddit.com
+
+::ahkv2::AutoHotkey v2
+::ahkv1::AutoHotkey v1
+;#ENDREGION
+
+
+;#REGION Typo Auto-Correction
 ; ## Typos
 ::adn::and
 ::awy::way
@@ -194,11 +239,7 @@ F15:: Send "#3"
 ::vesrion::version
 ::globla::global
 ::hting::thing
-; ## Shortcuts
-::;r::site:reddit.com
-::;22::after:2022
-::;23::after:2023
-::;24::after:2024
-::;sr::after:2022 site:reddit.com
+;#ENDREGION
+
 ToolTip("Enhancements Loaded")
 SetTimer(ToolTip, 1000)
