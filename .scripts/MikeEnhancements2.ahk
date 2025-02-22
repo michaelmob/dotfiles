@@ -114,16 +114,17 @@ CapsLock & b:: Send("{Ctrl Down}{Left}{Ctrl Up}")   ; word-backward
 ;#ENDREGION
 
 ;#REGION Software Rebinds
-#t:: Run("wt.exe")  ; Open Terminal
+#t:: Run("wt.exe")  ; Open terminal
++#t:: Run("*RunAs wt.exe")  ; Open elevated terminal
 ^+4:: Send("{Ctrl Down}{PrintScreen}{Ctrl Up}")  ; # Ctrl + Shift + 4 to capture a region with ShareX
 ;#ENDREGION
 
-;#REGION Mouse Mode
+;#REGION Modes
 ;## movement
 Mode := "NORMAL"
 CapsLock & m:: {
   global Mode
-  if (Mode != "MOUSE") {
+  if (Mode == "NORMAL") {
     Mode := "MOUSE"
     Run("ModeBox.exe -Text MOUSE MODE -BorderSize 2")
   }
@@ -138,6 +139,13 @@ u::Wheelup
 d::WheelDown
 Enter:: ToolTip(), MouseClick("Right")
 .:: ToolTip(), MouseClick("Left")
+#HotIf
+
+#HotIf Mode == "WINDOW"
+l:: MouseMove(50, 0, 5, "R")
+k:: MouseMove(0, -50, 5, "R")
+j:: MouseMove(0, 50, 5, "R")
+h:: MouseMove(-50, 0, 5, "R")
 #HotIf
 ;#ENDREGION
 
@@ -171,6 +179,7 @@ F15:: Send "#3"
 ::;23::after:2023
 ::;24::after:2024
 ::;sr::after:2022 site:reddit.com
+::!@g::!g
 
 ::ahkv2::AutoHotkey v2
 ::ahkv1::AutoHotkey v1
@@ -239,6 +248,11 @@ F15:: Send "#3"
 ::vesrion::version
 ::globla::global
 ::hting::thing
+::javascirp::javascript
+::ocnst::const
+::dispaly::display
+::fielkd::field
+::2004scpae::2004scape
 ;#ENDREGION
 
 ToolTip("Enhancements Loaded")

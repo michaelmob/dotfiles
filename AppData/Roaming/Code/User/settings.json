@@ -67,6 +67,7 @@
   "vim.visualModeKeyBindingsNonRecursive": [
     { "before": ["<Esc>"], "after": ["<Esc>", "<Esc>"] }
   ],
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
   // #endregion
   // ----------------
   // #region Remotes
@@ -77,6 +78,7 @@
   // #endregion
   // ----------------
   // #region Filetypes
+  "html.autoClosingTags": false,
   "[html]": {
     "editor.defaultFormatter": "vscode.html-language-features"
   },
@@ -111,4 +113,11 @@
     "editorGhostText.border": "#696969",
     "editorGhostText.foreground": "#696969"
   },
+  "AutoHotkey2.InterpreterPath": "c:\\Users\\Michael\\AppData\\Local\\Programs\\AutoHotkey\\v2\\AutoHotkey32.exe",
+  "editor.minimap.enabled": false,
+  "git.openRepositoryInParentFolders": "never",
+  "[rust]": {
+    "editor.defaultFormatter": "rust-lang.rust-analyzer"
+  },
+
 }
