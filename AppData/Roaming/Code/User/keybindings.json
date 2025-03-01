@@ -106,6 +106,22 @@
     "command": "editor.action.clipboardPasteAction",
     "when": "editorTextFocus && vim.mode === 'Normal'"
   },
+  { // 
+    "key": "ctrl+z",
+    "command": "vim.remap",
+    "when": "editorTextFocus && vim.mode === 'Normal'",
+    "args": {
+        "after": ["u"]
+    }
+  },
+  {
+    "key": "ctrl+shift+z",
+    "command": "vim.remap",
+    "when": "editorTextFocus && vim.mode === 'Normal'",
+    "args": {
+      "after": ["<C-r>"]
+    }
+  },
   //////////////////////////////////////////////////////////////////////////////
   // Suggestion Widget
   { // Close trigger suggest with <esc>

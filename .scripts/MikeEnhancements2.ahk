@@ -1,4 +1,4 @@
-﻿#Requires AutoHotkey v2.0
+#Requires AutoHotkey v2.0
 CoordMode("Mouse", "Screen")
 SetKeyDelay(10)
 SetCapsLockState("AlwaysOff")
@@ -253,6 +253,10 @@ F15:: Send "#3"
 ::dispaly::display
 ::fielkd::field
 ::2004scpae::2004scape
+::preiflled::prefilled
+::ocnfig::config
+::searhc::search
+::redidt::reddit
 ;#ENDREGION
 
 ToolTip("Enhancements Loaded")
