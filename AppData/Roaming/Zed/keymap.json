@@ -13,14 +13,24 @@
     }
   },
   {
+    "context": "!menu",
     "bindings": {
       "alt-h": "pane::ActivatePrevItem",
       "alt-l": "pane::ActivateNextItem",
+
+      "alt-shift-h": "pane::SwapItemLeft",
+      "alt-shift-l": "pane::SwapItemRight",
+
       "ctrl-h": "workspace::ActivatePaneLeft",
-      "ctrl-l": "workspace::ActivatePaneRight",
-      "ctrl-k": "workspace::ActivatePaneUp",
       "ctrl-j": "workspace::ActivatePaneDown",
-      "ctrl-n": "zed::NoAction",
+      "ctrl-k": "workspace::ActivatePaneUp",
+      "ctrl-l": "workspace::ActivatePaneRight",
+
+      "ctrl-shift-h": ["workspace::MoveItemToPaneInDirection", { "direction": "left" }],
+      "ctrl-shift-j": ["workspace::MoveItemToPaneInDirection", { "direction": "down" }],
+      "ctrl-shift-k": ["workspace::MoveItemToPaneInDirection", { "direction": "up" }],
+      "ctrl-shift-l": ["workspace::MoveItemToPaneInDirection", { "direction": "right" }],
+
       "ctrl-1": ["workspace::ActivatePane", 0],
       "ctrl-2": ["workspace::ActivatePane", 1],
       "ctrl-3": ["workspace::ActivatePane", 2],
@@ -29,7 +39,14 @@
       "ctrl-6": ["workspace::ActivatePane", 5],
       "ctrl-7": ["workspace::ActivatePane", 6],
       "ctrl-8": ["workspace::ActivatePane", 7],
-      "ctrl-9": ["workspace::ActivatePane", 8]
+      "ctrl-9": ["workspace::ActivatePane", 8],
+
+      "ctrl-alt-shift-h": "workspace::SwapPaneLeft",
+      "ctrl-alt-shift-j": "workspace::SwapPaneDown",
+      "ctrl-alt-shift-k": "workspace::SwapPaneUp",
+      "ctrl-alt-shift-l": "workspace::SwapPaneRight",
+
+      "ctrl-n": "zed::NoAction",
     }
   },
   {
@@ -67,7 +84,8 @@
   {
     "context": "Terminal",
     "bindings": {
-      "ctrl-v": ["workspace::SendKeystrokes", "escape \" + p a"]
+      "ctrl-v": ["workspace::SendKeystrokes", "escape \" + p a"],
+      "ctrl-p": "zed::NoAction"
     }
   }
 ]
