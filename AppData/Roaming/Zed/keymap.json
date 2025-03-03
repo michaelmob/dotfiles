@@ -7,14 +7,21 @@
 // from the command palette.
 [
   {
-    "context": "Workspace",
+    "context": "Editor && !menu",
     "bindings": {
-      "shift shift": "file_finder::Toggle"
+      "ctrl-c": "editor::Copy", // vim default: return to normal mode
+      "ctrl-x": "editor::Cut", // vim default: decrement
+      "ctrl-v": "editor::Paste", // vim default: visual block mode
+      "ctrl-y": "editor::Undo", // vim default: line up
+      "ctrl-f": "buffer_search::Deploy", // vim default: page down
+      //"ctrl-o": "workspace::Open", // vim default: go back
+      "ctrl-a": "editor::SelectAll" // vim default: increment
     }
   },
   {
     "context": "!menu",
     "bindings": {
+      "shift shift": "file_finder::Toggle",
       "alt-h": "pane::ActivatePrevItem",
       "alt-l": "pane::ActivateNextItem",
 
@@ -26,10 +33,22 @@
       "ctrl-k": "workspace::ActivatePaneUp",
       "ctrl-l": "workspace::ActivatePaneRight",
 
-      "ctrl-shift-h": ["workspace::MoveItemToPaneInDirection", { "direction": "left" }],
-      "ctrl-shift-j": ["workspace::MoveItemToPaneInDirection", { "direction": "down" }],
-      "ctrl-shift-k": ["workspace::MoveItemToPaneInDirection", { "direction": "up" }],
-      "ctrl-shift-l": ["workspace::MoveItemToPaneInDirection", { "direction": "right" }],
+      "ctrl-shift-h": [
+        "workspace::MoveItemToPaneInDirection",
+        { "direction": "left" }
+      ],
+      "ctrl-shift-j": [
+        "workspace::MoveItemToPaneInDirection",
+        { "direction": "down" }
+      ],
+      "ctrl-shift-k": [
+        "workspace::MoveItemToPaneInDirection",
+        { "direction": "up" }
+      ],
+      "ctrl-shift-l": [
+        "workspace::MoveItemToPaneInDirection",
+        { "direction": "right" }
+      ],
 
       "ctrl-1": ["workspace::ActivatePane", 0],
       "ctrl-2": ["workspace::ActivatePane", 1],
@@ -46,7 +65,7 @@
       "ctrl-alt-shift-k": "workspace::SwapPaneUp",
       "ctrl-alt-shift-l": "workspace::SwapPaneRight",
 
-      "ctrl-n": "zed::NoAction",
+      "ctrl-n": null
     }
   },
   {
@@ -55,9 +74,7 @@
       "s": "vim::PushSneak",
       "shift-s": "vim::PushSneakBackward",
       "shift-h": ["workspace::SendKeystrokes", "g 0"],
-      "shift-l": ["workspace::SendKeystrokes", "g _"],
-      // "ctrl-n": "pane::ActivateNextItem",
-      // "ctrl-p": "pane::ActivatePrevItem"
+      "shift-l": ["workspace::SendKeystrokes", "g _"]
     }
   },
   {
@@ -85,7 +102,7 @@
     "context": "Terminal",
     "bindings": {
       "ctrl-v": ["workspace::SendKeystrokes", "escape \" + p a"],
-      "ctrl-p": "zed::NoAction"
+      "ctrl-p": null
     }
   }
 ]

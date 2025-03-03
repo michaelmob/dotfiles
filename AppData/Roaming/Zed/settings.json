@@ -7,17 +7,28 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
-  "project_panel": {
-    "dock": "left"
-  },
-  "vim_mode": true,
   "ui_font_size": 16,
   "buffer_font_size": 16,
   "relative_line_numbers": true,
+  "tab_size": 2,
+  "show_whitespaces": "selection",
   "theme": {
     "mode": "system",
     "light": "One Light",
     "dark": "Ayu Dark"
   },
-  "format_on_save": "off",
+  "vim_mode": true,
+  "vim": {},
+  "git": {
+    "git_gutter": null,
+    "gutter_debounce": null,
+    "inline_blame": { "enabled": false }
+  },
+  "assistant": {
+    "version": "2",
+    "default_model": {
+      "provider": "zed.dev",
+      "model": "claude-3-7-sonnet-latest"
+    }
+  }
 }
