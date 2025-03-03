@@ -9,7 +9,7 @@
   {
     "context": "Editor && !menu",
     "bindings": {
-      "ctrl-c": "editor::Copy", // vim default: return to normal mode
+      //"ctrl-c": "editor::Copy", // vim default: return to normal mode
       "ctrl-x": "editor::Cut", // vim default: decrement
       "ctrl-v": "editor::Paste", // vim default: visual block mode
       "ctrl-y": "editor::Undo", // vim default: line up
@@ -71,8 +71,6 @@
   {
     "context": "Editor && (vim_mode == normal || vim_mode == visual)",
     "bindings": {
-      "s": "vim::PushSneak",
-      "shift-s": "vim::PushSneakBackward",
       "shift-h": ["workspace::SendKeystrokes", "g 0"],
       "shift-l": ["workspace::SendKeystrokes", "g _"]
     }
@@ -80,6 +78,8 @@
   {
     "context": "Editor && vim_mode == normal",
     "bindings": {
+      "s": "outline::Toggle",
+      "shift-s": ["workspace::SendKeystrokes", "y s i w"],
       "ctrl-v": ["workspace::SendKeystrokes", "\" + p"]
     }
   },
