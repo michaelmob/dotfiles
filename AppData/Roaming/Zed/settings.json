@@ -13,7 +13,7 @@
   "tab_size": 2,
   "show_whitespaces": "selection",
   "remove_trailing_whitespace_on_save": true,
-  "restore_on_startup": "last_workspace",
+  "restore_on_startup": "last_session",
   "multi_cursor_modifier": "cmd_or_ctrl",
   "show_signature_help_after_edits": true,
   "icon_theme": "Zed (Default)",
@@ -51,6 +51,11 @@
     "default_model": {
       "provider": "zed.dev",
       "model": "claude-3-7-sonnet-latest"
+    }
+  },
+  "languages": {
+    "Rust": {
+      "tab_size": 4
     }
   }
   // "lsp": {

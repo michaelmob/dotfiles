@@ -55,6 +55,7 @@
 
       "ctrl-alt-n": "workspace::NewFile",
 
+      "f5": "task::Rerun",
       "ctrl-n": null,
       "ctrl-alt-h": null,
       "ctrl-alt-l": null
@@ -64,7 +65,9 @@
     "context": "Editor && (vim_mode == normal || vim_mode == visual)",
     "bindings": {
       "shift-h": ["workspace::SendKeystrokes", "g 0"],
-      "shift-l": ["workspace::SendKeystrokes", "g _"]
+      "shift-l": ["workspace::SendKeystrokes", "g _"],
+
+      "space j": "journal::NewJournalEntry"
     }
   },
   {
@@ -103,7 +106,7 @@
     "context": "Editor && !menu",
     "bindings": {
       //"ctrl-c": "editor::Copy", // vim default: return to normal mode
-      "ctrl-x": "editor::Cut", // vim default: decrement
+      //"ctrl-x": "editor::Cut", // vim default: decrement
       //"ctrl-v": "editor::Paste", // vim default: visual block mode
       "ctrl-y": "vim::Undo", // vim default: line up
       "ctrl-f": "buffer_search::Deploy", // vim default: page down
@@ -114,8 +117,11 @@
   {
     "context": "Terminal",
     "bindings": {
-      "ctrl-v": ["workspace::SendKeystrokes", "escape \" + p a"],
-      "ctrl-p": null
+      "ctrl-p": null,
+      "ctrl-w c": "pane::CloseActiveItem",
+      "ctrl-t": "workspace::NewTerminal",
+      "alt-escape": "terminal::ToggleViMode",
+      "ctrl-shift-t": "workspace::NewCenterTerminal"
     }
   }
 ]
