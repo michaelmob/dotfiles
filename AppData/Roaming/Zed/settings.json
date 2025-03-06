@@ -12,17 +12,39 @@
   "relative_line_numbers": true,
   "tab_size": 2,
   "show_whitespaces": "selection",
+  "remove_trailing_whitespace_on_save": true,
+  "restore_on_startup": "last_workspace",
+  "multi_cursor_modifier": "cmd_or_ctrl",
+  "show_signature_help_after_edits": true,
+  "icon_theme": "Zed (Default)",
   "theme": {
     "mode": "system",
     "light": "One Light",
     "dark": "Ayu Dark"
   },
+  "journal": {},
+  "file_finder": {},
+  "tabs": {
+    "file_icons": true
+  },
+  "active_pane_modifiers": {
+    "border_size": 2,
+    "magnification": 1.2
+  },
+  "wrap_guides": [99],
+  "indent_guides": {
+    "coloring": "indent_aware"
+  },
   "vim_mode": true,
-  "vim": {},
+  "vim": {
+    "highlight_on_yank_duration": 0
+  },
   "git": {
     "git_gutter": null,
     "gutter_debounce": null,
-    "inline_blame": { "enabled": false }
+    "inline_blame": {
+      "enabled": false
+    }
   },
   "assistant": {
     "version": "2",
@@ -31,4 +53,21 @@
       "model": "claude-3-7-sonnet-latest"
     }
   }
+  // "lsp": {
+  //   "typescript-language-server": {
+  //     "initialization_options": {
+  //       "preferences": {
+  //         "includeInlayParameterNameHints": "all",
+  //         "includeInlayParameterNameHintsWhenArgumentMatchesName": true,
+  //         "includeInlayFunctionParameterTypeHints": true,
+  //         "includeInlayVariableTypeHints": true,
+  //         "includeInlayVariableTypeHintsWhenTypeMatchesName": false,
+  //         "includeInlayPropertyDeclarationTypeHints": true,
+  //         "includeInlayFunctionLikeReturnTypeHints": true,
+  //         "includeInlayEnumMemberValueHints": true,
+  //         "includeInlayEnumMemberDeclarationTypes": true
+  //       }
+  //     }
+  //   }
+  // }
 }

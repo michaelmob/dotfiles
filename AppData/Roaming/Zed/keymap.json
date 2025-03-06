@@ -7,19 +7,7 @@
 // from the command palette.
 [
   {
-    "context": "Editor && !menu",
-    "bindings": {
-      //"ctrl-c": "editor::Copy", // vim default: return to normal mode
-      "ctrl-x": "editor::Cut", // vim default: decrement
-      "ctrl-v": "editor::Paste", // vim default: visual block mode
-      "ctrl-y": "editor::Undo", // vim default: line up
-      "ctrl-f": "buffer_search::Deploy", // vim default: page down
-      //"ctrl-o": "workspace::Open", // vim default: go back
-      "ctrl-a": "editor::SelectAll" // vim default: increment
-    }
-  },
-  {
-    "context": "!menu",
+    "context": "!menu", // All contexts
     "bindings": {
       "shift shift": "file_finder::Toggle",
       "alt-h": "pane::ActivatePrevItem",
@@ -65,7 +53,11 @@
       "ctrl-alt-shift-k": "workspace::SwapPaneUp",
       "ctrl-alt-shift-l": "workspace::SwapPaneRight",
 
-      "ctrl-n": null
+      "ctrl-alt-n": "workspace::NewFile",
+
+      "ctrl-n": null,
+      "ctrl-alt-h": null,
+      "ctrl-alt-l": null
     }
   },
   {
@@ -86,7 +78,7 @@
   {
     "context": "Editor && vim_mode == visual",
     "bindings": {
-      "ctrl-c": ["workspace::SendKeystrokes", "\" + y"],
+      "ctrl-c": ["workspace::SendKeystrokes", "\" + y g v"],
       "v": "editor::SelectLargerSyntaxNode",
       ">": ["workspace::SendKeystrokes", "> g v"],
       "<": ["workspace::SendKeystrokes", "< g v"]
@@ -95,7 +87,28 @@
   {
     "context": "Editor && vim_mode == insert",
     "bindings": {
-      "ctrl-v": ["workspace::SendKeystrokes", "escape \" + p a"]
+      "ctrl-v": ["workspace::SendKeystrokes", "escape \" + p"],
+      "ctrl-space": "editor::ShowCompletions",
+      "ctrl-shift-space": "zeta::PreviewCompletion"
+    }
+  },
+  {
+    "context": "(Editor && vim_mode != visual) && !showing_completions",
+    "bindings": {
+      "ctrl-n": "editor::ShowCompletions"
+    }
+  },
+
+  {
+    "context": "Editor && !menu",
+    "bindings": {
+      //"ctrl-c": "editor::Copy", // vim default: return to normal mode
+      "ctrl-x": "editor::Cut", // vim default: decrement
+      //"ctrl-v": "editor::Paste", // vim default: visual block mode
+      "ctrl-y": "vim::Undo", // vim default: line up
+      "ctrl-f": "buffer_search::Deploy", // vim default: page down
+      //"ctrl-o": "workspace::Open", // vim default: go back
+      "ctrl-a": "editor::SelectAll" // vim default: increment
     }
   },
   {
