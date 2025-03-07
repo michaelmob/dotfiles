@@ -7,7 +7,7 @@
 // from the command palette.
 [
   {
-    "context": "!menu", // All contexts
+    "context": "!menu && !(Picker > Editor)", // All contexts
     "bindings": {
       "shift shift": "file_finder::Toggle",
       "alt-h": "pane::ActivatePrevItem",
@@ -70,7 +70,7 @@
 
       "f5": "task::Rerun",
 
-      "ctrl-n": null
+      "ctrl-shift-w": null
     }
   },
   {
@@ -79,7 +79,7 @@
       "shift-h": ["workspace::SendKeystrokes", "g 0 e l"],
       "shift-l": ["workspace::SendKeystrokes", "g _ h"],
       "shift-s": "vim::PushAddSurrounds",
-      "space shift-g": ["task::Spawn", { "task_name": "Lazygit" }],
+      "space shift-g": ["task::Spawn", { "task_name": "launch lazygit" }],
       "space shift-j": "journal::NewJournalEntry"
     }
   },
@@ -139,11 +139,21 @@
     }
   },
   {
+    "context": "EmptyPane",
+    "bindings": {
+      "ctrl-shift-w": [
+        "workspace::SendKeystrokes",
+        ": opensettings enter : openkeymap enter : debugcontext enter"
+      ],
+      "ctrl-w": "workspace::CloseWindow"
+    }
+  },
+  {
     "context": "Terminal",
     "bindings": {
       "ctrl-p": null,
       //"ctrl-w c": "pane::CloseActiveItem",
-      //"ctrl-w x": "pane::CloseActiveItem",
+      "ctrl-w": "pane::CloseActiveItem",
       "ctrl-t": "workspace::NewTerminal",
       "ctrl-`": "workspace::ToggleBottomDock",
       "alt-escape": "terminal::ToggleViMode",
@@ -156,5 +166,9 @@
       "alt-l": ["workspace::SendKeystrokes", "ctrl-l alt-l"],
       "alt-h": ["workspace::SendKeystrokes", "ctrl-l alt-h"]
     }
+  },
+  {
+    "context": "Picker > Editor",
+    "bindings": {}
   }
 ]
