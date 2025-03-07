@@ -257,6 +257,7 @@ F15:: Send "#3"
 ::ocnfig::config
 ::searhc::search
 ::redidt::reddit
+::puhs::push
 ;#ENDREGION
 
 ToolTip("Enhancements Loaded")

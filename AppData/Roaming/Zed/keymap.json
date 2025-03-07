@@ -53,9 +53,12 @@
       "ctrl-alt-shift-k": "workspace::SwapPaneUp",
       "ctrl-alt-shift-l": "workspace::SwapPaneRight",
 
+      "ctrl-alt-t": "workspace::NewCenterTerminal",
+      "ctrl-alt-o": "workspace::OpenFiles",
       "ctrl-alt-n": "workspace::NewFile",
 
       "f5": "task::Rerun",
+
       "ctrl-n": null,
       "ctrl-alt-h": null,
       "ctrl-alt-l": null
@@ -64,27 +67,30 @@
   {
     "context": "Editor && (vim_mode == normal || vim_mode == visual)",
     "bindings": {
-      "shift-h": ["workspace::SendKeystrokes", "g 0"],
-      "shift-l": ["workspace::SendKeystrokes", "g _"],
-
-      "space j": "journal::NewJournalEntry"
+      "shift-h": ["workspace::SendKeystrokes", "g 0 e l"],
+      "shift-l": ["workspace::SendKeystrokes", "g _ h"],
+      "shift-s": "vim::PushAddSurrounds",
+      "space shift-g": ["task::Spawn", { "task_name": "Lazygit" }],
+      "space shift-j": "journal::NewJournalEntry"
     }
   },
   {
     "context": "Editor && vim_mode == normal",
     "bindings": {
-      "s": "outline::Toggle",
-      "shift-s": ["workspace::SendKeystrokes", "y s i w"],
-      "ctrl-v": ["workspace::SendKeystrokes", "\" + p"]
+      "tab": ["workspace::SendKeystrokes", "shift-v >"],
+      "shift-tab": ["workspace::SendKeystrokes", "shift-v <"],
+      "ctrl-v": ["workspace::SendKeystrokes", "\" + p"],
+      "shift-s": ["workspace::SendKeystrokes", "v v shift-s"],
+      "s": "outline::Toggle"
     }
   },
   {
     "context": "Editor && vim_mode == visual",
     "bindings": {
+      "tab": ["workspace::SendKeystrokes", "> g v"],
+      "shift-tab": ["workspace::SendKeystrokes", "< g v"],
       "ctrl-c": ["workspace::SendKeystrokes", "\" + y g v"],
-      "v": "editor::SelectLargerSyntaxNode",
-      ">": ["workspace::SendKeystrokes", "> g v"],
-      "<": ["workspace::SendKeystrokes", "< g v"]
+      "v": "editor::SelectLargerSyntaxNode"
     }
   },
   {
@@ -115,11 +121,17 @@
     }
   },
   {
+    "context": "ProjectSearchBar",
+    "bindings": {
+      "escape": "pane::CloseActiveItem"
+    }
+  },
+  {
     "context": "Terminal",
     "bindings": {
       "ctrl-p": null,
       "ctrl-w c": "pane::CloseActiveItem",
-      "ctrl-t": "workspace::NewTerminal",
+      //"ctrl-t": "workspace::NewTerminal",
       "alt-escape": "terminal::ToggleViMode",
       "ctrl-shift-t": "workspace::NewCenterTerminal"
     }
