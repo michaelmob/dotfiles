@@ -86,10 +86,12 @@
   {
     "context": "Editor && vim_mode == normal",
     "bindings": {
+      "space space": "command_palette::Toggle",
       "tab": ["workspace::SendKeystrokes", "shift-v >"],
       "shift-tab": ["workspace::SendKeystrokes", "shift-v <"],
       "ctrl-v": ["workspace::SendKeystrokes", "\" + p"],
       "shift-s": ["workspace::SendKeystrokes", "v v shift-s"],
+      "space v": ["workspace::SendKeystrokes", "v space"],
       "s": "outline::Toggle"
     }
   },
@@ -99,7 +101,8 @@
       "tab": ["workspace::SendKeystrokes", "> g v"],
       "shift-tab": ["workspace::SendKeystrokes", "< g v"],
       "ctrl-c": ["workspace::SendKeystrokes", "\" + y g v"],
-      "v": "editor::SelectLargerSyntaxNode"
+      "v": "vim::SelectLargerSyntaxNode",
+      "space": "vim::SelectLargerSyntaxNode"
     }
   },
   {
