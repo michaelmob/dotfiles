@@ -16,6 +16,9 @@
       "alt-shift-h": "pane::SwapItemLeft",
       "alt-shift-l": "pane::SwapItemRight",
 
+      "ctrl-w c": "pane::CloseActiveItem",
+      "ctrl-w x": "pane::CloseActiveItem",
+
       "ctrl-h": "workspace::ActivatePaneLeft",
       "ctrl-j": "workspace::ActivatePaneDown",
       "ctrl-k": "workspace::ActivatePaneUp",
@@ -52,6 +55,8 @@
       "ctrl-alt-shift-j": "workspace::SwapPaneDown",
       "ctrl-alt-shift-k": "workspace::SwapPaneUp",
       "ctrl-alt-shift-l": "workspace::SwapPaneRight",
+
+      "ctrl-t": "workspace::ToggleBottomDock",
 
       "ctrl-alt-t": "workspace::NewCenterTerminal",
       "ctrl-alt-o": "workspace::OpenFiles",
@@ -130,8 +135,10 @@
     "context": "Terminal",
     "bindings": {
       "ctrl-p": null,
-      "ctrl-w c": "pane::CloseActiveItem",
-      //"ctrl-t": "workspace::NewTerminal",
+      //"ctrl-w c": "pane::CloseActiveItem",
+      //"ctrl-w x": "pane::CloseActiveItem",
+      "ctrl-t": "workspace::NewTerminal",
+      "ctrl-`": "workspace::ToggleBottomDock",
       "alt-escape": "terminal::ToggleViMode",
       "ctrl-shift-t": "workspace::NewCenterTerminal"
     }
