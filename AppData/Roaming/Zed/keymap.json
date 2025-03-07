@@ -18,25 +18,26 @@
 
       "ctrl-w c": "pane::CloseActiveItem",
       "ctrl-w x": "pane::CloseActiveItem",
+      "ctrl-w shift-x": "pane::CloseAllItems",
 
       "ctrl-h": "workspace::ActivatePaneLeft",
       "ctrl-j": "workspace::ActivatePaneDown",
       "ctrl-k": "workspace::ActivatePaneUp",
       "ctrl-l": "workspace::ActivatePaneRight",
 
-      "ctrl-shift-h": [
+      "ctrl-alt-h": [
         "workspace::MoveItemToPaneInDirection",
         { "direction": "left" }
       ],
-      "ctrl-shift-j": [
+      "ctrl-alt-j": [
         "workspace::MoveItemToPaneInDirection",
         { "direction": "down" }
       ],
-      "ctrl-shift-k": [
+      "ctrl-alt-k": [
         "workspace::MoveItemToPaneInDirection",
         { "direction": "up" }
       ],
-      "ctrl-shift-l": [
+      "ctrl-alt-l": [
         "workspace::MoveItemToPaneInDirection",
         { "direction": "right" }
       ],
@@ -51,6 +52,11 @@
       "ctrl-8": ["workspace::ActivatePane", 7],
       "ctrl-9": ["workspace::ActivatePane", 8],
 
+      "ctrl-shift-h": "vim::ResizePaneLeft",
+      "ctrl-shift-j": "vim::ResizePaneDown",
+      "ctrl-shift-k": "vim::ResizePaneUp",
+      "ctrl-shift-l": "vim::ResizePaneRight",
+
       "ctrl-alt-shift-h": "workspace::SwapPaneLeft",
       "ctrl-alt-shift-j": "workspace::SwapPaneDown",
       "ctrl-alt-shift-k": "workspace::SwapPaneUp",
@@ -64,9 +70,7 @@
 
       "f5": "task::Rerun",
 
-      "ctrl-n": null,
-      "ctrl-alt-h": null,
-      "ctrl-alt-l": null
+      "ctrl-n": null
     }
   },
   {
@@ -141,6 +145,13 @@
       "ctrl-`": "workspace::ToggleBottomDock",
       "alt-escape": "terminal::ToggleViMode",
       "ctrl-shift-t": "workspace::NewCenterTerminal"
+    }
+  },
+  {
+    "context": "ProjectPanel",
+    "bindings": {
+      "alt-l": ["workspace::SendKeystrokes", "ctrl-l alt-l"],
+      "alt-h": ["workspace::SendKeystrokes", "ctrl-l alt-h"]
     }
   }
 ]

@@ -30,8 +30,8 @@
     "file_icons": true
   },
   "active_pane_modifiers": {
-    "border_size": 2,
-    "magnification": 1.2
+    // "border_size": 2,
+    // "magnification": 1.2
   },
   "wrap_guides": [99],
   "indent_guides": {
