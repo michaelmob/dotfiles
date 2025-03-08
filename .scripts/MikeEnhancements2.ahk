@@ -114,7 +114,10 @@ CapsLock & b:: Send("{Ctrl Down}{Left}{Ctrl Up}")   ; word-backward
 ;#ENDREGION
 
 ;#REGION Software Rebinds
-#t:: Run("wt.exe")  ; Open terminal
+#t:: {
+  Sleep(100)
+  Run("wt.exe")
+} ; Open terminal
 +#t:: Run("*RunAs wt.exe")  ; Open elevated terminal
 ^+4:: Send("{Ctrl Down}{PrintScreen}{Ctrl Up}")  ; # Ctrl + Shift + 4 to capture a region with ShareX
 ;#ENDREGION
@@ -258,6 +261,8 @@ F15:: Send "#3"
 ::searhc::search
 ::redidt::reddit
 ::puhs::push
+::auothotkey::autohotkey
+::auot::auto
 ;#ENDREGION
 
 ToolTip("Enhancements Loaded")
