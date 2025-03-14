@@ -1,123 +1,76 @@
 {
   // #region Window
-  "window.customMenuBarAltFocus": false,
+  "window.menuBarVisibility": "toggle",
   // #endregion
-  // ----------------
+ 
+
+  // #region Workbench
+  "workbench.editor.enablePreviewFromQuickOpen": false,
+  /*"workbench.colorCustomizations": {
+    "editorGhostText.border": "#696969",
+    "editorGhostText.foreground": "#696969"
+  },*/
+  // #endregion
+
+
   // #region Editor
   "editor.lineNumbers": "relative",
-  "editor.formatOnPaste": true,
+  /*"editor.formatOnPaste": true,
   "editor.formatOnSave": true,
-  "editor.formatOnType": true,
+  "editor.formatOnType": true,*/
   "editor.multiCursorModifier": "ctrlCmd",
   "editor.emptySelectionClipboard": false,
-  "editor.mouseWheelScrollSensitivity": 3,
+  "editor.mouseWheelScrollSensitivity": 5,
   "editor.tabSize": 2,
-  "editor.bracketPairColorization.enabled": true,
-  "editor.rulers": [ 80 ],
+  "editor.fontSize": 16,
+  "editor.fontFamily": "JetBrains Mono Medium",
+  "editor.rulers": [ 99 ],
+  "editor.minimap.enabled": false,
+  "editor.smoothScrolling": true,
+  "editor.suggest.preview": true,
   // #endregion
-  // ----------------
+
+
+
   // #region Breadcrumbs
   "breadcrumbs.enabled": false,
   // #endregion
-  // ----------------
+
+
   // #region Terminal
-  "terminal.integrated.sendKeybindingsToShell": true, // <C-a>, <C-f> in term
+  /*"terminal.integrated.sendKeybindingsToShell": true, // <C-a>, <C-f> in term*/
+
   // #endregion
-  // ----------------
+
+
   // #region Files
-  "files.associations": {
-    "*.md": "markdown"
-  },
-  "files.insertFinalNewline": true,
   "files.trimFinalNewlines": true,
+  "files.insertFinalNewline": true,
   "files.simpleDialog.enable": true,
   // #endregion
-  // ----------------
+
+
   // #region Telemetry
   "telemetry.telemetryLevel": "off",
   // #endregion
-  // ----------------
-  // #region VSVim Extension
-  "vim.mouseSelectionGoesIntoVisualMode": false,
-  "vim.leader": "<space>",
-  "vim.useSystemClipboard": false,
-  "vim.replaceWithRegister": true,
-  "vim.visualstar": true,
-  "vim.gdefault": true, // enable global search by default
-  "vim.camelCaseMotion.enable": true,
-  "vim.surround": true,
-  "vim.easymotion": true,
-  "vim.easymotionKeys": "wertasdfgqzxcv",
-  "vim.sneak": true,
-  "vim.sneakUseIgnorecaseAndSmartcase": true,
-  "vim.sneakReplacesF": true, // multi-line find-letter key
-  "vim.insertModeKeyBindings": [
-    { "before": ["ctrl", "c"], "after": ["<Esc>"] },
-  ],
-  "vim.normalModeKeyBindings": [
-    //{ "before": [";"], "commands": ["workbench.action.showCommands"], "silent": true }
-  ],
-  "vim.normalModeKeyBindingsNonRecursive": [
-    { "before": ["\""], "after": ["v", "i", "\"", "i"] },  // select inner quotes
-    { "before": ["'"], "after": ["v", "i", "'", "i"] }, // select inner apostrophe
-    { "before": ["L"], "after": ["g", "_"] }, // goto last character
-    { "before": ["H"], "after": ["^"] }, // goto first non-whitespace character
-    { "before": ["s"], "after": ["leader", "leader", "2", "s"] },
-  ],
-  "vim.visualModeKeyBindingsNonRecursive": [
-    { "before": ["<Esc>"], "after": ["<Esc>", "<Esc>"] }
-  ],
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
-  // #endregion
-  // ----------------
-  // #region Remotes
-  "remote.SSH.remotePlatform": {
-    "debian": "linux",
-    "canticubed": "linux"
-  },
-  // #endregion
-  // ----------------
-  // #region Filetypes
-  "html.autoClosingTags": false,
-  "[html]": {
-    "editor.defaultFormatter": "vscode.html-language-features"
-  },
-  "[svelte]": {
-    "editor.defaultFormatter": "svelte.svelte-vscode"
-  },
-  "[jsonc]": {
-    "editor.defaultFormatter": "vscode.json-language-features",
-    "editor.formatOnSave": false // destroys vim.keybindings formatting
-  },
-  "[javascript]": {
-    "editor.defaultFormatter": "vscode.typescript-language-features"
-  },
-  "[bat]": {
-    "files.autoSave": "afterDelay"
-  },
-  "[markdown]": {
-    "editor.quickSuggestions": {
-      "comments": "on",
-      "strings": "on",
-      "other": "on"
-    },
-  },
-  // #endregion
-  // ----------------
-  "svelte.enable-ts-plugin": true,
-  "javascript.updateImportsOnFileMove.enabled": "always",
-  "git.autofetch": true,
-  "workbench.colorTheme": "Monokai One Dark Vivid",
-  "workbench.editor.enablePreviewFromQuickOpen": true,
-  "workbench.colorCustomizations": {
-    "editorGhostText.border": "#696969",
-    "editorGhostText.foreground": "#696969"
-  },
-  "AutoHotkey2.InterpreterPath": "c:\\Users\\Michael\\AppData\\Local\\Programs\\AutoHotkey\\v2\\AutoHotkey32.exe",
-  "editor.minimap.enabled": false,
-  "git.openRepositoryInParentFolders": "never",
-  "[rust]": {
-    "editor.defaultFormatter": "rust-lang.rust-analyzer"
-  },
 
+
+  // #region Git
+  "git.autofetch": true,
+  "git.openRepositoryInParentFolders": "never",
+  // #endregion
+
+
+  // #region Extension
+  "extensions.experimental.affinity": {
+    "asvetliakov.vscode-neovim": 1
+  },
+  "workbench.iconTheme": "catppuccin-mocha",
+  // #endregion
+
+
+  // #region VSCode Neovim Extension
+  /*"vscode-neovim.neovimExecutablePaths.win32": "./bin/nvim-win64/bin/nvim.exe",
+  "vscode-neovim.neovimInitVimPaths.win32": "./_config/nvim/init.lua"*/
+  // #endregion
 }

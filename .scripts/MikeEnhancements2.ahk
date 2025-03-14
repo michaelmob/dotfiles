@@ -28,10 +28,12 @@ A_TrayMenu.AddStandard() ;("Reload", (*) => Reload())
 ;;;;;;;;;;;;;;;;;;;
 #Include "libCapsHero.ahk"
 onKeyDown() {
+  SetCapsLockState("AlwaysOff")
   ToolTip()
   SetTrayIcon(isActive := true)
 }
 onKeyUp(repeats) {
+  SetCapsLockState("AlwaysOff")
   SetTrayIcon(isActive := false)
 
   (Mode != "NORMAL") ? ProcessClose(ProcessExist("ModeBox.exe")) : 0

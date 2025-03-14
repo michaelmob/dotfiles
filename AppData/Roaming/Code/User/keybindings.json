@@ -1,171 +1,88 @@
 [
-  //////////////////////////////////////////////////////////////////////////////
-  // Navigate between PANES with <c-{h,j,k,l}>
-  // <c-{h-l}> will focus next/prev tab if in the first or last editor group
-  {
-    "key": "ctrl+h",
-    "command": "workbench.action.focusLeftGroup",
-    "when": "activeEditorGroupEmpty || editorTextFocus && activeEditorIsFirstInGroup"
-  },
-  {
-    "key": "ctrl+j",
-    "command": "workbench.action.focusBelowGroup",
-    "when": "editorTextFocus"
-  },
-  {
-    "key": "ctrl+k",
-    "command": "workbench.action.focusAboveGroup",
-    "when": "editorTextFocus"
-  },
-  {
-    "key": "ctrl+l",
-    "command": "workbench.action.focusRightGroup",
-    "when": "activeEditorGroupEmpty || editorTextFocus && activeEditorIsLastInGroup"
-  },
-  //////////////////////////////////////////////////////////////////////////////
-  // Navigate between TABS with <c-{h,l}>
-  {
-    "key": "ctrl+h",
-    "command": "workbench.action.previousEditor",
-    "when": "editorTextFocus"
-  },
-  {
-    "key": "ctrl+l",
-    "command": "workbench.action.nextEditor",
-    "when": "editorTextFocus"
-  },
-  //////////////////////////////////////////////////////////////////////////////
-  // Swap tabs left and right with <c-alt-{h,l}>
-  {
-    "key": "ctrl+alt+h",
-    "command": "workbench.action.moveEditorLeftInGroup",
-    "when": "editorTextFocus"
-  },
-  {
-    "key": "ctrl+alt+l",
-    "command": "workbench.action.moveEditorRightInGroup",
-    "when": "editorTextFocus"
-  },
-  {
-    "key": "ctrl+alt+h",
-    "command": "workbench.action.moveEditorToPreviousGroup",
-    "when": "editorTextFocus && activeEditorIsFirstInGroup"
-  },
-  {
-    "key": "ctrl+alt+l",
-    "command": "workbench.action.moveEditorToNextGroup",
-    "when": "editorTextFocus && activeEditorIsLastInGroup"
-  },
-  // Move tabs up and down with <c-alt-{j,k}>
-  {
-    "key": "ctrl+alt+k",
-    "command": "workbench.action.moveEditorToAboveGroup",
-    "when": "editorTextFocus"
-  },
-  {
-    "key": "ctrl+alt+j",
-    "command": "workbench.action.moveEditorToBelowGroup",
-    "when": "editorTextFocus"
-  },
-  //
-  //////////////////////////////////////////////////////////////////////////////
-  // Deletions and Danger Preventions
-  { // Delete lines in insert mode with <C-d>
-    "key": "ctrl+d",
-    "command": "editor.action.deleteLines",
-    "when": "editorTextFocus && vim.mode === 'Insert'"
-  },
-  { // Disable <c-r> to prevent accident redos
-    "key": "ctrl+r",
-    "command": "",
-    "when": "editorTextFocus && vim.mode === 'Normal'"
-  },
-  //////////////////////////////////////////////////////////////////////////////
-  { // <c-w> to close tab
-    "key": "ctrl+w",
-    "command": "workbench.action.closeActiveEditor"
-  },
-  { // <c-w> to close tab
-    "key": "ctrl+w",
-    "command": "workbench.action.closeGroup",
-    "when": "activeEditorGroupEmpty"
-  },
-  //////////////////////////////////////////////////////////////////////////////
-  { // Cut with <c-c> in Normal mode
-    "key": "ctrl+x",
-    "command": "editor.action.clipboardCutAction",
-    "when": "editorTextFocus && vim.mode === 'Normal'"
-  },
-  { // Copy with <c-c> for normal and visual mode (not insert)
-    "key": "ctrl+c",
-    "command": "editor.action.clipboardCopyAction",
-    "when": "editorTextFocus && vim.mode !== 'Insert'"
-  },
-  { // Paste with <c-v> in Normal mode
-    "key": "ctrl+v",
-    "command": "editor.action.clipboardPasteAction",
-    "when": "editorTextFocus && vim.mode === 'Normal'"
-  },
-  { // 
-    "key": "ctrl+z",
-    "command": "vim.remap",
-    "when": "editorTextFocus && vim.mode === 'Normal'",
-    "args": {
-        "after": ["u"]
-    }
-  },
-  {
-    "key": "ctrl+shift+z",
-    "command": "vim.remap",
-    "when": "editorTextFocus && vim.mode === 'Normal'",
-    "args": {
-      "after": ["<C-r>"]
-    }
-  },
-  //////////////////////////////////////////////////////////////////////////////
-  // Suggestion Widget
-  { // Close trigger suggest with <esc>
-    "key": "escape",
-    "command": "hideSuggestWidget",
-    "when": "suggestWidgetVisible"
-  },
-  { // Trigger suggestions with <c-n>
-    "key": "ctrl+n",
-    "command": "editor.action.inlineSuggest.trigger",
-    "when": "!suggestWidgetVisible"
-  },
-  { // <c-n> to select NEXT suggestion
-    "key": "ctrl+n",
-    "command": "selectNextSuggestion",
-    "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible"
-  },
-  { // <c-p> to select PREV suggestion
-    "key": "ctrl+p",
-    "command": "selectPrevSuggestion",
-    "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible"
-  },
-  //////////////////////////////////////////////////////////////////////////////
-  { // Quick open with <c-p>
-    "key": "ctrl+p",
-    "command": "workbench.action.quickOpen",
-    "when": "!suggestWidgetVisible"
-  },
-  //////////////////////////////////////////////////////////////////////////////
-  //
-  { // <c-n> for next in quick open dialog
-    "key": "ctrl+n",
-    "command": "workbench.action.quickOpenSelectNext",
-    "when": "inQuickOpen"
-  },
-  { // <c-p> for previous in quick open dialog
-    "key": "ctrl+p",
-    "command": "workbench.action.quickOpenSelectPrevious",
-    "when": "inQuickOpen"
-  },
-  //////////////////////////////////////////////////////////////////////////////
-  {
-    "key": "ctrl+n",
-    "command": "notifications.focusToasts",
-    "when": "notificationToastsVisible"
-  }
+  // #region Tabs
+  // -- Move Tabs between Editor Groups with <c-a-{h,j,k,l}>
+  { "key": "ctrl+alt+h", "command": "workbench.action.moveEditorLeftInGroup",  "when": "editorTextFocus && !activeEditorIsFirstInGroup" },
+  { "key": "ctrl+alt+j", "command": "workbench.action.moveEditorToBelowGroup", "when": "editorTextFocus && groupEditorsCount > 1" },
+  { "key": "ctrl+alt+k", "command": "workbench.action.moveEditorToAboveGroup", "when": "editorTextFocus" },
+  { "key": "ctrl+alt+l", "command": "workbench.action.moveEditorRightInGroup", "when": "editorTextFocus && !activeEditorIsLastInGroup" },
+
+  // -- Re-arrange Tabs with <c-a-{h,j,k,l}>
+  { "key": "ctrl+alt+h", "command": "workbench.action.moveEditorToPreviousGroup", "when": "editorTextFocus && activeEditorIsFirstInGroup" },
+  { "key": "ctrl+alt+l", "command": "workbench.action.moveEditorToNextGroup",     "when": "editorTextFocus && activeEditorIsLastInGroup" },
+
+  // -- (Alternative with LazyVim is <s-{h,l}>) -- Inactive: Navigate Tabs with <a-{h,l}> (and <c-{h,l}> if there is only one Editor Group)
+  //{ "key": "alt+h",  "command": "workbench.action.previousEditor", "when": "editorTextFocus && !activeEditorIsFirstInGroup" },
+  //{ "key": "alt+l",  "command": "workbench.action.nextEditor",     "when": "editorTextFocus && !activeEditorIsLastInGroup" },
+  //{ "key": "ctrl+h", "command": "workbench.action.previousEditor", "when": "!multipleEditorGroups && !activeEditorIsFirstInGroup" },
+  //{ "key": "ctrl+l", "command": "workbench.action.nextEditor",     "when": "!multipleEditorGroups && editorTextFocus && !activeEditorIsLastInGroup" },
+  // #endregion
+ 
+
+  // #region Editors
+  // -- Swap Editor Groups with <c-a-s-{h,j,k,l}>
+  { "key": "ctrl+alt+shift+h", "command": "workbench.action.moveActiveEditorGroupLeft",  "when": "editorTextFocus || activeEditorGroupEmpty" },
+  { "key": "ctrl+alt+shift+j", "command": "workbench.action.moveActiveEditorGroupDown",  "when": "editorTextFocus || activeEditorGroupEmpty" },
+  { "key": "ctrl+alt+shift+k", "command": "workbench.action.moveActiveEditorGroupUp",    "when": "editorTextFocus || activeEditorGroupEmpty" },
+  { "key": "ctrl+alt+shift+l", "command": "workbench.action.moveActiveEditorGroupRight", "when": "editorTextFocus || activeEditorGroupEmpty" },
+
+  // -- (Set by LazyVim) Navigate Panes with <c-{h,j,k,l}>
+  //{ "key": "ctrl+h", "command": "workbench.action.focusLeftGroup",  "when": "(editorTextFocus && (activeEditorIsFirstInGroup || multipleEditorGroups)) || activeEditorGroupEmpty" },
+  //{ "key": "ctrl+j", "command": "workbench.action.focusBelowGroup", "when": "editorTextFocus || activeEditorGroupEmpty" },
+  //{ "key": "ctrl+k", "command": "workbench.action.focusAboveGroup", "when": "editorTextFocus || activeEditorGroupEmpty" },
+  //{ "key": "ctrl+l", "command": "workbench.action.focusRightGroup", "when": "(editorTextFocus && (activeEditorIsLastInGroup || multipleEditorGroups)) || activeEditorGroupEmpty" },
+  // #endregion
+
+
+  // #region Sidebar
+  { "key": "ctrl+h", "command": "",                                        "when": "sideBarFocus" },  // deactivate <c-h> in sidebar
+  { "key": "ctrl+j", "command": "workbench.action.nextSideBarView",        "when": "sideBarFocus" },  // focus down/next sidebar item with <c-j>
+  { "key": "ctrl+k", "command": "workbench.action.previousSideBarView",    "when": "sideBarFocus" },  // focus up/previous sidebar item with <c-k>
+  { "key": "ctrl+l", "command": "workbench.action.focusActiveEditorGroup", "when": "sideBarFocus" },  // focus editor with <c-l>
+  // #endregion
+
+  
+  // #region Empty Editor Group
+  { "key": "ctrl+w", "command": "workbench.action.closeGroup", "when": "activeEditorGroupEmpty" },
+  // #endregion
+
+  
+  //#region Auto-completion, Intellisense, and Suggestion Widget:
+  { "key": "ctrl+n", "command": "selectNextSuggestion", "when": "suggestWidgetVisible" /*&& suggestWidgetMultipleSuggestions*/ }, // <c-n> to select NEXT suggestion
+  { "key": "ctrl+p", "command": "selectPrevSuggestion", "when": "suggestWidgetVisible && suggestWidgetMultipleSuggestions" }, // <c-p> to select PREV suggestion
+  { "key": "escape", "command": "hideSuggestWidget",    "when": "suggestWidgetVisible" }, // Close trigger suggest with <esc>
+  //#endregion
+  
+  // QUICK-OPEN Navigation: Navigate items with <ctrl-{n,p}>
+  //{ "key": "ctrl+p", "command": "workbench.action.quickOpen",               "when": "editorTextFocus" },
+  { "key": "ctrl+p", "command": "workbench.action.quickOpenSelectPrevious", "when": "inQuickOpen" },
+  { "key": "ctrl+n", "command": "workbench.action.quickOpenSelectNext",     "when": "inQuickOpen" },
+  { "key": "ctrl+k", "command": "workbench.action.quickOpenSelectPrevious", "when": "inQuickOpen" },
+  { "key": "ctrl+j", "command": "workbench.action.quickOpenSelectNext",     "when": "inQuickOpen" },
+
+    
+  // #region Terminal
+  { "key": "ctrl+j",    "command": "",                                      "when": "terminalFocus" },  // deactivate <c-j> in terminal
+  { "key": "ctrl+k",    "command": "workbench.action.focusLastEditorGroup", "when": "terminalFocus" },  // focus editor with <c-k>
+  { "key": "ctrl+w c",  "command": "workbench.action.terminal.kill",        "when": "terminalFocus" },  // quit terminal with <c-w>c
+
+  // -- Launch or toggle terminal visiblity with <c-[s]-t>
+  { "key": "ctrl+t",       "command": "workbench.action.terminal.toggleTerminal", "when": "terminalFocus || editorTextFocus || activeEditorGroupEmpty" },
+  { "key": "ctrl+shift+t", "command": "workbench.action.terminal.new",            "when": "terminalFocus" },
+  { "key": "ctrl+shift+f", "command": "workbench.action.toggleMaximizedPanel",    "when": "terminalFocus" },
+  //{ "key": "ctrl+shift+t", "command": "workbench.action.createTerminalEditor",    "when": "editorTextFocus || editorTextFocus || activeEditorGroupEmpty" },
+  
+  // -- Navigate terminals with <c-s-{j,k}>
+  { "key": "ctrl+shift+j", "command": "workbench.action.terminal.focusNext",     "when": "terminalFocus"},
+  { "key": "ctrl+shift+k", "command": "workbench.action.terminal.focusPrevious", "when": "terminalFocus"},
+  //#endregion
+  
+  // #region Notifications
+	{ "key": "ctrl+n", "command": "notifications.focusToasts", "when": "!suggestWidgetVisible || notificationToastsVisible" },
+  //#endregion
+
+  // Command Palette Keybindings:
+  //{ "key": "ctrl+e", "command": "workbench.action.quickOpen", "when": "editorTextFocus" },
+  //{ "key": "ctrl+f", "command": "actions.find", "when": "editorTextFocus" },
+  //{ "key": "ctrl+f", "command": "runCommands",  "when": "findWidgetVisible && !inputBoxFocus",
+  //  "args": { "commands": [ "closeFindWidget", "workbench.action.quickTextSearch" ] } },
 ]
