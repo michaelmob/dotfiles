@@ -265,6 +265,12 @@ F15:: Send "#3"
 ::puhs::push
 ::auothotkey::autohotkey
 ::auot::auto
+::librayr::library
+::spellhcekc::spellcheck
+::hcekc::check
+::barnds::brands
+::svletekit::sveltekit
+::svlete::svelte
 ;#ENDREGION
 
 ToolTip("Enhancements Loaded")

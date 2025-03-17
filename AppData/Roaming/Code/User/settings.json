@@ -1,10 +1,15 @@
 {
   // #region Window
   "window.menuBarVisibility": "toggle",
+  "window.titleBarStyle": "custom",
+  "window.customMenuBarAltFocus": false,
+  "window.enableMenuBarMnemonics": false,
   // #endregion
+
  
 
   // #region Workbench
+  "workbench.iconTheme": "catppuccin-mocha",
   "workbench.editor.enablePreviewFromQuickOpen": false,
   /*"workbench.colorCustomizations": {
     "editorGhostText.border": "#696969",
@@ -15,14 +20,14 @@
 
   // #region Editor
   "editor.lineNumbers": "relative",
-  /*"editor.formatOnPaste": true,
+  "editor.formatOnPaste": true,
   "editor.formatOnSave": true,
-  "editor.formatOnType": true,*/
+  "editor.formatOnType": true,
   "editor.multiCursorModifier": "ctrlCmd",
   "editor.emptySelectionClipboard": false,
   "editor.mouseWheelScrollSensitivity": 5,
   "editor.tabSize": 2,
-  "editor.fontSize": 16,
+  "editor.fontSize": 14,
   "editor.fontFamily": "JetBrains Mono Medium",
   "editor.rulers": [ 99 ],
   "editor.minimap.enabled": false,
@@ -65,7 +70,6 @@
   "extensions.experimental.affinity": {
     "asvetliakov.vscode-neovim": 1
   },
-  "workbench.iconTheme": "catppuccin-mocha",
   // #endregion
 
 
