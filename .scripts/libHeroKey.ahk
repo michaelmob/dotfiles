@@ -34,24 +34,26 @@
 
 ; Options
 HERO_KEY := "CapsLock"
-HERO_RESET_TIMEOUT_MS := 400
-HERO_REPEAT_TIMEOUT_MS := 200
+HERO_RESET_TIMEOUT_MS := 500
+HERO_REPEAT_TIMEOUT_MS := 500
 HERO_HOLD_MS := 1000
 
 ; Globals
-HERO_KEY_DOWN := '~' . HERO_KEY
+HERO_KEY_DOWN := "~" . HERO_KEY
 HERO_KEY_UP := HERO_KEY . " up"
+HERO_PRIOR_HOTKEY := HERO_KEY_DOWN
 HERO_PRESS_TICK := 0
 HERO_PRIOR_PRESS_TICK := 0
 HERO_REPEATED_PRESSES := 0
-HERO_PRIOR_HOTKEY := HERO_KEY_UP
 
 
 onHeroKeyPress(keyDownCallback, keyHoldCallback) {
-  if (A_PriorHotkey == "~" . HERO_KEY)  ; dont keep re-running this on key hold
+  if (A_PriorHotkey == HERO_KEY_DOWN)  ; dont keep re-running this on key hold
     return
 
-  keyDownCallback()
+  if (!keyDownCallback())
+    global HERO_PRIOR_HOTKEY := HERO_KEY_DOWN
+
   global HERO_PRESS_TICK := A_TickCount
   global HERO_PRIOR_HOTKEY := A_PriorHotkey
 
@@ -62,10 +64,9 @@ onHeroKeyPress(keyDownCallback, keyHoldCallback) {
     A_ThisHotkey == HERO_KEY_DOWN &&
     A_PriorHotkey == HERO_KEY_UP &&
     A_TickCount - HERO_PRESS_TICK >= HERO_HOLD_MS
-  ) {
-    if (!keyHoldCallback())
+  )
+    if (!keyHoldCallback()) ; return false to block key-up event
       global HERO_PRIOR_HOTKEY := HERO_KEY_DOWN
-  }
 }
 
 

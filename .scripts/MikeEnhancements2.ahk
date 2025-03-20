@@ -27,11 +27,11 @@ A_TrayMenu.AddStandard() ;("Reload", (*) => Reload())
 ; Long-press and repeated key-press functionality
 ;;;;;;;;;;;;;;;;;;;
 #Include "libHeroKey.ahk"
-onKeyDown() {
+onHeroKeyDown() {
   SetCapsLockState("AlwaysOff")
   SetTrayIcon(isActive := true)
 }
-onKeyUp(repeatedPresses) {
+onHeroKeyUp(repeatedPresses) {
   SetCapsLockState("AlwaysOff")
   SetTrayIcon(isActive := false)
 
@@ -39,7 +39,9 @@ onKeyUp(repeatedPresses) {
   global Mode := "NORMAL"
 
   switch (repeatedPresses) {
-    case 2: ToolTip("Double-Kill!")
+    case 2:
+      Send("{Escape}")
+      ToolTip("Double-Kill!")
     case 3: ToolTip("Triple-Kill!")
     case 4: ToolTip("Overkill!")
     case 5: ToolTip("Killtacular!")
@@ -50,14 +52,14 @@ onKeyUp(repeatedPresses) {
     case 10: ToolTip("Killionaire!")
     default: Send("{Escape}")
   }
-  ;SetTimer(ToolTip, 2000)
 }
-onKeyHold() {
+onHeroKeyHold() {
   SetCapsLockState("AlwaysOff")
-  ToolTip("HELD")
+  ToolTip("Hero Key held for " . HERO_HOLD_MS . "ms")
+  return false ; block key-up event
 }
-~CapsLock:: onHeroKeyPress(onKeyDown, onKeyHold)
-CapsLock up:: onHeroKeyRepeatedPresses(onKeyUp)
+~CapsLock:: onHeroKeyPress(onHeroKeyDown, onHeroKeyHold)
+CapsLock up:: onHeroKeyRepeatedPresses(onHeroKeyUp)
 ;;;;;;;;;;;;;
 ;#ENDREGION
 
