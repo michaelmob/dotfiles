@@ -1,6 +1,6 @@
 {
   // #region Window
-  "window.menuBarVisibility": "toggle",
+  "window.menuBarVisibility": "compact",
   "window.titleBarStyle": "custom",
   "window.customMenuBarAltFocus": false,
   "window.enableMenuBarMnemonics": false,
