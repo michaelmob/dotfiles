@@ -25,3 +25,11 @@ map("n", "x", '"_x', { desc = "Send x to _ register", noremap = true, silent = t
 map("n", "C", '"_C', { desc = "Send C to _ register", noremap = true, silent = true })
 map("v", "c", '"_c', { desc = "Send c to _ register", noremap = true, silent = true })
 map("v", "Y", '"+y', { desc = "Copy to system clipboard", noremap = true, silent = true })
+
+if vim.g.vscode then
+  local vscode = require("vscode")
+  vim.notify = vscode.notify
+  map("n", "-", function()
+    vscode.action("workbench.files.action.showActiveFileInExplorer")
+  end)
+end

@@ -38,6 +38,7 @@
 
 
   // #region Sidebar
+  { "key": "ctrl+0", "command": "workbench.action.closeSidebar",           "when": "sideBarFocus" },  // toggle sidebar
   { "key": "ctrl+h", "command": "",                                        "when": "sideBarFocus" },  // deactivate <c-h> in sidebar
   { "key": "ctrl+j", "command": "workbench.action.nextSideBarView",        "when": "sideBarFocus" },  // focus down/next sidebar item with <c-j>
   { "key": "ctrl+k", "command": "workbench.action.previousSideBarView",    "when": "sideBarFocus" },  // focus up/previous sidebar item with <c-k>
