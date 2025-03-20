@@ -21,32 +21,26 @@ A_TrayMenu.AddStandard() ;("Reload", (*) => Reload())
 ;#ENDREGION
 
 
-;#REGION Caps-Lock Hero
+;#REGION Hero Key
 ;;;;;;;;;;;;;;;;;;;
-; # Caps-Lock Hero
-; Long-press and repeated press functionality
+; # Hero Key
+; Long-press and repeated key-press functionality
 ;;;;;;;;;;;;;;;;;;;
-#Include "libCapsHero.ahk"
+#Include "libHeroKey.ahk"
 onKeyDown() {
   SetCapsLockState("AlwaysOff")
-  ToolTip()
   SetTrayIcon(isActive := true)
 }
-onKeyUp(repeats) {
+onKeyUp(repeatedPresses) {
   SetCapsLockState("AlwaysOff")
   SetTrayIcon(isActive := false)
 
   (Mode != "NORMAL") ? ProcessClose(ProcessExist("ModeBox.exe")) : 0
   global Mode := "NORMAL"
 
-  switch (repeats) {
-    case 2:  ; double-tap
-      ToolTip("Double-Kill!")
-      ; Send("{Alt down}{Space}{Alt up}")
-      ; Sleep(25)
-      ; Send("{BackSpace}")
-    case 3:  ; triple-tap
-      ToolTip("Triple-Kill!")
+  switch (repeatedPresses) {
+    case 2: ToolTip("Double-Kill!")
+    case 3: ToolTip("Triple-Kill!")
     case 4: ToolTip("Overkill!")
     case 5: ToolTip("Killtacular!")
     case 6: ToolTip("Killtrocity!")
@@ -54,18 +48,16 @@ onKeyUp(repeats) {
     case 8: ToolTip("Killtastrophe!")
     case 9: ToolTip("Killpocalypse!")
     case 10: ToolTip("Killionaire!")
-    default:
-      return Send("{Escape}")
+    default: Send("{Escape}")
   }
-  SetTimer(ToolTip, 2000)
+  ;SetTimer(ToolTip, 2000)
 }
 onKeyHold() {
   SetCapsLockState("AlwaysOff")
-  ToolTip("Caps-Lock Long-press")
-  ProcessClose(ProcessExist("ModeBox.exe"))
+  ToolTip("HELD")
 }
-~CapsLock:: onHeroPress(onKeyDown, onKeyHold)
-CapsLock up:: onHeroRepeatedPresses(onKeyUp)
+~CapsLock:: onHeroKeyPress(onKeyDown, onKeyHold)
+CapsLock up:: onHeroKeyRepeatedPresses(onKeyUp)
 ;;;;;;;;;;;;;
 ;#ENDREGION
 
@@ -274,4 +266,4 @@ F15:: Send "#3"
 ;#ENDREGION
 
 ToolTip("Enhancements Loaded")
-SetTimer(ToolTip, 1000)
+SetTimer(ToolTip, 5000)

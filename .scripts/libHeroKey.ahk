@@ -1,21 +1,21 @@
 #Requires AutoHotkey v2.0
 
 ;;;;;;;;;;;;;;
-;;; libCapsHero
+;;; libHeroKey
 ;;; Sample Use
 ;; key-hold functionality
-;#Include "libCapsHero.ahk"
-;onActivePress() {
+;#Include "libHeroKey.ahk"
+;onHeroKeyDown() {
 ;  ToolTip()
 ;  SetTrayIcon(isActive := true)
 ;}
-;onKeyHold() {
+;onHeroKeyHold() {
 ;  ToolTip("CapsLock Held")
 ;}
-;~CapsLock:: onHeroPress(onActivePress, onKeyHold)
+;~CapsLock:: onHeroPress(onHeroKeyDown, onHeroKeyHold)
 
 ;; repeated key-press functionality
-;onRepeatedPress(repeats) {
+;onHeroKeyUp(repeats) {
 ;  switch (repeats) {
 ;    case 2: ToolTip("Double-Kill!")
 ;    case 3: ToolTip("Triple-Kill!")
@@ -32,37 +32,47 @@
 ;}
 ;CapsLock up:: onHeroRepeatedPresses(onRepeatedPress)
 
+; Options
 HERO_KEY := "CapsLock"
 HERO_RESET_TIMEOUT_MS := 400
 HERO_REPEAT_TIMEOUT_MS := 200
 HERO_HOLD_MS := 1000
 
+; Globals
+HERO_KEY_DOWN := '~' . HERO_KEY
+HERO_KEY_UP := HERO_KEY . " up"
 HERO_PRESS_TICK := 0
 HERO_PRIOR_PRESS_TICK := 0
 HERO_REPEATED_PRESSES := 0
+HERO_PRIOR_HOTKEY := HERO_KEY_UP
 
 
-onHeroPress(keyActiveCallback, keyHoldCallback) {
+onHeroKeyPress(keyDownCallback, keyHoldCallback) {
   if (A_PriorHotkey == "~" . HERO_KEY)  ; dont keep re-running this on key hold
     return
 
-  keyActiveCallback()
-
+  keyDownCallback()
   global HERO_PRESS_TICK := A_TickCount
-  global MouseMode := false
+  global HERO_PRIOR_HOTKEY := A_PriorHotkey
 
   ; run CapsLockLongHold() when detected long-hold key-down
   ; the key-up will update A_ThisHotkey, so the check is necessary
   KeyWait(HERO_KEY, "T" (HERO_HOLD_MS / 1000))
-  if (A_ThisHotkey == "~" . HERO_KEY && A_TickCount - HERO_PRESS_TICK >= HERO_HOLD_MS)
-    keyHoldCallback()
+  if (
+    A_ThisHotkey == HERO_KEY_DOWN &&
+    A_PriorHotkey == HERO_KEY_UP &&
+    A_TickCount - HERO_PRESS_TICK >= HERO_HOLD_MS
+  ) {
+    if (!keyHoldCallback())
+      global HERO_PRIOR_HOTKEY := HERO_KEY_DOWN
+  }
 }
 
 
-onHeroRepeatedPresses(repeatedPressCallback) {
-  global HERO_PRIOR_PRESS_TICK, HERO_PRESS_TICK, HERO_REPEATED_PRESSES
+onHeroKeyRepeatedPresses(keyUpCallback) {
+  global HERO_PRESS_TICK, HERO_REPEATED_PRESSES, HERO_PRIOR_PRESS_TICK, HERO_PRIOR_HOTKEY
   ElapsedPressTime := A_TickCount - HERO_PRESS_TICK
-  isPriorHotkey := A_PriorHotkey == "~" . HERO_KEY
+  isPriorHotkey := A_PriorHotkey == HERO_KEY_DOWN
 
   ; reset repeated presses if more than ...-ms since prior key-up
   if (!isPriorHotkey || A_TickCount - HERO_PRIOR_PRESS_TICK > HERO_RESET_TIMEOUT_MS)
@@ -72,8 +82,8 @@ onHeroRepeatedPresses(repeatedPressCallback) {
   if (ElapsedPressTime <= HERO_REPEAT_TIMEOUT_MS)
     HERO_REPEATED_PRESSES++
 
-  if (isPriorHotkey)
-    repeatedPressCallback(HERO_REPEATED_PRESSES)
+  if (isPriorHotkey && HERO_PRIOR_HOTKEY == HERO_KEY_UP)
+    keyUpCallback(HERO_REPEATED_PRESSES)
 
   HERO_PRIOR_PRESS_TICK := A_TickCount
 }
