@@ -57,12 +57,13 @@
   { "key": "escape", "command": "hideSuggestWidget",    "when": "suggestWidgetVisible" }, // Close trigger suggest with <esc>
   //#endregion
   
+
   // QUICK-OPEN Navigation: Navigate items with <ctrl-{n,p}>
   //{ "key": "ctrl+p", "command": "workbench.action.quickOpen",               "when": "editorTextFocus" },
   { "key": "ctrl+p", "command": "workbench.action.quickOpenSelectPrevious", "when": "inQuickOpen" },
   { "key": "ctrl+n", "command": "workbench.action.quickOpenSelectNext",     "when": "inQuickOpen" },
-  { "key": "ctrl+k", "command": "workbench.action.quickOpenSelectPrevious", "when": "inQuickOpen" },
   { "key": "ctrl+j", "command": "workbench.action.quickOpenSelectNext",     "when": "inQuickOpen" },
+  { "key": "ctrl+k", "command": "workbench.action.quickOpenSelectPrevious", "when": "inQuickOpen" },
 
     
   // #region Terminal
@@ -81,9 +82,11 @@
   { "key": "ctrl+shift+k", "command": "workbench.action.terminal.focusPrevious", "when": "terminalFocus"},
   //#endregion
   
+
   // #region Notifications
-	{ "key": "ctrl+n", "command": "notifications.focusToasts", "when": "!suggestWidgetVisible || notificationToastsVisible" },
+	{ "key": "ctrl+n", "command": "notifications.focusToasts", "when": "!inQuickOpen && (!suggestWidgetVisible || notificationToastsVisible)" },
   //#endregion
+
 
   // Command Palette Keybindings:
   //{ "key": "ctrl+e", "command": "workbench.action.quickOpen", "when": "editorTextFocus" },

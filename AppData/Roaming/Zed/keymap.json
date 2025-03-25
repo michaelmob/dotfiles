@@ -10,7 +10,7 @@
     "context": "!menu && !(Picker > Editor)", // All contexts
     "bindings": {
       "shift shift": "file_finder::Toggle",
-      "alt-h": "pane::ActivatePrevItem",
+      "alt-h": "pane::ActivatePreviousItem",
       "alt-l": "pane::ActivateNextItem",
 
       "alt-shift-h": "pane::SwapItemLeft",

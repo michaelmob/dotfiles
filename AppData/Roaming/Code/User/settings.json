@@ -44,7 +44,6 @@
 
   // #region Terminal
   /*"terminal.integrated.sendKeybindingsToShell": true, // <C-a>, <C-f> in term*/
-
   // #endregion
 
 
@@ -66,15 +65,69 @@
   // #endregion
 
 
+  // #region VSVim Extension
+  //"vim.mouseSelectionGoesIntoVisualMode": false,
+  "vim.leader": "<space>",
+  //"vim.useSystemClipboard": false,
+  //"vim.replaceWithRegister": true,
+  //"vim.visualstar": true,
+  //"vim.gdefault": true, // enable global search by default
+  //"vim.camelCaseMotion.enable": true,
+  //"vim.surround": true,
+  //"vim.easymotion": true,
+  //"vim.easymotionKeys": "wertasdfgqzxcv",
+  //"vim.sneak": true,
+  //"vim.sneakUseIgnorecaseAndSmartcase": true,
+  //"vim.sneakReplacesF": true, // multi-line find-letter key
+  "vim.insertModeKeyBindings": [
+    { "before": ["ctrl", "c"], "after": ["<Esc>"] },
+  ],
+  "vim.normalModeKeyBindings": [
+    //{ "before": [";"], "commands": ["workbench.action.showCommands"], "silent": true }
+  ],
+  "vim.normalModeKeyBindingsNonRecursive": [
+    //{ "before": ["\""], "after": ["v", "i", "\"", "i"] },  // select inner quotes
+    //{ "before": ["'"], "after": ["v", "i", "'", "i"] }, // select inner apostrophe
+    { "before": ["L"], "after": ["g", "_"] }, // goto last character
+    { "before": ["H"], "after": ["^"] }, // goto first non-whitespace character
+    { "before": ["s"], "after": ["leader", "leader", "2", "s"] },
+    { "before": [ "<space>" ], "commands": [
+      { "command": "_setContext", "args": [ "leaderkeyState", "SPC" ] },
+      { "command": "leaderkey.render", "args": "SPC" } ]
+    },
+    { "before": [ "," ], "commands": [
+      { "command": "_setContext", "args": [ "leaderkeyState", "," ] },
+      { "command": "leaderkey.render", "args": "," } ]
+    },
+  ],
+  "vim.visualModeKeyBindingsNonRecursive": [
+    { "before": ["<Esc>"], "after": ["<Esc>", "<Esc>"] },
+    { "before": [ "<space>" ], "commands": [
+      { "command": "_setContext", "args": [ "leaderkeyState", "SPC" ] },
+      { "command": "leaderkey.render", "args": "SPC" } ]
+    },
+    { "before": [ "," ], "commands": [
+      { "command": "_setContext", "args": [ "leaderkeyState", "," ] },
+      { "command": "leaderkey.render", "args": "," } ]
+    },
+  ],
+  // #endregion
+
+
   // #region Extension
   "extensions.experimental.affinity": {
     "asvetliakov.vscode-neovim": 1
   },
-  // #endregion
-
-
-  // #region VSCode Neovim Extension
-  /*"vscode-neovim.neovimExecutablePaths.win32": "./bin/nvim-win64/bin/nvim.exe",
-  "vscode-neovim.neovimInitVimPaths.win32": "./_config/nvim/init.lua"*/
+  "svelte.enable-ts-plugin": true,
+  "[javascript]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  },
+  "workbench.colorTheme": "Monokai One Dark Vivid",
   // #endregion
 }
