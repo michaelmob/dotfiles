@@ -74,11 +74,18 @@ CapsLock & space:: {
     Send("{Alt down}{Tab}{Alt up}")
     return WinMinimize(lc)
   }
+
+  Send("{CapsLock down}{Tab}{CapsLock up}")
+  Sleep(100)
   WinActivate(lc) ; re-open window
   MouseGetPos(&pX, &pY)
   WinGetPos(&X, &Y, &Width, &Height, lc)
   Click(X + Width // 2, Y + Height - 50)
   MouseMove(pX, pY)
+}
+
+CapsLock & Tab:: {
+  VD.MoveWindowToCurrentDesktop("LibreChat")
 }
 
 ; ### Shortcuts
@@ -107,7 +114,22 @@ CapsLock & g:: Send("{AppsKey}")  ; Menu key
 ; ### wb
 CapsLock & w:: Send("{Ctrl Down}{Right}{Ctrl Up}")  ; word-forward
 CapsLock & b:: Send("{Ctrl Down}{Left}{Ctrl Up}")   ; word-backward
+
+; ## Workspaces
+#Include "libVD.ahk"
+; ### Focus desktop
+CapsLock & 1:: VD.goToDesktopNum(1)
+CapsLock & 2:: VD.goToDesktopNum(2)
+CapsLock & 3:: VD.goToDesktopNum(3)
+CapsLock & 4:: VD.goToDesktopNum(4)
+
+; ### Move window to desktop
+CapsLock & F1:: VD.MoveWindowToDesktopNum("A", 1).follow()
+CapsLock & F2:: VD.MoveWindowToDesktopNum("A", 2).follow()
+CapsLock & F3:: VD.MoveWindowToDesktopNum("A", 3).follow()
+CapsLock & F4:: VD.MoveWindowToDesktopNum("A", 4).follow()
 ;#ENDREGION
+
 
 ;#REGION Software Rebinds
 #t:: {
@@ -146,25 +168,6 @@ k:: MouseMove(0, -50, 5, "R")
 j:: MouseMove(0, 50, 5, "R")
 h:: MouseMove(-50, 0, 5, "R")
 #HotIf
-;#ENDREGION
-
-;#REGION G604 Logitech Mouse
-; # G604 Logitech Mouse
-; ## DPI Buttons
-F19:: Send "{Media_Play_Pause}"
-F20:: {
-  Send "{LWin}"
-  MouseGetPos , &y
-  MouseMove 100, y
-}
-; ## Top row
-F16:: Send "#4"
-F17:: Send "#5"
-F18:: Send "#6"
-; ## Bottom row
-F13:: Send "#1"
-F14:: Send "#2"
-F15:: Send "#3"
 ;#ENDREGION
 
 
@@ -265,6 +268,7 @@ F15:: Send "#3"
 ::barnds::brands
 ::svletekit::sveltekit
 ::svlete::svelte
+::isntall::install
 ;#ENDREGION
 
 ToolTip("Enhancements Loaded")
