@@ -9,8 +9,16 @@
  
 
   // #region Workbench
+  "workbench.colorTheme": "Monokai One Dark Vivid",
   "workbench.iconTheme": "catppuccin-mocha",
   "workbench.editor.enablePreviewFromQuickOpen": false,
+  "workbench.colorCustomizations": {
+    "statusBar.background": "#005f5f",
+    "statusBar.noFolderBackground": "#005f5f",
+    "statusBar.debuggingBackground": "#005f5f",
+    "statusBar.foreground": "#ffffff",
+    "statusBar.debuggingForeground": "#ffffff"
+  },
   /*"workbench.colorCustomizations": {
     "editorGhostText.border": "#696969",
     "editorGhostText.foreground": "#696969"
@@ -71,40 +79,40 @@
   "vim.handleKeys": {
     "<C-p>": false
   },
-  //"vim.useSystemClipboard": false,
+  "vim.useSystemClipboard": false,
   //"vim.replaceWithRegister": true,
-  //"vim.visualstar": true,
-  //"vim.gdefault": true, // enable global search by default
-  //"vim.camelCaseMotion.enable": true,
-  //"vim.surround": true,
-  //"vim.easymotion": true,
-  //"vim.easymotionKeys": "wertasdfgqzxcv",
-  //"vim.sneak": true,
-  //"vim.sneakUseIgnorecaseAndSmartcase": true,
-  //"vim.sneakReplacesF": true, // multi-line find-letter key
+  "vim.highlightedyank.enable": true,
+  "vim.visualstar": true,
+  "vim.gdefault": true, // enable global search by default
+  "vim.camelCaseMotion.enable": true,
+  "vim.changeWordIncludesWhitespace": true,
+  "vim.surround": true,
+  "vim.easymotion": true,
+  "vim.easymotionKeys": "wertasdfgqzxcv",
+  "vim.sneak": true,
+  "vim.sneakUseIgnorecaseAndSmartcase": true,
+  "vim.sneakReplacesF": true, // multi-line find-letter key
+  "vim.statusBarColorControl": true,
   "vim.insertModeKeyBindings": [
-    { "before": ["<c-c>"], "after": ["<Esc>"] },
+    //{ "before": ["<c-c>"], "after": ["<Esc>"] },
+  ],
+  "vim.normalModeKeyBindings": [
+    { "before": ["S"], "after": ["y", "s", "i", "w"] },
   ],
   "vim.normalModeKeyBindingsNonRecursive": [
-    { "before": ["<c-n>"], "after": ["a", "<c-n>"] }, // goto last character
+    { "before": ["s"], "after": ["<leader>", "<leader>", "2", "s"] },
     { "before": ["L"], "after": ["g", "_"] }, // goto last character
     { "before": ["H"], "after": ["^"] }, // goto first non-whitespace character
-    { "before": ["s"], "after": ["leader", "leader", "2", "s"] },
     { "before": [ "<space>" ], "commands": [
       { "command": "_setContext", "args": [ "leaderkeyState", "SPC" ] },
       { "command": "leaderkey.render", "args": "SPC" } ]
     },
-    { "before": [ "," ], "commands": [
-      { "command": "_setContext", "args": [ "leaderkeyState", "," ] },
-      { "command": "leaderkey.render", "args": "," } ]
-    },
   ],
   "vim.visualModeKeyBindings": [
-    { "before": [ "v" ], "commands": [
-      { "command": "leaderkey.render", "args": "SPC v:transient" },
-    ]},
+    { "before": ["Y"], "after": ["\"", "+", "y"] },
   ],
   "vim.visualModeKeyBindingsNonRecursive": [
+    { "before": ["s"], "after": ["<leader>", "<leader>", "2", "s"] },
     { "before": ["<"], "after": ["<", "g", "v"] },
     { "before": [">"], "after": [">", "g", "v"] },
     { "before": ["<Esc>"], "after": ["<Esc>", "<Esc>"] },
@@ -112,10 +120,10 @@
       { "command": "_setContext", "args": [ "leaderkeyState", "SPC" ] },
       { "command": "leaderkey.render", "args": "SPC" } ]
     },
-    { "before": [ "," ], "commands": [
-      { "command": "_setContext", "args": [ "leaderkeyState", "," ] },
-      { "command": "leaderkey.render", "args": "," } ]
-    },
+    // { "before": [ "v" ], "commands": [
+    //   { "command": "_setContext", "args": [ "leaderkeyState", "SPC", "v:transient" ] },
+    //   { "command": "leaderkey.render", "args": "SPC v:transient" } ]
+    // },
   ],
   // #endregion
 
@@ -123,6 +131,51 @@
   // #region Leaderkey Extension
   // https://github.com/JimmyZJX/leaderkey/blob/main/src/defaultBindings.ts
   "leaderkey.overrides.user": {
+    "SPC y": {
+      "name": "Yank to system clipboard",
+      "command": "editor.action.clipboardCopyAction",
+    },
+    "SPC v:transient y": {
+      "name": "Yank selection",
+      "commands": [
+        { "command": "vim.remap", "args": { "after": ["y"] } },
+        { "command": "leaderkey.render", "args": "" },
+      ]
+    },
+    "SPC p p": {
+      "name": "Paste on next line",
+      "commands": [
+        { "command": "vim.remap", "args": { "after": ["o", "<Esc>", "p"] } },
+      ]
+    },
+    "SPC v:transient p": {
+      "name": "Paste over selection",
+      "commands": [
+        { "command": "vim.remap", "args": { "after": ["p"] } },
+        { "command": "leaderkey.render", "args": "" },
+      ]
+    },
+    "SPC v:transient h": {
+      "name": "Shrink selection",
+      "command": "editor.action.smartSelect.shrink"
+    },
+    "SPC v:transient l": {
+      "name": "Grow selection",
+      "command": "editor.action.smartSelect.grow"
+    },
+    "SPC v:transient Y": {
+      "name": "Yank to system clipboard",
+      "commands": [
+        { "command": "editor.action.clipboardCopyAction" },
+        { "command": "leaderkey.render", "args": "" },
+      ]
+    },
+    "SPC r r": {
+      "name": "Show vim registers",
+      "command": "vim.remap",
+      //"args": { "commands": [{ "command": ":registers" }] }
+      "args": { "commands": [{ "command": ":registers" }] }
+    },
     "SPC f f": {
       "name": "fzf files",
       "command": "find-it-faster.findFiles",
@@ -162,12 +215,16 @@
   "[typescript]": {
     "editor.defaultFormatter": "vscode.typescript-language-features"
   },
-  "[json]": {
-    "editor.defaultFormatter": "vscode.json-language-features"
-  },
-  "workbench.colorTheme": "Monokai One Dark Vivid",
   "remote.SSH.remotePlatform": {
     "mcm-fedora": "linux"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "vscode.json-language-features",
+    "editor.formatOnSave": false
+  },
+  "[json]": {
+    "editor.defaultFormatter": "vscode.json-language-features",
+    "editor.formatOnSave": false
   },
   // #endregion
 }

@@ -106,11 +106,8 @@
 
 
   //#region VSVim Extension
-  {
-    "key": "ctrl+n",
-    "command": "editor.action.triggerSuggest",
-    "when": "editorTextFocus && vim.mode == 'Insert' && !inCompositeEditor && !suggestWidgetVisible"
-  },
+  { "key": "ctrl+n", "command": "editor.action.triggerSuggest", "when": "editorTextFocus && vim.mode == 'Insert' && !inCompositeEditor && !suggestWidgetVisible" },
+  { "key": "shift+;", "command": "vim.showQuickpickCmdLine", "when": "inZenMode && vim.mode != 'Insert'" },
   //#endregion
 
 ]
