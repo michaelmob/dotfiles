@@ -1,4 +1,13 @@
 #Requires AutoHotkey v2.0
+#SingleInstance force
+#WinActivateForce
+ListLines 0
+SendMode "Input"
+SetWorkingDir A_ScriptDir
+KeyHistory 0
+ProcessSetPriority "H"
+SetWinDelay -1
+SetControlDelay -1
 CoordMode("Mouse", "Screen")
 SetKeyDelay(10)
 SetCapsLockState("AlwaysOff")
@@ -35,7 +44,8 @@ onHeroKeyUp(repeatedPresses) {
   SetCapsLockState("AlwaysOff")
   SetTrayIcon(isActive := false)
 
-  (Mode != "NORMAL") ? ProcessClose(ProcessExist("ModeBox.exe")) : 0
+  if (ProcessExist("ModeBox.exe"))
+    ProcessClose("ModeBox.exe")
   global Mode := "NORMAL"
 
   switch (repeatedPresses) {
@@ -60,34 +70,34 @@ onHeroKeyHold() {
 }
 ~CapsLock:: onHeroKeyPress(onHeroKeyDown, onHeroKeyHold)
 CapsLock up:: onHeroKeyRepeatedPresses(onHeroKeyUp)
-;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;
 ;#ENDREGION
 
 
-;#REGION Caps-Lock Keybinds
-; show or hide LibreChat window
-CapsLock & space:: {
+;#REGION Scratchpads
+#Include "libScratch.ahk"
+CapsLock & space::
+CapsLock & q:: {
   lc := "LibreChat"
-  if !WinExist(lc)
-    return
-  if WinActive(lc) { ; if app is focused then minimize it
-    Send("{Alt down}{Tab}{Alt up}")
-    return WinMinimize(lc)
-  }
+  scratchPad(lc)
 
-  Send("{CapsLock down}{Tab}{CapsLock up}")
-  Sleep(100)
-  WinActivate(lc) ; re-open window
   MouseGetPos(&pX, &pY)
   WinGetPos(&X, &Y, &Width, &Height, lc)
   Click(X + Width // 2, Y + Height - 50)
   MouseMove(pX, pY)
 }
 
-CapsLock & Tab:: {
-  VD.MoveWindowToCurrentDesktop("LibreChat")
-}
+CapsLock & r:: scratchPad("ahk_exe mstsc.exe", "PULL")  ; Remote Desktop
+CapsLock & t:: scratchPad("ahk_exe WindowsTerminal.exe", "wt.exe", "GOTO")  ; 1=goto Remote Desktop
+CapsLock & w:: scratchPad("ahk_exe brave.exe", "brave.exe", "GOTO")  ; 1=goto Browser
+CapsLock & e:: scratchPad("ahk_exe Code.exe", "", "NULL")  ; -1=nothing VSCode
 
+;;;;;;;;;;;;;;;;;;;
+;#ENDREGION
+
+
+;#REGION Caps-Lock Keybinds
+; show or hide LibreChat window
 ; ### Shortcuts
 ^CapsLock:: Send("{Enter}") ; Ctrl + CapsLock to Press Enter
 CapsLock & F5:: Reload()  ; Reload script
@@ -112,28 +122,50 @@ CapsLock & g:: Send("{AppsKey}")  ; Menu key
 
 ; ## Input Keyboard Shortcuts
 ; ### wb
-CapsLock & w:: Send("{Ctrl Down}{Right}{Ctrl Up}")  ; word-forward
-CapsLock & b:: Send("{Ctrl Down}{Left}{Ctrl Up}")   ; word-backward
+;CapsLock & w:: Send("{Ctrl Down}{Right}{Ctrl Up}")  ; word-forward
+;CapsLock & b:: Send("{Ctrl Down}{Left}{Ctrl Up}")   ; word-backward
+
+; ## PowerToys Launcher
+CapsLock & Tab:: {
+  Send("{Alt Down}{Space}{Alt Up}")
+  Sleep(10)
+  Send("<")
+}
 
 ; ## Workspaces
-#Include "libVD.ahk"
-; ### Focus desktop
-CapsLock & 1:: VD.goToDesktopNum(1)
-CapsLock & 2:: VD.goToDesktopNum(2)
-CapsLock & 3:: VD.goToDesktopNum(3)
-CapsLock & 4:: VD.goToDesktopNum(4)
+#Include "libVD.ahk"  ; https://github.com/FuPeiJiang/VD.ahk/tree/v2_port
+#Include "libWorkspaces.ahk"
+; ### Focus relative desktop direction
+CapsLock & .:: SwitchDesktopRelative(1)
+CapsLock & ,:: SwitchDesktopRelative(-1)
 
-; ### Move window to desktop
-CapsLock & F1:: VD.MoveWindowToDesktopNum("A", 1).follow()
-CapsLock & F2:: VD.MoveWindowToDesktopNum("A", 2).follow()
-CapsLock & F3:: VD.MoveWindowToDesktopNum("A", 3).follow()
-CapsLock & F4:: VD.MoveWindowToDesktopNum("A", 4).follow()
+; ### Focus desktop, CapsLock + {1,2,3,4,5,6,7,8,9}
+CapsLock & 1:: SwitchDesktop(1)
+CapsLock & 2:: SwitchDesktop(2)
+CapsLock & 3:: SwitchDesktop(3)
+CapsLock & 4:: SwitchDesktop(4)
+CapsLock & 5:: SwitchDesktop(5)
+CapsLock & 6:: SwitchDesktop(6)
+CapsLock & 7:: SwitchDesktop(7)
+CapsLock & 8:: SwitchDesktop(8)
+CapsLock & 9:: SwitchDesktop(9)
+
+; ### Move window to desktop, Win + Shift + {1,2,3,4,5,6,7,8,9}
+!#1:: VD.getCount() >= 1 && VD.MoveWindowToDesktopNum("A", 1).follow()
+!#2:: VD.getCount() >= 2 && VD.MoveWindowToDesktopNum("A", 2).follow()
+!#3:: VD.getCount() >= 3 && VD.MoveWindowToDesktopNum("A", 3).follow()
+!#4:: VD.getCount() >= 4 && VD.MoveWindowToDesktopNum("A", 4).follow()
+!#5:: VD.getCount() >= 5 && VD.MoveWindowToDesktopNum("A", 5).follow()
+!#6:: VD.getCount() >= 6 && VD.MoveWindowToDesktopNum("A", 6).follow()
+!#7:: VD.getCount() >= 7 && VD.MoveWindowToDesktopNum("A", 7).follow()
+!#8:: VD.getCount() >= 8 && VD.MoveWindowToDesktopNum("A", 8).follow()
+!#9:: VD.getCount() >= 9 && VD.MoveWindowToDesktopNum("A", 9).follow()
 ;#ENDREGION
 
 
 ;#REGION Software Rebinds
 #t:: {
-  Sleep(100)
+  Sleep(150)
   Run("wt.exe")
 } ; Open terminal
 +#t:: Run("*RunAs wt.exe")  ; Open elevated terminal
@@ -149,24 +181,46 @@ CapsLock & m:: {
     Mode := "MOUSE"
     Run("ModeBox.exe -Text MOUSE MODE -BorderSize 2")
   }
+  else if (Mode != "NORMAL") {
+    Mode := "NORMAL"
+  }
 }
 
 #HotIf Mode == "MOUSE"
-l:: MouseMove(50, 0, 5, "R")
-k:: MouseMove(0, -50, 5, "R")
-j:: MouseMove(0, 50, 5, "R")
 h:: MouseMove(-50, 0, 5, "R")
+j:: MouseMove(0, 50, 5, "R")
+k:: MouseMove(0, -50, 5, "R")
+l:: MouseMove(50, 0, 5, "R")
 u::Wheelup
 d::WheelDown
 Enter:: ToolTip(), MouseClick("Right")
 .:: ToolTip(), MouseClick("Left")
+m:: global Mode := "NORMAL"
 #HotIf
 
 #HotIf Mode == "WINDOW"
-l:: MouseMove(50, 0, 5, "R")
-k:: MouseMove(0, -50, 5, "R")
-j:: MouseMove(0, 50, 5, "R")
 h:: MouseMove(-50, 0, 5, "R")
+j:: MouseMove(0, 50, 5, "R")
+k:: MouseMove(0, -50, 5, "R")
+l:: MouseMove(50, 0, 5, "R")
+#HotIf
+
+#HotIf WinActive("Task View ahk_class XamlExplorerHostIslandWindow")
+h::Left
+j::Up  ; Down focuses the
+k::Up
+l::Right
+
+^h:: {
+  Send("{Tab}{Left}{Space}")
+  Sleep(50)
+  Send("{Shift Down}{Tab}{Shift Up}")
+}
+^l:: {
+  Send("{Tab}{Right}{Space}")
+  Sleep(50)
+  Send("{Shift Down}{Tab}{Shift Up}")
+}
 #HotIf
 ;#ENDREGION
 
@@ -269,6 +323,7 @@ h:: MouseMove(-50, 0, 5, "R")
 ::svletekit::sveltekit
 ::svlete::svelte
 ::isntall::install
+::functoin::function
 ;#ENDREGION
 
 ToolTip("Enhancements Loaded")
