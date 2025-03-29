@@ -17,11 +17,10 @@
   },*/
   // #endregion
 
-
   // #region Editor
   "editor.lineNumbers": "relative",
   "editor.formatOnPaste": true,
-  "editor.formatOnSave": true,
+  "editor.formatOnSave": false,
   "editor.formatOnType": true,
   "editor.multiCursorModifier": "ctrlCmd",
   "editor.emptySelectionClipboard": false,
@@ -43,7 +42,7 @@
 
 
   // #region Terminal
-  /*"terminal.integrated.sendKeybindingsToShell": true, // <C-a>, <C-f> in term*/
+  "terminal.integrated.sendKeybindingsToShell": true, // <C-a>, <C-f> in term
   // #endregion
 
 
@@ -65,9 +64,13 @@
   // #endregion
 
 
+
   // #region VSVim Extension
   //"vim.mouseSelectionGoesIntoVisualMode": false,
   "vim.leader": "<space>",
+  "vim.handleKeys": {
+    "<C-p>": false
+  },
   //"vim.useSystemClipboard": false,
   //"vim.replaceWithRegister": true,
   //"vim.visualstar": true,
@@ -80,14 +83,10 @@
   //"vim.sneakUseIgnorecaseAndSmartcase": true,
   //"vim.sneakReplacesF": true, // multi-line find-letter key
   "vim.insertModeKeyBindings": [
-    { "before": ["ctrl", "c"], "after": ["<Esc>"] },
-  ],
-  "vim.normalModeKeyBindings": [
-    //{ "before": [";"], "commands": ["workbench.action.showCommands"], "silent": true }
+    { "before": ["<c-c>"], "after": ["<Esc>"] },
   ],
   "vim.normalModeKeyBindingsNonRecursive": [
-    //{ "before": ["\""], "after": ["v", "i", "\"", "i"] },  // select inner quotes
-    //{ "before": ["'"], "after": ["v", "i", "'", "i"] }, // select inner apostrophe
+    { "before": ["<c-n>"], "after": ["a", "<c-n>"] }, // goto last character
     { "before": ["L"], "after": ["g", "_"] }, // goto last character
     { "before": ["H"], "after": ["^"] }, // goto first non-whitespace character
     { "before": ["s"], "after": ["leader", "leader", "2", "s"] },
@@ -100,7 +99,14 @@
       { "command": "leaderkey.render", "args": "," } ]
     },
   ],
+  "vim.visualModeKeyBindings": [
+    { "before": [ "v" ], "commands": [
+      { "command": "leaderkey.render", "args": "SPC v:transient" },
+    ]},
+  ],
   "vim.visualModeKeyBindingsNonRecursive": [
+    { "before": ["<"], "after": ["<", "g", "v"] },
+    { "before": [">"], "after": [">", "g", "v"] },
     { "before": ["<Esc>"], "after": ["<Esc>", "<Esc>"] },
     { "before": [ "<space>" ], "commands": [
       { "command": "_setContext", "args": [ "leaderkeyState", "SPC" ] },
@@ -111,6 +117,37 @@
       { "command": "leaderkey.render", "args": "," } ]
     },
   ],
+  // #endregion
+
+
+  // #region Leaderkey Extension
+  // https://github.com/JimmyZJX/leaderkey/blob/main/src/defaultBindings.ts
+  "leaderkey.overrides.user": {
+    "SPC f f": {
+      "name": "fzf files",
+      "command": "find-it-faster.findFiles",
+    },
+    "SPC f F": {
+      "name": "Open file/folder (remap)",
+      "command": "file-browser.open",
+    },
+    "SPC s s": {
+      "name": "fzf in the current buffer",
+      "command": "find-it-faster.findWithinFiles"
+    },
+    "SPC s S": {
+      "name": "Fuzzy search in current buffer (remap)",
+      "command": "fuzzySearch.activeTextEditorWithCurrentSelection",
+    },
+    // "SPC f F": {
+    //   "name": "",
+    //   "commands": [ "find-it-faster.findWithinFiles" ]
+    // },
+    // "SPC f f": {
+    //   "name": "fzf in the current buffer",
+    //   "commands": [ "find-it-faster.findWithinFiles" ]
+    // },
+  },
   // #endregion
 
 
@@ -129,5 +166,8 @@
     "editor.defaultFormatter": "vscode.json-language-features"
   },
   "workbench.colorTheme": "Monokai One Dark Vivid",
+  "remote.SSH.remotePlatform": {
+    "mcm-fedora": "linux"
+  },
   // #endregion
 }

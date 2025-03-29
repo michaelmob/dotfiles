@@ -29,11 +29,11 @@
   { "key": "ctrl+alt+shift+k", "command": "workbench.action.moveActiveEditorGroupUp",    "when": "editorTextFocus || activeEditorGroupEmpty" },
   { "key": "ctrl+alt+shift+l", "command": "workbench.action.moveActiveEditorGroupRight", "when": "editorTextFocus || activeEditorGroupEmpty" },
 
-  // -- (Set by LazyVim) Navigate Panes with <c-{h,j,k,l}>
-  //{ "key": "ctrl+h", "command": "workbench.action.focusLeftGroup",  "when": "(editorTextFocus && (activeEditorIsFirstInGroup || multipleEditorGroups)) || activeEditorGroupEmpty" },
-  //{ "key": "ctrl+j", "command": "workbench.action.focusBelowGroup", "when": "editorTextFocus || activeEditorGroupEmpty" },
-  //{ "key": "ctrl+k", "command": "workbench.action.focusAboveGroup", "when": "editorTextFocus || activeEditorGroupEmpty" },
-  //{ "key": "ctrl+l", "command": "workbench.action.focusRightGroup", "when": "(editorTextFocus && (activeEditorIsLastInGroup || multipleEditorGroups)) || activeEditorGroupEmpty" },
+  // -- Navigate Panes with <c-{h,j,k,l}>
+  { "key": "ctrl+h", "command": "workbench.action.focusLeftGroup",  "when": "(editorTextFocus && (activeEditorIsFirstInGroup || multipleEditorGroups)) || activeEditorGroupEmpty" },
+  { "key": "ctrl+j", "command": "workbench.action.focusBelowGroup", "when": "editorTextFocus || activeEditorGroupEmpty" },
+  { "key": "ctrl+k", "command": "workbench.action.focusAboveGroup", "when": "editorTextFocus || activeEditorGroupEmpty" },
+  { "key": "ctrl+l", "command": "workbench.action.focusRightGroup", "when": "(editorTextFocus && (activeEditorIsLastInGroup || multipleEditorGroups)) || activeEditorGroupEmpty" },
   // #endregion
 
 
@@ -67,6 +67,7 @@
 
     
   // #region Terminal
+  // Navigate up-and-down terminals are automatically bound to Ctrl+Shift+{j,k}
   { "key": "ctrl+j",    "command": "",                                      "when": "terminalFocus" },  // deactivate <c-j> in terminal
   { "key": "ctrl+k",    "command": "workbench.action.focusLastEditorGroup", "when": "terminalFocus" },  // focus editor with <c-k>
   { "key": "ctrl+w c",  "command": "workbench.action.terminal.kill",        "when": "terminalFocus" },  // quit terminal with <c-w>c
@@ -83,14 +84,33 @@
   //#endregion
   
 
-  // #region Notifications
-	{ "key": "ctrl+n", "command": "notifications.focusToasts", "when": "!inQuickOpen && (!suggestWidgetVisible || notificationToastsVisible)" },
+  //#region Notifications
+  {
+    "key": "alt+n",
+    "command": "notifications.focusToasts",
+    "when": "!inQuickOpen && (!suggestWidgetVisible || notificationToastsVisible)"
+  },
   //#endregion
-
 
   // Command Palette Keybindings:
   //{ "key": "ctrl+e", "command": "workbench.action.quickOpen", "when": "editorTextFocus" },
   //{ "key": "ctrl+f", "command": "actions.find", "when": "editorTextFocus" },
   //{ "key": "ctrl+f", "command": "runCommands",  "when": "findWidgetVisible && !inputBoxFocus",
   //  "args": { "commands": [ "closeFindWidget", "workbench.action.quickTextSearch" ] } },
+
+  //#region FindItFaster Extension
+  { "key": "ctrl+shift+j", "command": "-find-it-faster.findFiles" },
+  { "key": "ctrl+shift+u", "command": "-find-it-faster.findWithinFiles" },
+  { "key": "ctrl+shift+alt+u", "command": "-find-it-faster.findWithinFilesWithType" },
+  //#endregion
+
+
+  //#region VSVim Extension
+  {
+    "key": "ctrl+n",
+    "command": "editor.action.triggerSuggest",
+    "when": "editorTextFocus && vim.mode == 'Insert' && !inCompositeEditor && !suggestWidgetVisible"
+  },
+  //#endregion
+
 ]
