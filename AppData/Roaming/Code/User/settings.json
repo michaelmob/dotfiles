@@ -5,11 +5,11 @@
   "window.customMenuBarAltFocus": false,
   "window.enableMenuBarMnemonics": false,
   // #endregion
+  
 
- 
 
   // #region Workbench
-  "workbench.colorTheme": "Monokai One Dark Vivid",
+  "workbench.colorTheme": "GitHub Dark Default",
   "workbench.iconTheme": "catppuccin-mocha",
   "workbench.editor.enablePreviewFromQuickOpen": false,
   "workbench.colorCustomizations": {
@@ -17,13 +17,18 @@
     "statusBar.noFolderBackground": "#005f5f",
     "statusBar.debuggingBackground": "#005f5f",
     "statusBar.foreground": "#ffffff",
-    "statusBar.debuggingForeground": "#ffffff"
+    "statusBar.debuggingForeground": "#ffffff",
+    "editorCursor.foreground": "#e9dbb7",
+    "activityBarBadge.background": "#e9dbb7",
+    "activityBarBadge.foreground": "#262626"
   },
   /*"workbench.colorCustomizations": {
     "editorGhostText.border": "#696969",
     "editorGhostText.foreground": "#696969"
   },*/
   // #endregion
+
+
 
   // #region Editor
   "editor.lineNumbers": "relative",
@@ -98,8 +103,16 @@
   ],
   "vim.normalModeKeyBindings": [
     { "before": ["S"], "after": ["y", "s", "i", "w"] },
+    { "before": ["E"], "commands": [ "workbench.action.previousEditor" ]},
+    { "before": ["R"], "commands": [ "workbench.action.nextEditor" ]},
   ],
   "vim.normalModeKeyBindingsNonRecursive": [
+    // { "before": ["h"], "after": [] },
+    // { "before": ["j"], "after": [] },
+    // { "before": ["k"], "after": [] },
+    // { "before": ["l"], "after": [] },
+    { "before": ["u"], "commands": ["undo"] },
+    { "before": ["<C-r>"], "commands": ["redo"] },
     { "before": ["s"], "after": ["<leader>", "<leader>", "2", "s"] },
     { "before": ["L"], "after": ["g", "_"] }, // goto last character
     { "before": ["H"], "after": ["^"] }, // goto first non-whitespace character
@@ -226,5 +239,12 @@
     "editor.defaultFormatter": "vscode.json-language-features",
     "editor.formatOnSave": false
   },
+  "[svelte]": {
+    "editor.defaultFormatter": "svelte.svelte-vscode",
+    "typescript.autoClosingTags": false,
+    "javascript.autoClosingTags": false,
+  },
+  "html.autoClosingTags": false,
+  "AutoHotkey2.InterpreterPath": "c:\\Users\\Michael\\AppData\\Local\\Programs\\AutoHotkey\\v2\\AutoHotkey64.exe",
   // #endregion
 }

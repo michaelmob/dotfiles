@@ -1,40 +1,40 @@
 [
-  // #region Tabs
-  // -- Move Tabs between Editor Groups with <c-a-{h,j,k,l}>
-  { "key": "ctrl+alt+h", "command": "workbench.action.moveEditorLeftInGroup",  "when": "editorTextFocus && !activeEditorIsFirstInGroup" },
-  { "key": "ctrl+alt+j", "command": "workbench.action.moveEditorToBelowGroup", "when": "editorTextFocus && groupEditorsCount > 1" },
-  { "key": "ctrl+alt+k", "command": "workbench.action.moveEditorToAboveGroup", "when": "editorTextFocus" },
-  { "key": "ctrl+alt+l", "command": "workbench.action.moveEditorRightInGroup", "when": "editorTextFocus && !activeEditorIsLastInGroup" },
-
-  // -- Re-arrange Tabs with <c-a-{h,j,k,l}>
-  { "key": "ctrl+alt+h", "command": "workbench.action.moveEditorToPreviousGroup", "when": "editorTextFocus && activeEditorIsFirstInGroup" },
-  { "key": "ctrl+alt+l", "command": "workbench.action.moveEditorToNextGroup",     "when": "editorTextFocus && activeEditorIsLastInGroup" },
-
-  // -- (Alternative with LazyVim is <s-{h,l}>) -- Inactive: Navigate Tabs with <a-{h,l}> (and <c-{h,l}> if there is only one Editor Group)
-  /*
-  map("n", "<A-h>", "<cmd>bprevious<cr>", { desc = "Prev Buffer" })
-  map("n", "<A-l>", "<cmd>bnext<cr>", { desc = "Next Buffer" })
-  */
-  { "key": "alt+h",  "command": "workbench.action.previousEditor", "when": "editorTextFocus && !activeEditorIsFirstInGroup" },
-  { "key": "alt+l",  "command": "workbench.action.nextEditor",     "when": "editorTextFocus && !activeEditorIsLastInGroup" },
-  //{ "key": "ctrl+h", "command": "workbench.action.previousEditor", "when": "!multipleEditorGroups && !activeEditorIsFirstInGroup" },
-  //{ "key": "ctrl+l", "command": "workbench.action.nextEditor",     "when": "!multipleEditorGroups && editorTextFocus && !activeEditorIsLastInGroup" },
-  // #endregion
- 
-
-  // #region Editors
-  // -- Swap Editor Groups with <c-a-s-{h,j,k,l}>
-  { "key": "ctrl+alt+shift+h", "command": "workbench.action.moveActiveEditorGroupLeft",  "when": "editorTextFocus || activeEditorGroupEmpty" },
-  { "key": "ctrl+alt+shift+j", "command": "workbench.action.moveActiveEditorGroupDown",  "when": "editorTextFocus || activeEditorGroupEmpty" },
-  { "key": "ctrl+alt+shift+k", "command": "workbench.action.moveActiveEditorGroupUp",    "when": "editorTextFocus || activeEditorGroupEmpty" },
-  { "key": "ctrl+alt+shift+l", "command": "workbench.action.moveActiveEditorGroupRight", "when": "editorTextFocus || activeEditorGroupEmpty" },
+  // # Editors and Tabs
 
   // -- Navigate Panes with <c-{h,j,k,l}>
   { "key": "ctrl+h", "command": "workbench.action.focusLeftGroup",  "when": "(editorTextFocus && (activeEditorIsFirstInGroup || multipleEditorGroups)) || activeEditorGroupEmpty" },
   { "key": "ctrl+j", "command": "workbench.action.focusBelowGroup", "when": "editorTextFocus || activeEditorGroupEmpty" },
   { "key": "ctrl+k", "command": "workbench.action.focusAboveGroup", "when": "editorTextFocus || activeEditorGroupEmpty" },
   { "key": "ctrl+l", "command": "workbench.action.focusRightGroup", "when": "(editorTextFocus && (activeEditorIsLastInGroup || multipleEditorGroups)) || activeEditorGroupEmpty" },
-  // #endregion
+
+  // ## Navigate Editors and Tabs with <Up,Left,Down,Right>
+  { "key": "Left",  "command": "workbench.action.previousEditor",  "when": "editorTextFocus && !activeEditorIsFirstInGroup" },
+  { "key": "Right",  "command": "workbench.action.nextEditor",      "when": "editorTextFocus && !activeEditorIsLastInGroup" },
+
+  { "key": "Left",  "command": "workbench.action.focusLeftGroup",  "when": "editorTextFocus && activeEditorIsFirstInGroup" },
+  { "key": "Right",  "command": "workbench.action.focusRightGroup", "when": "editorTextFocus && activeEditorIsLastInGroup" },
+  { "key": "Down", "command": "workbench.action.focusBelowGroup",  "when": "editorTextFocus || activeEditorGroupEmpty" },
+  { "key": "Up", "command": "workbench.action.focusAboveGroup",  "when": "editorTextFocus || activeEditorGroupEmpty" },
+
+  // ## Move Tabs with <c-a-{h,j,k,l}>
+  { "key": "ctrl+alt+h", "command": "workbench.action.moveEditorToPreviousGroup", "when": "editorTextFocus && activeEditorIsFirstInGroup" },
+  { "key": "ctrl+alt+l", "command": "workbench.action.moveEditorToNextGroup",     "when": "editorTextFocus && activeEditorIsLastInGroup" },
+
+  { "key": "ctrl+alt+h", "command": "workbench.action.moveEditorLeftInGroup",  "when": "editorTextFocus && !activeEditorIsFirstInGroup" },
+  { "key": "ctrl+alt+j", "command": "workbench.action.moveEditorToBelowGroup", "when": "editorTextFocus && groupEditorsCount > 1" },
+  { "key": "ctrl+alt+k", "command": "workbench.action.moveEditorToAboveGroup", "when": "editorTextFocus" },
+  { "key": "ctrl+alt+l", "command": "workbench.action.moveEditorRightInGroup", "when": "editorTextFocus && !activeEditorIsLastInGroup" },
+
+  // ## Move Editor Groups with <c-a-{H,J,K,L}>
+  { "key": "ctrl+alt+shift+h", "command": "workbench.action.moveActiveEditorGroupLeft",  "when": "editorTextFocus || activeEditorGroupEmpty" },
+  { "key": "ctrl+alt+shift+j", "command": "workbench.action.moveActiveEditorGroupDown",  "when": "editorTextFocus || activeEditorGroupEmpty" },
+  { "key": "ctrl+alt+shift+k", "command": "workbench.action.moveActiveEditorGroupUp",    "when": "editorTextFocus || activeEditorGroupEmpty" },
+  { "key": "ctrl+alt+shift+l", "command": "workbench.action.moveActiveEditorGroupRight", "when": "editorTextFocus || activeEditorGroupEmpty" },
+ 
+
+  // # Editors
+  // ## Swap Editor Groups with <c-a-s-{h,j,k,l}>
+  
 
 
   // #region Sidebar
