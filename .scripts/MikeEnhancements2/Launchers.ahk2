@@ -1,0 +1,11 @@
+; Open terminal
+#t:: {
+  Sleep(150)
+  Run("wt.exe")
+}
+
+; Open elevated terminal
++#t:: Run("*RunAs wt.exe")
+
+; # Ctrl + Shift + 4 to capture a region with ShareX
+^+4:: Send("{Ctrl Down}{PrintScreen}{Ctrl Up}") 

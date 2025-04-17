@@ -1,0 +1,19 @@
+#Include "./lib/libScratch.ahk"
+
+CapsLock & r:: scratchPad("ahk_exe mstsc.exe", "", "PULL")  ; Remote Desktop
+CapsLock & t:: scratchPad("ahk_exe WindowsTerminal.exe", "wt.exe", "GOTO")  ; Terminal
+CapsLock & w:: scratchPad("ahk_exe brave.exe", "brave.exe", "GOTO")  ; Browser
+CapsLock & e:: scratchPad("ahk_exe Notepad++.exe", "C:/Program Files/Notepad++/notepad++.exe", "PULL")  ; VSCode
+
+CapsLock & space::
+CapsLock & q:: {
+  lc := "LibreChat"
+  scratchPad(lc)
+
+  if WinExist(lc) {
+    MouseGetPos(&pX, &pY)
+    WinGetPos(&X, &Y, &Width, &Height, lc)
+    Click(X + Width // 2, Y + Height - 50)
+    MouseMove(pX, pY)
+  }
+}

@@ -1,0 +1,2 @@
+SetTrayIcon := (isActive) => TraySetIcon("shell32.dll", isActive ? 256 : 255)
+SetTrayIcon(isActive := false)

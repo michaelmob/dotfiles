@@ -1,0 +1,66 @@
+#Include "./lib/libHeroKey.ahk"
+
+SetCapsLockState("AlwaysOff")
+
+onHeroKeyDown() {
+  SetCapsLockState("Off")
+  SetTrayIcon(isActive := true)
+}
+
+onHeroKeyUp(repeatedPresses) {
+  SetCapsLockState("Off")
+  SetTrayIcon(isActive := false)
+
+  switch (repeatedPresses) {
+    case 2:
+      Send("{Escape}")
+      ToolTip("Double-Kill!")
+    case 3: ToolTip("Triple-Kill!")
+    case 4: ToolTip("Overkill!")
+    case 5: ToolTip("Killtacular!")
+    case 6: ToolTip("Killtrocity!")
+    case 7: ToolTip("Killionaire!")
+    case 8: ToolTip("Killtastrophe!")
+    case 9: ToolTip("Killpocalypse!")
+    case 10: ToolTip("Killionaire!")
+    default: Send("{Escape}")
+  }
+}
+
+
+
+onHeroKeyHold() {
+  SetCapsLockState("Off")
+  SetCapsLockState("AlwaysOff")
+  ToolTip("Hero Key held for " . HERO_HOLD_MS . "ms")
+  SetTrayIcon(isActive := false)
+  return false ; block key-up event
+}
+
+~CapsLock:: onHeroKeyPress(onHeroKeyDown, onHeroKeyHold)
+CapsLock up:: onHeroKeyRepeatedPresses(onHeroKeyUp)
+
+;^CapsLock:: Send("{Enter}") ; Ctrl + CapsLock to Press Enter
+CapsLock & F5:: Reload()  ; Reload script
+
+; ### hjkl
+CapsLock & h:: Send("{Left}")
+CapsLock & j:: Send("{Down}")
+CapsLock & l:: Send("{Right}")
+CapsLock & k:: Send("{Up}")
+
+; ### asdf
+CapsLock & a:: Send("{Home}")
+CapsLock & s:: Send("{BackSpace}")
+CapsLock & d:: Send("{Delete}")
+CapsLock & f:: Send("{End}")
+
+; ### ud
+; CapsLock & u:: Send("{PgUp}")
+; CapsLock & d:: Send("{PgDn}")
+
+; ### np
+CapsLock & n:: Send("{Tab}")
+CapsLock & p:: Send("+{Tab}")
+CapsLock & i:: Send("{Escape}")
+CapsLock & g:: Send("{AppsKey}")  ; Menu key
