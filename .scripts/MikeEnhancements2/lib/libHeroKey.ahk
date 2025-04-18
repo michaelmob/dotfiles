@@ -5,10 +5,6 @@
 ;;; Sample Use
 ;; key-hold functionality
 ;#Include "libHeroKey.ahk"
-;onHeroKeyDown() {
-;  ToolTip()
-;  SetTrayIcon(isActive := true)
-;}
 ;onHeroKeyHold() {
 ;  ToolTip("CapsLock Held")
 ;}
@@ -47,12 +43,9 @@ HERO_PRIOR_PRESS_TICK := 0
 HERO_REPEATED_PRESSES := 0
 
 
-onHeroKeyPress(keyDownCallback, keyHoldCallback) {
+onHeroKeyPress(keyHoldCallback) {
   if (A_PriorHotkey == HERO_KEY_DOWN)  ; dont keep re-running this on key hold
     return
-
-  if (!keyDownCallback())
-    global HERO_PRIOR_HOTKEY := HERO_KEY_DOWN
 
   global HERO_PRESS_TICK := A_TickCount
   global HERO_PRIOR_HOTKEY := A_PriorHotkey

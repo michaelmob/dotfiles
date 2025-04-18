@@ -2,15 +2,7 @@
 
 SetCapsLockState("AlwaysOff")
 
-onHeroKeyDown() {
-  SetCapsLockState("Off")
-  SetTrayIcon(isActive := true)
-}
-
 onHeroKeyUp(repeatedPresses) {
-  SetCapsLockState("Off")
-  SetTrayIcon(isActive := false)
-
   switch (repeatedPresses) {
     case 2:
       Send("{Escape}")
@@ -26,19 +18,22 @@ onHeroKeyUp(repeatedPresses) {
     default: Send("{Escape}")
   }
 }
-
-
-
 onHeroKeyHold() {
-  SetCapsLockState("Off")
   SetCapsLockState("AlwaysOff")
   ToolTip("Hero Key held for " . HERO_HOLD_MS . "ms")
-  SetTrayIcon(isActive := false)
   return false ; block key-up event
 }
 
-~CapsLock:: onHeroKeyPress(onHeroKeyDown, onHeroKeyHold)
-CapsLock up:: onHeroKeyRepeatedPresses(onHeroKeyUp)
+~CapsLock:: {
+  SetTrayIcon(isActive := true)
+  SetCapsLockState("AlwaysOff")
+  onHeroKeyPress(onHeroKeyHold)
+}
+CapsLock up:: {
+  SetTrayIcon(isActive := false)
+  SetCapsLockState("AlwaysOff")
+  onHeroKeyRepeatedPresses(onHeroKeyUp)
+}
 
 ;^CapsLock:: Send("{Enter}") ; Ctrl + CapsLock to Press Enter
 CapsLock & F5:: Reload()  ; Reload script

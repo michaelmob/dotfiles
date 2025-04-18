@@ -1,2 +1,6 @@
-SetTrayIcon := (isActive) => TraySetIcon("shell32.dll", isActive ? 256 : 255)
+SetTrayIcon(isActive) {
+  name := VD.current_desktopNum . (isActive ? "a" : "")
+  return TraySetIcon("./MikeEnhancements2/assets/" . name . ".ico")
+}
+
 SetTrayIcon(isActive := false)
