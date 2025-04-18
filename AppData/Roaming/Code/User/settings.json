@@ -107,6 +107,11 @@
     { "before": ["R"], "commands": [ "workbench.action.nextEditor" ]},
   ],
   "vim.normalModeKeyBindingsNonRecursive": [
+    { "before": ["H"], "after": ["^"] }, // goto first non-whitespace character
+    { "before": ["J"], "after": [""] }, // goto last character
+    //{ "before": ["K"], "after": ["g", "_"] }, // goto last character
+    { "before": ["L"], "after": ["g", "_"] }, // goto last character
+
     // { "before": ["h"], "after": [] },
     // { "before": ["j"], "after": [] },
     // { "before": ["k"], "after": [] },
@@ -114,8 +119,8 @@
     { "before": ["u"], "commands": ["undo"] },
     { "before": ["<C-r>"], "commands": ["redo"] },
     { "before": ["s"], "after": ["<leader>", "<leader>", "2", "s"] },
-    { "before": ["L"], "after": ["g", "_"] }, // goto last character
-    { "before": ["H"], "after": ["^"] }, // goto first non-whitespace character
+    { "before": ["<Esc>"], "after": ["<Esc>", "<Esc>"] },
+
     { "before": [ "<space>" ], "commands": [
       { "command": "_setContext", "args": [ "leaderkeyState", "SPC" ] },
       { "command": "leaderkey.render", "args": "SPC" } ]
@@ -125,6 +130,8 @@
     { "before": ["Y"], "after": ["\"", "+", "y"] },
   ],
   "vim.visualModeKeyBindingsNonRecursive": [
+    { "before": ["H"], "after": ["^"] }, // goto first non-whitespace character
+    { "before": ["L"], "after": ["g", "_"] }, // goto last character
     { "before": ["s"], "after": ["<leader>", "<leader>", "2", "s"] },
     { "before": ["<"], "after": ["<", "g", "v"] },
     { "before": [">"], "after": [">", "g", "v"] },

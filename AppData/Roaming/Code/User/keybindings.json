@@ -8,13 +8,13 @@
   { "key": "ctrl+l", "command": "workbench.action.focusRightGroup", "when": "(editorTextFocus && (activeEditorIsLastInGroup || multipleEditorGroups)) || activeEditorGroupEmpty" },
 
   // ## Navigate Editors and Tabs with <Up,Left,Down,Right>
-  { "key": "Left",  "command": "workbench.action.previousEditor",  "when": "editorTextFocus && !activeEditorIsFirstInGroup" },
-  { "key": "Right",  "command": "workbench.action.nextEditor",      "when": "editorTextFocus && !activeEditorIsLastInGroup" },
+  { "key": "Left",  "command": "workbench.action.previousEditor", "when": "editorTextFocus && !activeEditorIsFirstInGroup" },
+  { "key": "Right", "command": "workbench.action.nextEditor",     "when": "editorTextFocus && !activeEditorIsLastInGroup" },
 
-  { "key": "Left",  "command": "workbench.action.focusLeftGroup",  "when": "editorTextFocus && activeEditorIsFirstInGroup" },
-  { "key": "Right",  "command": "workbench.action.focusRightGroup", "when": "editorTextFocus && activeEditorIsLastInGroup" },
-  { "key": "Down", "command": "workbench.action.focusBelowGroup",  "when": "editorTextFocus || activeEditorGroupEmpty" },
-  { "key": "Up", "command": "workbench.action.focusAboveGroup",  "when": "editorTextFocus || activeEditorGroupEmpty" },
+  { "key": "Left",  "command": "workbench.action.focusLeftGroup",  "when": "(editorTextFocus && !suggestWidgetMultipleSuggestions) && activeEditorIsFirstInGroup " },
+  { "key": "Right", "command": "workbench.action.focusRightGroup", "when": "(editorTextFocus && !suggestWidgetMultipleSuggestions) && activeEditorIsLastInGroup" },
+  { "key": "Up",    "command": "workbench.action.focusAboveGroup", "when": "(editorTextFocus && !suggestWidgetMultipleSuggestions) || activeEditorGroupEmpty" },
+  { "key": "Down",  "command": "workbench.action.focusBelowGroup", "when": "(editorTextFocus && !suggestWidgetMultipleSuggestions) || activeEditorGroupEmpty" },
 
   // ## Move Tabs with <c-a-{h,j,k,l}>
   { "key": "ctrl+alt+h", "command": "workbench.action.moveEditorToPreviousGroup", "when": "editorTextFocus && activeEditorIsFirstInGroup" },
@@ -33,9 +33,6 @@
  
 
   // # Editors
-  // ## Swap Editor Groups with <c-a-s-{h,j,k,l}>
-  
-
 
   // #region Sidebar
   { "key": "ctrl+0", "command": "workbench.action.closeSidebar",           "when": "sideBarFocus" },  // toggle sidebar
@@ -99,15 +96,15 @@
   //  "args": { "commands": [ "closeFindWidget", "workbench.action.quickTextSearch" ] } },
 
   //#region FindItFaster Extension
-  { "key": "ctrl+shift+j", "command": "-find-it-faster.findFiles" },
-  { "key": "ctrl+shift+u", "command": "-find-it-faster.findWithinFiles" },
+  { "key": "ctrl+shift+j",     "command": "-find-it-faster.findFiles" },
+  { "key": "ctrl+shift+u",     "command": "-find-it-faster.findWithinFiles" },
   { "key": "ctrl+shift+alt+u", "command": "-find-it-faster.findWithinFilesWithType" },
   //#endregion
 
 
   //#region VSVim Extension
-  { "key": "ctrl+n", "command": "editor.action.triggerSuggest", "when": "editorTextFocus && vim.mode == 'Insert' && !inCompositeEditor && !suggestWidgetVisible" },
-  { "key": "shift+;", "command": "vim.showQuickpickCmdLine", "when": "inZenMode && vim.mode != 'Insert'" },
+  { "key": "ctrl+n",  "command": "editor.action.triggerSuggest", "when": "editorTextFocus && vim.mode == 'Insert' && !inCompositeEditor && !suggestWidgetVisible" },
+  { "key": "shift+;", "command": "vim.showQuickpickCmdLine",     "when": "inZenMode && vim.mode != 'Insert'" },
+  { "key": "Escape",  "command": "extension.vim_escape",         "when": "editorTextFocus && vim.mode == 'Insert' && !inCompositeEditor && suggestWidgetVisible" },
   //#endregion
-
 ]
