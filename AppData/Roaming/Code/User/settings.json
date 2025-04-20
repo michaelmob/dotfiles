@@ -29,7 +29,6 @@
   // #endregion
 
 
-
   // #region Editor
   "editor.lineNumbers": "relative",
   "editor.formatOnPaste": true,
@@ -102,43 +101,38 @@
     //{ "before": ["<c-c>"], "after": ["<Esc>"] },
   ],
   "vim.normalModeKeyBindings": [
-    { "before": ["S"], "after": ["y", "s", "i", "w"] },
     { "before": ["E"], "commands": [ "workbench.action.previousEditor" ]},
     { "before": ["R"], "commands": [ "workbench.action.nextEditor" ]},
-  ],
-  "vim.normalModeKeyBindingsNonRecursive": [
-    { "before": ["H"], "after": ["^"] }, // goto first non-whitespace character
-    { "before": ["J"], "after": [""] }, // goto last character
-    //{ "before": ["K"], "after": ["g", "_"] }, // goto last character
-    { "before": ["L"], "after": ["g", "_"] }, // goto last character
-
-    // { "before": ["h"], "after": [] },
-    // { "before": ["j"], "after": [] },
-    // { "before": ["k"], "after": [] },
-    // { "before": ["l"], "after": [] },
-    { "before": ["u"], "commands": ["undo"] },
+    { "before": ["u"],     "commands": ["undo"] },
     { "before": ["<C-r>"], "commands": ["redo"] },
-    { "before": ["s"], "after": ["<leader>", "<leader>", "2", "s"] },
-    { "before": ["<Esc>"], "after": ["<Esc>", "<Esc>"] },
-
-    { "before": [ "<space>" ], "commands": [
-      { "command": "_setContext", "args": [ "leaderkeyState", "SPC" ] },
-      { "command": "leaderkey.render", "args": "SPC" } ]
+    { "before": ["<Space>"],
+      "commands": [
+        { "command": "_setContext",      "args": [ "leaderkeyState", "SPC" ] },
+        { "command": "leaderkey.render", "args": "SPC" }
+      ]
     },
   ],
-  "vim.visualModeKeyBindings": [
-    { "before": ["Y"], "after": ["\"", "+", "y"] },
+  "vim.normalModeKeyBindingsNonRecursive": [
+    { "before": ["J"], "after": [] },
+    { "before": ["K"], "after": [] },
+    { "before": ["H"], "after": ["^"] }, // goto first non-whitespace character
+    { "before": ["L"], "after": ["g", "_"] }, // goto last character
+    { "before": ["S"], "after": ["y", "s", "i", "w"] },
+    { "before": ["<Enter>"], "after": ["o", "<Esc>"] },
+    { "before": ["s"], "after": ["<leader>", "<leader>", "2", "s"] },
   ],
   "vim.visualModeKeyBindingsNonRecursive": [
+    { "before": ["Y"], "after": ["\"", "+", "y"] },
     { "before": ["H"], "after": ["^"] }, // goto first non-whitespace character
     { "before": ["L"], "after": ["g", "_"] }, // goto last character
     { "before": ["s"], "after": ["<leader>", "<leader>", "2", "s"] },
     { "before": ["<"], "after": ["<", "g", "v"] },
     { "before": [">"], "after": [">", "g", "v"] },
-    { "before": ["<Esc>"], "after": ["<Esc>", "<Esc>"] },
-    { "before": [ "<space>" ], "commands": [
-      { "command": "_setContext", "args": [ "leaderkeyState", "SPC" ] },
-      { "command": "leaderkey.render", "args": "SPC" } ]
+    { "before": ["<Space>"],
+      "commands": [
+        { "command": "_setContext", "args": [ "leaderkeyState", "SPC" ] },
+        { "command": "leaderkey.render", "args": "SPC" }
+      ]
     },
     // { "before": [ "v" ], "commands": [
     //   { "command": "_setContext", "args": [ "leaderkeyState", "SPC", "v:transient" ] },
@@ -155,70 +149,47 @@
       "name": "Yank to system clipboard",
       "command": "editor.action.clipboardCopyAction",
     },
-    "SPC v:transient y": {
-      "name": "Yank selection",
-      "commands": [
-        { "command": "vim.remap", "args": { "after": ["y"] } },
-        { "command": "leaderkey.render", "args": "" },
-      ]
-    },
-    "SPC p p": {
+    "SPC p": {
       "name": "Paste on next line",
-      "commands": [
-        { "command": "vim.remap", "args": { "after": ["o", "<Esc>", "p"] } },
-      ]
+      "command": "editor.action.clipboardPasteAction",
     },
-    "SPC v:transient p": {
-      "name": "Paste over selection",
-      "commands": [
-        { "command": "vim.remap", "args": { "after": ["p"] } },
-        { "command": "leaderkey.render", "args": "" },
-      ]
-    },
-    "SPC v:transient h": {
-      "name": "Shrink selection",
-      "command": "editor.action.smartSelect.shrink"
-    },
-    "SPC v:transient l": {
-      "name": "Grow selection",
-      "command": "editor.action.smartSelect.grow"
-    },
-    "SPC v:transient Y": {
-      "name": "Yank to system clipboard",
-      "commands": [
-        { "command": "editor.action.clipboardCopyAction" },
-        { "command": "leaderkey.render", "args": "" },
-      ]
-    },
-    "SPC r r": {
+    "SPC r": {
       "name": "Show vim registers",
       "command": "vim.remap",
-      //"args": { "commands": [{ "command": ":registers" }] }
       "args": { "commands": [{ "command": ":registers" }] }
     },
-    "SPC f f": {
-      "name": "fzf files",
-      "command": "find-it-faster.findFiles",
+    "SPC f": {
+      "name": "ripgrep",
+      "command": "ripgrep.findInWorkspace",
     },
-    "SPC f F": {
-      "name": "Open file/folder (remap)",
-      "command": "file-browser.open",
-    },
-    "SPC s s": {
-      "name": "fzf in the current buffer",
-      "command": "find-it-faster.findWithinFiles"
-    },
-    "SPC s S": {
-      "name": "Fuzzy search in current buffer (remap)",
-      "command": "fuzzySearch.activeTextEditorWithCurrentSelection",
-    },
-    // "SPC f F": {
-    //   "name": "",
-    //   "commands": [ "find-it-faster.findWithinFiles" ]
+    // "SPC v:transient y": {
+    //   "name": "Yank selection",
+    //   "commands": [
+    //     { "command": "vim.remap", "args": { "after": ["y"] } },
+    //     { "command": "leaderkey.render", "args": "" },
+    //   ]
     // },
-    // "SPC f f": {
-    //   "name": "fzf in the current buffer",
-    //   "commands": [ "find-it-faster.findWithinFiles" ]
+    // "SPC v:transient p": {
+    //   "name": "Paste over selection",
+    //   "commands": [
+    //     { "command": "vim.remap", "args": { "after": ["p"] } },
+    //     { "command": "leaderkey.render", "args": "" },
+    //   ]
+    // },
+    // "SPC v:transient h": {
+    //   "name": "Shrink selection",
+    //   "command": "editor.action.smartSelect.shrink"
+    // },
+    // "SPC v:transient l": {
+    //   "name": "Grow selection",
+    //   "command": "editor.action.smartSelect.grow"
+    // },
+    // "SPC v:transient Y": {
+    //   "name": "Yank to system clipboard",
+    //   "commands": [
+    //     { "command": "editor.action.clipboardCopyAction" },
+    //     { "command": "leaderkey.render", "args": "" },
+    //   ]
     // },
   },
   // #endregion

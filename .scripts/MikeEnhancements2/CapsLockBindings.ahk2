@@ -1,5 +1,4 @@
 #Include "./lib/libHeroKey.ahk"
-
 SetCapsLockState("AlwaysOff")
 
 onHeroKeyUp(repeatedPresses) {
@@ -57,5 +56,8 @@ CapsLock & f:: Send("{End}")
 ; ### np
 CapsLock & n:: Send("{Tab}")
 CapsLock & p:: Send("+{Tab}")
+
 CapsLock & i:: Send("{Escape}")
 CapsLock & g:: Send("{AppsKey}")  ; Menu key
+
+CapsLock & w:: Send("{LWin down}{LAlt down}{Space}{LAlt up}{LWin up}")

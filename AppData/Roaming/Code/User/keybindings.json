@@ -13,8 +13,8 @@
 
   { "key": "Left",  "command": "workbench.action.focusLeftGroup",  "when": "(editorTextFocus && !suggestWidgetMultipleSuggestions) && activeEditorIsFirstInGroup " },
   { "key": "Right", "command": "workbench.action.focusRightGroup", "when": "(editorTextFocus && !suggestWidgetMultipleSuggestions) && activeEditorIsLastInGroup" },
-  { "key": "Up",    "command": "workbench.action.focusAboveGroup", "when": "(editorTextFocus && !suggestWidgetMultipleSuggestions) || activeEditorGroupEmpty" },
-  { "key": "Down",  "command": "workbench.action.focusBelowGroup", "when": "(editorTextFocus && !suggestWidgetMultipleSuggestions) || activeEditorGroupEmpty" },
+  { "key": "Up",    "command": "workbench.action.focusAboveGroup", "when": "!inQuickOpen && ((editorTextFocus && !suggestWidgetMultipleSuggestions) || activeEditorGroupEmpty)" },
+  { "key": "Down",  "command": "workbench.action.focusBelowGroup", "when": "!inQuickOpen && ((editorTextFocus && !suggestWidgetMultipleSuggestions) || activeEditorGroupEmpty)" },
 
   // ## Move Tabs with <c-a-{h,j,k,l}>
   { "key": "ctrl+alt+h", "command": "workbench.action.moveEditorToPreviousGroup", "when": "editorTextFocus && activeEditorIsFirstInGroup" },
@@ -57,8 +57,8 @@
 
   // QUICK-OPEN Navigation: Navigate items with <ctrl-{n,p}>
   //{ "key": "ctrl+p", "command": "workbench.action.quickOpen",               "when": "editorTextFocus" },
-  { "key": "ctrl+p", "command": "workbench.action.quickOpenSelectPrevious", "when": "inQuickOpen" },
   { "key": "ctrl+n", "command": "workbench.action.quickOpenSelectNext",     "when": "inQuickOpen" },
+  { "key": "ctrl+p", "command": "workbench.action.quickOpenSelectPrevious", "when": "inQuickOpen" },
   { "key": "ctrl+j", "command": "workbench.action.quickOpenSelectNext",     "when": "inQuickOpen" },
   { "key": "ctrl+k", "command": "workbench.action.quickOpenSelectPrevious", "when": "inQuickOpen" },
 
@@ -95,16 +95,17 @@
   //{ "key": "ctrl+f", "command": "runCommands",  "when": "findWidgetVisible && !inputBoxFocus",
   //  "args": { "commands": [ "closeFindWidget", "workbench.action.quickTextSearch" ] } },
 
-  //#region FindItFaster Extension
-  { "key": "ctrl+shift+j",     "command": "-find-it-faster.findFiles" },
-  { "key": "ctrl+shift+u",     "command": "-find-it-faster.findWithinFiles" },
-  { "key": "ctrl+shift+alt+u", "command": "-find-it-faster.findWithinFilesWithType" },
-  //#endregion
+
+  //#region JimmyZJX/vscode-ripgrep
+  { "key": "Down",  "command": "ripgrep.moveFocus", "args": "down", "when": "editorFocus && editorLangId == 'ripgrep-panel'" },
+  { "key": "Up",    "command": "ripgrep.moveFocus", "args": "up",   "when": "editorFocus && editorLangId == 'ripgrep-panel'" },
+  { "key": "Left",  "command": "ripgrep.dirUp",                     "when": "editorFocus && editorLangId == 'ripgrep-panel'" },
+  { "key": "Right", "command": "ripgrep.dirDown",                   "when": "editorFocus && editorLangId == 'ripgrep-panel'" },
 
 
   //#region VSVim Extension
+  { "key": "Escape",  "command": "extension.vim_escape",         "when": "editorTextFocus && vim.mode == 'Insert' && !inCompositeEditor && suggestWidgetVisible" },
   { "key": "ctrl+n",  "command": "editor.action.triggerSuggest", "when": "editorTextFocus && vim.mode == 'Insert' && !inCompositeEditor && !suggestWidgetVisible" },
   { "key": "shift+;", "command": "vim.showQuickpickCmdLine",     "when": "inZenMode && vim.mode != 'Insert'" },
-  { "key": "Escape",  "command": "extension.vim_escape",         "when": "editorTextFocus && vim.mode == 'Insert' && !inCompositeEditor && suggestWidgetVisible" },
   //#endregion
 ]
