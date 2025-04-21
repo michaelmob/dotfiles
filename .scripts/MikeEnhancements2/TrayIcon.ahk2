@@ -1,6 +1,6 @@
 SetTrayIcon(isActive) {
   name := VD.current_desktopNum . (isActive ? "a" : "")
-  return TraySetIcon("./MikeEnhancements2/assets/" . name . ".ico")
+  return TraySetIcon("./assets/" . name . ".ico")
 }
 
 SetTrayIcon(isActive := false)
