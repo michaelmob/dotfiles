@@ -1,0 +1,86 @@
+DesktopDialogWindow := -1
+
+CloseDesktopDialog() {
+  global DesktopDialogWindow
+  if (DesktopDialogWindow != -1) {
+    WinClose(DesktopDialogWindow)
+    DesktopDialogWindow := -1
+  }
+}
+
+OpenDesktopDialog() {
+  CloseDesktopDialog()
+  currentWindow := WinActive("A")
+  selectedWindowId := WinGetID(currentWindow)
+  selectedWindow := ""
+
+  windowTitles := ""
+  windowsIds := WinGetList()
+  for (id in windowsIds) {
+    windowTitle := WinGetTitle(id)
+    desktopNum := VD.getDesktopNumOfWindow(id)
+    if (desktopNum > -1) {
+      windowName := desktopNum . ": " . windowTitle . " (ID: " . id . ")"
+      windowTitles .= windowName . "`n"
+      if (id == currentWindow)
+        selectedWindow := windowName
+    }
+  }
+
+  windowTitles := StrSplit(Trim(Sort(windowTitles), "`n"), "`n")
+
+  desktopNums := []
+  desktopCount := VD.getCount()
+  loop (desktopCount)
+    desktopNums.Push(A_Index)
+
+	dialog := Gui()
+	dialog.Opt("+AlwaysOnTop")
+  dialog.OnEvent("Escape", dialog.Hide)
+	dialog.Title := "Move Window to Desktop…"
+
+	windowList := dialog.Add("DropDownList", "x8 y8 w353", windowTitles)
+  windowList.Choose(selectedWindow)
+	windowList.OnEvent("Change", windowList_onChange)
+  windowList_onChange(*) {
+    RegExMatch(windowList.Text, " \(ID: (\d+)\)$", &selectedWindowId)
+    selectedWindowId := Integer(selectedWindowId[1])
+    WinActivate(selectedWindowId)
+    WinActivate(dialog)
+  }
+
+	dialog.Add("Text", "x8 y40 w47 h19 +0x200", "Desktop:")
+	desktopList := dialog.Add("DropDownList", "x56 y40 w85", desktopNums)
+  desktopList.Choose(VD.getCurrentDesktopNum())
+  desktopList.Focus()
+	desktopList.OnEvent("Change", desktopList_onChange)
+  desktopList_onChange(*) {
+    VD.MoveWindowToDesktopNum(selectedWindowId, Integer(desktopList.Value)).follow()
+    WinActivate(dialog)
+  }
+
+	topWindow := dialog.Add("CheckBox", "x152 y40 w87 h20", "Always on Top")
+	topWindow.OnEvent("Click", topWindow_onChange)
+  topWindow_onChange(*) {
+    if (pinWindow.Value)
+      VD.PinWindow(selectedWindowId)
+    else
+      VD.UnpinWindow(selectedWindowId)
+    WinActivate(dialog)
+  }
+
+	pinWindow := dialog.Add("CheckBox", "x248 y40 w113 h20", "Pin to All Desktops")
+	pinWindow.OnEvent("Click", pinWindow_onChange)
+  pinWindow_onChange(*) {
+    if (pinWindow.Value)
+      VD.PinWindow(selectedWindowId)
+    else
+      VD.UnpinWindow(selectedWindowId)
+    WinActivate(dialog)
+  }
+
+  dialog.Show()
+  VD.PinWindow(dialog)
+  global DesktopDialogWindow := dialog
+  WinActivate(dialog)
+}

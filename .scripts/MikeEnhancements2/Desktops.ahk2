@@ -20,8 +20,12 @@ SwitchDesktop(num) {
   VD.goToDesktopNum(num)
 }
 
+
 ; Quick-switch Workspaces
 CapsLock & Tab::SwitchDesktop(VD.previous_desktopNum)
+
+; Move window to Workspace
+CapsLock & `:: OpenDesktopDialog()
 
 ; Focus Workspace, CapsLock + {1,2,3,4,5,6}
 CapsLock & 1:: SwitchDesktop(1)
@@ -30,35 +34,6 @@ CapsLock & 3:: SwitchDesktop(3)
 CapsLock & 4:: SwitchDesktop(4)
 CapsLock & 5:: SwitchDesktop(5)
 CapsLock & 6:: SwitchDesktop(6)
-
-; Move window to Workspace
-CapsLock & `:: {
-  currentWindow := WinActive("A")
-
-  ; Docs: https://www.autohotkey.com/docs/v2/lib/InputBox.htm
-  input := InputBox(
-    "",
-    "Move Window to Workspace…",
-    "w250 h75",
-    VD.getCurrentDesktopNum()
-  )
-
-  if input.Value == ""
-    return
-
-  if input.Value == "``"
-    return SwitchDesktop(VD.previous_desktopNum)
-
-  inputNum := Number(input.Value)
-
-  if (inputNum < 1 || inputNum > 6)
-    return
-
-  if (VD.getCount() < inputNum)
-    VD.createUntil(inputNum)
-
-  VD.MoveWindowToDesktopNum(currentWindow, inputNum).follow()
-}
 
 ; Windows Task View -- Workspace Switcher
 #HotIf WinActive("Task View ahk_class XamlExplorerHostIslandWindow")

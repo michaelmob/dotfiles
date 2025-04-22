@@ -2,9 +2,10 @@
 SetCapsLockState("AlwaysOff")
 
 onHeroKeyUp(repeatedPresses) {
+  Send("{Escape}")
+  CloseDesktopDialog()
   switch (repeatedPresses) {
     case 2:
-      Send("{Escape}")
       ToolTip("Double-Kill!")
     case 3: ToolTip("Triple-Kill!")
     case 4: ToolTip("Overkill!")
@@ -14,7 +15,7 @@ onHeroKeyUp(repeatedPresses) {
     case 8: ToolTip("Killtastrophe!")
     case 9: ToolTip("Killpocalypse!")
     case 10: ToolTip("Killionaire!")
-    default: Send("{Escape}")
+    ;default: 
   }
 }
 onHeroKeyHold() {
