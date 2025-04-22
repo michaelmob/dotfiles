@@ -81,7 +81,9 @@
   //"vim.mouseSelectionGoesIntoVisualMode": false,
   "vim.leader": "<space>",
   "vim.handleKeys": {
-    "<C-p>": false
+    "<C-p>": false,
+    "<C-f>": false,
+    "<>": false
   },
   "vim.useSystemClipboard": false,
   //"vim.replaceWithRegister": true,

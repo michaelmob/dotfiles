@@ -30,7 +30,7 @@
   { "key": "ctrl+alt+shift+j", "command": "workbench.action.moveActiveEditorGroupDown",  "when": "editorTextFocus || activeEditorGroupEmpty" },
   { "key": "ctrl+alt+shift+k", "command": "workbench.action.moveActiveEditorGroupUp",    "when": "editorTextFocus || activeEditorGroupEmpty" },
   { "key": "ctrl+alt+shift+l", "command": "workbench.action.moveActiveEditorGroupRight", "when": "editorTextFocus || activeEditorGroupEmpty" },
- 
+
 
   // # Editors
 
@@ -106,6 +106,6 @@
   //#region VSVim Extension
   { "key": "Escape",  "command": "extension.vim_escape",         "when": "editorTextFocus && vim.mode == 'Insert' && !inCompositeEditor && suggestWidgetVisible" },
   { "key": "ctrl+n",  "command": "editor.action.triggerSuggest", "when": "editorTextFocus && vim.mode == 'Insert' && !inCompositeEditor && !suggestWidgetVisible" },
-  { "key": "shift+;", "command": "vim.showQuickpickCmdLine",     "when": "inZenMode && vim.mode != 'Insert'" },
+  { "key": "shift+;", "command": "vim.showQuickpickCmdLine",     "when": "inZenMode && vim.mode != 'Insert'"  },
   //#endregion
 ]
