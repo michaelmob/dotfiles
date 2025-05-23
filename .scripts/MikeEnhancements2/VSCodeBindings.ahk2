@@ -1,6 +1,6 @@
-#HotIf WinActive('ahk_exe Code.exe')
+;#HotIf WinActive('ahk_exe Code.exe')
 ; CapsLock & h:: Send("{Alt Down}h{Alt Up}")
 ; CapsLock & j:: Send("{Alt Down}j{Alt Up}")
 ; CapsLock & l:: Send("{Alt Down}l{Alt Up}")
 ; CapsLock & k:: Send("{Alt Down}k{Alt Up}")
-#HotIf
+;#HotIf

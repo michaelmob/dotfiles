@@ -16,3 +16,7 @@ scratchPad(wintitle, exe := "", action := "PULL") {
   else if (WinExist(wintitle))
     WinActivate(wintitle)
 }
+
+scratchPad2() {
+
+}

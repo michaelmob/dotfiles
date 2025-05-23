@@ -6,11 +6,11 @@ ProcessSetPriority("High")
 SetKeyDelay(10)
 SendMode("Input")
 ListLines(0)
-KeyHistory(0)
-SetControlDelay -1
+SetControlDelay(-1)
 CoordMode("Mouse", "Screen")
 DetectHiddenWindows(true)
 ;SetWorkingDir(A_ScriptDir)
+;KeyHistory(3)
 
 #Include "./Desktops_Dialog.ahk2"
 #Include "./Desktops.ahk2"
@@ -20,6 +20,7 @@ DetectHiddenWindows(true)
 #Include "./AliasesCorrections.ahk2"
 #Include "./TrayMenu.ahk2"
 #Include "./TrayIcon.ahk2"
+#Include "./temp.ahk2"
 
 ToolTip("Michael's Enhancements Loaded")
 SetTimer(ToolTip, 5000)

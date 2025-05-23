@@ -9,19 +9,9 @@
 
 
   // #region Workbench
-  "workbench.colorTheme": "GitHub Dark Default",
-  "workbench.iconTheme": "catppuccin-mocha",
+  "workbench.startupEditor": "readme",
+  //"workbench.colorTheme": "GitHub Dark Default",
   "workbench.editor.enablePreviewFromQuickOpen": false,
-  "workbench.colorCustomizations": {
-    "statusBar.background": "#005f5f",
-    "statusBar.noFolderBackground": "#005f5f",
-    "statusBar.debuggingBackground": "#005f5f",
-    "statusBar.foreground": "#ffffff",
-    "statusBar.debuggingForeground": "#ffffff",
-    "editorCursor.foreground": "#e9dbb7",
-    "activityBarBadge.background": "#e9dbb7",
-    "activityBarBadge.foreground": "#262626"
-  },
   /*"workbench.colorCustomizations": {
     "editorGhostText.border": "#696969",
     "editorGhostText.foreground": "#696969"
@@ -62,6 +52,9 @@
   "files.trimFinalNewlines": true,
   "files.insertFinalNewline": true,
   "files.simpleDialog.enable": true,
+  "files.associations": {
+    "*.svelte.ts": "typescript",
+  },
   // #endregion
 
 
@@ -98,7 +91,6 @@
   "vim.sneak": true,
   "vim.sneakUseIgnorecaseAndSmartcase": true,
   "vim.sneakReplacesF": true, // multi-line find-letter key
-  "vim.statusBarColorControl": true,
   "vim.insertModeKeyBindings": [
     //{ "before": ["<c-c>"], "after": ["<Esc>"] },
   ],
@@ -107,6 +99,7 @@
     { "before": ["R"], "commands": [ "workbench.action.nextEditor" ]},
     { "before": ["u"],     "commands": ["undo"] },
     { "before": ["<C-r>"], "commands": ["redo"] },
+    { "before": ["S"], "after": ["y", "s", "i", "w"] },
     { "before": ["<Space>"],
       "commands": [
         { "command": "_setContext",      "args": [ "leaderkeyState", "SPC" ] },
@@ -119,9 +112,8 @@
     { "before": ["K"], "after": [] },
     { "before": ["H"], "after": ["^"] }, // goto first non-whitespace character
     { "before": ["L"], "after": ["g", "_"] }, // goto last character
-    { "before": ["S"], "after": ["y", "s", "i", "w"] },
-    { "before": ["<Enter>"], "after": ["o", "<Esc>"] },
     { "before": ["s"], "after": ["<leader>", "<leader>", "2", "s"] },
+    { "before": ["<Enter>"], "after": ["o", "<Esc>"] },
   ],
   "vim.visualModeKeyBindingsNonRecursive": [
     { "before": ["Y"], "after": ["\"", "+", "y"] },
@@ -147,23 +139,39 @@
   // #region Leaderkey Extension
   // https://github.com/JimmyZJX/leaderkey/blob/main/src/defaultBindings.ts
   "leaderkey.overrides.user": {
+    "SPC w c": {
+      "name": "Close window pane",
+      "command": "",
+    },
     "SPC y": {
       "name": "Yank to system clipboard",
-      "command": "editor.action.clipboardCopyAction",
+      //"command": "editor.action.clipboardCopyAction",
+      "command": "vim.remap",
+      "args": { "after": ["\"", "+", "y"] }
     },
-    "SPC p": {
-      "name": "Paste on next line",
-      "command": "editor.action.clipboardPasteAction",
-    },
-    "SPC r": {
+    // "SPC p": {
+    //   "name": "Paste on next line",
+    //   "command": "editor.action.clipboardPasteAction",
+    // },
+    "SPC R": {
       "name": "Show vim registers",
       "command": "vim.remap",
-      "args": { "commands": [{ "command": ":registers" }] }
+      "args": {
+        "commands": [{ "command": ":registers" }]
+      }
     },
-    "SPC f": {
+    "SPC SPC": {
       "name": "ripgrep",
-      "command": "ripgrep.findInWorkspace",
+      "command": "leaderkey.ripgrep",
+      "args": {
+        "dir": {"type": "workspace"},
+        "query": { "type": "current" }
+      }
     },
+    // "SPC f": {
+    //   "name": "ripgrep",
+    //   "command": "ripgrep.findInWorkspace",
+    // },
     // "SPC v:transient y": {
     //   "name": "Yank selection",
     //   "commands": [
@@ -198,6 +206,7 @@
 
 
   // #region Extension
+  "AutoHotkey2.InterpreterPath": "c:\\Users\\Michael\\AppData\\Local\\Programs\\AutoHotkey\\v2\\AutoHotkey64.exe",
   "extensions.experimental.affinity": {
     "asvetliakov.vscode-neovim": 1
   },
@@ -208,9 +217,6 @@
   "[typescript]": {
     "editor.defaultFormatter": "vscode.typescript-language-features"
   },
-  "remote.SSH.remotePlatform": {
-    "mcm-fedora": "linux"
-  },
   "[jsonc]": {
     "editor.defaultFormatter": "vscode.json-language-features",
     "editor.formatOnSave": false
@@ -220,11 +226,17 @@
     "editor.formatOnSave": false
   },
   "[svelte]": {
+    "editor.quickSuggestions": {
+      "other": "on",
+      "comments": "off",
+      "strings": "off"
+    },
     "editor.defaultFormatter": "svelte.svelte-vscode",
-    "typescript.autoClosingTags": false,
-    "javascript.autoClosingTags": false,
+    // "typescript.autoClosingTags": false,
+    // "javascript.autoClosingTags": false,
   },
-  "html.autoClosingTags": false,
-  "AutoHotkey2.InterpreterPath": "c:\\Users\\Michael\\AppData\\Local\\Programs\\AutoHotkey\\v2\\AutoHotkey64.exe",
+  "remote.SSH.remotePlatform": {"mcm-fedora":"linux","coder-vscode.docker1--michaelmob--blue-rabbit-22":"linux","coder-vscode.docker1--michaelmob--blue-rabbit-22.main":"linux"},
+  "remote.SSH.connectTimeout": 1800,
+  "git.enableSmartCommit": true,
   // #endregion
 }

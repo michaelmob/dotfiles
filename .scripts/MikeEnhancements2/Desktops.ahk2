@@ -20,14 +20,14 @@ GotoDesktop(num) {
   VD.goToDesktopNum(num)
 }
 
-gotoNextDesktop() {
+GotoNextDesktop() {
   VD.animation_on := true
   if (VD.current_desktopNum < VD.getCount())
     GotoDesktop(VD.current_desktopNum + 1)
   VD.animation_on := false
 }
 
-gotoPrevDesktop() {
+GotoPrevDesktop() {
   VD.animation_on := true
   if (VD.current_desktopNum > 1)
     GotoDesktop(VD.current_desktopNum - 1)
@@ -45,19 +45,11 @@ CapsLock & 1:: GotoDesktop(1)
 CapsLock & 2:: GotoDesktop(2)
 CapsLock & 3:: GotoDesktop(3)
 CapsLock & 4:: GotoDesktop(4)
-CapsLock & 5:: GotoDesktop(5)
-CapsLock & 6:: GotoDesktop(6)
+;CapsLock & 5:: GotoDesktop(5)
+;CapsLock & 6:: GotoDesktop(6)
 
 ; Windows Task View -- Desktop Switcher
 #HotIf WinActive("Task View ahk_class XamlExplorerHostIslandWindow")
-; h::Left
-; j::Up
-; k::Up
-; l::Right
-WheelUp:: gotoPrevDesktop()
-WheelDown:: gotoNextDesktop()
+  WheelUp:: GotoPrevDesktop()
+  WheelDown:: GotoNextDesktop()
 #HotIf
-
-
-;+!Tab:: gotoNextDesktop()
-;!Tab:: gotoPrevDesktop()
