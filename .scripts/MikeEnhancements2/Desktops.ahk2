@@ -5,40 +5,59 @@ VD.previous_desktopNum := VD.current_desktopNum
 VD.previous_isActive := false
 
 VD.RegisterDesktopNotifications()
-VD.DefineProp("CurrentVirtualDesktopChanged", { Call: onWorkspaceChange })
-onWorkspaceChange(desktopNum_Old, desktopNum_New) {
+VD.DefineProp("CurrentVirtualDesktopChanged", { Call: onDesktopChange })
+onDesktopChange(desktopNum_Old, desktopNum_New) {
   VD.current_desktopNum := desktopNum_New
   VD.previous_desktopNum := desktopNum_Old
   SetTrayIcon(VD.previous_isActive)
   VD.previous_isActive := false
 }
 
-SwitchDesktop(num) {
+GotoDesktop(num) {
   if (VD.getCount() < num)
     VD.createUntil(num)
   VD.previous_isActive := true
   VD.goToDesktopNum(num)
 }
 
+gotoNextDesktop() {
+  VD.animation_on := true
+  if (VD.current_desktopNum < VD.getCount())
+    GotoDesktop(VD.current_desktopNum + 1)
+  VD.animation_on := false
+}
 
-; Quick-switch Workspaces
-CapsLock & Tab::SwitchDesktop(VD.previous_desktopNum)
+gotoPrevDesktop() {
+  VD.animation_on := true
+  if (VD.current_desktopNum > 1)
+    GotoDesktop(VD.current_desktopNum - 1)
+  VD.animation_on := false
+}
 
-; Move window to Workspace
+; Quick-switch Desktops
+CapsLock & Tab::GotoDesktop(VD.previous_desktopNum)
+
+; Move window to Desktop
 CapsLock & `:: OpenDesktopDialog()
 
-; Focus Workspace, CapsLock + {1,2,3,4,5,6}
-CapsLock & 1:: SwitchDesktop(1)
-CapsLock & 2:: SwitchDesktop(2)
-CapsLock & 3:: SwitchDesktop(3)
-CapsLock & 4:: SwitchDesktop(4)
-CapsLock & 5:: SwitchDesktop(5)
-CapsLock & 6:: SwitchDesktop(6)
+; Focus Desktop, CapsLock + {1,2,3,4,5,6}
+CapsLock & 1:: GotoDesktop(1)
+CapsLock & 2:: GotoDesktop(2)
+CapsLock & 3:: GotoDesktop(3)
+CapsLock & 4:: GotoDesktop(4)
+CapsLock & 5:: GotoDesktop(5)
+CapsLock & 6:: GotoDesktop(6)
 
-; Windows Task View -- Workspace Switcher
+; Windows Task View -- Desktop Switcher
 #HotIf WinActive("Task View ahk_class XamlExplorerHostIslandWindow")
-h::Left
-j::Up
-k::Up
-l::Right
+; h::Left
+; j::Up
+; k::Up
+; l::Right
+WheelUp:: gotoPrevDesktop()
+WheelDown:: gotoNextDesktop()
 #HotIf
+
+
+;+!Tab:: gotoNextDesktop()
+;!Tab:: gotoPrevDesktop()

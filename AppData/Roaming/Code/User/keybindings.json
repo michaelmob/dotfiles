@@ -1,29 +1,41 @@
 [
-  // # Editors and Tabs
-
-  // -- Navigate Panes with <c-{h,j,k,l}>
+  // Navigate Panes with <c-{h,j,k,l}>
   { "key": "ctrl+h", "command": "workbench.action.focusLeftGroup",  "when": "(editorTextFocus && (activeEditorIsFirstInGroup || multipleEditorGroups)) || activeEditorGroupEmpty" },
   { "key": "ctrl+j", "command": "workbench.action.focusBelowGroup", "when": "editorTextFocus || activeEditorGroupEmpty" },
   { "key": "ctrl+k", "command": "workbench.action.focusAboveGroup", "when": "editorTextFocus || activeEditorGroupEmpty" },
   { "key": "ctrl+l", "command": "workbench.action.focusRightGroup", "when": "(editorTextFocus && (activeEditorIsLastInGroup || multipleEditorGroups)) || activeEditorGroupEmpty" },
 
-  // ## Navigate Editors and Tabs with <Up,Left,Down,Right>
-  { "key": "Left",  "command": "workbench.action.previousEditor", "when": "editorTextFocus && !activeEditorIsFirstInGroup" },
-  { "key": "Right", "command": "workbench.action.nextEditor",     "when": "editorTextFocus && !activeEditorIsLastInGroup" },
+  // Navigate Editors and Tabs with <Up,Left,Down,Right>
+  { "key": "Left",  "command": "workbench.action.previousEditor",  "when": "editorTextFocus && !activeEditorIsFirstInGroup && editorLangId != 'leaderkey-ripgrep-panel'" },
+  { "key": "Right", "command": "workbench.action.nextEditor",      "when": "editorTextFocus && !activeEditorIsLastInGroup && editorLangId != 'leaderkey-ripgrep-panel'" },
+  { "key": "Left",  "command": "workbench.action.focusLeftGroup",  "when": "(editorTextFocus && !suggestWidgetMultipleSuggestions) && activeEditorIsFirstInGroup  && editorLangId != 'leaderkey-ripgrep-panel'" },
+  { "key": "Right", "command": "workbench.action.focusRightGroup", "when": "(editorTextFocus && !suggestWidgetMultipleSuggestions) && activeEditorIsLastInGroup && editorLangId != 'leaderkey-ripgrep-panel'" },
+  { "key": "Up",    "command": "workbench.action.focusAboveGroup", "when": "!inQuickOpen && ((editorTextFocus && !suggestWidgetMultipleSuggestions) || activeEditorGroupEmpty) && editorLangId != 'leaderkey-ripgrep-panel'" },
+  { "key": "Down",  "command": "workbench.action.focusBelowGroup", "when": "!inQuickOpen && ((editorTextFocus && !suggestWidgetMultipleSuggestions) || activeEditorGroupEmpty) && editorLangId != 'leaderkey-ripgrep-panel'" },
 
-  { "key": "Left",  "command": "workbench.action.focusLeftGroup",  "when": "(editorTextFocus && !suggestWidgetMultipleSuggestions) && activeEditorIsFirstInGroup " },
-  { "key": "Right", "command": "workbench.action.focusRightGroup", "when": "(editorTextFocus && !suggestWidgetMultipleSuggestions) && activeEditorIsLastInGroup" },
-  { "key": "Up",    "command": "workbench.action.focusAboveGroup", "when": "!inQuickOpen && ((editorTextFocus && !suggestWidgetMultipleSuggestions) || activeEditorGroupEmpty)" },
-  { "key": "Down",  "command": "workbench.action.focusBelowGroup", "when": "!inQuickOpen && ((editorTextFocus && !suggestWidgetMultipleSuggestions) || activeEditorGroupEmpty)" },
+  // Navigate Editors and Tabs with <a-{h,j,k,l}>
+  { "key": "alt+h", "command": "workbench.action.previousEditor",  "when": "editorTextFocus && !activeEditorIsFirstInGroup" },
+  { "key": "alt+l", "command": "workbench.action.nextEditor",      "when": "editorTextFocus && !activeEditorIsLastInGroup" },
+  { "key": "alt+h", "command": "workbench.action.focusLeftGroup",  "when": "(editorTextFocus && !suggestWidgetMultipleSuggestions) && activeEditorIsFirstInGroup " },
+  { "key": "alt+j", "command": "workbench.action.focusBelowGroup", "when": "!inQuickOpen && ((editorTextFocus && !suggestWidgetMultipleSuggestions) || activeEditorGroupEmpty)" },
+  { "key": "alt+k", "command": "workbench.action.focusAboveGroup", "when": "!inQuickOpen && ((editorTextFocus && !suggestWidgetMultipleSuggestions) || activeEditorGroupEmpty)" },
+  { "key": "alt+l", "command": "workbench.action.focusRightGroup", "when": "(editorTextFocus && !suggestWidgetMultipleSuggestions) && activeEditorIsLastInGroup" },
+
+  // Navigate Editors and Tabs with <c-{h,j,k,l}>
+  { "key": "ctrl+h", "command": "workbench.action.previousEditor",  "when": "editorTextFocus && !activeEditorIsFirstInGroup" },
+  { "key": "ctrl+l", "command": "workbench.action.nextEditor",      "when": "editorTextFocus && !activeEditorIsLastInGroup" },
+  { "key": "ctrl+h", "command": "workbench.action.focusLeftGroup",  "when": "(editorTextFocus && !suggestWidgetMultipleSuggestions) && activeEditorIsFirstInGroup " },
+  { "key": "ctrl+j", "command": "workbench.action.focusBelowGroup", "when": "!inQuickOpen && ((editorTextFocus && !suggestWidgetMultipleSuggestions) || activeEditorGroupEmpty)" },
+  { "key": "ctrl+k", "command": "workbench.action.focusAboveGroup", "when": "!inQuickOpen && ((editorTextFocus && !suggestWidgetMultipleSuggestions) || activeEditorGroupEmpty)" },
+  { "key": "ctrl+l", "command": "workbench.action.focusRightGroup", "when": "(editorTextFocus && !suggestWidgetMultipleSuggestions) && activeEditorIsLastInGroup" },
 
   // ## Move Tabs with <c-a-{h,j,k,l}>
   { "key": "ctrl+alt+h", "command": "workbench.action.moveEditorToPreviousGroup", "when": "editorTextFocus && activeEditorIsFirstInGroup" },
   { "key": "ctrl+alt+l", "command": "workbench.action.moveEditorToNextGroup",     "when": "editorTextFocus && activeEditorIsLastInGroup" },
-
-  { "key": "ctrl+alt+h", "command": "workbench.action.moveEditorLeftInGroup",  "when": "editorTextFocus && !activeEditorIsFirstInGroup" },
-  { "key": "ctrl+alt+j", "command": "workbench.action.moveEditorToBelowGroup", "when": "editorTextFocus && groupEditorsCount > 1" },
-  { "key": "ctrl+alt+k", "command": "workbench.action.moveEditorToAboveGroup", "when": "editorTextFocus" },
-  { "key": "ctrl+alt+l", "command": "workbench.action.moveEditorRightInGroup", "when": "editorTextFocus && !activeEditorIsLastInGroup" },
+  { "key": "ctrl+alt+h", "command": "workbench.action.moveEditorLeftInGroup",     "when": "editorTextFocus && !activeEditorIsFirstInGroup" },
+  { "key": "ctrl+alt+j", "command": "workbench.action.moveEditorToBelowGroup",    "when": "editorTextFocus && groupEditorsCount > 1" },
+  { "key": "ctrl+alt+k", "command": "workbench.action.moveEditorToAboveGroup",    "when": "editorTextFocus" },
+  { "key": "ctrl+alt+l", "command": "workbench.action.moveEditorRightInGroup",    "when": "editorTextFocus && !activeEditorIsLastInGroup" },
 
   // ## Move Editor Groups with <c-a-{H,J,K,L}>
   { "key": "ctrl+alt+shift+h", "command": "workbench.action.moveActiveEditorGroupLeft",  "when": "editorTextFocus || activeEditorGroupEmpty" },
@@ -31,81 +43,56 @@
   { "key": "ctrl+alt+shift+k", "command": "workbench.action.moveActiveEditorGroupUp",    "when": "editorTextFocus || activeEditorGroupEmpty" },
   { "key": "ctrl+alt+shift+l", "command": "workbench.action.moveActiveEditorGroupRight", "when": "editorTextFocus || activeEditorGroupEmpty" },
 
-
-  // # Editors
-
-  // #region Sidebar
+  // ## Sidebar
   { "key": "ctrl+0", "command": "workbench.action.closeSidebar",           "when": "sideBarFocus" },  // toggle sidebar
   { "key": "ctrl+h", "command": "",                                        "when": "sideBarFocus" },  // deactivate <c-h> in sidebar
   { "key": "ctrl+j", "command": "workbench.action.nextSideBarView",        "when": "sideBarFocus" },  // focus down/next sidebar item with <c-j>
   { "key": "ctrl+k", "command": "workbench.action.previousSideBarView",    "when": "sideBarFocus" },  // focus up/previous sidebar item with <c-k>
   { "key": "ctrl+l", "command": "workbench.action.focusActiveEditorGroup", "when": "sideBarFocus" },  // focus editor with <c-l>
-  // #endregion
-
   
-  // #region Empty Editor Group
+  // ## Empty Editor Group
   { "key": "ctrl+w", "command": "workbench.action.closeGroup", "when": "activeEditorGroupEmpty" },
-  // #endregion
-
   
-  //#region Auto-completion, Intellisense, and Suggestion Widget:
+  // ## Auto-completion, Intellisense, and Suggestion Widget:
   { "key": "ctrl+n", "command": "selectNextSuggestion", "when": "suggestWidgetVisible" /*&& suggestWidgetMultipleSuggestions*/ }, // <c-n> to select NEXT suggestion
   { "key": "ctrl+p", "command": "selectPrevSuggestion", "when": "suggestWidgetVisible && suggestWidgetMultipleSuggestions" }, // <c-p> to select PREV suggestion
   { "key": "escape", "command": "hideSuggestWidget",    "when": "suggestWidgetVisible" }, // Close trigger suggest with <esc>
-  //#endregion
-  
 
-  // QUICK-OPEN Navigation: Navigate items with <ctrl-{n,p}>
-  //{ "key": "ctrl+p", "command": "workbench.action.quickOpen",               "when": "editorTextFocus" },
+  // # QuickOpen
   { "key": "ctrl+n", "command": "workbench.action.quickOpenSelectNext",     "when": "inQuickOpen" },
   { "key": "ctrl+p", "command": "workbench.action.quickOpenSelectPrevious", "when": "inQuickOpen" },
   { "key": "ctrl+j", "command": "workbench.action.quickOpenSelectNext",     "when": "inQuickOpen" },
   { "key": "ctrl+k", "command": "workbench.action.quickOpenSelectPrevious", "when": "inQuickOpen" },
-
     
-  // #region Terminal
-  // Navigate up-and-down terminals are automatically bound to Ctrl+Shift+{j,k}
-  { "key": "ctrl+j",    "command": "",                                      "when": "terminalFocus" },  // deactivate <c-j> in terminal
-  { "key": "ctrl+k",    "command": "workbench.action.focusLastEditorGroup", "when": "terminalFocus" },  // focus editor with <c-k>
+  // # Terminal
+  //{ "key": "ctrl+j",    "command": "",                                      "when": "terminalFocus" },  // deactivate <c-j> in terminal
+  //{ "key": "ctrl+k",    "command": "workbench.action.focusLastEditorGroup", "when": "terminalFocus" },  // focus editor with <c-k>
   { "key": "ctrl+w c",  "command": "workbench.action.terminal.kill",        "when": "terminalFocus" },  // quit terminal with <c-w>c
 
-  // -- Launch or toggle terminal visiblity with <c-[s]-t>
   { "key": "ctrl+t",       "command": "workbench.action.terminal.toggleTerminal", "when": "terminalFocus || editorTextFocus || activeEditorGroupEmpty" },
   { "key": "ctrl+shift+t", "command": "workbench.action.terminal.new",            "when": "terminalFocus" },
   { "key": "ctrl+shift+f", "command": "workbench.action.toggleMaximizedPanel",    "when": "terminalFocus" },
-  //{ "key": "ctrl+shift+t", "command": "workbench.action.createTerminalEditor",    "when": "editorTextFocus || editorTextFocus || activeEditorGroupEmpty" },
   
   // -- Navigate terminals with <c-s-{j,k}>
-  { "key": "ctrl+shift+j", "command": "workbench.action.terminal.focusNext",     "when": "terminalFocus"},
-  { "key": "ctrl+shift+k", "command": "workbench.action.terminal.focusPrevious", "when": "terminalFocus"},
-  //#endregion
-  
+  { "key": "ctrl+shift+j", "command": "workbench.action.terminal.focusNext",     "when": "terminalFocus" },
+  { "key": "ctrl+shift+k", "command": "workbench.action.terminal.focusPrevious", "when": "terminalFocus" },
 
-  //#region Notifications
-  {
-    "key": "alt+n",
-    "command": "notifications.focusToasts",
-    "when": "!inQuickOpen && (!suggestWidgetVisible || notificationToastsVisible)"
-  },
-  //#endregion
+  { "key": "alt+n", "command": "notifications.focusToasts", "when": "!inQuickOpen && (!suggestWidgetVisible || notificationToastsVisible)" },
 
-  // Command Palette Keybindings:
-  //{ "key": "ctrl+e", "command": "workbench.action.quickOpen", "when": "editorTextFocus" },
-  //{ "key": "ctrl+f", "command": "actions.find", "when": "editorTextFocus" },
-  //{ "key": "ctrl+f", "command": "runCommands",  "when": "findWidgetVisible && !inputBoxFocus",
-  //  "args": { "commands": [ "closeFindWidget", "workbench.action.quickTextSearch" ] } },
+  // ## JimmyZJX/vscode-ripgrep
+  // { "key": "Down",  "command": "ripgrep.moveFocus", "args": "down", "when": "editorFocus && editorLangId == 'ripgrep-panel'" },
+  // { "key": "Up",    "command": "ripgrep.moveFocus", "args": "up",   "when": "editorFocus && editorLangId == 'ripgrep-panel'" },
+  // { "key": "Left",  "command": "ripgrep.dirUp",                     "when": "editorFocus && editorLangId == 'ripgrep-panel'" },
+  // { "key": "Right", "command": "ripgrep.dirDown",                   "when": "editorFocus && editorLangId == 'ripgrep-panel'" },
 
+  // ## JimmyZJX/leaderkey
+  // { "key": "Down",  "command": "leaderkey.moveFocus", "args": "down", "when": "editorFocus && editorLangId == 'leaderkey-ripgrep-panel'" },
+  // { "key": "Up",    "command": "leaderkey.moveFocus", "args": "up",   "when": "editorFocus && editorLangId == 'leaderkey-ripgrep-panel'" },
+  // { "key": "Left",  "command": "leaderkey.dirUp",                     "when": "editorFocus && editorLangId == 'leaderkey-ripgrep-panel'" },
+  // { "key": "Right", "command": "leaderkey.dirDown",                   "when": "editorFocus && editorLangId == 'leaderkey-ripgrep-panel'" },
 
-  //#region JimmyZJX/vscode-ripgrep
-  { "key": "Down",  "command": "ripgrep.moveFocus", "args": "down", "when": "editorFocus && editorLangId == 'ripgrep-panel'" },
-  { "key": "Up",    "command": "ripgrep.moveFocus", "args": "up",   "when": "editorFocus && editorLangId == 'ripgrep-panel'" },
-  { "key": "Left",  "command": "ripgrep.dirUp",                     "when": "editorFocus && editorLangId == 'ripgrep-panel'" },
-  { "key": "Right", "command": "ripgrep.dirDown",                   "when": "editorFocus && editorLangId == 'ripgrep-panel'" },
-
-
-  //#region VSVim Extension
+  //## VSVim Extension
   { "key": "Escape",  "command": "extension.vim_escape",         "when": "editorTextFocus && vim.mode == 'Insert' && !inCompositeEditor && suggestWidgetVisible" },
   { "key": "ctrl+n",  "command": "editor.action.triggerSuggest", "when": "editorTextFocus && vim.mode == 'Insert' && !inCompositeEditor && !suggestWidgetVisible" },
-  { "key": "shift+;", "command": "vim.showQuickpickCmdLine",     "when": "inZenMode && vim.mode != 'Insert'"  },
-  //#endregion
+  { "key": "shift+;", "command": "vim.showQuickpickCmdLine",     "when": "inZenMode && vim.mode != 'Insert'" },
 ]
