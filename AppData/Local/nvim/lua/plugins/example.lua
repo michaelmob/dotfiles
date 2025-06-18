@@ -1,6 +1,8 @@
 -- since this is just an example spec, don't actually load anything here and return an empty spec
 -- stylua: ignore
-return {
+return 
+  {
+{
   "neovim/nvim-lspconfig",
   opts = {
     inlay_hints = { enabled = true },
@@ -13,3 +15,4 @@ return {
     end
   end,
 }
+  }

@@ -15,6 +15,7 @@ DetectHiddenWindows(true)
 #Include "./Desktops_Dialog.ahk2"
 #Include "./Desktops.ahk2"
 #Include "./CapsLockBindings.ahk2"
+#Include "./RightCtrl.ahk2"
 #Include "./Launchers.ahk2"
 #Include "./Scratchpads.ahk2"
 #Include "./AliasesCorrections.ahk2"

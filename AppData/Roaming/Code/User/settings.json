@@ -1,21 +1,16 @@
 {
   // #region Window
-  "window.menuBarVisibility": "compact",
-  "window.titleBarStyle": "custom",
-  "window.customMenuBarAltFocus": false,
-  "window.enableMenuBarMnemonics": false,
+  //"window.menuBarVisibility": "compact",
+  //"window.titleBarStyle": "custom",
+  //"window.custommenubaraltfocus": false,
+  //"window.enablemenubarmnemonics": false,
   // #endregion
   
 
 
   // #region Workbench
   "workbench.startupEditor": "readme",
-  //"workbench.colorTheme": "GitHub Dark Default",
   "workbench.editor.enablePreviewFromQuickOpen": false,
-  /*"workbench.colorCustomizations": {
-    "editorGhostText.border": "#696969",
-    "editorGhostText.foreground": "#696969"
-  },*/
   // #endregion
 
 
@@ -231,12 +226,13 @@
       "comments": "off",
       "strings": "off"
     },
-    "editor.defaultFormatter": "svelte.svelte-vscode",
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
     // "typescript.autoClosingTags": false,
     // "javascript.autoClosingTags": false,
   },
   "remote.SSH.remotePlatform": {"mcm-fedora":"linux","coder-vscode.docker1--michaelmob--blue-rabbit-22":"linux","coder-vscode.docker1--michaelmob--blue-rabbit-22.main":"linux"},
   "remote.SSH.connectTimeout": 1800,
   "git.enableSmartCommit": true,
+  "git.confirmSync": false,
   // #endregion
 }

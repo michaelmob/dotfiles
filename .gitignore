@@ -3,3 +3,9 @@
 /Pictures
 /Videos
 /Desktop
+
+# Local Netlify folder
+.netlify
+
+*
+**

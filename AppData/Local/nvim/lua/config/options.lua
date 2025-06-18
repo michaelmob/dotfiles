@@ -5,3 +5,4 @@
 vim.cmd("no spell")
 vim.opt.spell = false
 vim.opt.clipboard = ""
+--vim.g.vscode = true

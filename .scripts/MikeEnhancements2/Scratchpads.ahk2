@@ -6,13 +6,13 @@ CapsLock & e:: scratchPad("ahk_exe Joplin.exe", "C:/Users/Michael/AppData/Local/
 
 CapsLock & space::
 CapsLock & q:: {
-  lc := "LibreChat"
+  lc := "Open WebUI"
   scratchPad(lc)
 
-  if WinExist(lc) {
-    MouseGetPos(&pX, &pY)
-    WinGetPos(&X, &Y, &Width, &Height, lc)
-    Click(X + Width // 2, Y + Height - 50)
-    MouseMove(pX, pY)
-  }
+  ; if WinExist(lc) {
+  ;   MouseGetPos(&pX, &pY)
+  ;   WinGetPos(&X, &Y, &Width, &Height, lc)
+  ;   Click(X + Width // 2, Y + Height - 50)
+  ;   MouseMove(pX, pY)
+  ; }
 }

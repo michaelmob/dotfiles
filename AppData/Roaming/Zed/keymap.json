@@ -7,9 +7,10 @@
 // from the command palette.
 [
   {
-    "context": "!menu && !(Picker > Editor)", // All contexts
+    "context": "!menu && !(Picker > Editor) && mode != single_line", // All contexts
     "bindings": {
       "shift shift": "file_finder::Toggle",
+
       "alt-h": "pane::ActivatePreviousItem",
       "alt-l": "pane::ActivateNextItem",
 
@@ -25,19 +26,19 @@
       "ctrl-k": "workspace::ActivatePaneUp",
       "ctrl-l": "workspace::ActivatePaneRight",
 
-      "ctrl-alt-h": [
+      "ctrl-shift-h": [
         "workspace::MoveItemToPaneInDirection",
         { "direction": "left" }
       ],
-      "ctrl-alt-j": [
+      "ctrl-shift-j": [
         "workspace::MoveItemToPaneInDirection",
         { "direction": "down" }
       ],
-      "ctrl-alt-k": [
+      "ctrl-shift-k": [
         "workspace::MoveItemToPaneInDirection",
         { "direction": "up" }
       ],
-      "ctrl-alt-l": [
+      "ctrl-shift-l": [
         "workspace::MoveItemToPaneInDirection",
         { "direction": "right" }
       ],
@@ -52,10 +53,10 @@
       "ctrl-8": ["workspace::ActivatePane", 7],
       "ctrl-9": ["workspace::ActivatePane", 8],
 
-      "ctrl-shift-h": "vim::ResizePaneLeft",
-      "ctrl-shift-j": "vim::ResizePaneDown",
-      "ctrl-shift-k": "vim::ResizePaneUp",
-      "ctrl-shift-l": "vim::ResizePaneRight",
+      "ctrl-alt-h": "vim::ResizePaneLeft",
+      "ctrl-alt-j": "vim::ResizePaneUp",
+      "ctrl-alt-k": "vim::ResizePaneDown",
+      "ctrl-alt-l": "vim::ResizePaneRight",
 
       "ctrl-alt-shift-h": "workspace::SwapPaneLeft",
       "ctrl-alt-shift-j": "workspace::SwapPaneDown",
@@ -76,17 +77,23 @@
   {
     "context": "Editor && (vim_mode == normal || vim_mode == visual)",
     "bindings": {
-      "shift-h": ["workspace::SendKeystrokes", "g 0 e l"],
-      "shift-l": ["workspace::SendKeystrokes", "g _ h"],
-      "shift-s": "vim::PushAddSurrounds",
+      "shift-h": ["workspace::SendKeystrokes", "g 0 e"],
+      "shift-l": ["workspace::SendKeystrokes", "g _"],
+      "shift-s": ["vim::PushAddSurrounds", {}],
+      "space shift-j": "journal::NewJournalEntry",
       "space shift-g": ["task::Spawn", { "task_name": "launch lazygit" }],
-      "space shift-j": "journal::NewJournalEntry"
+      "space f": [
+        "task::Spawn",
+        { "task_name": "file_finder", "reveal_target": "center" }
+      ]
     }
   },
   {
     "context": "Editor && vim_mode == normal",
     "bindings": {
-      "space space": "command_palette::Toggle",
+      "shift-e": "pane::ActivatePreviousItem",
+      "shift-r": "pane::ActivateNextItem",
+      "space space": "workspace::NewSearch",
       "tab": ["workspace::SendKeystrokes", "shift-v >"],
       "shift-tab": ["workspace::SendKeystrokes", "shift-v <"],
       "ctrl-v": ["workspace::SendKeystrokes", "\" + p"],
@@ -106,20 +113,19 @@
     }
   },
   {
-    "context": "Editor && vim_mode == insert",
+    "context": "Editor && mode != single_line && vim_mode == insert",
     "bindings": {
       "ctrl-v": ["workspace::SendKeystrokes", "escape \" + p"],
       "ctrl-space": "editor::ShowCompletions",
       "ctrl-shift-space": "zeta::PreviewCompletion"
     }
   },
-  {
-    "context": "(Editor && vim_mode != visual) && !showing_completions",
-    "bindings": {
-      "ctrl-n": "editor::ShowCompletions"
-    }
-  },
-
+  // {
+  //   "context": "Editor && vim_mode == insert && !showing_completions",
+  //   "bindings": {
+  //     "ctrl-n": "editor::ShowCompletions"
+  //   }
+  // },
   {
     "context": "Editor && !menu",
     "bindings": {
@@ -130,6 +136,11 @@
       "ctrl-f": "buffer_search::Deploy", // vim default: page down
       //"ctrl-o": "workspace::Open", // vim default: go back
       "ctrl-a": "editor::SelectAll" // vim default: increment
+
+      //"left": "workspace::ActivatePaneLeft",
+      //"down": "workspace::ActivatePaneDown",
+      //"up": "workspace::ActivatePaneUp",
+      //"right": "workspace::ActivatePaneRight"
     }
   },
   {

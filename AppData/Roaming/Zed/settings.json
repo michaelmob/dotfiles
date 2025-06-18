@@ -7,8 +7,10 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
-  "ui_font_size": 16,
-  "buffer_font_size": 16,
+  "ui_font_family": "Roboto",
+  "ui_font_size": 14,
+  "buffer_font_family": "JetBrains Mono",
+  "buffer_font_size": 18,
   "relative_line_numbers": true,
   "tab_size": 2,
   "show_whitespaces": "selection",
@@ -35,11 +37,13 @@
   },
   "wrap_guides": [99],
   "indent_guides": {
+    "active_line_width": 2,
+    "line_width": 1,
     "coloring": "indent_aware"
   },
   "vim_mode": true,
   "vim": {
-    "highlight_on_yank_duration": 0,
+    "highlight_on_yank_duration": 1000,
     "use_system_clipboard": "on_yank"
   },
   "git": {
@@ -49,11 +53,11 @@
       "enabled": false
     }
   },
-  "assistant": {
+  "agent": {
     "version": "2",
     "default_model": {
       "provider": "zed.dev",
-      "model": "claude-3-7-sonnet-latest"
+      "model": "claude-sonnet-4"
     }
   },
   "languages": {
