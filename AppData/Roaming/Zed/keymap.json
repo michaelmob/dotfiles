@@ -53,6 +53,8 @@
       "ctrl-8": ["workspace::ActivatePane", 7],
       "ctrl-9": ["workspace::ActivatePane", 8],
 
+      "alt-w": "pane::CloseActiveItem",
+
       "ctrl-alt-h": "vim::ResizePaneLeft",
       "ctrl-alt-j": "vim::ResizePaneUp",
       "ctrl-alt-k": "vim::ResizePaneDown",
@@ -99,7 +101,11 @@
       "ctrl-v": ["workspace::SendKeystrokes", "\" + p"],
       "shift-s": ["workspace::SendKeystrokes", "v v shift-s"],
       "space v": ["workspace::SendKeystrokes", "v space"],
-      "s": "outline::Toggle"
+      "s": "outline::Toggle",
+      "Left": "pane::ActivatePreviousItem",
+      "Right": "pane::ActivateNextItem",
+      "Down": "workspace::ActivatePaneDown",
+      "Up": "workspace::ActivatePaneUp"
     }
   },
   {

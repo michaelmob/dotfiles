@@ -54,6 +54,10 @@
     }
   },
   "agent": {
+    "inline_assistant_model": {
+      "provider": "zed.dev",
+      "model": "claude-sonnet-4"
+    },
     "version": "2",
     "default_model": {
       "provider": "zed.dev",
