@@ -1,4 +1,5 @@
-#Include "./lib/libVD.ahk"  ; https://github.com/FuPeiJiang/VD.ahk/tree/v2_port
+#Include "./lib/libVD.ahk2"  ; https://github.com/FuPeiJiang/VD.ahk/tree/v2_port
+#Include "./lib/libDesktopsDialog.ahk2"  ;
 
 VD.current_desktopNum := VD.getCurrentDesktopNum()
 VD.previous_desktopNum := VD.current_desktopNum
@@ -38,13 +39,18 @@ GotoPrevDesktop() {
 CapsLock & Tab::GotoDesktop(VD.previous_desktopNum)
 
 ; Move window to Desktop
-CapsLock & `:: OpenDesktopDialog()
+;CapsLock & `:: OpenDesktopDialog()
+CapsLock & m:: OpenDesktopDialog()
 
 ; Focus Desktop, CapsLock + {1,2,3,4,5,6}
-CapsLock & 1:: GotoDesktop(1)
-CapsLock & 2:: GotoDesktop(2)
-CapsLock & 3:: GotoDesktop(3)
-CapsLock & 4:: GotoDesktop(4)
+F1:: GotoDesktop(1)
+F2:: GotoDesktop(2)
+F3:: GotoDesktop(3)
+F4:: GotoDesktop(4)
+;CapsLock & 1:: GotoDesktop(1)
+;CapsLock & 2:: GotoDesktop(2)
+;CapsLock & 3:: GotoDesktop(3)
+;CapsLock & 4:: GotoDesktop(4)
 ;CapsLock & 5:: GotoDesktop(5)
 ;CapsLock & 6:: GotoDesktop(6)
 

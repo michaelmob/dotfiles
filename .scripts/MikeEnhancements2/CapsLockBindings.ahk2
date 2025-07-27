@@ -1,7 +1,7 @@
-#Include "./lib/libHeroKey.ahk"
+#Include "./lib/libHyperKey.ahk"
 SetCapsLockState("AlwaysOff")
 
-onHeroKeyUp(repeatedPresses) {
+onHyperKeyUp(repeatedPresses) {
   Send("{Escape}")
   CloseDesktopDialog()
   switch (repeatedPresses) {
@@ -18,21 +18,21 @@ onHeroKeyUp(repeatedPresses) {
     ;default: 
   }
 }
-onHeroKeyHold() {
+onHyperKeyHold() {
   SetCapsLockState("AlwaysOff")
-  ToolTip("Hero Key held for " . HERO_HOLD_MS . "ms")
+  ToolTip("Hyper Key held for " . HYPER_HOLD_MS . "ms")
   return false ; block key-up event
 }
 
 ~CapsLock:: {
   SetTrayIcon(isActive := true)
   SetCapsLockState("AlwaysOff")
-  onHeroKeyPress(onHeroKeyHold)
+  onHyperKeyPress(onHyperKeyHold)
 }
 CapsLock up:: {
   SetTrayIcon(isActive := false)
   SetCapsLockState("AlwaysOff")
-  onHeroKeyRepeatedPresses(onHeroKeyUp)
+  onHyperKeyRepeatedPresses(onHyperKeyUp)
 }
 
 ;^CapsLock:: Send("{Enter}") ; Ctrl + CapsLock to Press Enter

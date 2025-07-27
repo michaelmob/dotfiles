@@ -1,4 +1,4 @@
-#Include "./lib/libScratch.ahk"
+#Include "./lib/libScratch.ahk2"
 
 CapsLock & r:: scratchPad("ahk_exe mstsc.exe", "", "PULL")  ; Remote Desktop
 ;CapsLock & e:: scratchPad("ahk_exe Notepad++.exe", "C:/Program Files/Notepad++/notepad++.exe", "PULL")  ; VSCode

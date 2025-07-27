@@ -1,0 +1,4 @@
+RControl & h::Send "{Left}"
+RControl & j::Send "{Down}"
+RControl & k::Send "{Up}"
+RControl & l::Send "{Right}"

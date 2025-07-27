@@ -12,7 +12,6 @@ DetectHiddenWindows(true)
 ;SetWorkingDir(A_ScriptDir)
 ;KeyHistory(3)
 
-#Include "./Desktops_Dialog.ahk2"
 #Include "./Desktops.ahk2"
 #Include "./CapsLockBindings.ahk2"
 #Include "./RightCtrl.ahk2"
