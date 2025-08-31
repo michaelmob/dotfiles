@@ -12,7 +12,7 @@ CloseDesktopDialog() {
 
 OpenDesktopDialog() {
   if (CloseDesktopDialog())
-    return
+    return OpenDesktopDialog()
 
   currentWindow := WinActive("A")
   selectedWindowId := WinGetID(currentWindow)

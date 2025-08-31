@@ -1,0 +1,109 @@
+; Aliases
+::d-c::docker-compose
+::w-i::winget install
+::w-s::winget search
+
+::;r::site:reddit.com
+::;22::after:2022
+::;23::after:2023
+::;24::after:2024
+::;sr::after:2022 site:reddit.com
+::!@g::!g
+
+::ahkv2::AutoHotkey v2
+::ahkv1::AutoHotkey v1
+
+
+; Typos
+::adn::and
+::awy::way
+::aroudn::around
+::withotu::without
+::gonan::gonna
+::teh::the
+::hte::the
+::serach::search
+::usod::sudo
+::suod::sudo
+::netsatt::netstat
+::sptoify::spotify
+::eacohther::eachother
+::throuhg::through
+::seperate::separate
+::firwmare::firmware
+::dwonoad::download
+::machien::machine
+::uplaoded::uploaded
+::tehme::theme
+::wniget::winget
+::ilke::like
+::donig::doing
+::pwoertoys::powertoys
+::ont he::on the
+::widht::width
+::nkow::know
+::bootstarp::bootstrap
+::extnesions::extensions
+::gamign::gaming
+::tehre::there
+::breakign::breaking
+::functino::function
+::hsift::shift
+::mcd::cmd
+::javascirpt::javascript
+::epxort::export
+::foucs::focus
+::reddot::reddit
+::wnidows::windows
+::noe::one
+::gonig::going
+::beacuse::because
+::wnidows::windows
+::rael::real
+::erver::server
+::yotuube::youtube
+::extneesion::extension
+::supporitve::supportive
+::ocmmands::commands
+::ocmmand::command
+::escap ekey::escape key
+::highliht::highlight
+::ot::to
+::wiht::with
+::insatll::install
+::cap slcock::caps lock
+::vesrion::version
+::globla::global
+::hting::thing
+::javascirp::javascript
+::ocnst::const
+::dispaly::display
+::fielkd::field
+::2004scpae::2004scape
+::preiflled::prefilled
+::ocnfig::config
+::searhc::search
+::redidt::reddit
+::puhs::push
+::auothotkey::autohotkey
+::auot::auto
+::librayr::library
+::spellhcekc::spellcheck
+::hcekc::check
+::barnds::brands
+::svletekit::sveltekit
+::svlete::svelte
+::isntall::install
+::functoin::function
+::spekaer::speaker
+::reoslution::resolution
+::marign::margin
+::windos::windows
+::constarints::constraints
+::butotn::button
+::disalbe::disable
+::disalbed::disabled
+::remmeber::remember
+::comand::command
+::noteobok::notebook
+::noteoboks::notebooks
