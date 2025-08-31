@@ -234,5 +234,6 @@
   "remote.SSH.connectTimeout": 1800,
   "git.enableSmartCommit": true,
   "git.confirmSync": false,
+  "workbench.sideBar.location": "right",
   // #endregion
 }

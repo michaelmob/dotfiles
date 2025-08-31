@@ -9,39 +9,46 @@
   {
     "context": "!menu && !(Picker > Editor) && mode != single_line", // All contexts
     "bindings": {
-      "shift shift": "file_finder::Toggle",
+      //"shift shift": "file_finder::Toggle",
 
-      "alt-h": "pane::ActivatePreviousItem",
-      "alt-l": "pane::ActivateNextItem",
+      // "alt-shift-h": "pane::SwapItemLeft",
+      // "alt-shift-l": "pane::SwapItemRight",
 
-      "alt-shift-h": "pane::SwapItemLeft",
-      "alt-shift-l": "pane::SwapItemRight",
-
-      "ctrl-w c": "pane::CloseActiveItem",
-      "ctrl-w x": "pane::CloseActiveItem",
-      "ctrl-w shift-x": "pane::CloseAllItems",
+      // "ctrl-w c": "pane::CloseActiveItem",
+      // "ctrl-w x": "pane::CloseActiveItem",
+      // "ctrl-w shift-x": "pane::CloseAllItems",
 
       "ctrl-h": "workspace::ActivatePaneLeft",
       "ctrl-j": "workspace::ActivatePaneDown",
       "ctrl-k": "workspace::ActivatePaneUp",
       "ctrl-l": "workspace::ActivatePaneRight",
 
-      "ctrl-shift-h": [
-        "workspace::MoveItemToPaneInDirection",
-        { "direction": "left" }
-      ],
-      "ctrl-shift-j": [
-        "workspace::MoveItemToPaneInDirection",
-        { "direction": "down" }
-      ],
-      "ctrl-shift-k": [
-        "workspace::MoveItemToPaneInDirection",
-        { "direction": "up" }
-      ],
-      "ctrl-shift-l": [
-        "workspace::MoveItemToPaneInDirection",
-        { "direction": "right" }
-      ],
+      // "ctrl-alt-h": "vim::ResizePaneLeft",
+      // "ctrl-alt-j": "vim::ResizePaneUp",
+      // "ctrl-alt-k": "vim::ResizePaneDown",
+      // "ctrl-alt-l": "vim::ResizePaneRight",
+
+      // "ctrl-alt-shift-h": "workspace::SwapPaneLeft",
+      // "ctrl-alt-shift-j": "workspace::SwapPaneDown",
+      // "ctrl-alt-shift-k": "workspace::SwapPaneUp",
+      // "ctrl-alt-shift-l": "workspace::SwapPaneRight",
+
+      // "ctrl-shift-h": [
+      //   "workspace::MoveItemToPaneInDirection",
+      //   { "direction": "left" }
+      // ],
+      // "ctrl-shift-j": [
+      //   "workspace::MoveItemToPaneInDirection",
+      //   { "direction": "down" }
+      // ],
+      // "ctrl-shift-k": [
+      //   "workspace::MoveItemToPaneInDirection",
+      //   { "direction": "up" }
+      // ],
+      // "ctrl-shift-l": [
+      //   "workspace::MoveItemToPaneInDirection",
+      //   { "direction": "right" }
+      // ],
 
       "ctrl-1": ["workspace::ActivatePane", 0],
       "ctrl-2": ["workspace::ActivatePane", 1],
@@ -55,21 +62,11 @@
 
       "alt-w": "pane::CloseActiveItem",
 
-      "ctrl-alt-h": "vim::ResizePaneLeft",
-      "ctrl-alt-j": "vim::ResizePaneUp",
-      "ctrl-alt-k": "vim::ResizePaneDown",
-      "ctrl-alt-l": "vim::ResizePaneRight",
+      //"ctrl-t": "workspace::ToggleBottomDock",
 
-      "ctrl-alt-shift-h": "workspace::SwapPaneLeft",
-      "ctrl-alt-shift-j": "workspace::SwapPaneDown",
-      "ctrl-alt-shift-k": "workspace::SwapPaneUp",
-      "ctrl-alt-shift-l": "workspace::SwapPaneRight",
-
-      "ctrl-t": "workspace::ToggleBottomDock",
-
-      "ctrl-alt-t": "workspace::NewCenterTerminal",
-      "ctrl-alt-o": "workspace::OpenFiles",
-      "ctrl-alt-n": "workspace::NewFile",
+      //"ctrl-alt-t": "workspace::NewCenterTerminal",
+      //"ctrl-alt-o": "workspace::OpenFiles",
+      //"ctrl-alt-n": "workspace::NewFile",
 
       "f5": "task::Rerun",
 
@@ -79,11 +76,12 @@
   {
     "context": "Editor && (vim_mode == normal || vim_mode == visual)",
     "bindings": {
+      //"g space": "workspace::NewSearch",
       "shift-h": ["workspace::SendKeystrokes", "g 0 e"],
       "shift-l": ["workspace::SendKeystrokes", "g _"],
-      "shift-s": ["vim::PushAddSurrounds", {}],
+      "shift-s": "vim::PushAddSurrounds",
       "space shift-j": "journal::NewJournalEntry",
-      "space shift-g": ["task::Spawn", { "task_name": "launch lazygit" }],
+      //"space shift-g": ["task::Spawn", { "task_name": "launch lazygit" }],
       "space f": [
         "task::Spawn",
         { "task_name": "file_finder", "reveal_target": "center" }
@@ -91,17 +89,17 @@
     }
   },
   {
-    "context": "Editor && vim_mode == normal",
+    "context": "Editor && vim_mode == normal && !menu",
     "bindings": {
-      "shift-e": "pane::ActivatePreviousItem",
-      "shift-r": "pane::ActivateNextItem",
-      "space space": "workspace::NewSearch",
+      // "shift-e": "pane::ActivatePreviousItem",
+      // "shift-r": "pane::ActivateNextItem",
       "tab": ["workspace::SendKeystrokes", "shift-v >"],
       "shift-tab": ["workspace::SendKeystrokes", "shift-v <"],
       "ctrl-v": ["workspace::SendKeystrokes", "\" + p"],
       "shift-s": ["workspace::SendKeystrokes", "v v shift-s"],
       "space v": ["workspace::SendKeystrokes", "v space"],
       "s": "outline::Toggle",
+
       "Left": "pane::ActivatePreviousItem",
       "Right": "pane::ActivateNextItem",
       "Down": "workspace::ActivatePaneDown",

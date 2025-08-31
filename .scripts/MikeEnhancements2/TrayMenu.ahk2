@@ -1,6 +1,0 @@
-A_TrayMenu.Delete()
-A_TrayMenu.Add("ShareX: Clipboard Viewer", (*) => Run("C:\Program Files\ShareX\ShareX.exe -ClipboardViewer"))
-A_TrayMenu.Add("ShareX: Color Picker", (*) => Run("C:\Program Files\ShareX\ShareX.exe -ScreenColorPicker"))
-
-A_TrayMenu.Add()
-A_TrayMenu.AddStandard() ;("Reload", (*) => Reload())

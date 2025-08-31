@@ -5,11 +5,15 @@ CloseDesktopDialog() {
   if (DesktopDialogWindow != -1) {
     WinClose(DesktopDialogWindow)
     DesktopDialogWindow := -1
+    return true
   }
+  return false
 }
 
 OpenDesktopDialog() {
-  CloseDesktopDialog()
+  if (CloseDesktopDialog())
+    return
+
   currentWindow := WinActive("A")
   selectedWindowId := WinGetID(currentWindow)
   selectedWindow := ""
@@ -39,16 +43,6 @@ OpenDesktopDialog() {
   dialog.OnEvent("Escape", dialog.Hide)
 	dialog.Title := "Move Window to Desktop…"
 
-	windowList := dialog.Add("DropDownList", "x8 y8 w353", windowTitles)
-  windowList.Choose(selectedWindow)
-	windowList.OnEvent("Change", windowList_onChange)
-  windowList_onChange(*) {
-    RegExMatch(windowList.Text, " \(ID: (\d+)\)$", &selectedWindowId)
-    selectedWindowId := Integer(selectedWindowId[1])
-    WinActivate(selectedWindowId)
-    WinActivate(dialog)
-  }
-
 	dialog.Add("Text", "x8 y40 w47 h19 +0x200", "Desktop:")
 	desktopList := dialog.Add("DropDownList", "x56 y40 w85", desktopNums)
   desktopList.Choose(VD.getCurrentDesktopNum())
@@ -56,6 +50,16 @@ OpenDesktopDialog() {
 	desktopList.OnEvent("Change", desktopList_onChange)
   desktopList_onChange(*) {
     VD.MoveWindowToDesktopNum(selectedWindowId, Integer(desktopList.Value)).follow()
+    WinActivate(dialog)
+  }
+
+	windowList := dialog.Add("DropDownList", "x8 y8 w353", windowTitles)
+  windowList.Choose(selectedWindow)
+	windowList.OnEvent("Change", windowList_onChange)
+  windowList_onChange(*) {
+    RegExMatch(windowList.Text, " \(ID: (\d+)\)$", &selectedWindowId)
+    selectedWindowId := Integer(selectedWindowId[1])
+    WinActivate(selectedWindowId)
     WinActivate(dialog)
   }
 

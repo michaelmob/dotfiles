@@ -1,6 +1,0 @@
-SetTrayIcon(isActive) {
-  name := VD.current_desktopNum . (isActive ? "a" : "")
-  return TraySetIcon("./assets/" . name . ".ico")
-}
-
-SetTrayIcon(isActive := false)
