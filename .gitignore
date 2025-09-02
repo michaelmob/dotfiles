@@ -1,11 +1,9 @@
+*
+!.scripts/
+
 /AppData
 /Downloads
 /Pictures
 /Videos
 /Desktop
-
-# Local Netlify folder
 .netlify
-
-*
-**
