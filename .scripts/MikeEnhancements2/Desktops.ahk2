@@ -51,12 +51,28 @@ CapsLock & m:: OpenDesktopDialog()
 ;^F2:: F2
 ;^F3:: F3
 ;^F4:: F4
-CapsLock & 1:: GotoDesktop(1)
-CapsLock & 2:: GotoDesktop(2)
-CapsLock & 3:: GotoDesktop(3)
-CapsLock & 4:: GotoDesktop(4)
-CapsLock & 5:: GotoDesktop(5)
-CapsLock & 6:: GotoDesktop(6)
+SwitchOrMoveToDesktop(num) {
+  static locked := false
+  if (locked)
+    return
+  locked := true
+  try {
+    if GetKeyState("Alt", "P") {
+      hwnd := WinExist("A")
+      if hwnd
+        VD.MoveWindowToDesktopNum(hwnd, Integer(num)).follow()
+    } else
+      GotoDesktop(num)
+  } finally {
+    locked := false
+  }
+}
+
+CapsLock & 1:: SwitchOrMoveToDesktop(1)
+CapsLock & 2:: SwitchOrMoveToDesktop(2)
+CapsLock & 3:: SwitchOrMoveToDesktop(3)
+CapsLock & 4:: SwitchOrMoveToDesktop(4)
+CapsLock & 5:: SwitchOrMoveToDesktop(5)
 
 ; Windows Task View -- Desktop Switcher
 #HotIf WinActive("Task View ahk_class XamlExplorerHostIslandWindow")
