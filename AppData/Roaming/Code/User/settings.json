@@ -132,6 +132,8 @@
 
 
   // #region Leaderkey Extension
+  "leaderkey.fzf.exe": "fzf",
+  "leaderkey.ripgrep.exe": "rg",
   // https://github.com/JimmyZJX/leaderkey/blob/main/src/defaultBindings.ts
   "leaderkey.overrides.user": {
     "SPC w c": {

@@ -2,15 +2,15 @@
 #SingleInstance force
 #WinActivateForce
 
-ProcessSetPriority("High")
-SetKeyDelay(10)
-SendMode("Input")
-ListLines(0)
-SetControlDelay(-1)
-CoordMode("Mouse", "Screen")
-DetectHiddenWindows(true)
 ;SetWorkingDir(A_ScriptDir)
+SendMode("Input")
+CoordMode("Mouse", "Screen")
+ProcessSetPriority("High")
+DetectHiddenWindows(true)
+SetKeyDelay(10)
+SetControlDelay(-1)
 KeyHistory(3)
+ListLines(0)
 
 ;
 

@@ -7,6 +7,15 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "context_servers": {
+    "Context7": {
+      "source": "custom",
+      "command": "node",
+      "args": [
+        "C:\\Users\\Michael\\scoop\\persist\\nodejs\\bin\\node_modules\\@upstash\\context7-mcp\\dist\\index.js"
+      ]
+    }
+  },
   "notification_panel": {
     "dock": "left"
   },
@@ -17,7 +26,7 @@
     "dock": "right"
   },
   "git_panel": {
-    "dock": "left"
+    "dock": "right"
   },
   "project_panel": {
     "dock": "left"
@@ -93,15 +102,22 @@
       "provider": "zed.dev",
       "model": "claude-sonnet-4"
     },
-    "dock": "left",
+    "always_allow_tool_actions": true,
+    "default_profile": "write",
+    //"use_modifier_to_send": false,
+    //"play_sound_when_agent_done": false,
     // "inline_assistant_model": {
     //   "provider": "openai",
     //   "model": "gpt-5-nano"
     // },
     "default_model": {
-      "provider": "openai",
-      "model": "gpt-5-nano"
+      "provider": "google",
+      "model": "gemini-2.5-flash"
     }
+    // "inline_assistant_model": {
+    //   "provider": "openai",
+    //   "model": "gpt-5-nano"
+    // }
   },
   "languages": {
     "Rust": {
