@@ -99,8 +99,8 @@
   },
   "agent": {
     "inline_assistant_model": {
-      "provider": "zed.dev",
-      "model": "claude-sonnet-4"
+      "provider": "google",
+      "model": "gemini-2.5-flash"
     },
     "always_allow_tool_actions": true,
     "default_profile": "write",

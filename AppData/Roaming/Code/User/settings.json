@@ -228,7 +228,7 @@
       "comments": "off",
       "strings": "off"
     },
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.defaultFormatter": "svelte.svelte-vscode",
     // "typescript.autoClosingTags": false,
     // "javascript.autoClosingTags": false,
   },
@@ -237,5 +237,31 @@
   "git.enableSmartCommit": true,
   "git.confirmSync": false,
   "workbench.sideBar.location": "right",
+  "vscode-openai.serviceProvider": "OpenAI",
+  "vscode-openai.baseUrl": "https://api.openai.com/v1",
+  "vscode-openai.defaultModel": "gpt-4.1-mini",
+  "vscode-openai.azureDeployment": "setup-required",
+  "vscode-openai.scmModel": "gpt-4.1-mini",
+  "vscode-openai.scmDeployment": "setup-required",
+  "vscode-openai.embeddingModel": "text-embedding-3-small",
+  "vscode-openai.embeddingsDeployment": "setup-required",
+  "vscode-openai.azureApiVersion": "2024-06-01",
+  "github.copilot.advanced": {
+
+  },
+  "roo-cline.allowedCommands": [
+    "git log",
+    "git diff",
+    "git show"
+  ],
+  "roo-cline.deniedCommands": [],
+  "chat.mcp.autostart": "onlyNew",
+  "inlineChat.finishOnType": true,
+  "chat.editor.fontSize": 16,
+  "chat.fontSize": 16,
+  "terminal.integrated.stickyScroll.enabled": false,
+  // "inlineChat.enableV2": true,
+  // "inlineChat.holdToSpeech": false,
+  // "inlineChat.lineEmptyHint": true,
   // #endregion
 }

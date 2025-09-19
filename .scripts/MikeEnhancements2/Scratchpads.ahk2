@@ -1,19 +1,22 @@
 #Include "./lib/libScratch.ahk2"
 
-CapsLock & r:: scratchPad("ahk_class TscShellContainerClass", "", "PULL")  ; Remote Desktop
-;CapsLock & r:: scratchPad("ahk_exe mstsc.exe", "", "PULL")  ; Remote Desktop
-;CapsLock & e:: scratchPad("ahk_exe Notepad++.exe", "C:/Program Files/Notepad++/notepad++.exe", "PULL")  ; VSCode
-CapsLock & e:: scratchPad("ahk_exe Joplin.exe", "C:/Users/Michael/AppData/Local/Programs/Joplin/Joplin.exe", "PULL")  ; VSCode
+;CapsLock & r:: scratchPad("ahk_class TscShellContainerClass", "", "PULL")  ; Remote Desktop
+CapsLock & q:: scratchPad("ahk_exe Notepad++.exe", "C:\Program Files\Notepad++\notepad++.exe", "PULL")  ; VSCode
+CapsLock & e:: scratchPad("ahk_exe Joplin.exe", "C:\Users\Michael\AppData\Local\Programs\Joplin\Joplin.exe", "PULL")  ; VSCode
+CapsLock & r:: scratchPad("ahk_exe rdcman.exe", "rdcman", "PULL")  ; rdcman
 
-CapsLock & space::
-CapsLock & q:: {
+CapsLock & x:: {
+  Run('shell:::{2559a1f3-21d7-11d4-bdaf-00c04f60b9f0}')
+}
+
+CapsLock & space::{
   lc := "Open WebUI"
-  scratchPad(lc)
-
-  ; if WinExist(lc) {
-  ;   MouseGetPos(&pX, &pY)
-  ;   WinGetPos(&X, &Y, &Width, &Height, lc)
-  ;   Click(X + Width // 2, Y + Height - 50)
-  ;   MouseMove(pX, pY)
-  ; }
+  if scratchPad(lc) {
+    if WinExist(lc) {
+      MouseGetPos(&pX, &pY)
+      WinGetPos(&X, &Y, &Width, &Height, lc)
+      Click(X + Width // 2, Y + Height - 100)
+      MouseMove(pX, pY)
+    }
+  }
 }

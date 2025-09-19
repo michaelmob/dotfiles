@@ -3,18 +3,30 @@ scratchPad(wintitle, exe := "", action := "PULL") {
   ;   Run(exe)
 
   if WinActive(wintitle) {
-    if (VD.getCurrentDesktopNum() == 1)
+    if (VD.getCurrentDesktopNum() == 1) {
       WinMinimize(wintitle)
-    else
+      return false
+    } else {
       VD.getCount() >= 1 && VD.MoveWindowToDesktopNum(wintitle, 1)  ; move to desktop 1
+      return false
+    }
   }
-  else if action == "PULL"
-    if VD.MoveWindowToCurrentDesktop(wintitle)
+  else if action == "PULL" {
+    if VD.MoveWindowToCurrentDesktop(wintitle) {
       Run(exe)
-  else if action == "GOTO"
+      return true
+    }
+  }
+  else if action == "GOTO" {
     VD.goToDesktopOfWindow(wintitle)
-  else if (WinExist(wintitle))
+    return true
+  }
+  else if (WinExist(wintitle)) {
     WinActivate(wintitle)
+    return false
+  }
+
+  return true
 }
 
 scratchPad2() {
